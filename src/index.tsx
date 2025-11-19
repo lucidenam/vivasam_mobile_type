@@ -1,15 +1,14 @@
-import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { HashRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import type { Store } from 'redux';
 import App from './App';
+import MaintenanceNotice from './components/MaintenanceNotice';
 // CSS 파일 임포트
 import './css/common.css';
 import './css/slick.css';
 import './css/slick-theme.css';
 import configure from './store/configure';
-// @ts-ignore
 import transit from 'transit-immutable-js';
 import { BlockDebug } from "./lib/PreventUtil";
 import { IS_UC_LOCK } from "./constants/index";
@@ -17,8 +16,41 @@ import { IS_UC_LOCK } from "./constants/index";
 const preloadedState = window.__PRELOADED_STATE__ ? transit.fromJSON(window.__PRELOADED_STATE__) : undefined;
 const store: Store = configure(preloadedState);
 
-// getUserConfirmation 함수 - react-router-dom v7에서는 지원되지 않음
-// 필요시 useBlocker 훅 또는 hashchange 이벤트 리스너로 재구현 필요
+let isHandlingHashChange = false;
+
+const handleHashChange = (): void => {
+    if (isHandlingHashChange) {
+        isHandlingHashChange = false;
+        return;
+    }
+
+    const rawHash = window.location.hash;
+    const message = rawHash.startsWith('#') ? rawHash.slice(1) : rawHash;
+
+    //뷰어,팝업이 열려있는 상태에서 뒤로가기 막음
+    if (message && message.includes("true") && message.split("|")[0]) {
+        //return url값이 있는경우 (login page)
+        if (message.includes("returnUrl=true")) {
+            window.viewerClose?.();
+            return;
+
+            //뷰어 팝업 모두 열려있는경우  우선순위는 팝업 > 뷰어
+        } else if (message.includes("popup=true") && message.includes("viewer=true") && window.popupClose) {
+            window.popupClose();
+
+            //팝업 뷰어 각각 한개씩 종료시킴
+        } else {
+            if (message.includes("popup=true") && window.popupClose) window.popupClose();
+            if (message.includes("viewer=true") && window.viewerClose) window.viewerClose();
+        }
+        isHandlingHashChange = true;
+        window.location.hash = message.split("|")[0];
+        const scrollY = Number(message.split("|scrollY=").pop() ?? 0);
+        window.scrollTo(0, scrollY);
+    }
+};
+
+window.addEventListener('hashchange', handleHashChange);
 
 if (process.env.NODE_ENV === 'production') {
     try {
@@ -32,63 +64,12 @@ if (process.env.NODE_ENV === 'production') {
     }
 }
 
-// Block Page (Just In Case)
-// 사용되지 않는 컴포넌트 - 필요시 주석 해제
-interface UCProps {
-    // 필요한 props가 있다면 여기에 추가
-}
-
-class UC extends React.Component<UCProps> {
-    constructor(props: UCProps) {
-        super(props);
-    }
-
-    componentDidMount(): void {
-        const body = document.getElementById("loading");
-        if (body) {
-            body.remove();
-        }
-    }
-
-    render(): React.ReactElement {
-        // styleComponent 임시
-        const btnStyle: React.CSSProperties = {
-            color: "white",
-            background: "teal",
-            padding: ".375rem .75rem",
-            border: "1px solid teal",
-            borderRadius: ".25rem",
-            fontSize: "1rem",
-            textAlign: "center",
-            lineHeight: 1.5,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            position: 'absolute',
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%, -50%)'
-        };
-        const letters: string = `비바샘 모바일 초등 점검중입니다.\n감사합니다.`;
-        return <div style={btnStyle}>{letters}</div>;
-    }
-}
-
-
 const rootElement = document.getElementById('root');
 if (rootElement) {
-    const root = createRoot(rootElement);
-    const MainComponent = !IS_UC_LOCK ? <App /> : <UC />;
-    root.render(
-        // <Provider store={store}>
-        // <Router>
-        //     <App />
-        // </Router>
-        // </Provider>
+    createRoot(rootElement).render(
         <Provider store={store}>
-            {/* @ts-ignore - HashRouter accepts children but types don't reflect it */}
             <Router>
-                {MainComponent}
+                {!IS_UC_LOCK ? <App /> : <MaintenanceNotice />}
             </Router>
         </Provider>
     );
