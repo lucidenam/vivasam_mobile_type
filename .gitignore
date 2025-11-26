@@ -25,3 +25,8 @@ lerna-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+### Gradle template
+.gradle
+**/build/
+frontend/node_modules/
