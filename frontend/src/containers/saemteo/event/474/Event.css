@@ -1,0 +1,18 @@
+/* Event */
+.event231025{position:relative;}
+.event231025 img{width:100%;vertical-align:top;}
+.event231025 [class^="evtCont"]{position:relative;z-index:1;}
+.event231025 *{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+
+/* evtNoti */
+.event231025 .btnShare {display: inline-block;position: absolute;width:16vw;height:16vw;right:0;top:0;background:url(/images/events/2023/event231025/btn_share.png)no-repeat center;background-size: 100% auto;}
+
+/*플로팅 배너 */
+.event231025 .evtBanner_wrap {position:fixed; left:50%; top:50%; transform:translate(-50%,-50%);z-index:99;width:65.4vw;}
+.event231025 .evtBanner_wrap .evtBanner {position:relative;}
+.event231025 .evtBanner_wrap .evtBanner>img {width:100%;height:100%;}
+.event231025 .evtBanner_wrap .banner_close {display:inline-block; position:absolute; right:7.86vw; top:3.46vw; width:3.03vw; height:3.18vw; background: url(/images/events/2023/event231025/close_btn.png)no-repeat center; background-size:100% auto; font-size:0;}

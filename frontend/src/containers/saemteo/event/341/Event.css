@@ -1,0 +1,51 @@
+/* Event */
+.event210416{position:relative;text-align:center;}
+.event210416 img{width:100%;vertical-align:top;}
+.event210416 [class^="evtCont"]{position:relative;z-index:1;}
+.event210416 div, .event210416 ul, .event210416 li, .event210416 p, .event210416 span, .event210416 h2, .event210416 strong, .event210416 button, .event210416 a, .event210416 input, .event210416 label, .event210416 textarea{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="section"]{position:relative;}
+[class^="section"] .imgWrap{display:block;}
+[class^="evtCont"] button{box-sizing:border-box;width:100%;}
+[class^="evtCont"] .inner{padding:0 8vw;}
+.evtTextarea textarea::-webkit-input-placeholder{color:#aaa;}
+.evtTextarea textarea::-moz-placeholder{color:#aaa;}
+.evtTextarea textarea:-ms-input-placeholder{color:#aaa;}
+.evtTextarea textarea:-moz-placeholder{color:#aaa;}
+/* */
+.event210416{background:url(/images/events/2021/event210416/bg_evt.jpg) 0 0 repeat-y;background-size:100% auto;}
+.evtCont01 p{font-size:3.2vw;font-weight:500;color:#3f3c4e;text-align:center;line-height:1.45;letter-spacing:-0.06em;}
+.evtCont01 .evtInfo{position:relative;margin-top:6.66vw;}
+.evtCont01 .evtInfo p{width:74.66vw;height:8vw;margin:0 auto;font-size:3.733vw;font-weight:700;background:#fdff6c;border-radius:4vw;line-height:8vw;}
+.evtCont01 .evtInfo p + span{position:absolute;top:-2.26vw;right:5.86vw;display:inline-block;box-sizing:border-box;width:12.53vw;height:12.53vw;padding:2.8vw 0 0;background:#3f3c4e;border-radius:100%;font-size:2.933vw;font-weight:500;color:#fdff6c;line-height:1.2;letter-spacing:-0.025em;word-break:keep-all;}
+.evtCont01 .evtInfo .bulTxt{display:inline-block;margin-top:2vw;font-size:2.933vw;font-weight:500;color:#fff;line-height:1;letter-spacing:-0.025em;}
+.evtCont01 .evtInfo .bulTxt:before{content:'';display:inline-block;width:2.93vw;height:2.66vw;background:url(/images/events/2021/event210416/bul_chk.png) 0 0 no-repeat;background-size:100% auto;vertical-align:top;}
+.evtCont02{margin-top:5.33vw;}
+.evtCont{padding:5.6vw 0;background:#f4ecdd;}
+.evtCont02 .evtCont h2{height:3.86vw;background:url(/images/events/2021/event210416/sub_txt.png) 50% 50% no-repeat;background-size:auto 100%;}
+.evtCont02 .evtCont li{font-size:2.933vw;font-weight:500;color:#726e7d;text-align:left;line-height:1.45;letter-spacing:-0.06em;}
+.evtCont02 .evtCont ul{margin:2.933vw 7vw 0;}
+.evtCont02 .evtCont li:before{content:'';display:inline-block;width:0.66vw;height:0.66vw;margin-right:1.33vw;background:#da7621;border-radius:100%;vertical-align:middle;}
+.evtCont02 .evtCont li strong{font-weight:500;color:#da7621;}
+.evtCont02 .btnWrap{margin-top:1.333vw;}
+.evtCont02 .btnWrap .btnApply{display:inline-block;width:100%;height:13.33vw;background:#fdff6c;border-bottom:1.33vw solid #4ca26d;font-size:4.533vw;font-weight:700;color:#3f3c4e;}
+.evtCont02 .btnWrap .btnApply:after{content:'';display:inline-block;width:2vw;height:3.066vw;margin-left:2vw;background:url(/images/events/2021/event210416/icon_arr.png) 0 0 no-repeat;background-size:100% auto;}
+.evtCont03{padding:7.199vw 0 9.866vw;}
+.evtCont03 h2{font-size:3.466vw;font-weight:700;color:#fdff6c;text-align:left;letter-spacing:-0.05em;}
+.evtCont03 ul{margin-top:3.733vw}
+.evtCont03 li{position:relative;padding-left:2vw;font-size:3.2vw;color:#fff;text-align:left;line-height:1.33;letter-spacing:-0.025em;}
+.evtCont03 li:before{content:'-';position:absolute;top:0;left:0;display:inline-block;height:100%;color:#fff;}
+.evtCont03 li + li{margin-top:3vw;}
+/* EventApply */
+.applyDtl_top{padding:12px 15px;background:#51b277;}
+.applyDtl_top h3{color:#fff;text-align:center;}
+.applyDtl_top h3 strong{font-family:inherit;color:#fdff6c;}
+.input_wrap + .mt10.mb25.c_gray{color:#888;}
+.pointColor{color:#ed1800;}
+.acco_notice_cont{display:block;word-break:keep-all;}
+.policy{color:#222;}
+.acco_notice_cont ul.policy + p.comt{color:#888;}
+.acco_notice_tit.info_tit{display:block;color:#333;}
+.checkbox_circle_tit{display:inline-block;text-align:left;}
+.btn_full_on{background:#3f3c4e;}

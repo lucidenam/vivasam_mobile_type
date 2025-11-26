@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.common.mapper.EmailMapper">
+
+	<select id="selectJoinMailContent" resultType="map" parameterType="map">
+		SELECT
+			idx
+			, subject
+			, REPLACE(
+				REPLACE(
+			   		REPLACE(
+						mailContent
+						, <![CDATA['<!--##MEM_ID##-->']]>
+						, #{memberId}
+					),
+					<![CDATA['<!--##MEM_NAME##-->']]>,
+					#{memberName}
+				),
+				<![CDATA['<!--##TODAY##-->']]>,
+				CURRENT_TIMESTAMP
+			) AS mailContent
+		FROM TBL_SEND_MAILING_SQL
+		WHERE idx = 4
+	</select>
+
+	<insert id="inserJoinMailSendLog" parameterType="map">
+		INSERT TBL_SEND_MAILING_SQL_LOG (
+			PARA1,
+			PARA2,
+			PARA3,
+			PARA4,
+			PARA5,
+			PARA6,
+			PARA7,
+			PARA8,
+			REGDATE
+		)
+		VALUES (
+			4,
+			4,
+			CURRENT_DATE,#{memberName},
+			#{memberId},
+			'',
+			'',
+			'',
+			CURRENT_TIMESTAMP
+		)
+	</insert>
+
+	<select id="selectAgreeMailContent" resultType="map" parameterType="map">
+		select  idx
+			 , subject
+			 , replace(
+				replace(
+						replace(
+								replace(
+										replace(
+												replace(
+														replace(
+																replace(mailContent, CONCAT('$', '{SMS_AGREE_TXT}'), IF(#{smsYn} = 'Y', '수신동의', '수신거부'))
+																,CONCAT('$', '{SMS_AGREE_DT}'),#{smsDttm})
+														,CONCAT('$', '{EMAIL_AGREE_TXT}'),IF(#{emailYn} = 'Y', '수신동의', '수신거부'))
+												,CONCAT('$', '{EMAIL_AGREE_DT}'),#{emailDttm})
+										,CONCAT('$', '{TEL_AGREE_TXT}'),IF(#{telYn} = 'Y', '수신동의', '수신거부'))
+								,CONCAT('$', '{TEL_AGREE_DT}'),#{telDttm})
+						,CONCAT('$', '{MEMBER_ID}'),#{memberId})
+				,CONCAT('$', '{MEMBER_NM}'),#{name}
+			   ) AS mailContent
+		from TBL_SEND_MAILING_SQL
+		where idx = 11
+	</select>
+
+</mapper>

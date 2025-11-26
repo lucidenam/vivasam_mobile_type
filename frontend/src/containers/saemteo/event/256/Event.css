@@ -1,0 +1,8 @@
+.event190717 {position: relative; font-family: "Nanum Gothic","나눔고딕",NanumGothic,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;}
+.event190717 img {vertical-align: middle; width:100%; line-height:0}
+.event190717 a {display: inline;}
+
+/* contents */
+.event190717 .cont_wrap {padding: 8.667vw 6.134vw; background: #fff; font-size: 3.2vw;}
+.event190717 .btn_wrap {position:absolute;top:55.333vw;left:0;width:100%;padding:0 34vw;text-align: center;box-sizing: border-box;}
+.event190717 .btn_wrap button {width:100%;}

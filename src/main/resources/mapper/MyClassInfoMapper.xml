@@ -1,0 +1,956 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.myClassInfo.mapper.MyClassInfoMapper">
+
+    <!-- 내교과서 조회  -->
+    <select id="myTextBookInfoList" parameterType="String" resultType="hashmap">
+        SELECT /*설정한 내 교과서 목록 */
+			MT.EDUCOURSE_ID as textbookCd
+			,EI.SCHOOL_LVL as schoolLvl
+			,EI.LAB_COURSE as labCourse
+			,EI.LAB_TEXTBOOK as labTextbook
+			,ED.THUMBNAIL_PATH as thumbnailPath
+			,ED.THUMBNAIL_CDN_YN as fileCdnYn
+			,EI.MD_VALUE as eduYear
+			,MT.ORDER_NO as orderNo
+        FROM MEMBER AS MM
+        INNER JOIN MEMBER_TEXTBOOK as MT ON (MM.MEMBER_ID = MT.MEMBER_ID)
+        INNER JOIN EDUCOURSE_INFO AS EI ON (EI.CODELIST_ID = MT.EDUCOURSE_ID)
+        INNER JOIN EDUCOURSE_DATA as ED ON (ED.EDUCOURSE_ID = EI.CODELIST_ID)
+        LEFT JOIN CODELIST AS CL ON CL.CODELIST_ID = EI.SUBJECT
+        WHERE MM.MEMBER_ID = #{memberId}
+        AND EI.SCHOOL_LVL NOT IN ('ES', 'NES')
+        ORDER BY MT.ORDER_NO, MT.REG_DTTM DESC
+        <!-- ORDER BY MT.REG_DTTM DESC, MT.ORDER_NO -->
+    </select>
+
+    <select id="getMemberInfo" parameterType="String" resultType="edu.visang.vivasam.member.model.MemberInfo">
+        WITH MARKETING_AGREE_INFO AS (
+            /*마케팅 활용 동의*/
+            SELECT
+                MEMBER_ID,
+                MAX(CASE WHEN GUBUN_CD = 'S' THEN AGREE_YN ELSE 'N' END) AS MARKETING_SMS_YN,
+                MAX(CASE WHEN GUBUN_CD = 'E' THEN AGREE_YN ELSE 'N' END) AS MARKETING_EMAIL_YN,
+                MAX(CASE WHEN GUBUN_CD = 'T' THEN AGREE_YN ELSE 'N' END) AS MARKETING_TEL_YN
+            FROM (
+                     select
+                         ROW_NUMBER() OVER (PARTITION BY MEMBER_id, gubun_cd ORDER BY AGREE_DTTM DESC) AS NUM,
+                         MEMBER_id, gubun_cd, agree_yn, AGREE_DTTM
+                     from MEMBER_MARKETING_AGREE_INFO
+                     WHERE MEMBER_id = #{memberId}
+                 ) A
+            WHERE NUM = 1
+            GROUP BY MEMBER_ID
+        )
+        SELECT
+			M.MEMBER_ID                          			AS memberId
+			 , M.NICKNAME                           			AS nickname
+			 , IFNULL(M.NICKNAME_YN,'N')					  	AS nicknameYn
+			 , M.PWD                                			AS pwd
+			 , M.QUESTION_CODE						  		AS questionCode
+			 , M.ANSWER                             			AS answer
+			 , M.NAME                               			AS name
+			 , M.EMAIL_YN                           			AS emailYn
+			 , M.EMAIL                              			AS email
+			 , M.MAILING_YN                         			AS mailingYn
+			 , M.SCHOOLNAME_YN                      			AS schoolnameYn
+			 , M.SCH_CODE                           			AS schCode
+			 , CASE
+				   WHEN M.SCH_CODE = '99999' OR M.SCH_CODE = '99998' OR M.SCH_CODE = '99997' OR M.SCH_CODE = '99993' OR M.SCH_CODE = '99992' OR M.SCH_CODE = '99991'
+					   THEN M.SCH_NAME
+				   ELSE S.NAME END AS schName
+			 , M.SCHOOLLOC_YN                       			AS schoollocYn
+			 , S.FKCODE	                         			AS fkareacode
+			 , S.PKCODE		                       			AS fkbranchcode
+			 , ( SELECT CODENAME
+				 FROM SCHOOL_AREA
+				 WHERE PKCODE = S.FKCODE AND CODEFLAG = 'B'
+		)                                  				AS fkareaname
+			 , ( SELECT CODENAME
+				 FROM SCHOOL_AREA
+				 WHERE PKCODE = S.PKCODE AND CODEFLAG = 'S'
+		)                                  				AS fkbranchname
+			 , M.LUNAR                              			AS lunar
+			 , M.BIRTH_YN                           			AS birthYn
+			 , M.BIRTH                              			AS birth
+			 , M.TEXTBOOK_YN                        			AS textbookYn
+			 , M.PROFILE_IMG_PATH					 		AS profileImgPath
+			 , M.CELLPHONE_YN						  		AS cellphoneYn
+			 , M.CELLPHONE                          			AS cellphone
+			 , SUBSTRING( M.CELLPHONE, 1, 3 )				AS cellphone1
+			 , ( CASE
+					 WHEN LENGTH(REPLACE(M.CELLPHONE,'-','')) = 10 THEN
+						 SUBSTRING( M.CELLPHONE, 5, 3 )
+					 WHEN LENGTH(REPLACE(M.CELLPHONE,'-','')) = 11 THEN
+						 SUBSTRING( M.CELLPHONE, 5, 4 )
+					 ELSE
+						 SUBSTRING( M.CELLPHONE, 5, 3 )
+			END
+			)                                  				AS cellphone2
+			 , ( CASE
+					 WHEN LENGTH(REPLACE(M.CELLPHONE,'-','')) = 10 THEN
+						 SUBSTRING( M.CELLPHONE, 9, 4 )
+					 WHEN LENGTH(REPLACE(M.CELLPHONE,'-','')) = 11 THEN
+						 SUBSTRING( M.CELLPHONE, 10, 4 )
+					 ELSE
+						 SUBSTRING( M.CELLPHONE, 9, 4 )
+			END
+			)                                  				AS cellphone3
+			 , M.TCCODE                             			AS tcCode
+			 , M.SMS_YN                             			AS smsYn
+			 , M.TEL_YN                             			AS telYn
+			 , M.VISIT_CNT                          			AS visitCnt
+			 , M.REG_DATE                           			AS regDate
+			 , M.REG_TIME									AS regTime
+			 , M.REG_TIME									AS regTime
+			 , M.CHALK_POINT									AS chalkPoint
+			 , M.ZIP                                			AS zip
+			 , M.ADDR1                              			AS addr1
+			 , M.ADDR2                              			AS addr2
+			 -- , M.MY_GRADE                           			AS myGrade
+			 , (
+				SELECT GROUP_CONCAT(GRADE)
+				FROM MEMBER_GRADE MG
+				WHERE MG.MEMBER_ID = M.MEMBER_ID
+			 )                           AS myGrade
+			 , M.SEX                                			AS sex
+			 , M.VISANG_TEXTBOOK_YN						 	AS visangTbYN
+			 , S.TAB                 						AS schFlag
+			 , S.ZIP											AS schZipCd
+			 , S.ADDR										AS schAddr
+			 , M.JOIN_DOMAIN									AS joinDomain
+			 , DATE_FORMAT(M.UPDATE_DTTM, '%Y-%m-%d')	AS updateDt
+			 ,IFNULL(MAIN_SUBJECT,'') as mainSubject
+			 , MS.mainSubjectName as mainSubjectName
+			 ,IFNULL(SECOND_SUBJECT,'') as secondSubject
+			 , SS.secondSubjectName as secondSubjectName
+			 , M.EXPIRY_TERM_NUM								AS expiryTermNum
+			 , MK.MARKETING_SMS_YN							AS marketingSmsYn
+			 , MK.MARKETING_EMAIL_YN							AS marketingEmailYn
+			 , MK.MARKETING_TEL_YN							AS marketingTelYn
+			 , M.M_TYPE_CD 									as memberTypeCode
+			 , M.RECOMMEND_ID								AS recommendId
+		FROM MEMBER AS M
+		LEFT OUTER JOIN LATERAL (
+			SELECT
+				CODE, TAB, NAME, ZIP, ADDR, PKCODE, FKCODE
+			FROM
+				SCHOOL
+			WHERE CODE = M.SCH_CODE
+			UNION ALL
+			SELECT
+				CODE, TAB, NAME, ZIP, ADDR, PKCODE, FKCODE
+			FROM
+				SCHOOL_ETC
+			WHERE CODE = M.SCH_CODE
+		) AS S ON 1 = 1
+		LEFT JOIN MARKETING_AGREE_INFO AS MK ON M.MEMBER_ID = MK.MEMBER_ID
+		LEFT JOIN LATERAL (
+			SELECT NAME AS mainSubjectName
+			FROM VS_CODE
+			WHERE CODE = M.MAIN_SUBJECT
+		) AS MS ON 1 = 1
+		LEFT JOIN LATERAL (
+			SELECT NAME AS secondSubjectName
+			FROM VS_CODE
+			WHERE CODE = M.SECOND_SUBJECT
+		) AS SS ON 1 = 1
+		WHERE M.MEMBER_ID = #{memberId}
+    </select>
+
+    <!-- 메인 컨텐츠 정보 조회 -->
+    <select id="rRecommendArea" parameterType="String" resultType="hashmap">
+        SELECT
+        	MRCH.SUBJECT_TYPE AS subjectType,
+		    MRCH.contentGubun,
+		    MRCH.contentId,
+		    CASE WHEN EI.UNIT1 IS NOT NULL THEN EI.UNIT1 ELSE EI.TEXTBOOK END AS lnbCode,
+		    MRCH.newYn,
+		    MRCH.hotYn,
+		    MRCH.thumbnailPath,
+		    MRCH.fileCdnYn,
+		    MRCH.subject,
+		    MRCH.fileType,
+		    MRCH.orgFileName,
+		    MRCH.labEducourse,
+		    MRCH.schoolLvl,
+		    MRCH.textbook,
+		    IFNULL(EI.LAB_COURSE, '') as courseNm,
+		    MRCH.ICON_TYPE AS iconType
+		FROM MAIN_RECOMMEND_CONTENTS_SCH AS MRCH
+		LEFT JOIN LATERAL (
+			SELECT MCE.EDUCOURSE_ID, MCE.TYPE_1
+			FROM MASTER_CONTENT_EDUCOURSE AS MCE
+			LEFT JOIN CODELIST AS CL ON MCE.EDUCOURSE_ID = CL.CODELIST_ID
+			WHERE MRCH.contentGubun = MCE.CONTENT_GUBUN AND MRCH.contentId = MCE.CONTENT_ID
+			AND CL.CODEGROUP_ID IN ('103', '104', '106', '201', '202', '203', '204')
+			LIMIT 1
+		) AS MCE ON 1=1
+		LEFT JOIN EDUCOURSE_INFO AS EI  ON MCE.EDUCOURSE_ID = EI.CODELIST_ID
+		WHERE MRCH.SUBJECT_TYPE = #{subjectType, mode=IN, jdbcType=VARCHAR}
+		AND MRCH.AREA_TYPE = #{areaType, mode=IN, jdbcType=CHAR}
+		AND EI.SCHOOL_LVL NOT IN ('ES', 'NES')
+		ORDER BY MRCH.ORDER_NO
+    </select>
+
+    <select id="getCourseCdInfo" parameterType="string" resultType="string">
+		SELECT /*대표 교과명에 대한 103코드 조회*/
+			MAX(CASE WHEN REF_CODE = #{schoolLvlCd} THEN CODELIST_ID ELSE '' END) COURSE_CD
+		FROM CODELIST
+		WHERE CODEGROUP_ID = '103'
+		AND CODE_NAME = #{subjectNm}
+    </select>
+
+    <select id="getTextbookListByCourse" parameterType="String" resultType="hashmap">
+		SELECT /*나의 교실 > 내 교과 설정 > 설정할 교과서 목록 조회*/
+			E.CODELIST_ID		   AS codelistId
+		    , E.SCHOOL_LVL         AS schoolLvl
+		    , E.GRADE_TERM         AS gradeTerm
+		    , E.COURSE             AS course
+		    , E.SUBJECT            AS subject
+		    , E.TEXTBOOK           AS textbook
+		    , E.UNIT1              AS unit1
+		    , E.UNIT2              AS unit2
+		    , E.UNIT3              AS unit3
+		    , E.MD_VALUE           AS eduYear
+		    , E.LAB_SCHOOL_LVL     AS labSchoolLvl
+		    , E.LAB_GRADE_TERM     AS labGradeTerm
+		    , E.LAB_COURSE         AS labCourse
+		    , E.LAB_SUBJECT        AS labSubject
+		    , E.LAB_TEXTBOOK       AS labTextbook
+		    , E.LAB_UNIT1          AS labUnit1
+		    , E.LAB_UNIT2          AS labUnit2
+		    , E.LAB_UNIT3          AS labUnit3
+		    , C.ORDER_NO           AS orderNo
+		    , E.REG_DATE           AS regDate
+		    , ED.THUMBNAIL_PATH	AS thumbnailPath
+			, CASE WHEN F.EDUCOURSE_ID IS NOT NULL THEN 'Y' ELSE 'N' END AS myBookYn
+		FROM EDUCOURSE_INFO AS E
+		INNER JOIN CODELIST AS C  ON E.TEXTBOOK = C.CODELIST_ID
+		INNER JOIN EDUCOURSE_DATA ED ON E.CODELIST_ID = ED.EDUCOURSE_ID
+		LEFT JOIN MEMBER_TEXTBOOK AS F ON F.EDUCOURSE_ID = E.TEXTBOOK AND MEMBER_ID = #{memberId}
+		WHERE E.CODELIST_ID = E.TEXTBOOK
+		    AND C.USE_YN = 'Y'
+--			AND C.CODELIST_ID NOT IN (
+				<!--
+					국어1-2(박현숙),국어1-2(박영민),기술가정②(김지숙),체육②(이민표), 물리학(손정우)
+					화학(최원호),생명과학(심규철),지구과학(이기영),역학과 에너지(손정우),전자기와 양자(손정우)
+					물질과 에너지(최원호),화학 반응의 세계(최원호),세포와 물질대사(심규철),생물의 유전(심규철),지구시스템과학(이기영)
+					행성우주과학(이기영),과학의 역사와 문화(정인경),기후변화와 환경생태(이기영),융합과학 탐구(손정우),공통국어2(강호영)
+					공통국어2(박영민),체육2(이민표),스포츠 생활2(천항욱),
+					도덕 ②(김국현),사회②(강창숙),역사②(이병인),세계사(이병인),동아시아 역사 기행(이병인),세계시민과 지리(박배균),
+					사회와 문화(유종열),한국지리 탐구(정성훈),정치(정필운),여행지리(이우평),사회문제 탐구(이영호),현대사회와 윤리(김국현)
+				-->
+				<!--
+					106422,106421,106436,106443,106487
+					106488,106489,106490,106491,106492
+					106493,106494,106495,106496,106497
+					106498,106499,106500,106501,106447
+					106448,106510,106512,
+					106432,106426,106429,106480,106481,106473,
+					106470,106474,106472,106475,106471,106482,
+					106462,106464,106465,106466,106467,
+					106457,106458,106459,106460
+				 -->
+--			) <!-- 미노출 교과서 코드 -->
+		<!-- AND E.COURSE IN (#{esCodelistId}, #{msCodelistId},#{hsCodelistId}) -->
+		    AND E.COURSE = #{courseCd}
+            AND (
+		    	1=1
+		    	<if test="mdValue != null">
+		    	<choose>
+					<when test="mdValue == 2015">
+						AND (
+		    				E.MD_VALUE = #{mdValue}
+                        	OR (E.MD_VALUE = '2009' AND E.CODELIST_ID IN ('106071', '106072', '106046', '106047', '106094','106109' ,'106110'))
+                        )
+					</when>
+					<when test="mdValue == 2022">
+						AND E.MD_VALUE = #{mdValue}
+					</when>
+				</choose>
+				</if>
+			)
+		 ORDER BY E.SCHOOL_LVL DESC, E.MD_VALUE DESC,
+			(CASE
+				WHEN E.CODELIST_ID = '106445' THEN 1
+				WHEN E.CODELIST_ID = '106447' THEN 2
+				WHEN E.CODELIST_ID = '106446' THEN 3
+				WHEN E.CODELIST_ID = '106448' THEN 4
+				WHEN E.CODELIST_ID = '106420' THEN 5
+				WHEN E.CODELIST_ID = '106422' THEN 6
+				WHEN E.CODELIST_ID = '106419' THEN 7
+				WHEN E.CODELIST_ID = '106421' THEN 8
+				ELSE 9
+			END),
+		C.ORDER_NO ASC
+    </select>
+
+    <select id="rSubjectList" resultType="hashmap">
+		SELECT CODE_NAME                                           AS codeName
+			 , MIN(ES_CODELIST_ID)                                 AS esCodelistId
+		     , MIN(MS_CODELIST_ID)                                 AS msCodelistId
+		     , MIN(HS_CODELIST_ID)                                 AS hsCodelistId
+		     , MAX(ORDER_NO)    AS codeCssId
+		  FROM ( SELECT CODE_NAME   AS CODE_NAME
+		  			  , CASE
+							WHEN REF_CODE = 'ES' THEN CODELIST_ID
+							ELSE '999999'
+						END         AS ES_CODELIST_ID
+		              , CASE
+							WHEN REF_CODE = 'MS' THEN CODELIST_ID
+							ELSE '999999'
+						END         AS MS_CODELIST_ID
+		              , CASE
+							WHEN REF_CODE = 'HS' THEN CODELIST_ID
+							ELSE '999999'
+						END         AS HS_CODELIST_ID
+					  , ORDER_NO
+		           FROM CODELIST
+		          WHERE CODEGROUP_ID = '103'
+		            AND USE_YN = 'Y'
+		            AND REF_CODE in ( 'ES', 'MS' , 'HS' )
+		       ) AA
+		 GROUP BY CODE_NAME
+		 ORDER BY codeCssId ASC
+    </select>
+
+	<select id="myPutDataList" parameterType="Object" resultType="hashmap">
+		<bind name="page" value="pageRequest.pageNumber+1"/>
+		SELECT *
+		FROM(
+			SELECT
+				F.FOLDER_ID AS folderId,
+				F.FOLDER_NAME AS folderNm,
+				FC.CONTENT_GUBUN AS contentGubun,
+				FC.CONTENT_ID AS contentId,
+				MCE.EDUCOURSE_ID AS eduCourseId,
+				MCE.TYPE_1 AS type1Cd,
+				CASE
+					WHEN AMI.CONTENT_GUBUN IS NULL
+						THEN MC.SUBJECT
+					ELSE AMI.TITLE
+				END AS title,
+				CASE IFNULL(EI.SCHOOL_LVL, '')
+					WHEN '' THEN '공통'
+					WHEN 'ES' THEN '초등'
+					WHEN 'NES' THEN '초등'
+					WHEN 'MS' THEN '중학'
+					WHEN 'HS' THEN '고등'
+					ELSE EI.SCHOOL_LVL
+				END AS schoolLvlNm,
+				IFNULL(
+					CASE
+						WHEN IFNULL(EI.LAB_TEXTBOOK, '') != '' THEN EI.LAB_TEXTBOOK
+						ELSE
+							CASE
+								WHEN IFNULL(EI.LAB_SUBJECT, '') != ''
+									THEN EI.LAB_SUBJECT
+								ELSE EI.LAB_COURSE
+							END
+					END, '-'
+				) AS textbookNm,
+				EI.TEXTBOOK AS textbookCd,
+				(SELECT MD_VALUE FROM CODELIST WHERE CODELIST_ID = EI.TEXTBOOK) AS eduYear,
+				FC.POSITION AS putPositionCd,
+				IFNULL(
+					CASE
+						WHEN SUBSTRING(FC.POSITION, 1, 1) = 'D'
+							THEN '열린 자료'
+						WHEN SUBSTRING(FC.POSITION, 1, 1) = 'E' OR BC.CONTENT_ID IS NOT NULL
+							THEN '창체'
+						WHEN OP.PERIOD_YN = 'Y'
+							THEN '차시별 자료'
+						ELSE MCE.CODE_NAME
+					END, '-'
+				) AS putPositionNm,
+				CASE MC.CONTENT_GUBUN
+					WHEN 'CN020' THEN 'N'
+					ELSE MC.DOWN_YN
+				END AS dnYn,
+				CASE MC.CONTENT_GUBUN
+					WHEN 'CN020' THEN 'N'
+					ELSE MC.TN_YN
+				END AS tnYn,
+				MC.DOC_CONVERT_YN AS docConvertYn,
+				MC.FILE_CDN_YN AS fileCdnYn,
+				IFNULL(MC.THUMBNAIL_PATH, '') AS thumbnailPath,
+				MC.FILE_TYPE AS fileType,
+				CASE MC.FILE_TYPE
+					WHEN 'FT206' THEN MC.SITE_URL -- FT206 : URL
+					ELSE MC.SAVE_FILE_NAME
+				END AS saveFileNm,
+				MC.MEDIA_KIND AS mediaKind,
+				OP.PERIOD_YN AS periodYn,
+				ROW_NUMBER() OVER(ORDER BY FC.REG_DTTM DESC) AS rowIdx
+			FROM FOLDER AS F
+			INNER JOIN MEMBER AS M ON F.MEMBER_ID = M.MEMBER_ID
+			INNER JOIN (
+				SELECT MEMBER_ID,FOLDER_ID,CONTENT_GUBUN,CONTENT_ID,POSITION,REG_DTTM
+				FROM folder_content
+				WHERE MEMBER_ID = #{memberId}
+				UNION ALL
+				SELECT MEMBER_ID,FOLDER_ID,CONTENT_GUBUN,CONTENT_ID,POSITION,REG_DTTM
+				FROM folder_content_bak
+				WHERE (REG_DTTM >= (CURDATE() + INTERVAL -(3) YEAR))
+				AND MEMBER_ID = #{memberId}
+			) AS FC ON F.FOLDER_ID = FC.FOLDER_ID
+			INNER JOIN MASTER_CONTENT AS MC ON FC.CONTENT_ID = MC.CONTENT_ID
+				AND FC.CONTENT_GUBUN = MC.CONTENT_GUBUN
+				AND IFNULL(MC.HEADWORD_TYPE, '') NOT IN ('HT110', 'HT120') /*개념어(HT110), 인물(HT120) 사전 제외*/
+				AND MC.USE_YN = 'Y'
+				AND MC.UP_OPEN_YN != 'N' /*사전자료는 null*/
+			LEFT JOIN LATERAL (
+				SELECT
+					MCE.EDUCOURSE_ID,
+					MCE.TYPE_1,
+					CASE WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '111' THEN CL.CODE_NAME
+						 WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '238' THEN '교과 자료' /*초등평가자료*/
+						 WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '300' THEN '교과 자료' /*교과통합자료*/
+						 WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '302' THEN '특화 자료' /*한글 명칭 변경하려면 /period/myDataList.jsp도 함께 수정해야 함*/
+						 WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '223' OR SUBSTRING(MCE.TYPE_1, 1, 3) = '236' OR SUBSTRING(MCE.TYPE_1, 1, 3) = '304' THEN '열린 자료' /*서식 자료, 라이브러리, 테마관*/
+						 ELSE MCE.TYPE_1
+					END AS CODE_NAME
+				FROM MASTER_CONTENT_EDUCOURSE AS MCE
+				LEFT JOIN CODELIST AS CL ON MCE.TYPE_1 = CL.CODELIST_ID
+					AND CL.USE_YN = 'Y' -- 차시별자료의 경우 TYPE_1이 없음
+				WHERE CONTENT_ID = MC.CONTENT_ID
+				AND CONTENT_GUBUN = MC.CONTENT_GUBUN
+				ORDER BY MCE.TYPE_1
+				LIMIT 1
+			) AS MCE ON 1=1
+			LEFT JOIN LATERAL (
+				SELECT
+					CASE
+						WHEN IFNULL(K.PERIOD_ID, '') = '' THEN 'N'
+						ELSE 'Y'
+					END AS PERIOD_YN
+				FROM PERIOD_TOC AS K
+				WHERE MC.CONTENT_ID = K.CONTENT_ID AND MC.CONTENT_GUBUN = K.CONTENT_GUBUN
+				LIMIT 1
+			) AS OP ON 1=1
+			LEFT JOIN EDUCOURSE_INFO AS EI ON MCE.EDUCOURSE_ID = EI.CODELIST_ID
+			LEFT JOIN AUTHOR_MEETING_INFO AS AMI ON AMI.CONTENT_GUBUN = MC.CONTENT_GUBUN
+				AND AMI.CONTENT_ID = MC.CONTENT_ID
+				AND AMI.OPEN_YN = 'Y' /*작가와의 만남 영상 자료를 특화자료의 영상으로 노출 시켜줘야 하는 요건에 의한 처리*/
+			LEFT JOIN LATERAL ( /*인권교육 > 자료실*/
+				SELECT
+					BC.CONTENT_ID
+				FROM BUNDLE_CONTENT AS BC
+				WHERE BC.CONTENT_GUBUN = MC.CONTENT_GUBUN
+				AND BC.CONTENT_ID = MC.CONTENT_ID
+				AND BC.BUNDLE_ID IN (554, 555)
+				LIMIT 1
+			) AS BC ON 1=1
+			WHERE F.MEMBER_ID = #{memberId}
+				AND EI.SCHOOL_LVL NOT IN ('ES', 'NES')
+				AND MC.USE_YN = 'Y'
+				AND F.USE_YN = 'Y'
+				<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(folderId)">
+					AND F.FOLDER_ID = #{folderId}
+				</if>
+		) AS dataList
+		WHERE rowIdx BETWEEN (#{page} - 1) * #{pageRequest.pageSize} + 1 AND #{page} * #{pageRequest.pageSize}
+	</select>
+	
+	<select id="myPutDataListCount" parameterType="Object" resultType="int">
+		SELECT COUNT(1)
+		FROM FOLDER AS F
+		INNER JOIN MEMBER AS M ON F.MEMBER_ID = M.MEMBER_ID
+		INNER JOIN (
+			SELECT MEMBER_ID,FOLDER_ID,CONTENT_GUBUN,CONTENT_ID,POSITION,REG_DTTM
+			FROM folder_content
+			WHERE MEMBER_ID = #{memberId}
+			UNION ALL
+			SELECT MEMBER_ID,FOLDER_ID,CONTENT_GUBUN,CONTENT_ID,POSITION,REG_DTTM
+			FROM folder_content_bak
+			WHERE (REG_DTTM >= (CURDATE() + INTERVAL -(3) YEAR))
+			AND MEMBER_ID = #{memberId}
+		) AS FC ON F.FOLDER_ID = FC.FOLDER_ID
+		INNER JOIN MASTER_CONTENT AS MC ON FC.CONTENT_ID = MC.CONTENT_ID
+			AND FC.CONTENT_GUBUN = MC.CONTENT_GUBUN
+			AND IFNULL(MC.HEADWORD_TYPE, '') NOT IN ('HT110', 'HT120') /*개념어(HT110), 인물(HT120) 사전 제외*/
+			AND MC.USE_YN = 'Y'
+			AND MC.UP_OPEN_YN != 'N' /*사전자료는 null*/
+		LEFT JOIN LATERAL (
+			SELECT
+				MCE.EDUCOURSE_ID,
+				MCE.TYPE_1,
+				CASE WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '111' THEN CL.CODE_NAME
+					 WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '238' THEN '교과 자료' /*초등평가자료*/
+					 WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '300' THEN '교과 자료' /*교과통합자료*/
+					 WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '302' THEN '특화 자료' /*한글 명칭 변경하려면 /period/myDataList.jsp도 함께 수정해야 함*/
+					 WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '223' OR SUBSTRING(MCE.TYPE_1, 1, 3) = '236' OR SUBSTRING(MCE.TYPE_1, 1, 3) = '304' THEN '열린 자료' /*서식 자료, 라이브러리, 테마관*/
+					 ELSE MCE.TYPE_1
+				END AS CODE_NAME
+			FROM MASTER_CONTENT_EDUCOURSE AS MCE
+			LEFT JOIN CODELIST AS CL ON MCE.TYPE_1 = CL.CODELIST_ID
+				AND CL.USE_YN = 'Y' -- 차시별자료의 경우 TYPE_1이 없음
+			WHERE CONTENT_ID = MC.CONTENT_ID
+			AND CONTENT_GUBUN = MC.CONTENT_GUBUN
+			ORDER BY MCE.TYPE_1
+			LIMIT 1
+		) AS MCE ON 1=1
+		LEFT JOIN LATERAL (
+			SELECT
+				CASE
+					WHEN IFNULL(K.PERIOD_ID, '') = '' THEN 'N'
+					ELSE 'Y'
+				END AS PERIOD_YN
+			FROM PERIOD_TOC AS K
+			WHERE MC.CONTENT_ID = K.CONTENT_ID AND MC.CONTENT_GUBUN = K.CONTENT_GUBUN
+			LIMIT 1
+		) AS OP ON 1=1
+		LEFT JOIN EDUCOURSE_INFO AS EI ON MCE.EDUCOURSE_ID = EI.CODELIST_ID
+		LEFT JOIN AUTHOR_MEETING_INFO AS AMI ON AMI.CONTENT_GUBUN = MC.CONTENT_GUBUN
+			AND AMI.CONTENT_ID = MC.CONTENT_ID
+			AND AMI.OPEN_YN = 'Y' /*작가와의 만남 영상 자료를 특화자료의 영상으로 노출 시켜줘야 하는 요건에 의한 처리*/
+		LEFT JOIN LATERAL ( /*인권교육 > 자료실*/
+			SELECT
+				BC.CONTENT_ID
+			FROM BUNDLE_CONTENT AS BC
+			WHERE BC.CONTENT_GUBUN = MC.CONTENT_GUBUN
+			AND BC.CONTENT_ID = MC.CONTENT_ID
+			AND BC.BUNDLE_ID IN (554, 555)
+			LIMIT 1
+		) AS BC ON 1=1
+		WHERE F.MEMBER_ID = #{memberId}
+			AND EI.SCHOOL_LVL NOT IN ('ES', 'NES')
+			AND MC.USE_YN = 'Y'
+			AND F.USE_YN = 'Y'
+			<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(folderId)">
+				AND F.FOLDER_ID = #{folderId}
+			</if>
+	</select>	
+	
+	<!-- 나의 교실-담은 자료 삭제  -->
+	<delete id="deletePutData" parameterType="String">
+		DELETE FROM FOLDER_CONTENT /*나의 교실-담은 자료 삭제*/
+		WHERE MEMBER_ID = #{memberId}
+		AND FOLDER_ID = #{folderId}
+		AND CONTENT_GUBUN = #{contentGubun}
+		AND CONTENT_ID = #{contentId}
+    </delete>
+
+	<delete id="deletePutDataBak" parameterType="String">
+		DELETE FROM FOLDER_CONTENT_BAK /*나의 교실-담은 자료 삭제*/
+		WHERE MEMBER_ID = #{memberId}
+		AND FOLDER_ID = #{folderId}
+		AND CONTENT_GUBUN = #{contentGubun}
+		AND CONTENT_ID = #{contentId}
+    </delete>
+
+	<!-- 아이디별 폴더 목록 조회  -->
+	<select id="myFolderList" parameterType="String" resultType="hashmap">
+       SELECT
+           FOLDER_ID AS folderId
+           , P_FOLDER_ID AS pFolderId
+           , FOLDER_NAME AS folderName
+           , EDUCOURSE_ID AS educourseId
+           , CONTENTS_CNT AS contentsCnt
+           , DATE_FORMAT(UPD_DTTM, '%Y-%m-%d') AS updDttm
+       FROM FOLDER
+       WHERE MEMBER_ID = #{memberId}
+       ORDER BY DEPTH ASC, UPD_DTTM DESC
+   </select>
+
+	<select id="myDownDataList" parameterType="Object" resultType="hashmap">
+		<bind name="page" value="pageRequest.pageNumber+1"/>
+		<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(textbookCd)">
+		WITH recursive EDUCOURSE_CHILD(CODELIST_ID) AS (
+			SELECT CODELIST_ID
+			FROM CODELIST AS C
+			WHERE C.CODELIST_ID = #{textbookCd}
+			UNION ALL
+			SELECT C.CODELIST_ID
+			FROM CODELIST C
+			INNER JOIN EDUCOURSE_CHILD CH
+			ON C.REF_CODE = CH.CODELIST_ID
+		)		
+		</if>
+		SELECT *
+		FROM (
+			SELECT
+				ROW_NUMBER() OVER (ORDER BY FL.REGYMD DESC) AS idx,
+				MC.CONTENT_GUBUN AS contentGubun ,
+				MC.CONTENT_ID AS contentId,
+				MC.FILE_TYPE AS fileType,
+				MC.SUBJECT AS subject,
+				CASE MC.FILE_TYPE
+					WHEN 'FT206' THEN MC.SITE_URL
+					ELSE MC.SAVE_FILE_NAME
+				END AS saveFileNm,
+				MC.FILE_PATH AS filePath,
+				MC.FILE_CDN_YN AS fileCdnYn,
+				CASE
+					WHEN EI.TEXTBOOK IS NOT NULL AND CL.CODEGROUP_ID IN ('201', '202', '203', '204') AND EI.UNIT1 IS NOT NULL THEN EI.UNIT1
+					ELSE MCE.EDUCOURSE_ID
+				END AS eduCourseId,
+				CASE IFNULL(EI.SCHOOL_LVL, '')
+					WHEN '' THEN '전체'
+					WHEN 'MS' THEN '중학'
+					WHEN 'HS' THEN '고등'
+					ELSE EI.SCHOOL_LVL
+				END AS schoolLvlNm,
+				EI.TEXTBOOK AS textbookCd,
+				IFNULL(
+					CASE
+						WHEN IFNULL(EI.LAB_TEXTBOOK, '') != '' THEN EI.LAB_TEXTBOOK
+						ELSE
+							CASE
+								WHEN IFNULL(EI.LAB_SUBJECT, '') != '' THEN EI.LAB_SUBJECT
+								ELSE EI.LAB_COURSE
+							END
+					END,
+				'-') AS textbookNm,
+				(
+					SELECT MD_VALUE
+					FROM CODELIST
+					WHERE CODELIST_ID = EI.TEXTBOOK
+				) AS eduYear,
+				MCE.TYPE_1 AS type1Cd,
+				IFNULL(MCE.CODE_NAME, '-') AS type1Nm,
+				CASE MC.CONTENT_GUBUN
+					WHEN 'CN020' THEN 'N'
+					ELSE MC.DOWN_YN
+					END AS dnYn,
+				CASE MC.CONTENT_GUBUN
+					WHEN 'CN020' THEN 'N'
+					ELSE MC.TN_YN
+				END AS tnYn,
+				ROW_NUMBER() OVER (ORDER BY FL.REGYMD DESC) rowIdx
+			FROM (
+				SELECT
+					USERID, P_CONTENT_ID, P_CONTENT_TYPE, MAX(REGYMD) AS REGYMD
+				FROM (
+				   SELECT
+						userid,
+						p_action_type,
+						p_content_type,
+						p_content_id,
+						regymd
+					FROM filedown_log
+					WHERE userid = #{memberId}
+					UNION ALL
+					SELECT
+						userid,
+						p_action_type,
+						p_content_type,
+						p_content_id,
+						regymd
+					FROM filedown_log_bak
+					WHERE userid = #{memberId}
+					   AND (regymd >= (CURDATE() + INTERVAL -(3) YEAR))
+				) T
+				GROUP BY USERID, P_CONTENT_ID, P_CONTENT_TYPE
+			) FL
+			INNER JOIN MASTER_CONTENT MC ON MC.CONTENT_ID = FL.P_CONTENT_ID
+			AND MC.CONTENT_GUBUN = FL.P_CONTENT_TYPE
+			AND MC.USE_YN = 'Y'
+			AND IFNULL(MC.UP_OPEN_YN, '') != 'N'
+			LEFT JOIN LATERAL (
+				SELECT
+					MCE.EDUCOURSE_ID,
+					MCE.TYPE_1,
+					CASE
+						WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '111' THEN CL.CODE_NAME
+						WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '238' THEN '교과 자료' /*초등평가자료*/
+						WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '300' THEN '교과 자료' /*교과통합자료*/
+						WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '302' THEN '특화 자료'
+						WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '223' OR SUBSTRING(MCE.TYPE_1, 1, 3) = '236' OR SUBSTRING(MCE.TYPE_1, 1, 3) = '304' THEN '열린 자료' /*서식 자료, 라이브러리*/
+						ELSE MCE.TYPE_1
+					END AS CODE_NAME
+				FROM MASTER_CONTENT_EDUCOURSE AS MCE
+				JOIN CODELIST  CL
+				ON MCE.TYPE_1 = CL.CODELIST_ID
+				AND CL.USE_YN = 'Y'
+				WHERE CONTENT_ID = MC.CONTENT_ID
+				AND CONTENT_GUBUN = MC.CONTENT_GUBUN
+				ORDER BY MCE.TYPE_1
+				LIMIT 1
+			) AS MCE ON 1=1
+			INNER JOIN CODELIST CL ON MCE.EDUCOURSE_ID = CL.CODELIST_ID
+				AND CL.CODEGROUP_ID IN ('103', '104', '106', '201', '202', '203', '204') /*교과 자료 기준*/
+			LEFT JOIN EDUCOURSE_INFO EI ON EI.CODELIST_ID = MCE.EDUCOURSE_ID
+			LEFT JOIN CODELIST AS CL2 ON MCE.TYPE_1 = CL2.CODELIST_ID
+			WHERE EI.SCHOOL_LVL NOT IN ('ES', 'NES')
+			<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(textbookCd)">
+			AND EXISTS (
+				SELECT 1
+				FROM (
+					SELECT REF_CODE AS CODELIST_ID
+					FROM CODELIST
+					WHERE CODEGROUP_ID = '104'
+					AND CODELIST_ID = (
+						SELECT REF_CODE AS CODE
+						FROM CODELIST
+						WHERE CODEGROUP_ID = '106'
+						AND CODELIST_ID = #{textbookCd}
+					)
+					UNION ALL
+					SELECT REF_CODE AS CODELIST_ID
+					FROM CODELIST
+					WHERE CODEGROUP_ID = '106'
+					AND CODELIST_ID = #{textbookCd}
+					UNION ALL
+					SELECT CODELIST_ID AS CODELIST_ID
+					FROM CODELIST
+					WHERE CODEGROUP_ID = '106'
+					AND CODELIST_ID = #{textbookCd}
+					AND 1 = 1
+					UNION ALL
+					SELECT CODELIST_ID
+					FROM EDUCOURSE_CHILD
+				) A
+				WHERE CODELIST_ID = MCE.EDUCOURSE_ID
+			)
+			</if>
+		) AS dataList
+		WHERE dataList.rowIdx BETWEEN (#{page} - 1) * #{pageRequest.pageSize} + 1 AND #{page} * #{pageRequest.pageSize}
+	</select>
+	
+	<select id="myDownDataListCount" parameterType="Object" resultType="int">
+		SELECT COUNT(1)
+		FROM (
+			SELECT 
+				USERID,
+				P_CONTENT_ID,
+				P_CONTENT_TYPE,
+				MAX(REGYMD) AS REGYMD
+			FROM (
+			   SELECT
+					userid,
+					p_action_type,
+					p_content_type,
+					p_content_id,
+					regymd
+				FROM filedown_log
+				WHERE userid = #{memberId}
+				UNION ALL
+				SELECT
+					userid,
+					p_action_type,
+					p_content_type,
+					p_content_id,
+					regymd
+				FROM filedown_log_bak
+				WHERE userid = #{memberId}
+				   AND (regymd >= (CURDATE() + INTERVAL -(3) YEAR))
+			) T
+			GROUP BY USERID, P_CONTENT_ID, P_CONTENT_TYPE
+		) FL
+		INNER JOIN MASTER_CONTENT MC ON MC.CONTENT_ID = FL.P_CONTENT_ID
+			AND MC.CONTENT_GUBUN = FL.P_CONTENT_TYPE
+			AND MC.USE_YN = 'Y'
+			AND IFNULL(MC.UP_OPEN_YN, '') != 'N'
+		LEFT JOIN LATERAL (
+			SELECT
+				MCE.EDUCOURSE_ID, 
+				MCE.TYPE_1, 
+				CASE 
+					WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '111' THEN CL.CODE_NAME
+					WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '238' THEN '교과 자료' /*초등평가자료*/
+					WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '300' THEN '교과 자료' /*교과통합자료*/
+					WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '302' THEN '특화 자료'
+					WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '223' OR SUBSTRING(MCE.TYPE_1, 1, 3) = '236' OR SUBSTRING(MCE.TYPE_1, 1, 3) = '304' THEN '열린 자료' /*서식 자료, 라이브러리*/					 
+					ELSE MCE.TYPE_1
+				END AS CODE_NAME
+			FROM MASTER_CONTENT_EDUCOURSE AS MCE
+			JOIN CODELIST  CL ON MCE.TYPE_1 = CL.CODELIST_ID
+				AND CL.USE_YN = 'Y'
+			WHERE CONTENT_ID = MC.CONTENT_ID
+			AND CONTENT_GUBUN = MC.CONTENT_GUBUN
+			ORDER BY MCE.TYPE_1
+			LIMIT 1
+		) AS MCE ON 1=1
+		INNER JOIN CODELIST CL ON MCE.EDUCOURSE_ID = CL.CODELIST_ID
+			AND CL.CODEGROUP_ID IN ('103', '104', '106', '201', '202', '203', '204') /*교과 자료 기준*/
+		LEFT JOIN EDUCOURSE_INFO EI ON EI.CODELIST_ID = MCE.EDUCOURSE_ID
+		LEFT JOIN CODELIST AS CL2 ON MCE.TYPE_1 = CL2.CODELIST_ID
+		WHERE EI.SCHOOL_LVL NOT IN ('ES', 'NES')
+	</select>	
+
+	<select id="myDownDataTextbookList" parameterType="string" resultType="hashmap">
+		SELECT 
+			schoolLvlNm,
+			textbookCd,
+			textbookNm,
+			MAX(ORDER_NO) AS orderNo
+		FROM (
+			SELECT
+				CASE IFNULL(EI.SCHOOL_LVL, '') WHEN '' THEN '전체'
+					WHEN 'ES' THEN '초등' 
+					WHEN 'NES' THEN '초등' 
+					WHEN 'MS' THEN '중학' 
+					WHEN 'HS' THEN '고등' 
+					ELSE EI.SCHOOL_LVL
+				END AS schoolLvlNm,
+				EI.TEXTBOOK AS textbookCd,
+				EI.LAB_TEXTBOOK AS textbookNm,
+				CL2.ORDER_NO
+			FROM (
+				SELECT 
+					USERID,
+					P_CONTENT_ID,
+					P_CONTENT_TYPE,
+					MAX(REGYMD) AS REGYMD
+				FROM (
+				   SELECT
+						userid,
+						p_action_type,
+						p_content_type,
+						p_content_id,
+						regymd
+					FROM filedown_log
+					WHERE userid = #{memberId}
+					UNION ALL
+					SELECT
+						userid,
+						p_action_type,
+						p_content_type,
+						p_content_id,
+						regymd
+					FROM filedown_log_bak
+					WHERE userid = #{memberId}
+					   AND (regymd >= (CURDATE() + INTERVAL -(3) YEAR))
+				) T
+				WHERE USERID = #{memberId}
+				GROUP BY USERID, P_CONTENT_ID, P_CONTENT_TYPE		
+			) AS FL
+			INNER JOIN MASTER_CONTENT AS MC ON MC.CONTENT_ID = FL.P_CONTENT_ID
+				AND MC.CONTENT_GUBUN = FL.P_CONTENT_TYPE
+				AND MC.USE_YN = 'Y'
+				AND MC.UP_OPEN_YN = 'Y'
+			INNER JOIN MASTER_CONTENT_EDUCOURSE AS MCE ON MCE.CONTENT_ID = MC.CONTENT_ID
+				AND MCE.CONTENT_GUBUN = MC.CONTENT_GUBUN
+				AND NOT(SUBSTRING(MCE.TYPE_1, 1, 3) = '223' OR SUBSTRING(MCE.TYPE_1, 1, 3) = '236' OR SUBSTRING(MCE.TYPE_1, 1, 3) = '304')
+			INNER JOIN CODELIST AS CL ON MCE.EDUCOURSE_ID = CL.CODELIST_ID
+				AND CL.CODEGROUP_ID IN ('106', '201', '202', '203', '204') /*교과 자료 기준*/
+			LEFT JOIN EDUCOURSE_INFO AS EI ON EI.CODELIST_ID = MCE.EDUCOURSE_ID
+			LEFT JOIN CODELIST AS CL2 ON EI.COURSE = CL2.CODELIST_ID
+			WHERE EI.SCHOOL_LVL NOT IN ('ES', 'NES')
+			AND EI.TEXTBOOK IS NOT NULL		
+		) A
+		GROUP BY schoolLvlNm, textbookCd, textbookNm
+		ORDER BY schoolLvlNm DESC, MAX(ORDER_NO)
+    </select>
+
+	<!-- 내 교과 정보를 변경한다. -->
+	<update id="changeMySubject" parameterType="String">
+		UPDATE MEMBER /*내 교과 정보 UPDATE*/
+		<if test="mainSubject != ''">
+			SET MAIN_SUBJECT = #{mainSubject}
+		</if>
+		<if test="mainSubject != '' and (secondSubject != '' or secondSubject == '')" >
+			,SECOND_SUBJECT = #{secondSubject}
+		</if>
+		<if test="mainSubject == '' and secondSubject != ''" >
+			SET SECOND_SUBJECT = #{secondSubject}
+		</if>
+		<if test="mainSubject == ''" >
+			<if test="secondSubject == ''" >
+				SET MAIN_SUBJECT = #{mainSubject} ,  SECOND_SUBJECT = #{secondSubject}
+			</if>
+		</if>
+		, UPDATE_DTTM = CURRENT_TIMESTAMP
+		WHERE MEMBER_ID = #{memberId}
+	</update>
+	<!-- 내 교과서 삭제한다. -->
+	<delete id="deleteMyTextbook" parameterType="String">
+		DELETE FROM MEMBER_TEXTBOOK /*나의 교실 > 내 교과서 설정 > 교과서 삭제 */
+        WHERE MEMBER_ID = #{memberId}
+        AND EDUCOURSE_ID = #{textbookCd}
+    </delete>
+	<!-- 내 교과서를 등록한다. -->
+	<insert id="insertMyTextbook" parameterType="String">
+		INSERT INTO MEMBER_TEXTBOOK
+		          ( MEMBER_ID
+		          , EDUCOURSE_ID
+		          , ORDER_NO )
+		VALUES ( #{memberId}
+		       , #{textbookCd}
+		       , 0 )
+    </insert>
+
+	<!-- 내 교과서를 등록 한다. -->
+	<insert id="saveSetupTextbook" parameterType="hashmap">
+		INSERT INTO MEMBER_TEXTBOOK
+		          ( MEMBER_ID
+		          , EDUCOURSE_ID
+		          , ORDER_NO )
+		VALUES ( #{memberId}
+		       , #{textbookCd}
+		       , '1' )
+    </insert>
+
+	<select id="myMaterialViewList" parameterType="String" resultType="hashMap" >
+		/*MainBannerInfoDao.getRecentlyViewContentList*/
+		SELECT
+			VL.ID as id,
+			VL.REGDATE as regDate,
+			MC.CONTENT_GUBUN as contentGubun,
+			MC.FILE_TYPE as fileType,
+			MC.CONTENT_ID as contentId,
+			IFNULL(EI.LAB_COURSE, '비교과') AS labCourse,
+			IFNULL(EI.LAB_TEXTBOOK, '비교과') AS labTextbook,
+			MC.SUBJECT as subject,
+			CASE IFNULL(EI.SCHOOL_LVL, '')
+				WHEN '' THEN '공통'
+				WHEN 'ES' THEN '초등'
+				WHEN 'NES' THEN '초등'
+				WHEN 'MS' THEN '중학'
+				WHEN 'HS' THEN '고등'
+				ELSE EI.SCHOOL_LVL
+				END AS schoolLvlNm,
+			IFNULL(CASE WHEN IFNULL(EI.LAB_TEXTBOOK, '') != '' THEN EI.LAB_TEXTBOOK
+						ELSE
+							CASE WHEN IFNULL(EI.LAB_SUBJECT, '') != '' THEN EI.LAB_SUBJECT
+							ELSE EI.LAB_COURSE
+							END
+					END, '-'
+				) AS textbookNm,
+			CASE MC.FILE_TYPE
+				WHEN 'FT206' THEN MC.SITE_URL -- FT206 : URL
+				ELSE MC.SAVE_FILE_NAME
+				END AS saveFileName
+		FROM (
+			 SELECT A.ID, A.CONTENT_ID, A.REGDATE
+			 FROM (
+					  SELECT ROW_NUMBER() OVER(PARTITION BY CONTENT_ID ORDER BY REGDATE DESC) RN,
+							 A.*
+					  FROM MEMBER_MATERIALS_VIEW_LOG A
+					  WHERE MEMBER_ID = #{memberId}
+				  ) A
+			 WHERE A.RN = 1
+		) VL
+			JOIN MASTER_CONTENT MC ON VL.CONTENT_ID = MC.CONTENT_ID
+				AND MC.USE_YN = 'Y'
+				AND IFNULL(MC.UP_OPEN_YN, '') != 'N' /*사전자료는 null*/
+				AND MC.FILE_TYPE IS NOT NULL
+				AND IFNULL(MC.HEADWORD_TYPE, '') NOT IN ('HT110', 'HT120') /*개념어(HT110), 인물(HT120) 사전 제외*/
+			LEFT JOIN LATERAL (
+				SELECT
+					MCE.EDUCOURSE_ID,
+					MCE.TYPE_1,
+					CASE WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '111' THEN CL.CODE_NAME
+						 WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '238' THEN '교과 자료' /*초등평가자료*/
+						 WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '300' THEN '교과 자료' /*교과통합자료*/
+						 WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '302' THEN '특화 자료' /*한글 명칭 변경하려면 /period/myDataList.jsp도 함께 수정해야 함*/
+						 WHEN SUBSTRING(MCE.TYPE_1, 1, 3) = '223' OR SUBSTRING(MCE.TYPE_1, 1, 3) = '236' OR SUBSTRING(MCE.TYPE_1, 1, 3) = '304' THEN '열린 자료' /*서식 자료, 라이브러리, 테마관*/
+						 ELSE MCE.TYPE_1 END AS CODE_NAME
+					FROM MASTER_CONTENT_EDUCOURSE AS MCE
+						LEFT JOIN CODELIST AS CL ON MCE.TYPE_1 = CL.CODELIST_ID AND CL.USE_YN = 'Y' -- 차시별자료의 경우 TYPE_1이 없음
+					WHERE CONTENT_GUBUN = MC.CONTENT_GUBUN AND CONTENT_ID = MC.CONTENT_ID
+					ORDER BY MCE.TYPE_1
+			    LIMIT 1
+			) AS MCE ON 1 = 1
+			LEFT JOIN EDUCOURSE_INFO AS EI  ON MCE.EDUCOURSE_ID = EI.CODELIST_ID
+		WHERE VL.REGDATE >= DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL -30 DAY)
+			-- AND EI.SCHOOL_LVL NOT IN ('ES', 'NES')
+			AND MC.FILE_TYPE IN ('FT203', 'FT201', 'FT205')
+		ORDER BY VL.ID DESC
+		LIMIT 10
+	</select>
+</mapper>

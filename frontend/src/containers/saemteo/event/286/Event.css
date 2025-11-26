@@ -1,0 +1,47 @@
+.event200318 {position: relative; font-family: "Nanum Gothic","나눔고딕",NanumGothic,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;}
+.event200318 img {vertical-align: middle; width:100%; line-height:0}
+.event200318 a {display: inline;}
+
+/* form */
+.event200318 .radio_circle {position:absolute; left:-3000px; opacity:0}
+.event200318 .radio_circle + label .radio {display:inline-block; letter-spacing: -0.2vw; font-family: "Nanum Gothic_Bold"; font-size: 2.8vw; color: #000;}
+.event200318 .radio_circle + label .radio:before {content:""; display:inline-block; -webkit-box-sizing:border-box; box-sizing:border-box; width:3.6vw; height:3.6vw; margin-top: -0.7vw; margin-right: 1.3vw; border:1px solid #bfbfbf;  vertical-align: middle;}
+.event200318 .radio_circle:disabled + label .radio:before {background-color: #bfbfbf;}
+.event200318 .radio_circle:checked + label .radio:before {border: none; background: url(/images/common/bg_check.png) no-repeat; background-size: cover;}
+.event200318 .radio_circle + label .radio {vertical-align: middle;}
+
+/* contents */
+.event200318 .cont_wrap {padding: 8.667vw 6.134vw; background: #fff; font-size: 3.2vw;}
+
+.event200318 h2 {margin-bottom: 1.8vw; font-family: "Nanum Gothic_Bold"; font-size: 3.2vw; color: #3e3d3d;}
+.event200318 .list {margin: 3.6vw 0 6.2vw;}
+.event200318 .list li {position: relative; padding-left: 5.8vw; margin-bottom: 1vw; font-size: 3vw; color: #6b6b6b;}
+.event200318 .list li strong {color: #f36056;}
+.event200318 .list li:before {content: ""; display: block; position: absolute; left: 0.5vw; top: 0.2vw; width: 3.4vw; height: 3.4vw; background: #555 url(/images/events/2020/event200318/bl_arrow.png) no-repeat 50% 50%; background-size: 0.8vw auto; border-radius: 1.5vw; overflow: hidden;}
+.event200318 .link_wrap {position:relative;line-height: 4.8vw; margin-bottom: 7.4vw; padding: 3vw 6vw; background: #eee; font-family: "Nanum Gothic_Bold"; font-size: 2.94vw; color: #3e3d3d;}
+.event200318 .link_wrap:after {content: ""; display: block; clear: both;}
+.event200318 .btn_link { position:absolute; top:auto;left:auto; bottom:2.8vw;right:6vw;box-sizing: border-box; display: inline-block; width: 16.667vw; height: 5.067vw; margin-left: 6vw; border: 1px solid #606060; background: #606060; text-align: center;}
+.event200318 .btn_link span {display: inline-block; position: relative; height: 100%; padding-right: 1.8vw; font-family: "Nanum Gothic_Bold"; font-size: 2.4vw; color: #fff; vertical-align:top;}
+.event200318 .btn_link span:after{content:" "; display: block; position: absolute; top: 50%; right: 0; width: 1.4vw; height: 1.4vw; margin-top:-0.7vw; border-top: 0.26vw solid #fff; border-right: 0.26vw solid #fff; -webkit-transform: rotate(45deg); transform: rotate(45deg);}
+
+.event200318 .radio_list {padding:41.733vw 11vw 5.333vw; background: url(/images/events/2020/event200318/img2.jpg) no-repeat; background-size: contain;}
+.event200318 .radio_list:after {content: ""; display: block; clear: both;}
+.event200318 .radio_list li {float: left; position: relative; width: 50%; padding:0 2vw;box-sizing:border-box; text-align: center;}
+.event200318 .radio_list li:nth-child(even) {float: right;}
+.event200318 .radio_list li label .cover {display:block; margin-bottom:4vw}
+.event200318 .radio_list li input:checked + label .cover:after {content: ""; display: block; position: absolute; top: 0; left: 0; box-sizing:border-box; width: 100%; height: 100%; }
+
+.event200318 .radio_list li img {box-shadow: 1vw 1vw 2.667vw 0.333vw rgba(0,0,0,.1)}
+.event200318 .radio_list li.close img {filter: gray; -webkit-filter: grayscale(1);}
+.event200318 .radio_list .lb_close {display: block; position: absolute; top: -4.4vw; right: -1.4vw; width: 14.933vw; height: 14.933vw; background: url(/images/events/2020/event200318/lb_close.png) no-repeat 0 0; background-size: contain;}
+.event200318 .btn_wrap {margin-top: 7.333vw;text-align: center;}
+.event200318 .btn_apply {width: 34vw; height: 10vw;}
+
+.event200318 .cont3 {margin-top: 6.667vw; padding-top: 3.334vw; border-top: 1px solid #bcbcbc;}
+.event200318 .list_num li {position: relative; padding-left: 5.8vw; margin-bottom: 1vw; font-size: 2.8vw; color: #3b3b3b;}
+.event200318 .list_num li strong {color: #f36056;}
+.event200318 .list_num li:before {display: block; position: absolute; left: 0.5vw; top: 0.2vw; box-sizing:border-box; width: 3.4vw; height: 3.4vw; padding: 0.7vw; line-height: 2vw; background: #7c7c7c; border-radius: 1.5vw; overflow: hidden; text-align: center; font-family: "Nanum Gothic_Bold"; font-size: 2vw; color: #fff;}
+.event200318 .list_num li:nth-child(1):before {content: "1";}
+.event200318 .list_num li:nth-child(2):before {content: "2";}
+.event200318 .list_num li:nth-child(3):before {content: "3";}
+.event200318 .list_num li:nth-child(4):before {content: "4";}

@@ -1,0 +1,43 @@
+/* EVENT 220329 */
+.event220329{position:relative;}
+.event220329 img{width:100%;vertical-align:top;}
+.event220329 [class^="evtCont"]{position:relative;z-index:1; background:#ffe5ea;}
+.event220329 *{font-family:'Noto Sans KR', sans-serif;}
+.event220329 input[type="checkbox"]{display:none;}
+
+.event220329 .evtCont02 {padding:0 5.33vw;}
+.event220329 .evtCont02 .evtItem{margin-top:10.667vw;}
+
+.event220329 .evtCont03{padding:16vw 5.33vw 18.667vw;}
+.event220329 .evtCont03 h3{font-size:4.267vw; color:#1a1919; line-height:1; font-weight:600; text-align:center;}
+.event220329 .evtCont03 h3 span{font:inherit;color:#ef4373;}
+.event220329 .evtCont03 .evtTextWrap{margin-top:3.733vw;border:2px solid #ff90af; border-radius:2.667vw; overflow:hidden;}
+.event220329 .evtCont03 .evtTextWrap:before, .event220329 .evtCont03 .evtTextWrap:after{content:'';display:block; height:4.8vw; background:url('/images/events/2022/event220329/bg.png') left top; background-size:auto 100%;}
+.event220329 .evtCont03 .evtTextWrap textarea{display:block;height:26.667vw; padding:3.2vw 4.8vw; font-size:3.2vw; color:#1a1919; font-weight:400; line-height:3.733vw;}
+
+.event220329 .evtCont03 .evtFormWrap .btnWrap{padding:0 3.467vw;}
+.event220329 .evtCont03 .evtFormWrap .btnApply{display:block;margin-top:5.33vw;width:100%;height:14.667vw;background:url('/images/events/2022/event220329/btn_apply.png') no-repeat left top; background-size:100% auto;}
+
+.event220329 .evtFooter{padding:8.8vw 5.33vw 9.867vw; background:#858585;}
+.event220329 .evtFooter h2{font-size:4vw; font-weight:500; letter-spacing:-0.025em; color:#fff; line-height: 1;}
+.event220329 .evtFooter ul{margin-top:3.2vw;}
+.event220329 .evtFooter ul li{font-size:3.2vw;font-weight:300;color:#fff;line-height:1.5;}
+
+.vivasamter_applyDtl .privacyList li span{font:inherit; color:#ff8125;}
+
+/*신청하기 팝업*/
+.bg_yell {background-color: #ffd563 !important;}
+.bg_yell h3{text-align:center;}
+.event220329 .vivasamter_applyDtl .info_tit>.join_ipt_chk {display:inline-block;}
+.event220329 .vivasamter_applyDtl .info_tit>.join_ipt_chk .join_chk_list.half {margin:0 0 0 20px; float:none; width:auto; display:inline-block;}
+.event220329 .vivasamter_applyDtl .info_tit>.join_ipt_chk .join_chk_list.half.ml38 {margin-left:38px !important;}
+.event220329 .bulTxt {padding-left:25px; margin-top:5px;text-indent:-10px;}
+.event220329 .vivasamter_applyDtl .input_wrap.school .input_sm {width:calc(100% - 130px); margin-top:10px;}
+.event220329 .vivasamter_applyDtl .input_wrap.school .input_in_btn.btn_gray {margin-left:5px; margin-top:-24px; right:0; width:125px; height:48px; font-size:14px; font-weight:600; vertical-align:top;}
+
+
+
+
+
+
+

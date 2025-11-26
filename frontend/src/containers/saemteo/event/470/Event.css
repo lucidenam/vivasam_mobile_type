@@ -1,0 +1,85 @@
+/* Event */
+.event231018{position:relative;background:#bde0ff;}
+.event231018 img{width:100%;vertical-align:top;}
+.event231018 [class^="evtCont"]{position:relative;z-index:1;}
+.event231018 *{font-family:'Noto Sans KR', sans-serif; box-sizing: border-box;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+
+/* EVENT 470 */
+[class^='evtCont'] .inner {padding: 0 5.33vw; margin: 0 auto;}
+[class^='evtCont'] .inner .cont {display: flex; flex-direction: column; align-items: center; width: 100%; border: 0.133vw solid #1c2330; border-radius: 4.66vw; box-shadow: 0.8vw 1.06vw rgba(0, 0, 0, 0.15);}
+[class^='evtCont'] .inner .cont.cont1 { padding: 8vw 0 8.66vw; background: #ffd7dd; }
+[class^='evtCont'] .inner .cont.cont1 > img.gift {width: 56.93vw;}
+[class^='evtCont'] .inner .cont.cont2 {padding: 7.33vw 5.06vw;  margin: 4vw 0 9.33vw; background: #ebf6ff;}
+[class^='evtCont'] .inner .cont.cont2 .tit { width: 100%;  text-align: center;}
+[class^='evtCont'] .inner .cont.cont2 .vote .tit img { width: 63.46vw; }
+[class^='evtCont'] .inner .cont.cont2 .vote ul {display: flex; justify-content: center; gap: 2.8vw 2.26vw; flex-wrap: wrap; margin-top: 4.93vw;}
+[class^='evtCont'] .inner .cont.cont2 .vote ul li {width: 38vw; }
+[class^='evtCont'] .inner .cont.cont2 .vote ul li .video_wrap {position: relative; height: 22vw; border-radius: 1.6vw; overflow: hidden;}
+[class^='evtCont'] .inner .cont.cont2 .vote ul li .thumb {display: none; position: absolute; left: 0; top: 0; width: 100%;}
+[class^='evtCont'] .inner .cont.cont2 .vote ul li .thumb.on {display: block;}
+[class^='evtCont'] .inner .cont.cont2 .vote ul li .thumb .btnPlay {display: inline-block; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 8.26vw; height: 8.26vw; background: url(/images/events/2023/event231018/btnPlay.png)no-repeat center; background-size: 100% auto; border-radius: 50%; box-shadow: 0.26vw 0.533vw 1.73vw rgba(45, 45, 45, 0.55); z-index: 10;}
+[class^='evtCont'] .inner .cont.cont2 .vote ul li > p {margin: 1.86vw 0 1.2vw; font-size: 2.4vw; font-weight: 600; color: #1c2330; line-height: 1; letter-spacing: -0.045em; text-align: center;}
+[class^='evtCont'] .inner .cont.cont2 .vote ul li .radioBtn {display: flex; justify-content: center; }
+[class^='evtCont'] .inner .cont.cont2 .vote ul li .radioBtn input[type='radio'] {display: none;}
+[class^='evtCont'] .inner .cont.cont2 .vote ul li .radioBtn input[type='radio'] + label {display: inline-block; width: 3.6vw; height: 3.6vw; background: url(/images/events/2023/event231018/ico_radio.png)no-repeat center top; background-size: 100% auto;}
+[class^='evtCont'] .inner .cont.cont2 .vote ul li .radioBtn input[type='radio']:checked + label {background-position: center bottom;}
+[class^='evtCont'] .inner .cont.cont2 .line_poem {margin-top: 4.4vw;}
+[class^='evtCont'] .inner .cont.cont2 .line_poem .tit img { width: 64vw; }
+[class^='evtCont'] .inner .cont.cont2 .line_poem ul { position: relative; padding: 4.66vw  5.33vw; margin-top: 3.06vw; background: #fff; border: 1px solid #9eb7cb; border-radius: 4.66vw;}
+[class^='evtCont'] .inner .cont.cont2 .line_poem ul:after {content: ""; display: inline-block; position: absolute; right: -3.6vw; bottom: -5.73vw; width: 17.46vw; height: 19.2vw; background: url(/images/events/2023/event231018/evtCharacter1.png)no-repeat center; background-size: 100% auto; }
+[class^='evtCont'] .inner .cont.cont2 .line_poem ul li {position: relative; width: 100%; padding-left: 4.66vw; background: url(/images/events/2023/event231018/line.png)repeat left top; background-size: 5.33vw;}
+[class^='evtCont'] .inner .cont.cont2 .line_poem ul li:nth-of-type(1):after {content: ""; display: inline-block; position: absolute; left: 0; top: 0.53vw; width: 4.26vw; height: 4.26vw;  background: url(/images/events/2023/event231018/poem_tit1.png)no-repeat center; background-size: 100% auto;}
+[class^='evtCont'] .inner .cont.cont2 .line_poem ul li:nth-of-type(2):after {content: ""; display: inline-block; position: absolute; left: 0; top: 0.53vw; width: 4.26vw; height: 4.26vw;  background: url(/images/events/2023/event231018/poem_tit2.png)no-repeat center; background-size: 100% auto;}
+[class^='evtCont'] .inner .cont.cont2 .line_poem ul li:nth-of-type(3):after {content: ""; display: inline-block; position: absolute; left: 0; top: 0.53vw; width: 4.26vw; height: 4.26vw;  background: url(/images/events/2023/event231018/poem_tit3.png)no-repeat center; background-size: 100% auto;}
+[class^='evtCont'] .inner .cont.cont2 .line_poem ul li textarea {height: auto; padding: 0; line-height: 5.34vw; background: none; border: none; outline: none; word-break: break-all;}
+[class^='evtCont'] .inner .cont.cont2 .line_poem .count {padding-right: 11.73vw; font-size: 2.13vw; font-weight: 500; color: #1c2330; letter-spacing: -0.045em; float: right; }
+[class^='evtCont'] .inner .cont.cont2 .line_poem .count .currentCount {font-size: 2.13vw; font-weight: 500; color: #1c2330; letter-spacing: -0.045em;}
+.evtCont3 {padding-bottom: 8.53vw;}
+[class^='evtCont'] .inner .cont.cont3 {padding: 8.9vw 2.4vw 7.6vw; background: #fffef5;}
+[class^='evtCont'] .inner .cont.cont3 .coffee img {width: 27.86vw;}
+[class^='evtCont'] .inner .cont.cont3 .urlShareWrap {display: flex; gap: 0.93vw; position: relative; width: 100%; padding: 2.66vw; margin-top: 3.6vw; background: #f1f1f1; border: 1px solid #d2d2d2; border-radius: 3.6vw;}
+[class^='evtCont'] .inner .cont.cont3 .urlShareWrap:after {content: ""; display: inline-block; position: absolute; left: 1.6vw;  top: -37.86vw;  width: 25.2vw; height: 41.33vw; background: url(/images/events/2023/event231018/evtCharacter2.png)no-repeat center; background-size: 100% auto; z-index: 10;}
+[class^='evtCont'] .inner .cont.cont3 .urlShareWrap .btnShare {display: inline-block; position: relative; width: 21.73vw; height: 8.26vw; font-size: 2vw; font-weight: 300; color: #fff; line-height: 1.2; letter-spacing: -0.045em; background: #02a368; border: 0.13vw solid #028756; border-radius: 4.13vw; z-index: 11;}
+[class^='evtCont'] .inner .cont.cont3 .urlShareWrap .btnShare span {font-size: 2vw; font-weight: 500; color: #fff; line-height: 1.2; letter-spacing: -0.045em;}
+[class^='evtCont'] .inner .cont.cont3 .urlShareWrap .urlForm { flex: 1; display: flex; justify-content: space-between; gap: 1.5vw;  height: 8.26vw; background: #fff; border: 0.13vw solid #0f1c3a; border-radius: 4.13vw; }
+[class^='evtCont'] .inner .cont.cont3 .urlShareWrap .urlForm input[type='text'] { display: inline-block; height: auto; padding: 0 0 0 4.26vw; font-size: 2vw; font-weight: 400; background: none; border: none; border-radius: 0;}
+[class^='evtCont'] .inner .cont.cont3 .urlShareWrap .urlForm input[type='text']::placeholder {font-size: 2vw;}
+/*[class^='evtCont'] .inner .cont.cont3 .urlShareWrap .urlForm textarea::placeholder {white-space: normal; word-wrap: break-word;}*/
+[class^='evtCont'] .inner .cont.cont3 .urlShareWrap .urlForm .btnSubmit { display: inline-block; width: 19vw; height: 8vw; background: url(/images/events/2023/event231018/btnSubmit.png)no-repeat center; background-size: 100% auto;}
+
+.btnApply {display: inline-block; width: 31.73vw; height: 9.06vw; margin-top: 0.8vw; background: url(/images/events/2023/event231018/btnApply.png)no-repeat center; background-size: 100% auto; border-radius: 4.4vw; box-shadow: 0.8vw 1.06vw rgba(0, 0, 0, 0.15) ;}
+.cont3 .btnApply {margin-top: 4.26vw;}
+
+.commentWrap { padding: 8.53vw 5.33vw; background: #ffced5;}
+.commentWrap .inner .commentList {padding: 2.66vw; background: #ff8899; border-radius: 3.33vw;}
+.commentWrap .inner .listItem {padding: 4vw 5.33vw; margin-bottom: 1.6vw; background: #fff; border: 0.13vw solid #ff697e; border-radius: 2.66vw;}
+.commentWrap .inner .listItem:last-child {margin-bottom: 0;}
+.commentWrap .inner .listItem .userInfo {margin-bottom: 2.66vw; font-size: 3.06vw; font-weight: 500; color: #f03596;  line-height: 1; letter-spacing: -0.04em;}
+.commentWrap .inner .listItem .comment p {font-size: 2.66vw; font-weight: 400; color: #201c1e; line-height: 1.4; letter-spacing: -0.045em; word-break: break-all;}
+
+.commentWrap .btnMore {display: block; width: 60.4vw;  margin: 4.66vw auto 0;  }
+
+
+
+.notice { padding: 6vw 4vw 4vw 10.66vw; background: #2c2c2c;}
+.notice strong {display: inline-block; margin-bottom: 1.73vw; font-size: 3.46vw; font-weight: 500; color: #fff; line-height: 1; letter-spacing: -0.045em;}
+.notice ul li {position: relative; padding-left: 1.86vw; font-size: 2.26vw; font-weight: 300; color: #fff; line-height: 1.5; letter-spacing: -0.045em; word-break: keep-all;}
+.notice ul li:after {content: ""; display: inline-block; position: absolute; left: 0; top: 1.4vw; width: 0.53vw; height: 0.53vw; background: #fff; border-radius: 50%; }
+
+
+.applyDtl_top {background: #ffda70;}
+.applyDtl_top h3 strong {color: #e6563c;}
+.vivasamter_applyDtl .input_wrap.school .input_sm {width: calc(100% - 130px);margin-top: 10px;}
+.vivasamter_applyDtl .input_wrap.school .input_in_btn.btn_gray {    margin-left: 5px;margin-top: -24px;right: 0;width: 125px;height: 48px;font-size: 14px;font-weight: 600;vertical-align: top;}
+
+
+
+
+
+
+
+

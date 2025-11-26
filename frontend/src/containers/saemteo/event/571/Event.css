@@ -1,0 +1,55 @@
+/* Event */
+.event250703{position:relative; background: #322b45;}
+.event250703 img{width:100%;vertical-align:top;}
+.event250703 [class^="evtCont"]{position:relative;z-index:1;}
+.event250703 *{font-family:'Noto Sans KR', sans-serif; box-sizing: border-box;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+
+/* EVENT 571 */
+.evtContWrap .evtCont .btnLink{position:absolute; width: 31.296vw; height:31.944vw; background-repeat:no-repeat; background-position:center top; background-size:100% auto;}
+.evtContWrap .evtCont .btnLink.item1{left:4.907vw; top:60vw; background-image:url('/images/events/2025/event250512/step01.png');}
+.evtContWrap .evtCont .btnLink.item2{left:34.259vw; top:28.611vw; background-image:url('/images/events/2025/event250512/step02.png');}
+.evtContWrap .evtCont .btnLink.item3{left:32.87vw; top:89.722vw; background-image:url('/images/events/2025/event250512/step03.png');}
+.evtContWrap .evtCont .btnLink.item4{left:63.241vw; top:62.037vw; background-image:url('/images/events/2025/event250512/step04.png');}
+.evtContWrap .evtCont .btnLink:active,
+.evtContWrap .evtCont .btnLink.active{background-position-y:bottom;}
+.evtContWrap .btn_wrap{position:absolute; bottom:10vw; left:50%; transform:translateX(-50%);}
+.evtContWrap .btnApply{display:block; width:54.815vw; height:14.814vw; background:url('/images/events/2025/event250512/btn_apply.png') no-repeat center / contain;}
+.evtCont01{background:#6C64FF;}
+
+.event250703 .evtCont03{background:#ff8f4b;}
+.event250703 .commentWrap{padding:11.481vw 3.611vw 8.981vw;}
+.event250703 .commentWrap .commentList .listItem {padding:3.704vw 3.704vw 3.333vw; border:0.37vw solid #f16612; background:#fff; border-radius:3.704vw; text-align:right;}
+.event250703 .commentWrap .commentList .listItem+.listItem{margin-top:2.593vw;}
+.event250703 .commentWrap .commentList .listItem p {font-size:2.593vw; color:#121212; font-family:'GmarketSansLight','Noto Sans KR',sans-serif; line-height:1.4; word-break: keep-all; word-wrap: break-word; text-align:left;}
+.event250703 .commentWrap .commentList .listItem strong {margin-top:1.852vw; padding:0 2.222vw; display:inline-block; font-size:2.407vw; color:#fff; font-family:'GmarketSansMedium','Noto Sans KR',sans-serif; font-weight:500; line-height:5vw; border-radius:2.5vw; background:#797979;}
+.event250703 .commentWrap .commentList .nodata{padding:3.704vw 0 6.204vw;}
+.event250703 .commentWrap .commentList .nodata p{font-size:2.593vw; color:#121212; font-family:'GmarketSansLight','Noto Sans KR',sans-serif; text-align:center;}
+.event250703 .commentWrap .btnMore{margin:3.241vw auto 0; display:flex; justify-content:center; align-items:center; width:32.87vw; height:9.074vw; font-size:2.963vw; color:#fff; font-family:'GmarketSansMedium','Noto Sans KR',sans-serif; text-align:center; font-weight:500; background:#f6440e; border-radius:4.63vw;}
+.event250703 .commentWrap .btnMore span{font:inherit; color:inherit;}
+.event250703 .commentWrap .btnMore i{margin-left:1.389vw; display:inline-block; width:3.148vw; height:1.667vw; background:url('/images/events/2025/event250512/arr_more.png') no-repeat center / contain;}
+
+.event250703 .evtNotice {padding:6.944vw 5.556vw; background:#f9f9f9;}
+.event250703 .evtNotice strong {display:block; font-size:3.056vw; color:#121212; line-height:1; font-weight:600;}
+.event250703 .evtNotice ul{margin-top:1.852vw;}
+.event250703 .evtNotice ul li{position:relative; padding-left:1.388vw; font-size:2.315vw; line-height:1.6; color:#121212;letter-spacing:-.05em;}
+.event250703 .evtNotice ul li:before{content:'-'; position:absolute; left:0;}
+
+/*applyPop*/
+.vivasamter_applyDtl.type02 {padding-top: 0;}
+.vivasamter_applyDtl .applyDtl_inner {position: relative;}
+.vivasamter_applyDtl .count_wrap {margin-top:10px; text-align:right;}
+
+.vivasamter_applyDtl .acco_notice_list.evtNoticee{padding:0; background:none; border:none;}
+.vivasamter_applyDtl .acco_notice_list.evtNoticee .acco_notice_cont{display: block; padding:10px 20px; background: #fff; border:none;}
+.vivasamter_applyDtl .acco_notice_list.evtNoticee .privacyList{margin-top:0;}
+
+.vivasamter_applyDtl .checkbox_circle_box {display: flex; flex-wrap: wrap; gap: 1.3vw 7vw; justify-content: center;}
+.vivasamter_applyDtl .checkbox_circle_box .txt {width: 100%; font-size: 12px; font-weight: 400; color: #333; text-align: center;}
+.vivasamter_applyDtl .checkbox_circle_box input[type=radio].checkbox_circle+label {padding: 0; line-height: 1.2;}
+.vivasamter_applyDtl .checkbox_circle_box input[type=radio].checkbox_circle+label::before {content: ""; display: inline-block; width: 18px; height: 18px; margin-right: 10px; border: 2px solid #bfbfbf; border-radius: 50%; box-sizing: border-box; background: #fff url(/images/common/sprite.png) -1000px 0 no-repeat; background-size: 400px 400px;}
+.vivasamter_applyDtl .checkbox_circle_box input[type=radio].checkbox_circle+label::after,
+.vivasamter_applyDtl .checkbox_circle_box input[type=radio].checkbox_circle:checked+label::after {content: none;}
+.vivasamter_applyDtl .checkbox_circle_box input[type=radio].checkbox_circle:checked+label::before {background-position: -60px 0; border: 0;}

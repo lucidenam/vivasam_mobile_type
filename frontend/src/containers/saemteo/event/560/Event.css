@@ -1,0 +1,20 @@
+/* Event */
+.event250414{position:relative; background:#f9e4f1;}
+.event250414 img{width:100%;vertical-align:top;}
+.event250414 [class^="evtCont"]{position:relative;z-index:1;}
+.event250414 *{font-family:'Noto Sans KR', sans-serif; box-sizing:border-box;}
+/* START */
+
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+
+/* EVENT 560 */
+.evtCont02 {position:relative; padding:18.692vw 0 15.576vw; background:#f9e4f1;}
+.evtCont02 .btnWarp{margin-top:7.009vw; padding:0 2.336vw;}
+.evtCont02 .btnApply{display:block; width:100%; height:20.249vw; background:url('/images/events/2025/event250414_2/btn_apply.png') no-repeat center / contain;}
+
+.event250414 .evtNotice{padding:9.346vw 5.841vw; background:#552FA8;}
+.event250414 .evtNotice strong{font-size:4.673vw; color:#fff; line-height:1; font-weight:700; letter-spacing:-.05em;}
+.event250414 .evtNotice ul{margin-top:4.673vw;}
+.event250414 .evtNotice ul li{position:relative; padding-left:3.505vw; font-size:3.738vw; color:#fff; line-height:1.5; letter-spacing:-.05em; word-break:keep-all;}
+.event250414 .evtNotice ul li:before{content:''; position:absolute; left:0; top:2.336vw; width:1.168vw; height:1.168vw; border-radius:50%; background:#fff;}

@@ -1,0 +1,53 @@
+/* Event */
+.event230215 {position:relative;background:#fff;}
+.event230215 img{width:100%;vertical-align:top;}
+.event230215 [class^="evtCont"]{position:relative;z-index:1;}
+.event230215 *{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+.evtCon{z-index:2; position:absolute;top:0;right:0;display:block;width:16.4vw;height:21.86vw;background:url(/images/events/common/corn.png) 0 0 no-repeat;background-size:100% auto;}
+
+/* EVENT 430 */
+.evtCont01 {position: relative;}
+.evtCont01 .evtDeadline {display: none; position: absolute; left: 5.86vw; top: 4.53vw;  width: 19.6vw; height: 19.2vw; background: url(/images/events/2023/event230215/evt_end.png)no-repeat center; background-size: 100% auto;}
+.evtCont01 .evtDeadline.on {display: inline-block;}
+.evtCont02 {position: relative; }
+.evtCont02 .dropImg {display: block; position: absolute; left: 7.73vw; top: 22.66vw; width: 25.6vw; height: 36vw; background: url(/images/events/2023/event230215/evt_drop.png)no-repeat center; background-size: 100% auto; z-index: 50;}
+.evtCont02 .dropImg.evtJoinY {display: none;}
+.calenderImg {display: block;position: absolute; left: 10.36vw; top: 25.13vw; width: 26.26vw; height: 38vw; transition: 0.2s 0.2s;transform: translate3d(10px, 10px, 0) scale(1.2); opacity: 0; z-index: 5;}
+.calenderImg.evtJoinY {display: none;}
+.calenderImg .back,
+.calenderImg .front {position: absolute;top: 0;left: 0;width: 100%;height: 100%;overflow: hidden;transition: 0.35s;}
+.calenderImg .back:before,
+.calenderImg .front:before {content: " ";position: absolute;bottom: 0;left: 0;width: 26.26vw;height: 38vw; transition: 0.35s;}
+.calenderImg .front { width: 26.26vw; height: 0;}
+.calenderImg .front .content {position: absolute;bottom: 0;left: 0;display: block;width: 26.26vw;height: 38vw;transform: rotate(45deg);background: #E15399; text-align: center;}
+.calenderImg .back {position: absolute; top: 0; width: 26.26vw; height: 38vw; overflow: hidden;}
+.calenderImg .back:before {background-color: #45474b;box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.4);top: 0;}
+
+.evtCont02 {position: relative;}
+.evtCont02 .calenderImg.active {transform: translate3d(0, 0, 0) scale(1) ;transition-delay: 0s;opacity: 1;}
+.evtCont02 .calenderImg.active .front {height: 38vw;}
+.evtCont02 .calenderImg.active .back {top: 0;}
+.evtCont02 .calenderImg.active .back:before {top: 38vw;}
+
+.calenderEnd {display: none; position: absolute; left: 10.36vw; top: 25.13vw; width: 26.26vw; height: 38vw; box-shadow: 0 0 1.2vw 0.6vw rgba(255, 73, 43, 1); }
+.calenderEnd:after {content: ""; display: inline-block; position: absolute; left: 50%; top: 50%;  width: 13.46vw; height: 13.46vw; background: url(/images/events/2023/event230215/evt_txt.png)no-repeat center; background-size: 100% auto; transform: translate(-50%, -50%); z-index: 98;}
+.calenderEnd.on {display: block;}
+
+.notice {padding: 6.8vw 6vw;  background: #6e6867;}
+.notice strong {display: inline-block; margin-bottom: 2.93vw; font-size: 3.73vw; font-weight: 600; color: #e9dccc; line-height: 1; letter-spacing: -0.05em;}
+.notice ul li {position: relative; padding-left: 1.66vw; font-size: 3.2vw; font-weight: 400; color: #fff; line-height: 5.2vw;  letter-spacing: -0.05em; }
+.notice ul li:nth-of-type(2) {text-decoration: underline;}
+.notice ul li:after {content: ""; display: inline-block; position: absolute; left: 0; top: 2.2vw; width: 1.06vw; height: 0.4vw; background: #fff; }
+
+/*popup*/
+.top_yell {background-color:#ffd563 !important;}
+.applyDtl_cell h3 {color: #333; text-align:center; }
+.applyDtl_cell h3 strong {font-weight: 600; color:#ff8125; }
+.tit_flex {display: flex; align-items: center; }
+.tit_flex > label {display: inline-block; margin-right: 20px;}
+.tit_flex .join_ipt_chk {width: 76%;}
+.tit_flex .join_ipt_chk li input[type="radio"] + label {display: inline-block; margin-top: -1px;}

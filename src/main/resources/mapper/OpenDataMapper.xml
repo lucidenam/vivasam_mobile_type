@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.opendata.mapper.OpenDataMapper">
+    <select id="channelList" parameterType="String" resultType="edu.visang.vivasam.opendata.model.EducourseInfo">
+      SELECT /*나의 교실 > 내 교과 설정 > 전체 교과서 목록 조회*/
+			EI.LAB_COURSE AS labCourse,
+			CL.CODELIST_ID AS textbook,
+			CL.CODE_NAME AS labTextbook,
+			CL.MD_VALUE AS mdValue,
+			CL.REF_CODE2 AS schoolLvl,
+			MT.EDUCOURSE_ID AS myTextbook
+		FROM CODELIST AS CL
+		LEFT JOIN LATERAL (
+			SELECT
+				LAB_COURSE,
+				COURSE
+			FROM EDUCOURSE_INFO
+			WHERE CODELIST_ID = CL.CODELIST_ID
+		) AS EI ON 1=1
+		LEFT JOIN CODELIST AS CL2 ON CL2.CODELIST_ID = EI.COURSE
+		LEFT JOIN MEMBER_TEXTBOOK AS MT ON CL.CODELIST_ID = MT.EDUCOURSE_ID
+			AND MT.MEMBER_ID = #{memberId}
+		WHERE 1 = 1
+			AND CL.CODEGROUP_ID = '106'
+			AND (CL.MD_VALUE = '2015'
+				OR (CL.MD_VALUE = '2009' AND CL.CODELIST_ID IN ('106071', '106072', '106046', '106047', '106094', '106109' ,'106110'))
+			)
+		ORDER BY
+			CASE CL.REF_CODE2
+				WHEN 'ES' THEN 1
+				WHEN 'MS' THEN 2
+				WHEN 'HS' THEN 3
+			END, CL2.ORDER_NO, CL.MD_VALUE DESC, CL.ORDER_NO
+    </select>
+
+	<resultMap id="codeDetail" type="edu.visang.vivasam.opendata.model.MetaCode">
+		<id property="code" column="code" />
+		<result property="name" column="name" />
+		<result property="refCode" column="refCode" />
+		<result property="totalCnt" column="totalCnt" />
+		<result property="ext1" column="ext1" />
+		<result property="ext2" column="ext2" />
+		<result property="ext3" column="ext3" />
+		<result property="ext4" column="ext4" />
+		<collection property="codeSub" ofType="edu.visang.vivasam.opendata.model.MetaCodeSub">
+			<id property="code" column="code" />
+			<id property="scode" column="scode" />
+			<result property="sname" column="sname" />
+			<result property="stotalCnt" column="stotalCnt" />
+		</collection>
+	</resultMap>
+	<!-- 열린자료 -> 코드 조회 -->
+	<select id="metaCode" parameterType="hashmap" statementType="CALLABLE" resultMap="codeDetail">
+		CALL SP_OPENDATA_METACODE(#{ctype} ,#{code} ,#{code1} ,#{code2} ,#{code3} ,#{code4})
+	</select>
+
+	<select id="getCodeListByGroupCode" parameterType="hashmap" statementType="CALLABLE" resultMap="codeDetail">
+		SELECT *
+		FROM (
+			SELECT
+				CL.CODELIST_ID AS code,
+				CL.CODE_NAME AS name,
+				CLS.CODELIST_ID AS scode,
+				CLS.CODE_NAME AS sname,
+				CL.ORDER_NO AS orderNo1,
+				CLS.ORDER_NO AS	orderNo2
+			FROM CODELIST AS CL
+				LEFT JOIN CODELIST AS CLS ON CL.CODELIST_ID = CLS.REF_CODE
+			WHERE CL.CODEGROUP_ID = '304'
+				AND CLS.CODELIST_ID NOT IN ('305005', '305039', '305040')
+			UNION all
+			SELECT
+				'304000' AS code,
+				'전체 카테고리' AS name,
+				'' AS scode,
+				'' AS sname,
+				'' AS orderNo1,
+				'' AS orderNo2
+		) T
+		ORDER BY orderNo1, orderNo2
+	</select>
+
+	<resultMap id="dataDetail" type="edu.visang.vivasam.opendata.model.MetaData">
+		<id property="contentId" column="contentId" />
+		<id property="contentGubun" column="contentGubun" />
+		<result property="num" column="num" />
+		<result property="fileType" column="fileType" />
+		<result property="subject" column="subject" />
+		<result property="summary" column="summary" />
+		<result property="content" column="content" />
+		<result property="filePath" column="filePath" />
+		<result property="filename" column="filename" />
+		<result property="thumbnail" column="thumbnail" />
+		<result property="thumbnailL" column="thumbnailL" />
+		<result property="sourceName" column="sourceName" />
+		<result property="ext1" column="ext1" />
+		<result property="ext2" column="ext2" />
+		<result property="ext3" column="ext3" />
+		<result property="ext4" column="ext4" />
+		<result property="ext5" column="ext5" />
+		<result property="ext6" column="ext6" />
+		<result property="downyn" column="downyn" />
+		<result property="tnyn" column="tnyn" />
+		<result property="totalCnt" column="totalCnt" />
+		<result property="filecdnyn" column="filecdnyn" />
+		<result property="newIcon" column="newIcon" />
+		<collection property="dataSub" ofType="edu.visang.vivasam.opendata.model.MetaDataSub">
+			<id property="contentId" column="contentId" />
+			<id property="contentGubun" column="contentGubun" />
+			<id property="educourseId" column="educourseId" />
+			<result property="type1" column="type1" />
+			<result property="type1name" column="type1name" />
+			<result property="type2" column="type2" />
+			<result property="type2name" column="type2name" />
+			<result property="esummary" column="esummary" />
+			<result property="schoolLevel" column="schoolLevel" />
+			<result property="textbookCode" column="textbookCode" />
+			<result property="textBook" column="textBook" />
+			<result property="unit1Code" column="unit1Code" />
+			<result property="unit1" column="unit1" />
+			<result property="schoolYear" column="schoolYear" />
+			<result property="schoolGrade" column="schoolGrade" />
+			<result property="schoolTerm" column="schoolTerm" />
+			<result property="courseCd" column="courseCd" />
+		</collection>
+	</resultMap>
+
+	<!-- 열린자료 -> 자료 조회 -->
+	<select id="metaDataImg" parameterType="hashmap" resultMap="dataDetail">
+		WITH C as (
+			SELECT A.CONTENT_ID, A.CONTENT_GUBUN
+			FROM LIBRARY_CONTENT AS A
+				INNER JOIN MASTER_CONTENT_EDUCOURSE MCE ON A.CONTENT_ID = MCE.CONTENT_ID AND A.CONTENT_GUBUN = MCE.CONTENT_GUBUN
+			WHERE (MCE.TYPE_1 LIKE '223%' OR MCE.TYPE_1 LIKE '304%')
+				AND A.FILE_TYPE = 'FT203'
+			GROUP BY A.CONTENT_ID, A.CONTENT_GUBUN
+		)
+		SELECT
+			NI.REG_DTTM
+--			, (SELECT COUNT(1) from C where C.CONTENT_ID != '' and (C.CONTENT_GUBUN  = 'CN030' OR C.CONTENT_GUBUN = 'CN050')) AS totalCnt
+			, MC.CONTENT_ID AS contentId
+			, MC.CONTENT_GUBUN AS contentGubun
+			, NI.EDUCOURSE_ID AS educourseId
+			, NI.TYPE_1 AS type1
+			, NI.TYPE_2 AS type2
+			, MC.FILE_TYPE AS fileType
+			, MC.SUBJECT AS subject
+			, NI.SUMMARY AS summary
+			, NI.msummary AS msummary
+			,CONCAT(
+				CASE
+					WHEN NI.FILE_CDN_YN ='Y'
+						THEN 'https://dn.vivasam.com'
+					ELSE 'https://v.vivasam.com'
+				END, NI.FILE_PATH
+			) AS filePath
+			, NI.SAVE_FILE_NAME AS filename
+			, MC.THUMBNAIL AS thumbnail
+			, NI.FILE_CDN_YN AS filecdnyn
+			, MC.down_YN AS downyn
+			, CONCAT(MC.CONTENT_GUBUN,'-',MC.CONTENT_ID) AS contentId2
+			, case when MC.REG_DTTM > DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL -60 DAY) THEN '1' ELSE '0' END AS newIcon
+		FROM (
+			SELECT
+				A.REG_DTTM
+				, A.CONTENT_ID
+				, A.CONTENT_GUBUN
+				, ANY_VALUE(MCE.EDUCOURSE_ID) AS EDUCOURSE_ID
+				, ANY_VALUE(MCE.TYPE_1) AS TYPE_1
+				, ANY_VALUE(MCE.TYPE_2) AS TYPE_2
+				, A.SUMMARY
+				, ANY_VALUE(MCE.SUMMARY) AS msummary
+				, A.FILE_PATH
+				, A.FILE_CDN_YN
+				, A.SAVE_FILE_NAME
+			FROM LIBRARY_CONTENT AS A
+				INNER JOIN MASTER_CONTENT_EDUCOURSE MCE ON A.CONTENT_ID = MCE.CONTENT_ID AND A.CONTENT_GUBUN = MCE.CONTENT_GUBUN
+				WHERE (MCE.TYPE_1 LIKE '223%' OR MCE.TYPE_1 LIKE '304%')
+					AND A.FILE_TYPE IN ('FT203')
+				<if test="code1 != null and code1 != ''">
+					AND MCE.TYPE_1 = #{code1}
+				</if>
+				<if test="code2 != null and code2 != ''">
+					AND MCE.TYPE_2 = #{code2}
+				</if>
+				<if test="code3 != null and code3 != ''">
+					AND A.SUBJECT LIKE CONCAT('%',#{code3},'%')
+				</if>
+			GROUP BY A.CONTENT_ID, A.CONTENT_GUBUN
+		) NI
+			LEFT JOIN LIBRARY_CONTENT MC ON NI.CONTENT_ID = MC.CONTENT_ID AND NI.CONTENT_GUBUN = MC.CONTENT_GUBUN
+		WHERE (NI.CONTENT_GUBUN  = 'CN030' OR NI.CONTENT_GUBUN = 'CN050')
+			AND NI.CONTENT_ID != ''
+		ORDER BY NI.REG_DTTM DESC
+		LIMIT #{offset}, #{pagesize}
+	</select>
+
+	<!-- 열린자료 -> 자료 조회 -->
+	<select id="metaDataMov" parameterType="hashmap"  statementType="CALLABLE" resultMap="dataDetail">
+		WITH C as (
+			SELECT A.CONTENT_ID, A.CONTENT_GUBUN
+			FROM LIBRARY_CONTENT AS A
+				INNER JOIN MASTER_CONTENT_EDUCOURSE MCE ON A.CONTENT_ID = MCE.CONTENT_ID AND A.CONTENT_GUBUN = MCE.CONTENT_GUBUN
+			WHERE (MCE.TYPE_1 LIKE '223%' OR MCE.TYPE_1 LIKE '304%')
+				AND A.FILE_TYPE = 'FT201'
+			GROUP BY A.CONTENT_ID, A.CONTENT_GUBUN
+		)
+		SELECT
+			NI.REG_DTTM
+--			, (SELECT COUNT(1) from C where C.CONTENT_ID != '' and (C.CONTENT_GUBUN  = 'CN030' OR C.CONTENT_GUBUN = 'CN050')) AS totalCnt
+			, MC.CONTENT_ID AS contentId
+			, MC.CONTENT_GUBUN AS contentGubun
+			, NI.EDUCOURSE_ID AS educourseId
+			, NI.TYPE_1 AS type1
+			, NI.TYPE_2 AS type2
+			, MC.FILE_TYPE AS fileType
+			, MC.SUBJECT AS subject
+			, NI.SUMMARY AS summary
+			, NI.msummary AS msummary
+			,CONCAT(
+				CASE
+					WHEN NI.FILE_CDN_YN ='Y'
+					THEN 'https://dn.vivasam.com'
+					ELSE 'https://v.vivasam.com'
+				END, NI.FILE_PATH
+			) AS filePath
+			, NI.SAVE_FILE_NAME AS filename
+			, MC.THUMBNAIL AS thumbnail
+			, NI.FILE_CDN_YN AS filecdnyn
+			, MC.down_YN AS downyn
+			, CONCAT(MC.CONTENT_GUBUN,'-',MC.CONTENT_ID) AS contentId2
+			, case when MC.REG_DTTM > DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL -60 DAY) THEN '1' ELSE '0' END AS newIcon
+		FROM (
+			SELECT
+				A.REG_DTTM
+				, A.CONTENT_ID
+				, A.CONTENT_GUBUN
+				, ANY_VALUE(MCE.EDUCOURSE_ID) AS EDUCOURSE_ID
+				, ANY_VALUE(MCE.TYPE_1) AS TYPE_1
+				, ANY_VALUE(MCE.TYPE_2) AS TYPE_2
+				, A.SUMMARY
+				, ANY_VALUE(MCE.SUMMARY) AS msummary
+				, A.FILE_PATH
+				, A.FILE_CDN_YN
+				, A.SAVE_FILE_NAME
+			FROM LIBRARY_CONTENT AS A
+				INNER JOIN MASTER_CONTENT_EDUCOURSE MCE ON A.CONTENT_ID = MCE.CONTENT_ID AND A.CONTENT_GUBUN = MCE.CONTENT_GUBUN
+			WHERE (MCE.TYPE_1 LIKE '223%' OR MCE.TYPE_1 LIKE '304%')
+				AND A.FILE_TYPE IN ('FT201')
+				<if test="code1 != null and code1 != ''">
+					AND MCE.TYPE_1 = #{code1}
+				</if>
+				<if test="code2 != null and code2 != ''">
+					AND MCE.TYPE_2 = #{code2}
+				</if>
+				<if test="code3 != null and code3 != ''">
+					AND A.SUBJECT LIKE CONCAT('%',#{code3},'%')
+				</if>
+			GROUP BY A.CONTENT_ID, A.CONTENT_GUBUN
+		) NI
+			LEFT JOIN LIBRARY_CONTENT MC ON NI.CONTENT_ID = MC.CONTENT_ID AND NI.CONTENT_GUBUN = MC.CONTENT_GUBUN
+		WHERE (NI.CONTENT_GUBUN  = 'CN030' OR NI.CONTENT_GUBUN = 'CN050')
+			AND NI.CONTENT_ID != ''
+		ORDER BY NI.REG_DTTM DESC
+		LIMIT #{offset}, #{pagesize}
+	</select>
+
+    <!-- 이미지 자료 > 포토존 -->
+	<resultMap id="photoZoneMain" type="hashmap">
+		<id property="photoIdx" column="PHOTO_IDX" />
+		<result property="prePhotoIdx" column="PRE_PHOTO_IDX" />
+		<result property="nextPhotoIdx" column="NEXT_PHOTO_IDX" />
+		<result property="photoKeyWord" column="PHOTO_KEYWORD" />
+		<result property="startDt" column="START_DT" />
+		<result property="endDt" column="END_DT" />
+		<result property="useYn" column="USE_YN" />
+		<result property="contentID" column="CONTENT_ID" />
+		<result property="contentGubun" column="CONTENT_GUBUN" />
+		<result property="fileType" column="FILE_TYPE" />
+        <result property="subject" column="SUBJECT" />
+        <result property="thumbNail" column="THUMBNAIL" />
+        <result property="downYn" column="DOWN_YN" />
+	</resultMap>
+
+	<select id="getPhotoZoneIdx" resultType="String">
+		SELECT PHOTO_IDX
+		FROM PHOTOZONE_CONTENT_MAIN
+		WHERE 1=1
+		AND USE_YN = 'Y'
+		AND DATE_FORMAT(CURRENT_DATE(), '%Y%m%d') BETWEEN START_DT AND END_DT
+		AND (PHOTOZONE_TYPE = 'P' OR PHOTOZONE_TYPE IS NULL)
+		LIMIT 1
+	</select>
+
+	<!-- 비바샘 포토존 -->
+	<select id="photoZoneMain" parameterType="java.lang.String" resultMap="photoZoneMain">
+		SELECT
+			TA1.*
+			,TA2.CONTENT_GUBUN
+			,TA2.FILE_TYPE
+			,TA2.SUBJECT
+			,CONCAT(CASE
+				WHEN TA2.FILE_CDN_YN = 'Y' THEN 'https://dn.vivasam.com'
+				ELSE 'https://v.vivasam.com'
+			END , TA2.FILE_PATH , TA2.ORG_FILE_NAME) AS THUMBNAIL
+			,TA2.DOWN_YN
+			,(
+				SELECT
+					PHOTO_IDX
+				FROM PHOTOZONE_CONTENT_MAIN
+				WHERE 1=1
+					AND USE_YN = 'Y'
+					AND END_DT <![CDATA[ < ]]> (SELECT DATE_FORMAT(START_DT, '%Y%m%d') from PHOTOZONE_CONTENT_MAIN WHERE PHOTO_IDX = #{PHOTO_IDX})
+					AND(PHOTOZONE_TYPE = 'P' OR PHOTOZONE_TYPE IS NULL)
+				ORDER BY PHOTO_IDX DESC
+				LIMIT 1
+			) AS PRE_PHOTO_IDX
+			,(
+				SELECT
+					PHOTO_IDX
+				FROM PHOTOZONE_CONTENT_MAIN
+				WHERE 1=1
+					AND USE_YN = 'Y'
+					AND END_DT > (SELECT DATE_FORMAT(END_DT, '%Y%m%d') from PHOTOZONE_CONTENT_MAIN WHERE PHOTO_IDX = #{PHOTO_IDX})
+					AND DATE_FORMAT(CURRENT_DATE(), '%Y%m%d') >= START_DT
+					AND(PHOTOZONE_TYPE = 'P' OR PHOTOZONE_TYPE IS NULL)
+				ORDER BY PHOTO_IDX ASC
+				LIMIT 1
+			) AS NEXT_PHOTO_IDX
+		FROM (
+			SELECT
+				T1.PHOTO_IDX
+				, T1.PHOTO_KEYWORD
+				, DATE_FORMAT(T1.START_DT, '%Y%m%d') AS START_DT
+				, DATE_FORMAT(T1.END_DT, '%Y%m%d') AS END_DT
+				, T1.USE_YN
+				, T2.CONTENT_ID
+				, T2.ORDER_NO
+				, T3.FILE_ID
+				, T3.FILE_REF_SEQ
+				, T3.REAL_FILE_NM
+				, T3.ORG_FILE_NM
+				, CASE WHEN T3.FILE_ID IS NOT NULL THEN 'Y' ELSE 'N' END AS MAIN_FILE_YN
+				, CONCAT('/vivasamfiledir/photozone/main/', T3.REAL_FILE_NM) AS MAIN_FILE_PATH
+			FROM PHOTOZONE_CONTENT_MAIN T1
+			INNER JOIN PHOTOZONE_CONTENT_DETAIL T2 ON T1.PHOTO_IDX = T2.PHOTO_IDX
+			LEFT JOIN FILE_INFO T3 ON T1.PHOTO_IDX = T3.FILE_REF_ID AND T3.FILE_GRP_CD = 'FS009' AND T2.ORDER_NO = T3.FILE_REF_SEQ
+			WHERE T1.PHOTO_IDX = #{PHOTO_IDX}
+				AND T1.USE_YN = 'Y'
+		) TA1
+		INNER JOIN MASTER_CONTENT TA2 ON TA1.CONTENT_ID = TA2.CONTENT_ID
+		ORDER BY TA1.ORDER_NO
+	</select>
+
+	<select id="chkServiceNotificationApply" parameterType="map" resultType="int">
+		SELECT COUNT(1) cnt
+		FROM SERVICE_NOTIFICATION_APPLY
+		WHERE 1=1
+		AND MEMBER_ID = #{memberId}
+		AND SERVICE_NAME = #{serviceName}
+	</select>
+
+	<insert id="serviceNotificationApply" parameterType="map">
+		INSERT INTO SERVICE_NOTIFICATION_APPLY (
+			MEMBER_ID, SERVICE_NAME, ACCESS
+		) VALUES (
+			#{memberId}, #{serviceName}, #{access}
+		)
+	</insert>
+
+	<select id="fastMusicLibraryCode" parameterType="String"  resultMap="codeDetail">
+		SELECT CODELIST_ID as code, CODEGROUP_ID as codeGroupId, CODE_NAME as name
+		FROM CODELIST
+		WHERE CODEGROUP_ID = #{codeGroupId}
+	</select>
+
+	<select id="fastMusicLibraryData" parameterType="hashmap"  resultMap="dataDetail">
+		SELECT *
+		FROM (
+			SELECT ROW_NUMBER() over (order by mce.content_id asc) as ROW_NUM
+				,mce.CONTENT_ID AS contentId
+				, mce.EDUCOURSE_ID AS educourseId
+				, mce.TYPE_1 AS type1
+				, mc.SUBJECT AS subject
+				, mc.ORG_FILE_NAME AS orgFileName
+				, mc.SAVE_FILE_NAME AS saveFileName
+				, mc.FILE_PATH AS filePath
+				, mce.CONTENT_GUBUN AS contentGubun
+				, mc.THUMBNAIL_PATH AS thumbnail
+				, COUNT(1) OVER () AS totalCnt
+			FROM MASTER_CONTENT mc
+				JOIN MASTER_CONTENT_EDUCOURSE mce ON mc.CONTENT_ID = mce.CONTENT_ID
+				JOIN CODELIST c ON mce.TYPE_1 = c.CODELIST_ID
+			WHERE mce.EDUCOURSE_ID = '2310040'
+			<if test="type1 != null and type1 != ''">
+				AND mce.TYPE_1 = #{type1}
+			</if>
+			) AS T
+		WHERE T.ROW_NUM BETWEEN (#{pageNo} - 1) * #{pageSize} + 1 and #{pageNo} * #{pageSize}
+	</select>
+
+	<!-- 열린자료 -> 자료 개수 -->
+	<select id="metaDataCnt" parameterType="hashmap" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM (
+			SELECT
+				A.REG_DTTM
+				, A.CONTENT_ID
+				, A.CONTENT_GUBUN
+			FROM LIBRARY_CONTENT AS A
+				INNER JOIN MASTER_CONTENT_EDUCOURSE MCE ON A.CONTENT_ID = MCE.CONTENT_ID AND A.CONTENT_GUBUN = MCE.CONTENT_GUBUN
+			WHERE (MCE.TYPE_1 LIKE '223%' OR MCE.TYPE_1 LIKE '304%')
+				AND A.FILE_TYPE = #{fileType}
+				<if test="code1 != null and code1 != ''">
+					AND MCE.TYPE_1 = #{code1}
+				</if>
+				<if test="code2 != null and code2 != ''">
+					AND MCE.TYPE_2 = #{code2}
+				</if>
+				<if test="code3 != null and code3 != ''">
+					AND A.SUBJECT LIKE CONCAT('%',#{code3},'%')
+				</if>
+			GROUP BY A.CONTENT_ID, A.CONTENT_GUBUN
+		) NI
+		WHERE (CONTENT_GUBUN  = 'CN030' OR CONTENT_GUBUN = 'CN050')
+			AND NI.CONTENT_ID != ''
+	</select>
+</mapper>

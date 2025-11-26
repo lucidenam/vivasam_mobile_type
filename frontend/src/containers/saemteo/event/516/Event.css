@@ -1,0 +1,41 @@
+/* Event */
+.event240819{position:relative; background: #322b45;}
+.event240819 img{width:100%;vertical-align:top;}
+.event240819 [class^="evtCont"]{position:relative;z-index:1;}
+.event240819 *{font-family:'Noto Sans KR', sans-serif; box-sizing: border-box;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+
+/* EVENT 516 */
+.evtContWrap{padding:6.481vw 0 7.407vw; background:#ffda68;}
+.evtContWrap .evtCont{position:relative; margin:0 3.704vw;}
+.evtContWrap .evtCont .btnLink{position:absolute; bottom:47.037vw; left:50%; transform:translateX(-50%); width:59.259vw; height:13.889vw; background:url('/images/events/2024/event240819/btn_link.png') no-repeat center / contain;}
+.evtContWrap .evtCont02{margin-top:7.87vw;}
+.evtContWrap .btnApply{margin:6.481vw auto 0; display:block; width:94.259vw;}
+.evtContWrap .btnApply img{width:100%;}
+
+.event240819 .commentWrap{padding:0 3.704vw; background:#c3c5ff;}
+.event240819 .commentWrap .commentList {}
+.event240819 .commentWrap .commentList .listItem { padding:3.704vw 0; border:0.37vw solid #3a3598; background:#fff; border-radius:1.852vw;}
+.event240819 .commentWrap .commentList .listItem+.listItem{margin-top:2.778vw;}
+.event240819 .commentWrap .commentList .listItem p {padding:0 4.63vw; font-size:3.148vw; color:#333; line-height:1.5; max-height:6em; overflow-y:auto;}
+.event240819 .commentWrap .commentList .listItem strong {padding:0 4.63vw; margin-top:2.315vw; display:block; font-size:3.148vw; color:#000855; font-weight:600; line-height:1;}
+
+.event240819 .notice {padding:9.259vw 4.167vw 7.407vw; background:#666;}
+.event240819 .notice strong {display:block; font-size:4.074vw; color:#fff; line-height:1;}
+.event240819 .notice ul{margin-top:1.852vw;}
+.event240819 .notice ul li {padding-left:2.13vw; text-indent:-2.13vw; font-size:2.778vw; line-height:1.5; color:#fff;  opacity:.8;}
+
+/*applyPop*/
+.vivasamter_applyDtl.type02 {padding-top: 0;}
+.vivasamter_applyDtl .applyDtl_inner {position: relative;}
+.vivasamter_applyDtl .count_wrap {margin-top:10px; text-align:right;}
+
+.vivasamter_applyDtl .acco_notice_list.evtNoticee{padding:0; background:none; border:none;}
+.vivasamter_applyDtl .acco_notice_list.evtNoticee .acco_notice_cont{display: block; padding:10px 20px; background: #fff; border:none;}
+.vivasamter_applyDtl .acco_notice_list.evtNoticee .privacyList{margin-top:0;}
+
+
+
+

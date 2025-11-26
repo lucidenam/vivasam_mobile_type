@@ -1,0 +1,59 @@
+/* Event */
+.event231016{position:relative;background:#ffebea;}
+.event231016 img{width:100%;vertical-align:top;}
+.event231016 [class^="evtCont"]{position:relative;z-index:1;}
+.event231016 *{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+
+/* EVENT 470 */
+
+/* evtNoti */
+
+.event231016 .evtCont02  {padding:0 8.66vw;}
+.event231016 .evtCont02 .event02 {padding-bottom:10.66vw;}
+.event231016 .evtCont02 .event02 span {font-size:0;}
+.event231016 .evtCont02 .event02 .evtForm {width:100%; border:1px solid #1c90ba; border-radius:2vw; overflow:hidden;}
+.event231016 .evtCont02 .event02 .evtForm .formBox {position:relative; width:100%; height:27.33vw; padding-bottom:8vw; background:#fff;}
+.event231016 .evtCont02 .event02 .evtForm .formBox textarea {width:100%; height:100%;  padding:3.6vw; font-size:2.93vw; letter-spacing:-0.04em; background:#fff;}
+.event231016 .evtCont02 .event02 .evtForm .formBox textarea::placeholder {color:#969696;}
+.event231016 .evtCont02 .event02 .evtForm .formBox .count {position:absolute; right:2.66vw; bottom:2.66vw; font-size:2.93vw; color:#969696;}
+.event231016 .evtCont02 .event02 .evtForm .formBox .count .currentCount {font-size:2.93vw; color:#3c5863;}
+.event231016 .evtCont02 .event02 .evtForm .btnApply {display:flex; justify-content:center; align-items:center; width:100%; height:12.8vw;  background:#1c90ba;}
+.event231016 .evtCont02 .event02 .evtForm .btnApply span {padding-right: 7.06vw; font-size:4.53vw; font-weight:600; color:#fff; line-height: 5.06vw; letter-spacing:-0.04em; background:url(/images/events/2023/event231016/ico_btnApply.png)no-repeat right 0 center; background-size:5.06vw;}
+
+.event231016 .commentWrap {width:100%; background: #1173ab;}
+.event231016 .commentWrap .commentList {padding:0 8.66vw;}
+.event231016 .commentWrap .listItem {padding: 5.33vw 0; border-bottom: 1px solid #2981b4;}
+.event231016 .commentWrap .listItem:last-child { border-bottom:0;}
+.event231016 .commentWrap .listItem .user_name {display:block; margin-bottom:2vw; color:#fdda5f; font-size:2.93vw; font-weight:500; line-height: 1; letter-spacing:-0.04em;}
+.event231016 .commentWrap .listItem p { font-size:2.93vw; color:#fff; letter-spacing:-0.04em; }
+.event231016 .commentWrap .btnMore {display:flex; justify-content:center; align-items:center; width:100%; height:12vw; background:#515151;}
+.event231016 .commentWrap .btnMore span {display:inline-block; padding-right: 4vw; font-size:3vw; background: url(/images/events/2023/event231016/btnMore.png)no-repeat right center; background-size: 1.6vw auto; color:#fff;}
+
+.event231016 .notice {background:#dadada; padding:6.66vw 3.33vw 6vw 6.66vw;}
+.event231016 .notice strong {display: inline-block; margin-bottom: 3.2vw; font-size: 4vw; font-weight: 500; color: #2b2b2b; line-height: 1; letter-spacing: -0.06em;}
+.event231016 .notice ul li {padding-left:3vw; text-indent:-3vw; font-size:2.93vw; color:#595959; letter-spacing:-0.06em;}
+
+/*popup*/
+.applyDtl_top {background-color:#ffebea;}
+.applyDtl_top h3 {text-align:center!important;}
+.applyDtl_top strong {font-size:4.26vw; font-weight:600; color:#d44466 !important;}
+.input_wrap .count {display:flex; justify-content:flex-end; margin-top:1.33vw;}
+.input_wrap .count span{font-size:3.2vw; font-weight:400; color:#888;}
+.vivasamter_applyDtl .info_tit.info_textarea {position:relative; padding-left:3.8vw; text-indent:-1.8vw;}
+.vivasamter_applyDtl .info_tit.info_textarea .txt_count {position:absolute; right:5px; bottom: 7px;}
+.input_wrap textarea {width:100%; min-height:45.33vw; padding:4vw; font-size:14px; border:1px solid #eaeaea; border-radius:2.66vw;}
+.input_wrap textarea::placeholder {color:#838a95;}
+.vivasamter_apply .info_tit span {font-size:14px;}
+.vivasamter_apply .currentCount {font-size:14px;}
+.join_chk_list {width:50%;}
+.privacyTxt a {color:#01aeff;}
+.vivasamter_applyDtl .pdside20 + .acco_notice_list.notice_sec {padding-top:0; margin-top:0; border-top:0;}
+.vivasamter_applyDtl .pdside20 + .acco_notice_list.notice_sec .acco_notice_cont {border-top:0;}
+.vivasamter_applyDtl .checkbox_circle_box.pdside20 + .acco_notice_list.pdside20 {margin-top: 0;}
+
+
+

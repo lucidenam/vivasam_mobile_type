@@ -1,0 +1,1460 @@
+package edu.visang.vivasam.member.controller;
+
+import edu.visang.vivasam.common.elasticlogin.ElasticLoginClient;
+import edu.visang.vivasam.common.service.CheckXSSService;
+import edu.visang.vivasam.common.utils.IpinUtil;
+import edu.visang.vivasam.common.utils.NiceUtil;
+import edu.visang.vivasam.common.utils.RandomStringUtils;
+import edu.visang.vivasam.common.utils.VivasamUtil;
+import edu.visang.vivasam.cs.service.CsService;
+import edu.visang.vivasam.exception.VivasamException;
+import edu.visang.vivasam.member.model.FindId;
+import edu.visang.vivasam.member.model.FindPwd;
+import edu.visang.vivasam.member.model.MemberInfo;
+import edu.visang.vivasam.member.service.MemberService;
+import edu.visang.vivasam.payload.LoginRequest;
+import edu.visang.vivasam.security.CurrentUser;
+import edu.visang.vivasam.security.UserPrincipal;
+import edu.visang.vivasam.security.mapper.SecurityMapper;
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
+
+import javax.management.ValueExp;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.*;
+
+@RestController
+@RequestMapping("/api/member")
+public class MemberController {
+
+    private static final String DOMAIN_URL = "http://test.vivasam.com:48090";
+//    private static final String DOMAIN_URL = "http://localhost:3000";
+
+    private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+
+    CacheManager cacheManager = CacheManager.create();
+    Cache cache = cacheManager.getCache("members");
+
+    @Autowired
+    MemberService memberService;
+
+    @Autowired
+    SecurityMapper securityMapper;
+
+    @Autowired
+    CheckXSSService checkXSSService;
+
+    @Autowired
+    CsService CsXSSService;
+
+    @PostMapping("/checkExistPerson")
+    public ResponseEntity<?> checkExistPerson(@RequestBody Map<String, String> requestParams) {
+
+        String name = requestParams.get("name");
+        String email = requestParams.get("email");
+
+        logger.info("{} / {}", name, email);
+
+        int result = memberService.checkExistPerson(name, email);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping(value = "/checkExistId")
+    public ResponseEntity<?> check_exist_Id(@RequestParam(value = "id", required = true) String id) throws Exception {
+
+        String result = memberService.checkExistId(id);
+
+        logger.info("{} / {}", id);
+
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/insertJoin")
+    public ResponseEntity<?> insertJoin(HttpServletRequest request, @RequestBody Map<String,Map<String, Object>> requestParamMap) {
+        Map<String,Object> requestParams= requestParamMap.get("0");
+
+        //필수 항목
+        String id = VivasamUtil.isNull(String.valueOf(requestParams.get("userId")));
+        String name = VivasamUtil.isNull(String.valueOf(requestParams.get("userName")));
+        String password = VivasamUtil.isNull(String.valueOf(requestParams.get("password")));
+        String Email = VivasamUtil.isNull(String.valueOf(requestParams.get("email")));
+        String cellphone = VivasamUtil.isNull(String.valueOf(requestParams.get("telephone")));
+        String myGrade = VivasamUtil.isNull(String.valueOf(requestParams.get("myGrade")));
+        String SchoolName = VivasamUtil.isNull(String.valueOf(requestParams.get("schoolName")));
+        String SchoolCode = VivasamUtil.isNull(String.valueOf(requestParams.get("schoolCode")));
+        String loc_dept1 = VivasamUtil.isNull(String.valueOf(requestParams.get("fkareaCode")));
+        String loc_dept2 = VivasamUtil.isNull(String.valueOf(requestParams.get("fkbranchCode")));
+        String mainSubject = VivasamUtil.isNull(String.valueOf(requestParams.get("mainSubject")));
+        String secondSubject = VivasamUtil.isNull(String.valueOf(requestParams.get("secondSubject")));
+
+        String birthDay = VivasamUtil.isNull(String.valueOf(requestParams.get("birthDay")));
+        String birth = birthDay.replaceAll("-","");
+
+        String lunar = VivasamUtil.isNull(String.valueOf(requestParams.get("lunar")));
+        String IPIN_CI = VivasamUtil.isNull(String.valueOf(requestParams.get("isIpin")));
+        String EPKI_CERTDN = VivasamUtil.isNull(String.valueOf(requestParams.get("EPKI_CERTDN")));
+        String EPKI_CERTSN = VivasamUtil.isNull(String.valueOf(requestParams.get("EPKI_CERTSN")));
+        String VALID_YN = VivasamUtil.isNull(String.valueOf(requestParams.get("VALID_YN")));
+        String authentication = VivasamUtil.isNull(String.valueOf(requestParams.get("authentication")));
+
+        String sex = VivasamUtil.isNull(String.valueOf(requestParams.get("gender")));
+
+        String zip = VivasamUtil.isNull(String.valueOf(requestParams.get("zipNo")));
+        String addr1 = VivasamUtil.isNull(String.valueOf(requestParams.get("address")));
+        String addr2 = VivasamUtil.isNull(String.valueOf(requestParams.get("addressDetail")));
+
+        //비상교과서 채택여부
+        String visangTbYN = VivasamUtil.isNull(String.valueOf(requestParams.get("visangTbYN")));
+
+        //개인정보 유효기간설정
+        String expiryTermNum = VivasamUtil.isNull(String.valueOf(requestParams.get("expiryTermNum")));
+
+        String vMagazineYN = "N";
+
+        String Agree1 = String.valueOf(requestParams.get("service"));
+        String Agree2 = String.valueOf(requestParams.get("privacy"));
+        String Agree3 = String.valueOf(requestParams.get("all"));
+        String Agree4 = String.valueOf(requestParams.get("marketing"));
+
+        logger.info("==============================================================x");
+        logger.info("id   : " + id);
+        logger.info("name   : " + name);
+        logger.info("password   : " + password);
+        logger.info("Email   : " + Email);
+        logger.info("cellphone   : " + cellphone);
+        logger.info("myGrade   : " + myGrade);
+        logger.info("SchoolName   : " + SchoolName);
+        logger.info("SchoolCode   : " + SchoolCode);
+        logger.info("loc_dept1   : " + loc_dept1);
+        logger.info("loc_dept2   : " + loc_dept2);
+        logger.info("mainSubject   : " + mainSubject);
+        logger.info("secondSubject   : " + secondSubject);
+        logger.info("birth   : " + birth);
+        logger.info("lunar   : " + lunar);
+        logger.info("IPIN_CI   : " + IPIN_CI);
+        logger.info("EPKI_CERTDN   : " + EPKI_CERTDN);
+        logger.info("EPKI_CERTSN   : " + EPKI_CERTSN);
+        logger.info("VALID_YN   : " + VALID_YN);
+        logger.info("authentication   : " + authentication);
+
+        logger.info("sex   : " + sex);
+
+        logger.info("zip   : " + zip);
+        logger.info("addr1   : " + addr1);
+        logger.info("addr2   : " + addr2);
+
+        logger.info("visangTbYN   : " + visangTbYN);
+        logger.info("expiryTermNum   : " + expiryTermNum);
+        logger.info("==============================================================x");
+
+        id = checkXSSService.ReplaceValue(request, "id", id);
+        name = checkXSSService.ReplaceValue(request, "name", name);
+        Email = checkXSSService.ReplaceValue(request, "Email", Email);
+        cellphone = checkXSSService.ReplaceValue(request, "cellphone", cellphone);
+        myGrade = checkXSSService.ReplaceValue(request, "myGrade", myGrade);
+        SchoolName = checkXSSService.ReplaceValue(request, "SchoolName", SchoolName);
+        SchoolCode = checkXSSService.ReplaceValue(request, "SchoolCode", SchoolCode);
+        loc_dept1 = checkXSSService.ReplaceValue(request, "loc_dept1", loc_dept1);
+        loc_dept2 = checkXSSService.ReplaceValue(request, "loc_dept2", loc_dept2);
+        mainSubject = checkXSSService.ReplaceValue(request, "mainSubject", mainSubject);
+        secondSubject = checkXSSService.ReplaceValue(request, "secondSubject", secondSubject);
+        birth = checkXSSService.ReplaceValue(request, "birth", birth);
+        lunar = checkXSSService.ReplaceValue(request, "lunar", lunar);
+        IPIN_CI = checkXSSService.ReplaceValue(request, "IPIN_CI", IPIN_CI);
+        EPKI_CERTDN = checkXSSService.ReplaceValue(request, "EPKI_CERTDN", EPKI_CERTDN);
+        EPKI_CERTSN = checkXSSService.ReplaceValue(request, "EPKI_CERTSN", EPKI_CERTSN);
+        VALID_YN = checkXSSService.ReplaceValue(request, "VALID_YN", VALID_YN);
+        authentication = checkXSSService.ReplaceValue(request, "authentication", authentication);
+        sex = checkXSSService.ReplaceValue(request, "sex", sex);
+        zip = checkXSSService.ReplaceValue(request, "zip", zip);
+        addr1 = checkXSSService.ReplaceValue(request, "addr1", addr1);
+        addr2 = checkXSSService.ReplaceValue(request, "addr2", addr2);
+        visangTbYN = checkXSSService.ReplaceValue(request, "visangTbYN", visangTbYN);
+        expiryTermNum = checkXSSService.ReplaceValue(request, "expiryTermNum", expiryTermNum);
+        Agree3 = checkXSSService.ReplaceValue(request, "Agree3", Agree3);
+        Agree4 = checkXSSService.ReplaceValue(request, "Agree4", Agree4);
+
+        Map<String, String> param = new HashMap<>();
+
+        param.put("id", String.valueOf(id));
+        param.put("name", String.valueOf(name));
+        param.put("password", String.valueOf(password));
+        param.put("Email", String.valueOf(Email));
+        param.put("cellphone", String.valueOf(cellphone));
+        param.put("myGrade", String.valueOf(myGrade));
+        param.put("SchoolName", String.valueOf(SchoolName));
+        param.put("SchoolCode", String.valueOf(SchoolCode));
+        param.put("loc_dept1", String.valueOf(loc_dept1));
+        param.put("loc_dept2", String.valueOf(loc_dept2));
+        param.put("mainSubject", String.valueOf(mainSubject));
+        param.put("secondSubject", String.valueOf(secondSubject));
+        param.put("birth", String.valueOf(birth));
+        param.put("lunar", String.valueOf(lunar));
+        param.put("IPIN_CI", String.valueOf(IPIN_CI));
+        param.put("EPKI_CERTDN", String.valueOf(EPKI_CERTDN));
+        param.put("EPKI_CERTSN", String.valueOf(EPKI_CERTSN));
+        param.put("VALID_YN", String.valueOf(VALID_YN));
+        if(String.valueOf(VALID_YN).equals("") || String.valueOf(VALID_YN) == null) param.put("VALID_YN", "N");
+        param.put("authentication", String.valueOf(authentication));
+
+        param.put("sex", String.valueOf(sex));
+
+        param.put("zip", String.valueOf(zip));
+        param.put("addr1", String.valueOf(addr1));
+        param.put("addr2", String.valueOf(addr2));
+
+        param.put("visangTbYN", String.valueOf(visangTbYN));
+        param.put("expiryTermNum", String.valueOf(expiryTermNum));
+
+        param.put("Agree3", String.valueOf(Agree3)); //제3자 정보제공 동의 (선택)
+        param.put("Agree4", String.valueOf(Agree4)); //마케팅 및 광고 활용 동의 (선택)
+
+        //회원등록
+        String result = memberService.insertJoin(param);
+
+        logger.info("==================================================");
+        logger.info("result");
+        logger.info("==================================================");
+        logger.info("result   : " + result);
+        logger.info("==================================================");
+
+
+        if (result.equals("0")) {
+
+            //모바일 경로 가입 인증 업데이트
+            memberService.updateMemberVia(id);
+
+            // 학교 정보 직접 등록인지 아닌지 판단
+            // True : 정보 검색 / False : 직접 등록
+            String isSelect =  VivasamUtil.isNull(String.valueOf(requestParams.get("isSelect")));
+            logger.info("isSelect   : " + isSelect);
+
+            // 회원가입 성공시 Q&A작업
+            // 학교 직접 등록인 경우 Q&A 등록하기
+            if(isSelect == "false"){
+
+                logger.info("==================================================");
+                logger.info("school Q&A Insert");
+                logger.info("==================================================");
+
+                // 학교 직접 등록인 경우 학교급, 학교 지역을 판단하여 설문조사로 넣기 위해 작업
+                String schoolGrade = VivasamUtil.isNull(String.valueOf(requestParams.get("schoolGrade")));
+                String fkareaName = VivasamUtil.isNull(String.valueOf(requestParams.get("fkareaName")));
+                String fkbranchName = VivasamUtil.isNull(String.valueOf(requestParams.get("fkbranchName")));
+                String requestedTerm = VivasamUtil.isNull(String.valueOf(requestParams.get("requestedTerm")));
+                String qnaSchLvlCd = "";
+
+
+                schoolGrade =  checkXSSService.ReplaceValue(request, "schoolGrade", schoolGrade);
+                fkareaName = checkXSSService.ReplaceValue(request, "fkareaName", fkareaName);
+                fkbranchName =  checkXSSService.ReplaceValue(request, "fkbranchName", fkbranchName);
+                requestedTerm = checkXSSService.ReplaceValue(request,"requestedTerm", requestedTerm);
+
+                // 학교 직접 등록시 학교급, 지역 코드 받아오기
+                if(schoolGrade == "E"){
+                    schoolGrade = "초등";
+                    qnaSchLvlCd = "ES";
+                }
+                else if(schoolGrade == "M"){
+                    schoolGrade = "중등";
+                    qnaSchLvlCd = "MS";
+                }else{
+                    schoolGrade = "고등";
+                    qnaSchLvlCd = "HS";
+                }
+
+                // 해당되는 Q&A 값 넣어주기
+                String qnaCd = "QA011";
+                String member_id = id;
+                String qnaTitle =  VivasamUtil.isNull(String.valueOf(requestParams.get("schoolName"))) + "_학교등록신청";
+                String qnaContents = "학교등록 신청</br></br>- 학교급 : ";
+                qnaContents += schoolGrade;
+                qnaContents += "<br/>- 학교명  : ";
+                qnaContents += SchoolName;
+                qnaContents += "<br/>- 학교지역  : ";
+                qnaContents += fkareaName + " > " + fkbranchName;
+                qnaContents += "<br/>- 별도 요청사항  : "+ requestedTerm ;
+                qnaContents += "<br/>";
+                qnaContents += "- 학교변경 동의여부  : Y<br/>";
+
+                qnaTitle = checkXSSService.ReplaceValue(request, "qnaTitle", qnaTitle);
+                qnaContents = checkXSSService.ReplaceValue(request,"qnaContents", qnaContents);
+
+                logger.debug("==============================================================x");
+                logger.debug("qnaCd   : " + qnaCd);
+                logger.debug("qnaTitle   : " + qnaTitle);
+                logger.debug("qnaContents   : " + qnaContents);
+                logger.debug("==============================================================x");
+
+
+                Map<String,String> resultMap = new HashMap<>();
+                String regIp = request.getRemoteAddr();
+                try {
+                    int updateCount = CsXSSService.cQnaInsert(member_id, qnaCd, qnaTitle, qnaContents,
+                            qnaSchLvlCd, "", "", "", "", "", regIp, "","","Y");
+                    resultMap.put("code","0000");
+                    resultMap.put("qnaId", updateCount + "") ;
+                    resultMap.put("msg","성공");
+                } catch (Exception e) {
+                    resultMap.put("code","1111");
+                    resultMap.put("msg","실패");
+                    logger.error(e.toString());
+                }
+            }
+
+            if (vMagazineYN.equals("Y")) {
+
+                String ppp = id + "#" + SchoolName + "#" + zip + "#" + addr1 + "#" + addr2 + "#" + cellphone + "#" + SchoolCode;
+
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("idx", "2");
+                params.put("id", String.valueOf(id));
+                params.put("cellphone", String.valueOf(cellphone));
+                params.put("SchoolName", String.valueOf(SchoolName));
+                params.put("SchoolCode", String.valueOf(SchoolCode));
+                params.put("zip", String.valueOf(zip));
+                params.put("addr1", String.valueOf(addr1));
+                params.put("addr2", String.valueOf(addr2));
+                params.put("etc", ppp);
+
+                memberService.insertVmagazine(params);
+
+            }
+        }
+
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/updateMemberInfo")
+    public ResponseEntity<?> updateMemberInfo(HttpServletRequest request, @CurrentUser UserPrincipal currentUser, @RequestBody Map<String,Map<String, Object>> requestParamMap) {
+        Map<String,Object> requestParams= requestParamMap.get("0");
+        if(currentUser == null || !StringUtils.hasText(currentUser.getMemberId())) {
+            return ResponseEntity.ok("INVALID");
+        }
+
+        //필수 항목
+        String memberId = currentUser.getMemberId();
+        String email = VivasamUtil.isNull(String.valueOf(requestParams.get("email")));
+        String cellphone = VivasamUtil.isNull(String.valueOf(requestParams.get("telephone")));
+        String schCode = VivasamUtil.isNull(String.valueOf(requestParams.get("schoolCode")));
+        String schName = VivasamUtil.isNull(String.valueOf(requestParams.get("schoolName")));
+        String myGrade = VivasamUtil.isNull(String.valueOf(requestParams.get("myGrade")));
+        String fkareacode = VivasamUtil.isNull(String.valueOf(requestParams.get("fkareaCode")));
+        String fkbranchcode = VivasamUtil.isNull(String.valueOf(requestParams.get("fkbranchCode")));
+        String birth = VivasamUtil.isNull(String.valueOf(requestParams.get("birthDay")));
+        birth = birth.replaceAll("-","");
+        String lunar = VivasamUtil.isNull(String.valueOf(requestParams.get("lunar")));
+        String zip = VivasamUtil.isNull(String.valueOf(requestParams.get("zipNo")));
+        String addr1 = VivasamUtil.isNull(String.valueOf(requestParams.get("address")));
+        String addr2 = VivasamUtil.isNull(String.valueOf(requestParams.get("addressDetail")));
+        String sex = VivasamUtil.isNull(String.valueOf(requestParams.get("gender")));
+        String visangTbYN = VivasamUtil.isNull(String.valueOf(requestParams.get("visangTbYN")));
+        String expiryTermNum = VivasamUtil.isNull(String.valueOf(requestParams.get("expiryTermNum")));
+
+        Object marketingSms = requestParams.get("marketingSms");
+        Object marketingEmail = requestParams.get("marketingEmail");
+        Object marketingTel = requestParams.get("marketingTel");
+        String marketingSmsYn = "N";
+        if((Boolean) marketingSms){
+            marketingSmsYn = "Y";
+        }
+        String marketingEmailYn = "N";
+        if((Boolean) marketingEmail){
+            marketingEmailYn = "Y";
+        }
+        String marketingTelYn = "N";
+        if((Boolean) marketingTel){
+            marketingTelYn = "Y";
+        }
+
+        String mainSubject = VivasamUtil.isNull(String.valueOf(requestParams.get("mainSubject")));
+        String secondSubject = VivasamUtil.isNull(String.valueOf(requestParams.get("secondSubject")));
+
+        logger.info("------------------------------------");
+        logger.info("exeMyinfoModify");
+        logger.info("------------------------------------");
+        logger.info("memberId       : " + memberId         );
+        logger.info("email          : " + email            );
+        logger.info("cellphone      : " + cellphone        );
+        logger.info("schCode        : " + schCode          );
+        logger.info("schName        : " + schName          );
+        logger.info("myGrade        : " + myGrade          );
+        logger.info("fkareacode     : " + fkareacode       );
+        logger.info("fkbranchcode   : " + fkbranchcode     );
+        logger.info("birth          : " + birth            );
+        logger.info("lunar          : " + lunar            );
+        logger.info("zip            : " + zip              );
+        logger.info("addr1          : " + addr1            );
+        logger.info("addr2          : " + addr2            );
+        logger.info("sex            : " + sex              );
+        logger.info("visangTbYN     : " + visangTbYN       );
+        logger.info("mainSubject    : " + mainSubject      );
+        logger.info("secondSubject  : " + secondSubject    );
+        logger.info("------------------------------------");
+        memberId = checkXSSService.ReplaceValue(request, "memberId", memberId);
+        email = checkXSSService.ReplaceValue(request, "email", email);
+        cellphone = checkXSSService.ReplaceValue(request, "cellphone", cellphone);
+        schCode = checkXSSService.ReplaceValue(request, "schCode", schCode);
+        schName = checkXSSService.ReplaceValue(request, "schName", schName);
+        myGrade = checkXSSService.ReplaceValue(request, "myGrade", myGrade);
+        fkareacode = checkXSSService.ReplaceValue(request, "fkareacode", fkareacode);
+        fkbranchcode = checkXSSService.ReplaceValue(request, "fkbranchcode", fkbranchcode);
+        birth = checkXSSService.ReplaceValue(request, "birth", birth);
+        lunar = checkXSSService.ReplaceValue(request, "lunar", lunar);
+        zip = checkXSSService.ReplaceValue(request, "zip", zip);
+        addr1 = checkXSSService.ReplaceValue(request, "addr1", addr1);
+        addr2 = checkXSSService.ReplaceValue(request, "addr2", addr2);
+        sex = checkXSSService.ReplaceValue(request, "sex", sex);
+        visangTbYN = checkXSSService.ReplaceValue(request, "visangTbYN", visangTbYN);
+        expiryTermNum = checkXSSService.ReplaceValue(request, "expiryTermNum", expiryTermNum);
+        mainSubject = checkXSSService.ReplaceValue(request, "mainSubject", mainSubject);
+        secondSubject = checkXSSService.ReplaceValue(request, "secondSubject", secondSubject);
+
+        HashMap<String, String> param = new HashMap<String, String>();
+
+        param.put("memberId", memberId );
+        param.put("email", email);
+        param.put("cellphone", cellphone);
+        param.put("schCode", schCode);
+        param.put("schName", schName);
+        param.put("myGrade", myGrade);
+        param.put("fkareacode", fkareacode );
+        param.put("fkbranchcode", fkbranchcode );
+        param.put("birth", birth);
+        param.put("lunar", lunar);
+        param.put("zip", zip);
+        param.put("addr1", addr1);
+        param.put("addr2", addr2);
+        param.put("sex", sex);
+        param.put("visangTbYN", visangTbYN);
+        param.put("expiryTermNum", expiryTermNum);
+        param.put("marketingSmsYn", marketingSmsYn);
+        param.put("marketingEmailYn", marketingEmailYn);
+        param.put("marketingTelYn", marketingTelYn);
+        param.put("mainSubject", mainSubject);
+        param.put("secondSubject", secondSubject);
+        //	정보 수정 시작!!!!
+//        int modifyResult = memberService.updateMemberInfo(param);
+        //[SSO] 통합회원인 경우 처리코드 추가
+        int modifyResult = memberService.exeSsoMyinfoModify(param);
+
+        logger.info("exeMyinfoModify modifyResult ==========> " + modifyResult);
+
+        String result;
+        if ( modifyResult == 0 ) {
+            result = "0000";
+        }else{
+            result = "1111";
+        }
+
+        return ResponseEntity.ok(result);
+
+    }
+
+    @PostMapping("/awake")
+    public ResponseEntity<?> awake(@Valid @RequestBody LoginRequest loginRequest) {
+        return ResponseEntity.ok(memberService.inactiveMovePersonal("0", loginRequest.getUsername(), loginRequest.getPassword()));
+    }
+
+    @PostMapping("/findId")
+    public ResponseEntity<?> findId(HttpServletRequest request, @Valid @RequestBody FindId findId) {
+        logger.info("memberName : {}, memberEmail : {}, memberHp : {}", findId.getMemberName(), findId.getMemberEmail(), findId.getMemberHp());
+        String memberName = findId.getMemberName();
+        String memberEmail = findId.getMemberEmail();
+        String memberHp = findId.getMemberHp();
+
+        memberName = checkXSSService.ReplaceValue(request, "memberName", memberName);
+        memberEmail = checkXSSService.ReplaceValue(request, "memberEMail", memberEmail);
+        memberHp = checkXSSService.ReplaceValue(request, "memberHp", memberHp);
+
+        Map<String, String> resultMemberSimpleInfo = memberService.findId(memberName, memberEmail, memberHp);
+
+        if (StringUtils.isEmpty(resultMemberSimpleInfo)) {
+            throw new VivasamException("2001", "입력하신 정보와 일치하는 아이디가 없습니다. 다시 확인해 주세요");
+        }
+
+        return ResponseEntity.ok(resultMemberSimpleInfo);
+    }
+
+    @PostMapping("/findSleepId")
+    public ResponseEntity<?> findSleepId(HttpServletRequest request, @Valid @RequestBody FindId findId) {
+        logger.info("memberName : {}, memberEmail : {}", findId.getMemberName(), findId.getMemberEmail());
+        String memberName = findId.getMemberName();
+        String memberEmail = findId.getMemberEmail();
+
+        Map<String, String> resultMemberSimpleInfo = memberService.findSleepId(memberName, memberEmail);
+
+        if (StringUtils.isEmpty(resultMemberSimpleInfo)) {
+            throw new VivasamException("2001", "입력하신 정보와 일치하는 아이디가 없습니다. 다시 확인해 주세요");
+        }
+
+        return ResponseEntity.ok(resultMemberSimpleInfo);
+    }
+
+    @PostMapping("/findPwd")
+    public ResponseEntity<?> findPwd(HttpServletRequest request, @RequestBody FindPwd findPwd) {
+        logger.info("memberName : {}, memberId : {}, memberEmail : {}", findPwd.getMemberName(), findPwd.getMemberId(), findPwd.getMemberEmail());
+
+        String resultId = memberService.findPw(findPwd);
+
+        if (StringUtils.isEmpty(resultId) || !resultId.equals(findPwd.getMemberId())) {
+            throw new VivasamException("2002", "입력하신 정보와 일치하는 회원이 없습니다.\n다시 확인해 주세요");
+        }else {
+            String tempPwd = RandomStringUtils.randomAlphanumeric(8);
+            findPwd.setTempPwd(tempPwd);
+
+            int affectedRow = memberService.resetMemberPwd(findPwd);
+
+            if (affectedRow < 1) {
+                if(StringUtils.hasText(findPwd.getMemberEmail())) {
+                    throw new VivasamException("7001", "이메일 전송 실패");
+                }else if(StringUtils.hasText(findPwd.getCellPhone())) {
+                    throw new VivasamException("7001", "메세지 전송 실패");
+                }else {
+                    throw new VivasamException("7001", "전송 실패");
+                }
+            } else {
+                UserPrincipal userPrincipal = securityMapper.findByUserId(resultId);
+                if("Y".equals(userPrincipal.getSsoMemberYN()) && userPrincipal != null) {
+                    ElasticLoginClient client = new ElasticLoginClient();
+                    Map<String, String> tParam = new HashMap<>();
+                    tParam.put("password", tempPwd);
+                    tParam.put("passwordConfirm", tempPwd);
+                    boolean tResult = client.updateTuserPwd(resultId, tParam);
+
+                    if(tResult) {
+                        boolean sResult = client.updateUserPwd(resultId, tempPwd);
+                        if (sResult) {
+
+                        } else {
+                            throw new VivasamException("7012", "통합 비밀번호 변경 실패");
+                        }
+                    } else {
+                        throw new VivasamException("7011", "티스쿨 비밀번호 변경 실패");
+                    }
+                }
+            }
+        }
+
+        return ResponseEntity.ok(findPwd);
+    }
+
+    @PostMapping("/findPwdIpin")
+    public ResponseEntity<?> findPwdIpin(HttpServletRequest request, @RequestBody FindPwd findPwd) {
+        logger.info("memberName : {}, memberId : {}, memberIpin : {}", findPwd.getMemberName(), findPwd.getMemberId(), findPwd.getMemberIpin());
+
+        String resultId = null;
+        Map<String, String> result = memberService.findPwdIpin(findPwd);
+        if (result.size() > 0) {
+            resultId = result.get("memberId");
+            findPwd.setMemberEmail(result.get("memberEmail"));
+        }
+
+        if (StringUtils.isEmpty(resultId) || !resultId.equals(findPwd.getMemberId())) {
+            throw new VivasamException("2002", "입력하신 정보와 일치하는 회원이 없습니다.\n다시 확인해 주세요");
+        }else {
+            String tempPwd = RandomStringUtils.randomAlphanumeric(8);
+            findPwd.setTempPwd(tempPwd);
+
+            int affectedRow = memberService.resetMemberPwd(findPwd);
+
+            if (affectedRow < 1) {
+                if(StringUtils.hasText(findPwd.getMemberEmail())) {
+                    throw new VivasamException("7001", "이메일 전송 실패");
+                }else if(StringUtils.hasText(findPwd.getCellPhone())) {
+                    throw new VivasamException("7001", "메세지 전송 실패");
+                }else {
+                    throw new VivasamException("7001", "전송 실패");
+                }
+            } else {
+                UserPrincipal userPrincipal = securityMapper.findByUserId(resultId);
+                if("Y".equals(userPrincipal.getSsoMemberYN()) && userPrincipal != null) {
+                    ElasticLoginClient client = new ElasticLoginClient();
+                    Map<String, String> tParam = new HashMap<>();
+                    tParam.put("password", tempPwd);
+                    tParam.put("passwordConfirm", tempPwd);
+                    boolean tResult = client.updateTuserPwd(resultId, tParam);
+
+                    if(tResult) {
+                        boolean sResult = client.updateUserPwd(resultId, tempPwd);
+                        if (sResult) {
+
+                        } else {
+                            throw new VivasamException("7012", "통합 비밀번호 변경 실패");
+                        }
+                    } else {
+                        throw new VivasamException("7011", "티스쿨 비밀번호 변경 실패");
+                    }
+                }
+            }
+        }
+
+        return ResponseEntity.ok(findPwd);
+    }
+
+    @GetMapping("/getMarketingAgreeList")
+    @Secured("ROLE_USER")
+    public ResponseEntity<?> getMarketingAgreeList(@CurrentUser UserPrincipal currentUser) {
+        return ResponseEntity.ok(memberService.marketingAgreeInfoList(currentUser.getMemberId()));
+    }
+
+    @GetMapping("/marketingAgreeUpdate")
+    @Secured("ROLE_USER")
+    public ResponseEntity<?> marketingAgreeUpdate(@CurrentUser UserPrincipal currentUser, String marketingAgreeYn) {
+        int cnt = memberService.marketingAgreeUpdate(currentUser.getMemberId(), marketingAgreeYn);
+        String result = "";
+        if(cnt > 0) {
+            result = "SUCCESS";
+        }else {
+            result = "ERROR";
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    //비밀번호 변경 이후 선택 시
+    @RequestMapping(value = "/ajaxPassNextUpdate")
+    @Secured("ROLE_USER")
+    public ResponseEntity<?> ajaxPassNextUpdate(@CurrentUser UserPrincipal currentUser) {
+        String result = "";
+        try {
+            memberService.insertPassModifyLog(currentUser.getMemberId());
+            result = "SUCCESS";
+        } catch (Exception e) {
+            result = "ERROR";
+        }
+        return ResponseEntity.ok(result);
+    }
+
+
+    /** 2019.07 */
+
+
+    /**
+     * [SSO] 가입여부 확인
+     */
+    @PostMapping("/checkJoinedMember")
+    public ResponseEntity<?> checkJoinedMember(@RequestBody Map<String, String> requestParams) {
+
+        String name = requestParams.get("name");
+        String email = requestParams.get("email");
+        String cellphone = requestParams.get("cellphone");
+
+        logger.info("{} / {} / {}", name, email, cellphone);
+
+        MemberInfo result = memberService.checkJoinedMember(name, email, cellphone);
+        return ResponseEntity.ok(result);
+    }
+
+    /**
+     * [SSO] 아이디 중복 확인
+     */
+    @PostMapping("/checkAvailableSsoId")
+    public ResponseEntity<?> checkAvailableSsoId(String ssoId) {
+        boolean available = memberService.checkAvailableSsoId(ssoId);
+        return ResponseEntity.ok(available);
+    }
+
+    /**
+     * [SSO] 이메일 중복 확인
+     */
+    @PostMapping("/checkExistEmail")
+    public ResponseEntity<?> checkExistEmail(String userId, String email) {
+        int result = 0;
+        if(!StringUtils.isEmpty(userId)) {
+            result = memberService.checkExistPersonEmail(userId, email);
+        } else {
+            result = memberService.checkExistPerson(null, email);
+        }
+        boolean available = result == 0 ? true : false;
+        return ResponseEntity.ok(available);
+    }
+
+
+
+    /** ******************************************
+     *          [SSO] 본인 인증 스킵 - 테스트용
+     ******************************************* */
+    @PostMapping(value = "/skipIdentified")
+    public ResponseEntity<?> skipIdentificationForTest( @RequestBody Map<String, Map<String, Object>> requestParamMap ) throws Exception {
+
+        Map<String, Object> requestParams = requestParamMap.get("0");
+
+        String memberId = (String) requestParams.get("skipMemberId");
+
+        String skipci = null;
+        if(requestParams.containsKey("skipci")) {
+            skipci = (String) requestParams.get("skipci");
+        }
+
+        String ssoMember = String.valueOf(requestParams.get("skipIsSsoMember"));
+
+
+        String sName = memberId;
+        String sCoInfo1 = UUID.randomUUID().toString(); //본인인증 스킵을 위해 uuid를 ci로 사용
+        if(!StringUtils.isEmpty(skipci)) sCoInfo1 = skipci; //직접 입력한 ci값이 있는 경우
+
+        String sGenderCode = String.valueOf(Math.round(Math.random()));
+        String sex = "0".equals(sGenderCode) ? "F" : "M"; //0-여성, 1-남성
+
+        String sBirthDate = "19900909";
+
+        Map<String, Object> map = new HashMap<>();
+
+        String rs = "";
+        String existId = "";
+        Map<String, String> rsm = null;
+        String existIdActive = "N";
+
+        if (!StringUtils.isEmpty(memberId)) {
+            //로그인한 사용자가 본인 인증
+            rsm = memberService.checkExistCiThenUpdateUserInfo(memberId, sName, sCoInfo1, sex, sBirthDate, null);
+            rs = rsm.get("result");
+
+            if (!"0".equals(rs) && !"1".equals(rs)) {
+                existId = rsm.get("memberId");
+                existIdActive = rsm.get("isActiveYN");
+                rs = "-1";
+            } else {
+
+            }
+            map.put("memberId", memberId);
+        } else {
+            // 신규 가입시 본인 인증
+            rsm = memberService.checkExistCiThenGetUserId(sCoInfo1);
+            rs = rsm.get("result");
+
+            if (!"0".equals(rs)) {
+                existId = rsm.get("memberId");
+                existIdActive = rsm.get("isActiveYN");
+                rs = "1";
+            } else {
+                if("true".equals(ssoMember)) {
+                    logger.debug(">>>>>>>>>>>>>>>>>> is sso member");
+
+                    Map<String, Object> tschoolUsers = memberService.findTschoolIdByIpinCiThenCheckAvailable(sCoInfo1);
+                    map.put("tschool", tschoolUsers);
+                } else {
+                    //TODO 비바샘만 가입시 기가입 아이디 없으면
+                }
+            }
+            sName = "테스트";
+
+        }
+
+        map.put("sName", sName);
+        map.put("sCoInfo1", sCoInfo1);
+        map.put("sGenderCode", sGenderCode);
+        map.put("sex", sex);
+        map.put("sBirthDate", sBirthDate);
+        map.put("result", Integer.parseInt(rs));
+        map.put("existId", existId);
+        map.put("existIdActive", existIdActive);
+        map.put("preStepData", requestParams);
+        cache.put(new Element(sCoInfo1, map));
+
+        return ResponseEntity.ok(map);
+    }
+
+
+
+    /**
+     * [SSO] NICE / IPIN 본인 인증
+     */
+    @PostMapping(value="/getNiceEncData")
+    public ResponseEntity<?> getNiceEncData(HttpServletRequest request, @RequestBody Map<String,Map<String, Object>> requestParamMap) {
+
+        //cache setting required
+        String uuid = UUID.randomUUID().toString();
+
+        Map<String,Object> requestParams = requestParamMap.get("0");
+
+        HashMap<String, String> encData = null;
+        if(requestParams.get("TYPE") != null) {
+            String identificationType = (String) requestParams.get("TYPE");
+            if("NICE".equals(identificationType)) {
+                encData = new NiceUtil().getEncData(uuid);
+            } else if("IPIN".equals(identificationType)) {
+                encData = new IpinUtil().getEncData(uuid, identificationType);
+//                request.getSession().setAttribute("CPREQUEST", encData.get("CPREQUEST"));
+            } else if("IPIN_FIND_PW".equals(identificationType)) {
+                encData = new IpinUtil().getEncData(uuid, identificationType);
+            } else {
+                return ResponseEntity.badRequest().build();
+            }
+
+            cache.put(new Element(uuid, requestParams));
+            return ResponseEntity.ok(encData);
+        }
+
+        return ResponseEntity.badRequest().build();
+    }
+
+
+    /**
+     * [SSO] TODO IPIN 인증 성공시 인증정보로 회원정보 수정
+     */
+    @RequestMapping(value="/getIpinVerificationData/{uuid}/{target}", method = RequestMethod.POST)
+    public void getIpinVerificationData(HttpServletRequest request, HttpServletResponse response, @PathVariable String uuid, @PathVariable String target) throws IOException {
+
+        String redirectURL = "";
+        String encodeData = request.getParameter("enc_data");
+
+        switch (target) {
+            case "IPIN" :
+                redirectURL = DOMAIN_URL + "/#/verification/result?uuid=" + uuid;
+                break;
+            case "IPIN_FIND_PW" :
+                redirectURL = DOMAIN_URL + "/#/find/pw?uuid=" + uuid;
+                break;
+            default:
+        }
+
+        Map<String, String> map = new IpinUtil().setDecodeData(encodeData);
+        Map<String, Object> resultMap = new HashMap<>();
+
+        String rs = "";
+        String existId = "";
+        Map<String, String> rsm = null;
+        String existIdActive = "N";
+        if(cache.get(uuid) != null) {
+            Map<String, Object> cacheMap = (Map<String, Object>) cache.get(uuid).getObjectValue();
+//            request.getSession().getAttribute("CPREQUEST");
+//            map.get("sCPRequestNum");
+
+            if ("1".equals(map.get("iRtn"))) {
+                 String sex = "0".equals(map.get("sGenderCode")) ? "F" : "M"; //0-여성, 1-남성
+
+                if (cacheMap.get("memberId") != null) { //로그인 사용자의 본인인증
+                    String memberId = String.valueOf(cacheMap.get("memberId"));
+                    resultMap.put("memberId", memberId);
+
+                    rsm = memberService.checkExistCiThenUpdateUserInfo(memberId, map.get("sName"), map.get("sCoInfo1"), sex, map.get("sBirthDate"), null);
+                    rs = rsm.get("result");
+
+                    if (!"0".equals(rs) && !"1".equals(rs)) { //기존 본인인증한 아이디가 존재
+                        existId = rsm.get("memberId");
+                        existIdActive = rsm.get("isActiveYN");
+                        rs = "-1";
+                    } else {
+
+                    }
+                } else {
+                    // 신규 가입시 본인 인증
+                    rsm = memberService.checkExistCiThenGetUserId(map.get("sCoInfo1"));
+                    rs = rsm.get("result");
+                    if (!"0".equals(rs)) {
+                        existId = rsm.get("memberId");
+                        existIdActive = rsm.get("isActiveYN");
+                        rs = "1";
+                    } else {
+                        if ("true".equals(request.getParameter("Agree5"))) {
+                            Map<String, Object> tschoolUsers = memberService.findTschoolIdByIpinCiThenCheckAvailable(map.get("sConnInfo"));
+                            //                            List<Map<String, String>> tschoolUserId = (List<Map<String, String>>) tschoolUsers.get("tschoolUser");
+                            //                            resultMap.put("tschoolUser", tschoolUserId);
+                            resultMap.put("tschool", tschoolUsers);
+                        } else {
+                            //TODO 비바샘만 가입시 기가입 아이디 없으면
+
+                        }
+                    }
+                    switch (target) {
+                        case "IPIN" :
+                            redirectURL = DOMAIN_URL + "/#/join/verifyResult?uuid=" + uuid;
+                            break;
+                        case "IPIN_FIND_PW" :
+                            redirectURL = DOMAIN_URL + "/#/find/pw?uuid=" + uuid;
+                            break;
+                        default:
+                    }
+                }
+
+                resultMap.put("sName", map.get("sName"));
+                resultMap.put("sCoInfo1", map.get("sCoInfo1"));
+                resultMap.put("sGenderCode", map.get("sGenderCode"));
+                resultMap.put("sex", sex);
+                resultMap.put("sBirthDate", map.get("sBirthDate"));
+                resultMap.put("result", Integer.parseInt(rs));
+                resultMap.put("existId", existId);
+                resultMap.put("existIdActive", existIdActive);
+            } else {
+                if (target.equals("IPIN_FIND_PW")) {
+                    redirectURL = DOMAIN_URL + "/#/find/pw";
+                } else {
+                    //TODO 본인인증 실패시 - 인증화면으로 가면 되나?
+                    resultMap.put("sMessage", map.get("sRtnMsg"));
+                    if (cacheMap.get("memberId") != null) {
+                        redirectURL = DOMAIN_URL + "/#/verification/main";
+                    } else {
+                        redirectURL = DOMAIN_URL + "/#/join/verify";
+                    }
+                }
+            }
+
+            resultMap.put("preStepData", cacheMap); //본인인증 이전 단계 데이터
+        }
+
+        cache.put(new Element(uuid, resultMap));
+
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>location.href='" + redirectURL + "';</script>");
+        out.flush();
+    }
+
+    /**
+     * [SSO] 휴대폰 인증 성공시 인증정보로 회원 정보 수정
+     */
+    @RequestMapping(value="/getNiceVerificationData/{uuid}", method = RequestMethod.POST)
+    public void getNiceVerificationData(HttpServletRequest request, HttpServletResponse response, @PathVariable String uuid) throws Exception {
+
+        String redirectURL = DOMAIN_URL + "/#/verification/result?uuid=" + uuid;
+
+        String encodeData = request.getParameter("EncodeData");
+
+        Map<String, String> map = new NiceUtil().setDecodeData(encodeData);
+        //String ci = map.get("sConnInfo").toString();
+
+        Map<String, Object> resultMap = new HashMap<>();
+
+
+        String rs = "";
+        String existId = "";
+        Map<String, String> rsm = null;
+        String existIdActive = "N";
+
+        if(cache.get(uuid) != null) {
+            Map<String, Object> cacheMap = (Map<String, Object>) cache.get(uuid).getObjectValue();
+//            map.put("memberId", cacheMap.get("memberId").toString());
+            //map.put("memberId", cache.get(uuid).getObjectValue().toString());
+//            result = memberService.updateUserCi(map);
+
+            if("0".equals(map.get("iReturn"))) {
+                String sex = "0".equals(map.get("sGender")) ? "F" : "M"; //0-여성, 1-남성
+
+                if(cacheMap.get("memberId") != null) { //로그인 사용자의 본인인증
+                    String memberId = String.valueOf(cacheMap.get("memberId"));
+                    resultMap.put("memberId", memberId);
+
+                    //TODO 동일 인증 내역을 가진 아이디가 존재하는지 확인 후 미존재시 본인인증내역 저장.
+                    rsm = memberService.checkExistCiThenUpdateUserInfo(memberId, map.get("sName"), map.get("sConnInfo"), sex, map.get("sBirthDate"), map.get("sMobileNo"));
+                    rs = rsm.get("result");
+
+                    if (!"0".equals(rs) && !"1".equals(rs)) { //기존 본인인증한 아이디가 존재
+                        existId = rsm.get("memberId");
+                        existIdActive = rsm.get("isActiveYN");
+                        rs = "-1";
+                    } else {
+
+                    }
+
+                } else { //신규가입시 본인인증
+                    rsm = memberService.checkExistCiThenGetUserId(map.get("sConnInfo"));
+                    rs = rsm.get("result");
+
+                    if (!"0".equals(rs)) {
+                        existId = rsm.get("memberId");
+                        existIdActive = rsm.get("isActiveYN");
+                        rs = "1";
+                    } else {
+//                        if("true".equals(request.getParameter("Agree5"))) {
+                        System.out.println("...............................<>");
+                        System.out.println(uuid);
+                        if("true".equals(cacheMap.get("thirdPrivacy"))) {
+                            Map<String, Object> tschoolUsers = memberService.findTschoolIdByIpinCiThenCheckAvailable(map.get("sConnInfo"));
+//                            List<Map<String, String>> tschoolUserId = (List<Map<String, String>>) tschoolUser.get("tschoolUser");
+                            resultMap.put("tschool", tschoolUsers);
+//                            resultMap.put("tschoolUser", tschoolUserId);
+                        } else {
+                            //TODO 비바샘만 가입시 기가입 아이디 없으면
+                        }
+                    }
+                    redirectURL = DOMAIN_URL + "/#/join/verifyResult?uuid=" + uuid;
+                }
+
+                resultMap.put("sName", map.get("sName"));
+                resultMap.put("sCoInfo1", map.get("sConnInfo"));
+                resultMap.put("sGenderCode", map.get("sGender"));
+                resultMap.put("sex", sex);
+                resultMap.put("sBirthDate", map.get("sBirthDate"));
+                resultMap.put("sMobileNo", map.get("sMobileNo"));
+                resultMap.put("result", Integer.parseInt(rs));
+                resultMap.put("existId", existId);
+                resultMap.put("existIdActive", existIdActive);
+
+            } else {
+                //TODO 본인인증 실패시
+                resultMap.put("sMessage", map.get("sMessage"));
+                if(cacheMap.get("memberId") != null) {
+                    redirectURL = DOMAIN_URL + "/#/verification/main";
+                } else {
+                    redirectURL = DOMAIN_URL + "/#/join/verify";
+                }
+            }
+
+            resultMap.put("preStepData", cacheMap); //본인인증 이전 단계 데이터
+            //if(result > 0) cache.remove(uuid);
+        }
+
+        cache.put(new Element(uuid, resultMap));
+
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        out.println("<script>location.href='" + redirectURL + "';</script>");
+
+        out.flush();
+    }
+
+
+    /**
+     *  [SSO] Cache에 저장한 인증 정보 가져오기
+     */
+    @RequestMapping(value="/getIdentificationData/{uuid}", method = RequestMethod.POST)
+    public ResponseEntity getIdentificationData(HttpServletRequest request, HttpServletResponse response, @PathVariable String uuid) throws Exception {
+        logger.info(uuid);
+        Map<String, Object> cacheMap = new HashMap<>();
+        if(cache.get(uuid) != null) {
+            logger.info(cache.get(uuid).toString());
+            logger.info(cache.get(uuid).getObjectValue().toString());
+            cacheMap = (Map<String, Object>) cache.get(uuid).getObjectValue();
+        }
+        return ResponseEntity.ok(cacheMap);
+    }
+
+
+    /**
+     *  [SSO] 통합 회원 전환 아이디 확인
+     */
+    @PostMapping(value = "/checkConversionId")
+    @Secured("ROLE_USER")
+    public ResponseEntity checkSelectableConversionId(@CurrentUser UserPrincipal currentUser, HttpServletRequest request) {
+
+        if("1".equals(currentUser.getSsoMemberYN())) {
+            return ResponseEntity.ok("INVALID");
+        }
+
+        //본인이 사용중인 아이디 확인 및 통합회원으로 사용 가능 여부를 확인한다.
+        Map<String, Object> result = memberService.getMyTschoolUserThenCheckAvailableSsoID(currentUser.getMemberId());
+
+        return ResponseEntity.ok(result);
+    }
+
+
+    /**
+     * [SSO] 통합 회원 가입
+     */
+    @PostMapping("/insertSsoJoin")
+    public ResponseEntity<?> insertSsoJoin(HttpServletRequest request, @RequestBody Map<String,Map<String, Object>> requestParamMap) throws Exception {
+        Map<String,Object> requestParams= requestParamMap.get("0");
+
+        //필수 항목
+        String id = VivasamUtil.isNull(String.valueOf(requestParams.get("userId")));
+        String name = VivasamUtil.isNull(String.valueOf(requestParams.get("userName")));
+        String password = VivasamUtil.isNull(String.valueOf(requestParams.get("password")));
+        String Email = VivasamUtil.isNull(String.valueOf(requestParams.get("email")));
+        String cellphone = VivasamUtil.isNull(String.valueOf(requestParams.get("telephone")));
+        String myGrade = VivasamUtil.isNull(String.valueOf(requestParams.get("myGrade")));
+        String SchoolName = VivasamUtil.isNull(String.valueOf(requestParams.get("schoolName")));
+        String SchoolCode = VivasamUtil.isNull(String.valueOf(requestParams.get("schoolCode")));
+        String loc_dept1 = VivasamUtil.isNull(String.valueOf(requestParams.get("fkareaCode")));
+        String loc_dept2 = VivasamUtil.isNull(String.valueOf(requestParams.get("fkbranchCode")));
+        String mainSubject = VivasamUtil.isNull(String.valueOf(requestParams.get("mainSubject")));
+        String secondSubject = VivasamUtil.isNull(String.valueOf(requestParams.get("secondSubject")));
+
+        String birthDay = VivasamUtil.isNull(String.valueOf(requestParams.get("birthDay")));
+        String birth = birthDay.replaceAll("-","");
+
+        String lunar = VivasamUtil.isNull(String.valueOf(requestParams.get("lunar")));
+        String IPIN_CI = VivasamUtil.isNull(String.valueOf(requestParams.get("isIpin")));
+        String EPKI_CERTDN = VivasamUtil.isNull(String.valueOf(requestParams.get("EPKI_CERTDN")));
+        String EPKI_CERTSN = VivasamUtil.isNull(String.valueOf(requestParams.get("EPKI_CERTSN")));
+        String VALID_YN = VivasamUtil.isNull(String.valueOf(requestParams.get("VALID_YN")));
+        String authentication = VivasamUtil.isNull(String.valueOf(requestParams.get("authentication")));
+
+        String sex = VivasamUtil.isNull(String.valueOf(requestParams.get("gender")));
+
+        String zip = VivasamUtil.isNull(String.valueOf(requestParams.get("zipNo")));
+        String addr1 = VivasamUtil.isNull(String.valueOf(requestParams.get("address")));
+        String addr2 = VivasamUtil.isNull(String.valueOf(requestParams.get("addressDetail")));
+
+        //비상교과서 채택여부
+        String visangTbYN = VivasamUtil.isNull(String.valueOf(requestParams.get("visangTbYN")));
+
+        //개인정보 유효기간설정
+        String expiryTermNum = VivasamUtil.isNull(String.valueOf(requestParams.get("expiryTermNum")));
+
+        String vMagazineYN = "N";
+
+        String Agree1 = String.valueOf(requestParams.get("service"));
+        String Agree2 = String.valueOf(requestParams.get("privacy"));
+        String Agree3 = String.valueOf(requestParams.get("all"));
+        String Agree4 = String.valueOf(requestParams.get("marketing"));
+
+        //통합회원 추가
+        String Agree5 = String.valueOf(requestParams.get("thirdPrivacy"));
+        String Agree6 = String.valueOf(requestParams.get("thirdMarketing"));
+        String existTid = String.valueOf(requestParams.get("existTschoolId"));
+
+        logger.info("==============================================================x");
+        logger.info("id   : " + id);
+        logger.info("name   : " + name);
+        logger.info("password   : " + password);
+        logger.info("Email   : " + Email);
+        logger.info("cellphone   : " + cellphone);
+        logger.info("myGrade   : " + myGrade);
+        logger.info("SchoolName   : " + SchoolName);
+        logger.info("SchoolCode   : " + SchoolCode);
+        logger.info("loc_dept1   : " + loc_dept1);
+        logger.info("loc_dept2   : " + loc_dept2);
+        logger.info("mainSubject   : " + mainSubject);
+        logger.info("secondSubject   : " + secondSubject);
+        logger.info("birth   : " + birth);
+        logger.info("lunar   : " + lunar);
+        logger.info("IPIN_CI   : " + IPIN_CI);
+        logger.info("EPKI_CERTDN   : " + EPKI_CERTDN);
+        logger.info("EPKI_CERTSN   : " + EPKI_CERTSN);
+        logger.info("VALID_YN   : " + VALID_YN);
+        logger.info("authentication   : " + authentication);
+
+        logger.info("sex   : " + sex);
+
+        logger.info("zip   : " + zip);
+        logger.info("addr1   : " + addr1);
+        logger.info("addr2   : " + addr2);
+
+        logger.info("visangTbYN   : " + visangTbYN);
+        logger.info("expiryTermNum   : " + expiryTermNum);
+
+        logger.info("agree5   : " + Agree5);
+        logger.info("agree6   : " + Agree6);
+        logger.info("existTid   : " + existTid);
+        logger.info("==============================================================x");
+
+        id = checkXSSService.ReplaceValue(request, "id", id);
+        name = checkXSSService.ReplaceValue(request, "name", name);
+        Email = checkXSSService.ReplaceValue(request, "Email", Email);
+        cellphone = checkXSSService.ReplaceValue(request, "cellphone", cellphone);
+        myGrade = checkXSSService.ReplaceValue(request, "myGrade", myGrade);
+        SchoolName = checkXSSService.ReplaceValue(request, "SchoolName", SchoolName);
+        SchoolCode = checkXSSService.ReplaceValue(request, "SchoolCode", SchoolCode);
+        loc_dept1 = checkXSSService.ReplaceValue(request, "loc_dept1", loc_dept1);
+        loc_dept2 = checkXSSService.ReplaceValue(request, "loc_dept2", loc_dept2);
+        mainSubject = checkXSSService.ReplaceValue(request, "mainSubject", mainSubject);
+        secondSubject = checkXSSService.ReplaceValue(request, "secondSubject", secondSubject);
+        birth = checkXSSService.ReplaceValue(request, "birth", birth);
+        lunar = checkXSSService.ReplaceValue(request, "lunar", lunar);
+        IPIN_CI = checkXSSService.ReplaceValue(request, "IPIN_CI", IPIN_CI);
+        EPKI_CERTDN = checkXSSService.ReplaceValue(request, "EPKI_CERTDN", EPKI_CERTDN);
+        EPKI_CERTSN = checkXSSService.ReplaceValue(request, "EPKI_CERTSN", EPKI_CERTSN);
+        VALID_YN = checkXSSService.ReplaceValue(request, "VALID_YN", VALID_YN);
+        authentication = checkXSSService.ReplaceValue(request, "authentication", authentication);
+        sex = checkXSSService.ReplaceValue(request, "sex", sex);
+        zip = checkXSSService.ReplaceValue(request, "zip", zip);
+        addr1 = checkXSSService.ReplaceValue(request, "addr1", addr1);
+        addr2 = checkXSSService.ReplaceValue(request, "addr2", addr2);
+        visangTbYN = checkXSSService.ReplaceValue(request, "visangTbYN", visangTbYN);
+        expiryTermNum = checkXSSService.ReplaceValue(request, "expiryTermNum", expiryTermNum);
+        Agree3 = checkXSSService.ReplaceValue(request, "Agree3", Agree3);
+        Agree4 = checkXSSService.ReplaceValue(request, "Agree4", Agree4);
+
+        //통합회원 추가
+        Agree5 = checkXSSService.ReplaceValue(request, "Agree5", Agree5);
+        Agree6 = checkXSSService.ReplaceValue(request, "Agree6", Agree6);
+        existTid = checkXSSService.ReplaceValue(request, "existTid", existTid);
+
+
+        Map<String, String> param = new HashMap<>();
+
+        param.put("id", String.valueOf(id));
+        param.put("name", String.valueOf(name));
+        param.put("password", String.valueOf(password));
+        param.put("Email", String.valueOf(Email));
+        param.put("cellphone", String.valueOf(cellphone));
+        param.put("myGrade", String.valueOf(myGrade));
+        param.put("SchoolName", String.valueOf(SchoolName));
+        param.put("SchoolCode", String.valueOf(SchoolCode));
+        param.put("loc_dept1", String.valueOf(loc_dept1));
+        param.put("loc_dept2", String.valueOf(loc_dept2));
+        param.put("mainSubject", String.valueOf(mainSubject));
+        param.put("secondSubject", String.valueOf(secondSubject));
+        param.put("birth", String.valueOf(birth));
+        param.put("lunar", String.valueOf(lunar));
+        param.put("IPIN_CI", String.valueOf(IPIN_CI));
+        param.put("EPKI_CERTDN", String.valueOf(EPKI_CERTDN));
+        param.put("EPKI_CERTSN", String.valueOf(EPKI_CERTSN));
+        param.put("VALID_YN", String.valueOf(VALID_YN));
+        if(String.valueOf(VALID_YN).equals("") || String.valueOf(VALID_YN) == null) param.put("VALID_YN", "N");
+        param.put("authentication", String.valueOf(authentication));
+
+        param.put("sex", String.valueOf(sex));
+
+        param.put("zip", String.valueOf(zip));
+        param.put("addr1", String.valueOf(addr1));
+        param.put("addr2", String.valueOf(addr2));
+
+        param.put("visangTbYN", String.valueOf(visangTbYN));
+        param.put("expiryTermNum", String.valueOf(expiryTermNum));
+
+        param.put("Agree3", String.valueOf(Agree3)); //제3자 정보제공 동의 (선택)
+        param.put("Agree4", String.valueOf(Agree4)); //마케팅 및 광고 활용 동의 (선택)
+
+        //통합회원 추가
+        param.put("Agree5", String.valueOf(Agree5));
+        param.put("Agree6", String.valueOf(Agree6));
+        param.put("existTid", String.valueOf(existTid));
+
+
+        // 학교 정보 직접 등록인지 아닌지 판단
+        // True : 정보 검색 / False : 직접 등록
+        String isSelect =  VivasamUtil.isNull(String.valueOf(requestParams.get("isSelect")));
+        logger.info("isSelect   : " + isSelect);
+        param.put("isSelectedSchool", isSelect);
+
+        // 회원가입 성공시 Q&A작업
+        // 학교 직접 등록인 경우 Q&A 등록하기
+        if(isSelect == "false") {
+            logger.info("==================================================");
+            logger.info("school Q&A Insert");
+            logger.info("==================================================");
+
+            // 학교 직접 등록인 경우 학교급, 학교 지역을 판단하여 설문조사로 넣기 위해 작업
+            String schoolGrade = VivasamUtil.isNull(String.valueOf(requestParams.get("schoolGrade")));
+            String fkareaName = VivasamUtil.isNull(String.valueOf(requestParams.get("fkareaName")));
+            String fkbranchName = VivasamUtil.isNull(String.valueOf(requestParams.get("fkbranchName")));
+            String requestedTerm = VivasamUtil.isNull(String.valueOf(requestParams.get("requestedTerm")));
+            String qnaSchLvlCd = "";
+
+
+            schoolGrade =  checkXSSService.ReplaceValue(request, "schoolGrade", schoolGrade);
+            fkareaName = checkXSSService.ReplaceValue(request, "fkareaName", fkareaName);
+            fkbranchName =  checkXSSService.ReplaceValue(request, "fkbranchName", fkbranchName);
+            requestedTerm = checkXSSService.ReplaceValue(request,"requestedTerm", requestedTerm);
+
+            // 학교 직접 등록시 학교급, 지역 코드 받아오기
+            if(schoolGrade == "E"){
+                schoolGrade = "초등";
+                qnaSchLvlCd = "ES";
+            }
+            else if(schoolGrade == "M"){
+                schoolGrade = "중등";
+                qnaSchLvlCd = "MS";
+            }else{
+                schoolGrade = "고등";
+                qnaSchLvlCd = "HS";
+            }
+
+            // 해당되는 Q&A 값 넣어주기
+            String qnaCd = "QA011";
+            String member_id = id;
+            String qnaTitle =  VivasamUtil.isNull(String.valueOf(requestParams.get("schoolName"))) + "_학교등록신청";
+            String qnaContents = "학교등록 신청</br></br>- 학교급 : ";
+            qnaContents += schoolGrade;
+            qnaContents += "<br/>- 학교명  : ";
+            qnaContents += SchoolName;
+            qnaContents += "<br/>- 학교지역  : ";
+            qnaContents += fkareaName + " > " + fkbranchName;
+            qnaContents += "<br/>- 별도 요청사항  : "+ requestedTerm ;
+            qnaContents += "<br/>";
+            qnaContents += "- 학교변경 동의여부  : Y<br/>";
+
+            qnaTitle = checkXSSService.ReplaceValue(request, "qnaTitle", qnaTitle);
+            qnaContents = checkXSSService.ReplaceValue(request,"qnaContents", qnaContents);
+
+            logger.debug("==============================================================x");
+            logger.debug("qnaCd   : " + qnaCd);
+            logger.debug("qnaTitle   : " + qnaTitle);
+            logger.debug("qnaContents   : " + qnaContents);
+            logger.debug("==============================================================x");
+
+            param.put("qnaCd", qnaCd);
+            param.put("qnaTitle", qnaTitle);
+            param.put("qnaContents", qnaContents);
+            param.put("qnaSchLvlCd", qnaSchLvlCd);
+            param.put("regIp", request.getRemoteAddr());
+
+        }
+
+
+        //회원등록
+//        String result = memberService.insertJoin(param);
+
+        param.put("isSsoMember", "true".equals(Agree5) ? "1" : "0" );
+        String result = memberService.createSsoMember(existTid, param);
+
+        logger.info("==================================================");
+        logger.info("result");
+        logger.info("==================================================");
+        logger.info("result   : " + result);
+        logger.info("==================================================");
+
+
+        if (result.equals("0")) {
+
+            //모바일 경로 가입 인증 업데이트, 학교 직접 등록 원래 여기-- 서비스단에서 처리하도록 수정함
+
+            if (vMagazineYN.equals("Y")) {
+
+                String ppp = id + "#" + SchoolName + "#" + zip + "#" + addr1 + "#" + addr2 + "#" + cellphone + "#" + SchoolCode;
+
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("idx", "2");
+                params.put("id", String.valueOf(id));
+                params.put("cellphone", String.valueOf(cellphone));
+                params.put("SchoolName", String.valueOf(SchoolName));
+                params.put("SchoolCode", String.valueOf(SchoolCode));
+                params.put("zip", String.valueOf(zip));
+                params.put("addr1", String.valueOf(addr1));
+                params.put("addr2", String.valueOf(addr2));
+                params.put("etc", ppp);
+
+                memberService.insertVmagazine(params);
+            }
+        }
+
+        return ResponseEntity.ok(result);
+    }
+
+
+
+    /**
+     * [SSO] 통합 회원 전환
+     */
+    @PostMapping("/insertSsoConversion")
+    public ResponseEntity<?> insertSsoConversion(HttpServletRequest request, @CurrentUser UserPrincipal currentUser, @RequestBody Map<String,Map<String, Object>> requestParamMap) {
+        Map<String,Object> requestParams= requestParamMap.get("0");
+        if(currentUser == null || !StringUtils.hasText(currentUser.getMemberId())) {
+            return ResponseEntity.ok("INVALID");
+        }
+
+        String ci = memberService.getIpinCi(currentUser.getMemberId());
+
+        String vId = VivasamUtil.isNull(String.valueOf(requestParams.get("userId")), ""); //기존 비바샘 아이디
+        String tId = VivasamUtil.isNull(String.valueOf(requestParams.get("tschUserId")), ""); //기존 티스쿨 아이디
+
+        //통합회원 추가
+        String agree5 = String.valueOf(requestParams.get("thirdPrivacy")); //통합회원 약관 동의 여부
+        String agree6 = String.valueOf(requestParams.get("thirdMarketing")); //통합회원 마케팅 동의 여부
+        String ssoId = VivasamUtil.isNull(String.valueOf(requestParams.get("newUserId"))); //통합 회원 아이디
+
+        String password = VivasamUtil.isNull(String.valueOf(requestParams.get("password")));
+        String passwordConfirm = VivasamUtil.isNull(String.valueOf(requestParams.get("passwordCheck")));
+
+        //필수 항목
+        String memberId = currentUser.getMemberId();
+        String email = VivasamUtil.isNull(String.valueOf(requestParams.get("email")));
+        String cellphone = VivasamUtil.isNull(String.valueOf(requestParams.get("telephone")));
+        String schCode = VivasamUtil.isNull(String.valueOf(requestParams.get("schoolCode")));
+        String schName = VivasamUtil.isNull(String.valueOf(requestParams.get("schoolName")));
+        String myGrade = VivasamUtil.isNull(String.valueOf(requestParams.get("myGrade")));
+        String fkareacode = VivasamUtil.isNull(String.valueOf(requestParams.get("fkareaCode")));
+        String fkbranchcode = VivasamUtil.isNull(String.valueOf(requestParams.get("fkbranchCode")));
+        String birth = VivasamUtil.isNull(String.valueOf(requestParams.get("birthDay")));
+        birth = birth.replaceAll("-","");
+        String lunar = VivasamUtil.isNull(String.valueOf(requestParams.get("lunar")));
+        String zip = VivasamUtil.isNull(String.valueOf(requestParams.get("zipNo")));
+        String addr1 = VivasamUtil.isNull(String.valueOf(requestParams.get("address")));
+        String addr2 = VivasamUtil.isNull(String.valueOf(requestParams.get("addressDetail")));
+        String sex = VivasamUtil.isNull(String.valueOf(requestParams.get("gender")));
+        String visangTbYN = VivasamUtil.isNull(String.valueOf(requestParams.get("visangTbYN")));
+        String expiryTermNum = VivasamUtil.isNull(String.valueOf(requestParams.get("expiryTermNum")));
+        String mainSubject = VivasamUtil.isNull(String.valueOf(requestParams.get("mainSubject")));
+        String secondSubject = VivasamUtil.isNull(String.valueOf(requestParams.get("secondSubject")));
+
+
+
+        if(!Boolean.valueOf(agree5)) {
+            //통합 필수 약관 미동의
+            return ResponseEntity.ok("3333");
+        }
+
+
+        password = checkXSSService.ReplaceValue(request, "password", password);
+        passwordConfirm = checkXSSService.ReplaceValue(request, "passwordConfirm", passwordConfirm);
+        vId = checkXSSService.ReplaceValue(request, "vId", vId);
+        tId = checkXSSService.ReplaceValue(request, "tId", tId);
+        agree5 = checkXSSService.ReplaceValue(request, "agree5", agree5);
+        agree6 = checkXSSService.ReplaceValue(request, "agree6", agree6);
+        ssoId = checkXSSService.ReplaceValue(request, "ssoId", ssoId);
+
+        memberId = checkXSSService.ReplaceValue(request, "memberId", memberId);
+        email = checkXSSService.ReplaceValue(request, "email", email);
+        cellphone = checkXSSService.ReplaceValue(request, "telephone", cellphone);
+        schCode = checkXSSService.ReplaceValue(request, "schCode", schCode);
+        schName = checkXSSService.ReplaceValue(request, "schName", schName);
+        myGrade = checkXSSService.ReplaceValue(request, "myGrade", myGrade);
+        fkareacode = checkXSSService.ReplaceValue(request, "fkareacode", fkareacode);
+        fkbranchcode = checkXSSService.ReplaceValue(request, "fkbranchcode", fkbranchcode);
+        birth = checkXSSService.ReplaceValue(request, "birth", birth);
+        lunar = checkXSSService.ReplaceValue(request, "lunar", lunar);
+        zip = checkXSSService.ReplaceValue(request, "zip", zip);
+        addr1 = checkXSSService.ReplaceValue(request, "addr1", addr1);
+        addr2 = checkXSSService.ReplaceValue(request, "addr2", addr2);
+        sex = checkXSSService.ReplaceValue(request, "sex", sex);
+        visangTbYN = checkXSSService.ReplaceValue(request, "visangTbYN", visangTbYN);
+        expiryTermNum = checkXSSService.ReplaceValue(request, "expiryTermNum", expiryTermNum);
+        mainSubject = checkXSSService.ReplaceValue(request, "mainSubject", mainSubject);
+        secondSubject = checkXSSService.ReplaceValue(request, "secondSubject", secondSubject);
+
+        Map<String, String> param = new HashMap<>();
+        param.put("password", password);
+        param.put("passwordConfirm", passwordConfirm);
+        param.put("isSsoMember", agree5);
+        param.put("thirdMarketingAgree", agree6);
+        param.put("ci", ci);
+        param.put("agree5", agree5);
+        param.put("agree6", agree6);
+        param.put("ssoId", ssoId); //새롭게 사용할 아이디
+        param.put("memberId", memberId); //현재 로그인 사용자의 아이디
+        param.put("email", email);
+        param.put("cellphone", cellphone);
+        param.put("schCode", schCode);
+        param.put("schName", schName);
+        param.put("myGrade", myGrade);
+        param.put("fkareacode", fkareacode );
+        param.put("fkbranchcode", fkbranchcode );
+        param.put("birth", birth);
+        param.put("lunar", lunar);
+        param.put("zip", zip);
+        param.put("addr1", addr1);
+        param.put("addr2", addr2);
+        param.put("sex", sex);
+        param.put("visangTbYN", visangTbYN);
+        param.put("expiryTermNum", expiryTermNum);
+        param.put("mainSubject", mainSubject);
+        param.put("secondSubject", secondSubject);
+
+
+        // [SSO] 통합 회원 생성
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>conversion step. changeID : " + vId + " -> " + ssoId);
+        int convertResult = memberService.createSsoMemberWithVivasam(vId, tId, param);
+//        int convertResult = 1;
+        logger.info("exeConvert Result ==========> " + convertResult);
+
+        String result;
+        if ( convertResult > 0 ) { //업데이트 성공
+            result = "0000";
+        }else{
+            result = "1111";
+        }
+
+        return ResponseEntity.ok(result);
+
+    }
+
+
+}

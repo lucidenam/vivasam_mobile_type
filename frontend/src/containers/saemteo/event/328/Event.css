@@ -1,0 +1,33 @@
+/* Event */
+.event210127{text-align:center;}
+.event210127 img{width:100%;vertical-align:top;}
+.event210127 [class^="evtCont"]{position:relative;z-index:1;}
+[class^="event"] .blind{overflow:hidden;position:absolute;top:auto;left:auto;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+.event210127 span, .event210127 p, .event210127 strong, .event210127 button, .event210127 input, .event210127 label, .event210127 textarea{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="section"]{position:relative;}
+[class^="section"] .imgWrap{display:block;}
+[class^="evtCont"] button{box-sizing:border-box;width:100%;}
+.evtTextarea textarea::-webkit-input-placeholder{color:#7b7b7b;}
+.evtTextarea textarea::-moz-placeholder{color:#7b7b7b;}
+.evtTextarea textarea:-ms-input-placeholder{color:#7b7b7b;}
+.evtTextarea textarea:-moz-placeholder{color:#7b7b7b;}
+/* */
+.evtCont01 .btnWrap{position:absolute;top:75.73vw;left:43.06vw;}
+.evtCont01 .btnWrap .btnPreview{display:inline-block;width:29.33vw;height:7.33vw;background:url(/images/events/2021/event210127/btn_preview.png) 0 0 no-repeat;background-size:100%;}
+.evtCont02{padding-bottom:13.86vw;background:#ffe2a0;}
+.evtCont02 .btnWrap{font-size:0;line-height:1;}
+.evtCont02 .btnWrap .btnLink{display:inline-block;width:24vw;height:7.33vw;background:url(/images/events/2021/event210127/btn_link.png) 0 0 no-repeat;background-size:100%;}
+.evtCont02 .btnWrap + .btnWrap{margin-top:8.4vw;padding:0 8vw;box-shadow:0px 0px 0px #866e37;}
+.evtCont02 .btnApply{box-shadow:0 0.933vw 1.066vw rgb(134 110 55 / 0.3)}
+/* EventApply */
+.applyDtl_top{padding:3.2vw 4vw;background:#f66757;}
+.applyDtl_top h3{color:#fff;text-align:center;}
+.applyDtl_top h3 strong{font-family:inherit;}
+.input_wrap + .mt10.mb25.c_gray{color:#888;}
+.acco_notice_cont{display:block;word-break:keep-all;}
+.policy{color:#222;}
+.acco_notice_cont ul.policy + p.comt{color:#888;}
+.acco_notice_tit.info_tit{display:block;color:#333;}
+.checkbox_circle_tit{display:inline-block;text-align:left;}

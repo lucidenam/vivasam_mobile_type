@@ -1,0 +1,34 @@
+/* EVENT 519 */
+.event240819{position:relative;}
+.event240819 img{width:100%;vertical-align:top;}
+.event240819 [class^="evtCont"]{position:relative;z-index:1;}
+.event240819 *{font-family:'Noto Sans KR', sans-serif;}
+.event240819 input[type="checkbox"]{display:none;}
+
+.event240819 .evtIntro{position:relative; padding-bottom:13.519vw; background:#ffec9f;}
+.event240819 .evtIntro .tabWrap{padding:0 2.778vw;}
+.event240819 .evtIntro .tabMenu{margin-bottom:2.685vw; display:flex; justify-content:center; align-items:center; gap:2.778vw;}
+.event240819 .evtIntro .tabMenu li button{display:block; width:21.019vw; height:7.407vw; font-size:3.519vw; font-family:'GmarketSansMedium','sans-serif'; color:#886f0c; line-height:7.778vw; text-align:center; background:#edd36a; border-radius:3.704vw;}
+.event240819 .evtIntro .tabMenu li.on button{background:#3e3e3e; color:#fff;}
+.event240819 .evtIntro .contVideo{display:none; position:relative; width:100%; border-radius:1.852vw; overflow:hidden; background:#d8d8d8;}
+.event240819 .evtIntro .contVideo.on{display:block;}
+.event240819 .evtIntro .contVideo:after{content:''; display:block; padding-top:56.25%;}
+.event240819 .evtIntro .contVideo .thumb{display:none; position:absolute; left:0; right:0; top:0; bottom:0; width:100%; height:100%; z-index:10; overflow:hidden;}
+.event240819 .evtIntro .contVideo .thumb.on{display:block;}
+.event240819 .evtIntro .contVideo .thumb .btn_play{position:absolute; left:50%; top:50%; transform:translate(-50%, -50%); width:7.685vw; height:8.426vw; background:url('/images/events/2024/event240819_2/btn_play.png') no-repeat center / 100% auto;}
+.event240819 .evtIntro .contVideo video{position:absolute; left:0; right:0; top:0; bottom:0; width:100%; height:100%;}
+.event240819 .evtIntro .contVideo iframe{position:absolute; left:0; right:0; top:0; bottom:0; width:100%; height:100%;}
+.event240819 .evtIntro .btn_down{margin:3.426vw auto 0; display:block; width:51.481vw; height:10vw; background:url('/images/events/2024/event240819_2/btn_down.png') no-repeat center / contain;}
+.event240819 .evtCont01{position:relative;}
+.event240819 .btnApply{position:absolute; bottom:11.296vw; left:50%; transform:translateX(-50%); width:69.815vw; height:12.037vw; background:url('/images/events/2024/event240819_2/btn_apply.png') no-repeat center center / 100% auto;}
+
+
+/*신청하기 팝업*/
+.event240819 .applyDtl_top h3{letter-spacing:-0.04em; word-break:keep-all;}
+.event240819 .evtInfoTxt{margin-top:5px; padding-left:10px;}
+
+
+
+
+
+

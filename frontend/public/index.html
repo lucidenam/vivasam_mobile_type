@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--2019.02.15 no cache-->
+    <meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Cache-Control" content="max-age=0">
+    <!--2019.02.15 no cache-->
+    <meta name="description" content="초중고 선생님을 위한 비상교과서 수업 자료실, 풍성한 문서자료, 문제은행, 멀티미디어 자료 제공">
+    <meta name="format-detection" content="telephone=no">
+    <meta property="og:title" content="비바샘">
+    <meta property="og:url" content="https://www.vivasam.com">
+    <meta property="og:image" content="https://www.vivasam.com/images/logo/logoss_2017.gif" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <script type="text/javascript" src="%PUBLIC_URL%/js/viewer.js?ver=20190122"></script>
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <script type="text/javascript" src="%PUBLIC_URL%/js/webview-bridge.js?ver=20220324"></script>
+    <!--카카오 API 사용 -->
+    <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+    <!--VBOOK 레이어 팝업으로 처리-->
+    <link href="https://ibook.vivasam.com/vivaclass/ibook-lib/i-book/teacher.css" rel="stylesheet">
+    <script src="https://ibook.vivasam.com/vivaclass/ibook-lib/i-book/common.js" type="module"></script>
+    <script src="https://ibook.vivasam.com/vivaclass/ibook-lib/i-book/teacher.js" type="module"></script>
+    <script src="https://ibook.vivasam.com/vivaclass/ibook-lib/i-book/vendors~main.js" type="module"></script>
+
+    <title>선생님과 함께 만들어가는 즐거운 수업 | 비바샘</title>
+    <script>
+    </script>
+    <style>
+      input[type=search]::-webkit-search-cancel-button {
+        -webkit-appearance: none;
+      }
+    </style>
+</head>
+<body>
+<noscript>
+  You need to enable JavaScript to run this app..
+</noscript>
+<div id="root"></div>
+<div id="loading" style="position:fixed; z-index:10000; left:0; top:0; right:0; bottom:0; background-color: #fff; opacity: .85; ">
+  <div class="vivasam-loader-box" style="position:absolute; left:50%; top:50%; margin:-35px 0 0 -20px">
+      <img
+          class="vivasam-loader-img" style="display:block; width:40px"
+          src="%PUBLIC_URL%/images/common/loading.gif"/>
+  </div>
+</div>
+<div id="state-network-offline-header" class="error_network_style2" style="display: none;">네트워크 연결 상태를 확인해주세요.</div>
+<div id="state-network-dim" class="network-state-dim" style="display: none;"></div>
+<div id="state-network-online-header" class="error_network_style1" style="display: none;">네트워크가 연결되었습니다.</div>
+<!-- 카카오 API 사용 -->
+<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2e9c6cde882e76e728de43455d983923&libraries=services,clusterer"></script>
+<!-- //카카오 API 사용 -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!--<script async src="https://www.googletagmanager.com/gtag/js?id=G-B7GPBXLL3E"></script>-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=2647002570"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script>
+  if (window.location.hostname === 'mv.vivasam.com') {
+    $.getScript("https://www.google.com/recaptcha/api.js?render=6Ldh3EUrAAAAAJ3A62QdUy5nEgmnKQ8IjqFvXAZv", function(){});
+  } else {
+    $.getScript("https://www.google.com/recaptcha/api.js?render=6LfW0IQrAAAAAIfRaLoTT6LqVxYXfdRPNii6qmPE", function(){});
+  }
+
+</script>
+
+<!-- [RMS-9276] :[개발] 교사 타겟팅 광고 관련 타겟팅게이츠 스크립트 작업 요청 -->
+<div id="wp_tg_cts" style="display:none;"></div>
+</body>
+</html>

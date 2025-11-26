@@ -1,0 +1,60 @@
+@charset "utf-8";
+
+/* Event */
+.textBookPromotion{padding-bottom:51px;}
+.textBookPromotion img{width:100%;vertical-align:top;}
+.textBookPromotion > [class^="evt"]{position:relative;z-index:1;}
+.textBookPromotion .blind{overflow:hidden;position:absolute;top:auto;left:auto;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+/* START */
+.textBookPromotion button{box-sizing:border-box;width:100%;}
+.textBookPromotion .imgWrap{display:block;}
+/* evtTit */
+.promo210528 .evtTitWrap{position:relative;}
+.promo210528 .evtTitWrap p{position:absolute;top:74.93vw;left:9.33vw;font-size:2.933vw;font-weight:500;color:rgba(255, 255, 255, 0.76);line-height:1.72;letter-spacing:-0.03em;}
+.promo210528 .evtTitWrap .btnPreview{position:absolute;right:10.26vw;top:76.53vw;width:19.33vw;}
+/* evtTab > tabBtn */
+.promo210528 .btnTabWrap{position:sticky;top:55px;display:flex;width:100%;background:#babcbf;border-bottom:1vw solid #babcbf;z-index:10;}
+.promo210528 .btnTabWrap .btnTab{flex:1;position:relative;height:17vw;padding:3.3vw;background:#2f3452;border-left:0.133vw solid #4c5170;font-family:'Noto Sans KR', sans-serif;font-size:3.2vw;font-weight:400;color:#fff;letter-spacing:-0.07em;line-height:1.25;word-break:keep-all;white-space:pre-wrap;}
+.promo210528 .btnTabWrap .btnTab:first-child{border-left:0;}
+.promo210528 .btnTabWrap .btnTab.on{background:#51d3ff;font-size:3.466vw;font-weight:700;color:#1f1a6b;}
+.promo210528 .btnTabWrap .btnTab.on:before{content:'';position:absolute;bottom:-3vw;left:50%;display:inline-block;width:6.13vw;height:6.13vw;background:url(/images/textbookpromotion/hs_ai/icon_tabon.png) 0 0 no-repeat;background-size:100%;transform:translateX(-50%);}
+/* evtTab > tabCont */
+.promo210528 .tabContWrap > [class^="evtTab"]{display:none;padding:9.46vw 5.3vw 13.3vw;background:#f9f5eb;}
+.promo210528 .tabContWrap > .evtTab2{padding-top:6.93vw;}
+.promo210528 .tabContWrap > .evtTab3{background:#fff;}
+/* evtTab */
+.promo210528 .introList{margin-top:4vw;}
+.promo210528 .introList li{position:relative;padding:6.4vw 0;background:#fff;text-align:center;}
+.promo210528 .introList li strong{display:block;font-size:5.066vw;font-family:'Noto Sans KR', sans-serif;font-weight:600;color:#ff5160;line-height:1;letter-spacing:-0.07em;}
+.promo210528 .introList li p{margin-top:2.66vw;font-size:3.466vw;font-family:'Noto Sans KR', sans-serif;font-weight:400;color:#292b3899;line-height:1;letter-spacing:-0.06em;}
+.promo210528 .introList li + li{margin-top:1.33vw;}
+.promo210528 .introList li + li:before{content:'+';position:absolute;top:-3.7vw;left:50%;display:inline-block;width:6.266vw;height:6.266vw;background:#423e52;border-radius:100%;font-family:'Noto Sans KR', sans-serif;font-size:4.133vw;font-weight:400;color:#fff;line-height:1.46;transform:translateX(-50%);}
+.promo210528 .writerTit{display:block;margin-top:8vw;}
+.promo210528 .writerList{margin-top:1.33vw;}
+.promo210528 .writerList li{padding:4.5vw 0 4.5vw 4vw;}
+.promo210528 .writerList li .imgWrap{float:left;width:13.86vw;}
+.promo210528 .writerList li .txtWrap{padding-left:16.93vw;}
+.promo210528 .writerList li + li{border-top:0.133vw solid #e9e0c9;}
+.promo210528 .writerList li .txtWrap strong{display:block;font-family:'Noto Sans KR', sans-serif;font-size:3.466vw;font-weight:600;color:#423e52;line-height:1;letter-spacing:-0.025em;}
+.promo210528 .writerList li .txtWrap p{position:relative;padding-left:1.466vw;font-family:'Noto Sans KR', sans-serif;font-size:3.2vw;font-weight:400;color:#727272;line-height:1.5;letter-spacing:-0.02em;}
+.promo210528 .writerList li .txtWrap p:nth-of-type(1){margin-top:1.8vw;}
+.promo210528 .writerList li .txtWrap p:before{content:'';position:absolute;top:2.466vw;left:0;display:inline-block;width:0.4vw;height:0.4vw;background:#727272;border-radius:100%;vertical-align:middle;}
+.promo210528 .slick-arrow{width:8vw;height:8vw;background-position:0 0;background-repeat:no-repeat;background-size:100%;z-index:1;}
+.promo210528 .slick-arrow.slick-disabled{opacity:0.5;}
+.promo210528 .slick-prev{margin-left:-2.5vw;background-image:url(/images/textbookpromotion/hs_ai/btn_swiper_l.png);}
+.promo210528 .slick-next{margin-right:-2.5vw;background-image:url(/images/textbookpromotion/hs_ai/btn_swiper_r.png);}
+.promo210528 .slick-dots{position:relative;bottom:auto;height:auto;margin-top:4vw;}
+.promo210528 .slick-dots li{vertical-align:top;}
+.promo210528 .slick-dots li button,
+.promo210528 .slick-dots li button:before{width:2.66vw;height:2.66vw;background:#d5d0c5;}
+.promo210528 .slick-dots li.slick-active button{background:#6082ff !important;border:0;}
+.promo210528 .tblWrap{margin:4vw auto;background:#423e52;border-right:0.66vw solid #423e52;border-bottom:0.66vw solid #423e52;border-left:0.66vw solid #423e52;}
+.promo210528 .tblWrap table thead th{height:7.46vw;background:#423e52;border-left:0.13vw solid #656272;font-size:2.66vw;font-family:'Noto Sans KR', sans-serif;font-weight:400;color:#fff;letter-spacing:-0.025em;}
+.promo210528 .tblWrap table thead th:first-child{border-left:0;}
+.promo210528 .tblWrap table tbody th,
+.promo210528 .tblWrap table tbody td{height:7.73vw;padding:0 2.46vw;border-right:0.13vw solid #ddd;border-bottom:0.13vw solid #ddd;font-family:'Noto Sans KR', sans-serif;font-size:2.933vw;letter-spacing:-0.025em;}
+.promo210528 .tblWrap table tbody th{background:#f1f1f1;font-weight:500;color:#1f2831;}
+.promo210528 .tblWrap table tbody td{background:#fff;font-weight:400;color:#7d7d7d;}
+.promo210528 .tblWrap table tbody td:last-child{border-right:0;font-weight:400;color:#6082ff;text-align:center;}
+.promo210528 .linkList li + li{margin-top:0.66vw;}
+.promo210528 .linkList + span{display:block;margin-top:5.3vw;font-family:'Noto Sans KR', sans-serif;font-size:3.2vw;font-weight:500;color:#ff8982;text-align:center;line-height:1.3;letter-spacing:-1px;}

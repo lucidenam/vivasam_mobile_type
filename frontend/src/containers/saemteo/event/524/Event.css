@@ -1,0 +1,64 @@
+/* EVENT 524 */
+.event240830{position:relative;}
+.event240830 img{width:100%;vertical-align:top;}
+.event240830 [class^="evtCont"]{position:relative;z-index:1;}
+.event240830 *{font-family:'Noto Sans KR', sans-serif; box-sizing:border-box;}
+.event240830 input[type="checkbox"]{display:none;}
+
+.event240830 .evtTit{padding:74.861vw 0 9.167vw; background:#d5edfe url('/images/events/2024/event240830_2/img1.png') no-repeat center top / 100% auto;}
+.event240830 .btnApply{margin:7.639vw auto 0; display:block; width:80.556vw; height:14.861vw; background:#d5edfe url('/images/events/2024/event240830_2/btn_apply.png') no-repeat center top / 100% auto;}
+
+.event240830 .slide-wrap .event_list {position: relative;width: 100%;}
+.event240830 .slide-wrap .event_list + .event_list {margin-top:2.5vw;}
+.event240830 .slide-wrap .event_list .slick-track{display: flex;}
+.event240830 .slide-wrap .event_list .slick-track .slick-slide{padding:0 0.972vw; box-sizing: content-box;flex:none;}
+.event240830 .slide-wrap .event_list .slick-track .slick-slide img{border-radius:2.083vw; box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.1);}
+
+.event240830 .evtNotice{padding:9.722vw 6.944vw; background:#212b4e;}
+.event240830 .evtNotice strong{display:block; font-size:3.889vw;color:#dadeea; font-weight:600; line-height:1;}
+.event240830 .evtNotice .info{margin-top:2.083vw;}
+.event240830 .evtNotice .info li{position:relative; padding-left:2.222vw; font-size:2.5vw; color:#dadeea; font-weight:300; line-height:3.611vw; letter-spacing:-0.05em;}
+.event240830 .evtNotice .info li:before{content:''; position:absolute; left:0; top:1.528vw; width:0.556vw; height:0.556vw; background:#7e859c; border-radius:50%;}
+.event240830 .evtNotice .info li span{font:inherit; font-weight:600;}
+
+.vivasamter_applyDtl.pt0{padding-top:0;}
+.event240830 .evtInfoText{margin-top:20px; font-size:12px; line-height:1.3; word-break:keep-all; color:#393d49; font-weight:300; text-align:center;}
+.event240830 .textBookListWrap{margin-top:20px;}
+.event240830 .evtTextBookWrap{padding:20px 14px 0;}
+.event240830 .evtTextBookWrap .evtPopLabel{position:relative; font-size:22px; color:#5576ff; font-weight:600; line-height:1; text-align:center;}
+.event240830 .textBookScBtnBox{margin-bottom:15px; display:flex; gap:5px; flex-wrap:wrap;}
+.event240830 .textBookScBtnBox button{width:calc(20% - 4px); flex:none; font-size:12px; color:#8e8e8e; font-weight:400; text-align:center; line-height:28px; border:1px solid #d3d3d3; background:#f7f7f7; border-radius:5px; white-space:nowrap;}
+.event240830 .textBookScBtnBox button:active,
+.event240830 .textBookScBtnBox button:hover,
+.event240830 .textBookScBtnBox button.on{color:#fff; border-color:#5576ff; background-color:#5576ff;}
+.event240830 .textBookList.scrollArea{position:relative; max-height:427px; overflow-y:auto;}
+.event240830 .textBookList dl{display:flex; border:1px solid #dadada; border-radius:10px; overflow:hidden;}
+.event240830 .textBookList dl+dl{margin-top:10px;}
+.event240830 .textBookList dl dt{width:85px; display:flex; align-items:center; justify-content:center; background:#eef1ff;}
+.event240830 .textBookList dl dt p{font-size:14px; color:#5576ff; font-weight:600;}
+.event240830 .textBookList dl dd{padding:10px 12px; flex:1;}
+.event240830 .textBookList dl dd ul li{display:flex;}
+.event240830 .textBookList dl dd ul li+li{margin-top:10px;}
+.event240830 .textBookList dl dd ul li input[type=checkbox] + label{position:relative; padding-left:30px; display:block; cursor:pointer;}
+.event240830 .textBookList dl dd ul li input[type=checkbox] + label:before{content:''; position:absolute; left:0; top:0;width:18px; height:18px; background-image:url('/images/common/ico_chk.png'); background-size:100% auto;}
+.event240830 .textBookList dl dd ul li input[type=checkbox] + label p{font-size:13px;color:#393d49; font-weight:400; line-height:18px;}
+.event240830 .textBookList dl dd ul li input[type=checkbox] + label p em{display:block; font:inherit;}
+.event240830 .textBookList dl dd ul li input[type=checkbox] + label p .noItem{display:none; font:inherit; color:#abadb5;}
+.event240830 .textBookList dl dd ul li input[type=checkbox]:checked + label:before{background-position-y:bottom;}
+.event240830 .textBookList dl dd ul li input[type=checkbox]:disabled + label{cursor:default;}
+.event240830 .textBookList dl dd ul li input[type=checkbox]:disabled + label p .noItem{display:inline-block;}
+
+.event240830 .chkBookListPop{position:absolute; left:0; right:0; top:0; bottom:0; padding:157px 14px 30px; background:rgba(31, 31, 31, .5);}
+.event240830 .chkBookListPop .pop_cont{margin:0 auto; padding:25px 15px 35px; width:100%; max-width:465px; background:#fff; border-radius:20px;}
+.event240830 .chkBookListPop .pop_cont .pop_tit{font-size:17px; color:#393d49; font-weight:600; line-height:1; text-align:center;}
+.event240830 .chkBookListPop .pop_cont .bookListBox{margin-top:20px; border:1px solid #dadada; border-radius:10px; overflow:hidden;}
+.event240830 .chkBookListPop .pop_cont .bookListBox .evtBookList{padding:20px 10px 20px 20px;}
+.event240830 .chkBookListPop .pop_cont .bookListBox .evtBookList ul{height:150px; overflow-y:auto;}
+.event240830 .chkBookListPop .pop_cont .bookListBox .evtBookList ul li{position:relative; padding-left:25px; font-size:13px; line-height:25px; color:#393d49; font-weight:400;}
+.event240830 .chkBookListPop .pop_cont .bookListBox .evtBookList ul li span{position:absolute; left:0; top:0; font:inherit;}
+.event240830 .chkBookListPop .pop_cont .bookListBox .cnt{background:#eef1ff;}
+.event240830 .chkBookListPop .pop_cont .bookListBox .cnt p{font-size:14px; line-height:30px; color:#5576ff; font-weight:600; text-align:center;}
+.event240830 .chkBookListPop .pop_cont .bookListBox .cnt p span{font:inherit;}
+.event240830 .chkBookListPop .pop_cont .btn_wrap{margin-top:20px; display:flex; justify-content:center; gap:10px;}
+.event240830 .chkBookListPop .pop_cont .btn_wrap button{width:178px; height:41px; font-size:15px; color:#fff; font-weight:600; background:#5576ff; border-radius:28px;}
+.event240830 .chkBookListPop .pop_cont .btn_wrap button:before{display:none;}

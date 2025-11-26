@@ -1,0 +1,53 @@
+/* Event */
+.event230215_2{position:relative;background:#fff;}
+.event230215_2 img{width:100%;vertical-align:top;}
+.event230215_2 [class^="evtCont"]{position:relative;z-index:1;}
+.event230215_2 *{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+/* EVENT 388 */
+/* evtNoti */
+
+.applyDtl_top {text-align: center; background: #ffe785;}
+.vivasamter_applyDtl .info_tit.required:before {content:""; margin-right:14px;}
+
+.tit_flex {display: flex; align-items: center; }
+.tit_flex > label {display: inline-block; margin-right: 20px;}
+.tit_flex .join_ipt_chk {width: auto;}
+.tit_flex .join_ipt_chk li {width: auto;}
+.tit_flex .join_ipt_chk li:first-child {margin-right: 20px;}
+.tit_flex .join_ipt_chk li input[type="radio"] + label {display: block; margin-top: -1px;}
+.boxFlex {display:flex;}
+.boxFlex label{display: inline-block; margin-right: 10px;}
+.boxFlex ul {display: flex; flex: 1; flex-wrap: wrap; }
+.boxFlex ul li {width: 50%; margin-bottom: 9px;}
+.pointTxt {padding-left: 12px; text-indent: -12px;}
+
+.careerTxt {position: absolute;right: 20px;top: 50%;transform: translateY(-50%);}
+.checkbox + label:before {position: relative; top: 4px;}
+.join_chk_list input[type="radio"].checkbox_circle + label {font-size: 14px; color: #464a55;}
+.info_tit label span {font-size: 14px; font-weight: 400; color: #ff8125;}
+.info_tit  input[type="radio"].checkbox_circle + label {font-weight: 400;}
+.info_tit  input[type="radio"].checkbox_circle:checked + label {font-weight: 500;}
+.tit_flex .count_wrap {flex: 1; text-align: right;}
+.tit_flex .count_wrap .count {font-size: 14px; font-weight: 400; color: #a1a1a1; }
+.tit_flex .count_wrap .count span {font-size: 14px; font-weight: 600;  color: #393d49; }
+.input_wrap textarea::placeholder {font-size: 14px;}
+.bulTxt.type02 {position: relative; padding-left: 3vw; color: #000000; text-indent: -3.2vw;}
+.bulTxt.type02:before {content: "※ ";}
+.grade_wrap {display:none;}
+.grade_wrap.on {display: block;}
+.subject_wrap {display: none;}
+.subject_wrap.on {display: block;}
+
+
+
+@media screen and (max-width: 400px) {
+	.bulTxt.type02 br {display: none;}
+}
+
+@media screen and (max-width: 373px) {
+	.tit_flex .join_ipt_chk {margin-top: 2px;}
+}

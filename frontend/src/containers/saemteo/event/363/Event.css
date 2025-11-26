@@ -1,0 +1,41 @@
+/* Event */
+.event210817{position:relative;background:#fbf4e2;}
+.event210817 img{width:100%;vertical-align:top;}
+.event210817 [class^="evtCont"]{position:relative;z-index:1;}
+.event210817 div, .event210817 ul, .event210817 li, .event210817 span, .event210817 p, .event210817 strong, .event210817 button, .event210817 input, .event210817 label, .event210817 textarea{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="section"]{position:relative;}
+[class^="section"] .imgWrap{display:block;}
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+.evtInput input::-moz-placeholder,
+.evtTextarea textarea::-moz-placeholder{color:#aaa;}
+.evtInput input:-moz-placeholder,
+.evtTextarea textarea:-moz-placeholder{color:#aaa;}
+.evtInput input::-webkit-input-placeholder{color:#aaa;}
+.evtInput input:-ms-input-placeholder{color:#aaa;}
+/* EVENT 363 */
+.event210817 .evtCont01 .evtNoti{position:absolute;top:26%;left:0;display:block;width:100%;height:30.3%;text-align:center;}
+.event210817 .evtCont01 .evtNoti p.txt{font-size:3.2vw;font-weight:500;color:#6d6e70;line-height:1.35;letter-spacing:-0.04em;}
+.event210817 .evtCont01 .evtNoti p.txt strong{font:inherit;color:#1ab26b;}
+.event210817 .evtCont01 .evtPeriod{width:66.13vw;margin:5% auto;text-align:left;}
+.event210817 .evtCont01 .evtPeriod li + li{margin-top:1.5%;}
+.event210817 .evtCont01 .evtPeriod .tit{display:inline-block;width:19.46vw;height:5.33vw;background:#1ab26b;border-radius:2.66vw;font-size:3.2vw;font-weight:700;color:#fff;text-align:center;line-height:1.66;letter-spacing:-0.04em;}
+.event210817 .evtCont01 .evtPeriod .txt{margin-left:1.33vw;font-size:3.46vw;font-weight:700;color:#6f4a79;line-height:1.53;letter-spacing:-0.04em;}
+.event210817 .evtCont03{padding:0 8vw 10.66vw;}
+.event210817 .evtCont03 .formTit{height:10.26vw;background:url(/images/events/2021/event210817/form_tit.png) 50% 0 no-repeat;background-size:auto 100%;}
+.event210817 .evtCont03 .formTit + span{display:block;margin:2.66vw 0;font-size:2.93vw;font-weight:400;color:#737373;text-align:center;letter-spacing:-0.04em;}
+.event210817 .evtCont03 .evtTextarea{overflow:hidden;background:#fff;border:0.4vw solid #704b7a;border-bottom:0;border-radius:1.733vw 1.733vw 0 0;}
+.event210817 .evtCont03 .evtTextarea textarea{padding:2.66vw;height:20vw;font-size:2.933vw;font-weight:400;letter-spacing:-0.04em;}
+.event210817 .evtCont03 .evtTextarea .count{padding:0 2.66vw 2.66vw;font-size:2.933vw;color:#969696;text-align:right;line-height:1;}
+.event210817 .evtCont03 .evtTextarea .count span{font:inherit;color:#3c5863;}
+.event210817 .evtCont03 .btnApply{display:block;width:100%;height:12.66vw;padding-right:6vw;background:url(/images/events/2021/event210817/ico_apply_arr.png) 62% 52% no-repeat #704b7a;background-size:5vw 5vw;border-radius:0 0 1.733vw 1.733vw;font-size:4.533vw;font-weight:700;color:#fff;}
+.event210817 .evtCont04{background:#fff;}
+.event210817 .evtCont04 .evtList{padding:0 8vw;}
+.event210817 .evtCont04 .evtList .listItem{padding-top:7.733vw;}
+.event210817 .evtCont04 .evtList .listItem:last-child{padding-bottom:7.733vw;}
+.event210817 .evtCont04 .evtList .listItem + .listItem{margin-top:6vw;border-top:0.13vw solid #ddd;}
+.event210817 .evtCont04 .evtList .listItem strong{font-size:3.2vw;font-weight:500;color:#333;line-height:1;}
+.event210817 .evtCont04 .evtList .listItem strong + .txt{height:auto;margin-top:2.2vw;font-size:3.2vw;font-weight:400;color:#666;line-height:1.5;letter-spacing:-0.04em;word-break:break-all;}
+.event210817 .evtCont04 .btnMore{display:block;width:100%;height:12vw;background:#eaeaea;font-size:3.2vw;font-weight:700;color:#666;}

@@ -1,0 +1,24 @@
+
+.vivasamter { padding-bottom: 50px; }
+.event200519 {position: relative; background: #bdece6; 	 }
+.event200519 img {vertical-align: middle; width:100%; line-height:0}
+
+.event200519 h1 { height: 96vw; }
+.event200519 h3 {position: relative; }
+.event200519 h3 a {    position: absolute; right: 8vw; width: 20vw; height: 6vw; bottom: 8vw;}
+.event200519 .cont {}
+.event200519 .btn_apply_wrap { padding-bottom: 8vw; }
+
+.event200519 .comment_wrap {background: #715c5c; height: 60.7vw; }
+.event200519 .comment { position: relative; text-align: center; height: 46.7vw; background: url(/images/events/2020/event200519/bg.jpg) no-repeat center top; background-size: cover;}
+.event200519 .comment li { display: inline-block; vertical-align: top; width: 42.5vw; padding: 3.2vw 1.4vw 5.2vw 4vw; margin: 0 1vw; text-align: left; color:#666666; box-sizing: border-box;  letter-spacing: -0.2vw; font-family: 'Noto Sans KR', sans-serif;}
+.event200519 .comment li strong {color:#130c0e; font-size: 1vw; font-weight: 600; display: block; padding: 1vw 0 1.5vw; }
+.event200519 .comment li p {font-size: 0.8vw; height: 32vw; overflow-y: auto; }
+.event200519 .comment > a {position: absolute;top: 50%; left: 0;  margin-top: -5vw; width: 6.5vw;height: 10vw;display: block;}
+.event200519 .comment ul + a { left: auto; right: 0; }
+
+#paginate { padding-top: 2vw; text-align: center; }
+#paginate a {color: #fff; display: inline-block; border: 0.4vw solid #715c5c; width: 5.3vw; height:5.3vw; line-height: 4.4vw; font-size: 2.2vw; }
+#paginate a.current {color: #bdece6; border-color: #bdece6; font-weight: bold; }
+#paginate  span {font-family: Tahoma, serif; }
+#paginate img { height: 1.5vw; width: auto; }

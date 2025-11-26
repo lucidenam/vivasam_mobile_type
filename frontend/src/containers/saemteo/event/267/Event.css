@@ -1,0 +1,17 @@
+.event191128 {position: relative; font-family:"Nanum Gothic", "sans-serif";}
+.event191128 img {vertical-align: middle; width:100%; line-height:0}
+.event191128 a {display: inline;}
+
+/* btn */
+.event191128 .btn_detail {position: absolute; top:0; left: 0; margin: 208% 0 0 58.54%; width: 35vw; height: 7vw; line-height: 7vw; border-radius: 0.8vw; background: #457cb5;  text-align: center; font-size: 3.2vw; color: #fff; font-weight: 700;}
+/* 신청하기 */
+.event191128 .btn_wrap {position: absolute; bottom: 15.5vw; left: 0; width: 100%; text-align: center;}
+.event191128 .btn_apply {width: 84.6%; height: 12vw; border-radius: 6vw; background: #f76f91;  font-size: 4.2vw; color: #fff; font-family: "Nanum Gothic_Bold";}
+
+/* contents */
+.event191128 .cont {position: relative;}
+.event191128 .info {padding: 4vw 4.5vw; background: #f0bbbc;}
+.event191128 .info h2 {margin-bottom: 2vw;  font-family: "Nanum Gothic_Bold"; font-size: 2.8vw; color: #6e4250;}
+.event191128 .info li {position: relative; padding-left: 2vw; margin-bottom: 1.5vw; font-size: 2.26vw; color: #754f5b;}
+.event191128 .info li strong {color: #e1e0b1;}
+.event191128 .info li:before {content: ""; display: block; position: absolute; left: 0; top: 1.4vw; width: 0.5vw; height: 0.5vw; background: #754f5b;}

@@ -1,0 +1,41 @@
+/* EVENT 605 */
+.event251118{position:relative;}
+.event251118 img{width:100%;vertical-align:top;}
+.event251118 [class^="evtCont"]{position:relative;z-index:1;}
+.event251118 *{font-family:'Noto Sans KR', sans-serif;}
+.event251118 input[type="checkbox"]{display:none;}
+
+.event251118 .item_box{position:absolute; top:144.1589vw; left:50%; transform:translateX(-50%); width:76.636vw; height:159.579vw; background:url('/images/events/2025/event251118/item.png') no-repeat center / contain;}
+.event251118 .item_box a{position:absolute; width:10.514vw; left:50%; transform:translateX(-50%); height:10.514vw; background:url('/images/events/2025/event251118/ico_view.png') no-repeat center / contain;}
+.event251118 .item_box .btnView1{top:31.308vw;}
+.event251118 .item_box .btnView2{top:112.15vw;}
+.event251118 .btnApply{position:absolute; bottom:23.364vw; left:50%; transform:translateX(-50%); width: 70.093vw; height:17.523vw; background:url('/images/events/2025/event251118/btn_apply.png')no-repeat center / contain;}
+.event251118 .item_end {display: none; position: absolute; right:5.374vw; top:11.449vw; width:21.729vw; height:21.729vw; }
+.event251118 .item_end.deadline {display:block;}
+
+.evtNotice {padding:11.215vw 7.009vw; background:#014d6d;}
+.evtNotice strong {margin-bottom:5.841vw; display:block; font-size:5.07vw; font-weight:600; color: #fff; line-height: 1; letter-spacing: -0.045em;}
+.evtNotice ul li{position:relative; padding-left:3.505vw; font-size:3.334vw; font-weight: 400; color: #fff; line-height: 1.8; letter-spacing: -0.045em; word-break: keep-all;}
+.evtNotice ul li:before{content:''; position:absolute; left:0; top:2.2vw; width:1.168vw; height:1.168vw; border-radius:50%; background:#fff;}
+.evtNotice ul li+li{margin-top:0.709vw;}
+.evtNotice ul li span{font:inherit; font-weight:700; color:#FFEF86;}
+
+
+
+/*신청하기팝업*/
+.event251118 .applyDtl_top{background:#fff9e3; border-top:1px solid #d0d0d0; border-bottom:1px solid #d0d0d0}
+.event251118 .applyDtl_top h3{text-align:center; font-size:17px;}
+.event251118 .info_tit label{font-size:14px;font-weight:600;color:#393d49;}
+.event251118 .vivasamter_applyDtl .info_tit > .join_ipt_chk{display:inline-block;}
+.event251118 .vivasamter_applyDtl .info_tit > .join_ipt_chk .join_chk_list.half{margin:0 0 0 20px;float:none;width:auto;display:inline-block;}
+.event251118 .join_chk_list input[type="radio"].checkbox_circle + label{font-size:14px;font-weight:400;color:#464a55;}
+.event251118 .join_chk_list input[type="radio"].checkbox_circle:checked + label{font-size:14px;font-weight:400;}
+.event251118 .vivasamter_applyDtl .input_wrap.school .input_sm{width:calc(100% - 130px);}
+.event251118 .vivasamter_applyDtl .input_wrap.school .input_in_btn.btn_gray{margin-left:5px;margin-top:-24px;right:0;width:125px;height:48px;font-size:14px;font-weight:600;vertical-align: top;}
+.event251118 .bulTxt{padding-left:25px;margin-top:5px;text-indent:-10px;}
+.event251118 .vivasamter_applyDtl .privacyList li{font-weight:400;}
+.event251118 .vivasamter_applyDtl .privacyList li:before{left:5px;}
+.event251118 .vivasamter_applyDtl .acco_notice_cont .privacyTxt{font-weight:400;}
+.event251118 .infoTxtWrap{margin-top:7px; padding:0 15px;}
+.event251118 .inputInfoTxt{font-size:12px; color:#888888; padding-left:10px; text-indent:-10px;}
+.event251118 .evtItemWRap img{width:100%;}

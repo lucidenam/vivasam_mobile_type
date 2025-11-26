@@ -1,0 +1,9 @@
+export {default as Footer} from './Footer';
+export {default as FooterPopup} from './FooterPopup';
+export {default as FooterCopyright} from './FooterCopyright';
+export {default as Header} from './Header';
+export {default as PagePopupTemplate} from './PagePopupTemplate';
+export {default as PageTemplate} from './PageTemplate';
+export {default as PageTitleChangeTemplate} from './PageTitleChangeTemplate';
+export {default as MainHeaderPageTemplate} from './MainHeaderPageTemplate';
+export {default as SsoPageTemplate} from './SsoPageTemplate';

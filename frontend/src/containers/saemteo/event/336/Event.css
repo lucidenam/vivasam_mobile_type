@@ -1,0 +1,45 @@
+/* Event */
+.event210322{position:relative;text-align:center;}
+.event210322 img{width:100%;vertical-align:top;}
+.event210322 [class^="evtCont"]{position:relative;z-index:1;}
+.event210322 span, .event210322 p, .event210322 strong, .event210322 button, .event210322 input, .event210322 label, .event210322 textarea{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="section"]{position:relative;}
+[class^="section"] .imgWrap{display:block;}
+[class^="evtCont"] button{box-sizing:border-box;width:100%;}
+.evtInput input::-webkit-input-placeholder,
+.evtTextarea textarea::-webkit-input-placeholder{color:#aaa;}
+.evtInput input::-moz-placeholder,
+.evtTextarea textarea::-moz-placeholder{color:#aaa;}
+.evtInput input:-ms-input-placeholder,
+.evtTextarea textarea:-ms-input-placeholder{color:#aaa;}
+.evtInput input:-moz-placeholder,
+.evtTextarea textarea:-moz-placeholder{color:#aaa;}
+/* */
+.evtCont03 .btnWrap{position:absolute;bottom:0;left:0;width:100%;}
+.evtCont03 .btnWrap .btnReview{width:35.73vw;margin:0 auto;}
+.evtCont03 .btnWrap .btnApply{width:61.33vw;margin:10.66vw auto 12vw;}
+.evtCont04 .evtListWrap{background:#ffe9e6;}
+.evtCont04 .evtListWrap .evtList{padding:0 4vw 4vw;}
+.evtCont04 .evtList .listItem{padding:5vw;background:#fff;border-radius:4vw;text-align:left;}
+.evtCont04 .evtList .listItem .listTit{font-size:3.2vw;font-weight:700;color:#130c0e;line-height:1;}
+.evtCont04 .evtList .listItem .txt{margin-top:4vw;font-size:3.2vw;font-weight:300;color:#333;}
+.evtCont04 .evtList .listItem + .listItem{margin-top:3vw;}
+.evtCont04 .evtListWrap .btnMore{height:12vw;background:#fe7396;font-size:3.866vw;color:#fff;}
+
+/* EventApply */
+.applyDtl_top{padding:12px 15px;background:#fe7396;}
+.applyDtl_top h3{color:#fff;text-align:center;}
+.applyDtl_top h3 strong{font-family:inherit;color:#fbd81a;}
+.input_wrap + .mt10.mb25.c_gray{color:#888;}
+.c_blue{color:#508ae8;}
+.info_tit + p.mb10{color:#333;}
+/* 유의사항 */
+.bgGray{background:#f3f3f3;}
+.acco_notice_cont{display:block;word-break:keep-all;background:#fff;}
+.policy{color:#222;}
+.acco_notice_cont ul.policy li span{color:#d61a1a;}
+.acco_notice_cont ul.policy + p.comt{color:#888;}
+.acco_notice_tit.info_tit{display:block;color:#333;}
+.checkbox_circle_tit{display:inline-block;text-align:left;}

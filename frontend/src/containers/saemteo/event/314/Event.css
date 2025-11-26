@@ -1,0 +1,57 @@
+/* Event */
+.event201110{background:#46e4e6;text-align:center;}
+.event201110 img{width:100%;}
+.event201110 [class^="evtCont"]{position:relative;z-index:1;}
+.event201110 [class^="evtCont"] .inner{padding:0 4.66vw;}
+.evtCont02:before{content:'';position:absolute;top:0.9vw;right:3.73vw;bottom:-0.9vw;left:5.6vw;display:block;background:#36bebf;z-index:-1;}
+.caseBookWrap{position:relative;box-sizing:border-box;padding:1.86vw 6.53vw 8vw 8vw;background:#fff9f0;border:0.1vw solid #fff;}
+/* 이벤트 체크박스 공통 */
+.caseBookWrap input[type="checkbox"]{overflow:hidden;position:absolute;top:-99px;left:-99px;width:1px;height:1px;margin:0;}
+.caseBookWrap input[type="checkbox"] + label{display:block;width:100%;height:100%;text-align:left;cursor:pointer;}
+/**/
+.chkAllWrap{overflow:hidden;position:absolute;top:-4.39vw;right:2.4vw;border:0.5vw solid #46e4e6;border-radius:4.5vw;text-align:left;}
+.chkAllWrap input[type="checkbox"] + label{display:inline-block;width:31vw;height:8vw;background:#fff;border-radius:4vw;font-size:3.2vw;font-weight:600;color:#4c5773;line-height:8vw;letter-spacing:-1px;}
+.chkAllWrap input[type="checkbox"] + label:before{content:'';display:inline-block;box-sizing:border-box;width:4.8vw;height:4.8vw;margin:1.6vw 2.4vw 1.6vw;background:#e9e4db;border:0.1vw solid #dfd7ca;border-radius:2.4vw;vertical-align:top;}
+.chkAllWrap input[type="checkbox"]:checked + label:after{content:'';position:absolute;top:2.4vw;left:3.2vw;display:inline-block;width:3.2vw;height:3.2vw;background:#ff5a18;border-radius:1.6vw;}
+.caseBookList{display:flex;flex-wrap:wrap;justify-content:space-between;}
+.caseBookList li{overflow:hidden;position:relative;flex:0 34.6vw;height:71.3vw;margin-top:7.6vw;background-image:url(/images/events/2020/event201110/bg_casebook01.png);background-position:0 0;background-repeat:no-repeat;background-size:auto 100%;}
+.caseBookList li:nth-child(2){background-image:url(/images/events/2020/event201110/bg_casebook02.png);}
+.caseBookList li:nth-child(3){background-image:url(/images/events/2020/event201110/bg_casebook03.png);}
+.caseBookList li:nth-child(4){background-image:url(/images/events/2020/event201110/bg_casebook04.png);}
+/* 이벤트 체크박스 활성화 */
+.caseBookList li input[type="checkbox"]:checked + label:before{content:'';position:absolute;top:14.6vw;left:10.2vw;display:inline-block;box-sizing:border-box;width:12.2vw;height:12.2vw;background-image:url(/images/events/2020/event201110/icon_chk.png);background-position:0 0;background-repeat:no-repeat;background-size:24.5vw 24.5vw;}
+.caseBookList li:nth-child(2) input[type="checkbox"]:checked + label:before{background-position:-12.2vw 0;}
+.caseBookList li:nth-child(3) input[type="checkbox"]:checked + label:before{background-position:0 -12.2vw;}
+.caseBookList li:nth-child(4) input[type="checkbox"]:checked + label:before{background-position:-12.2vw -12.2vw;}
+.caseBookList li input[type="checkbox"]:checked + label:after{content:'';display:inline-block;width:31.6vw;height:40.5vw;border:0.8vw solid #ff3442;}
+.caseBookList li:nth-child(2) input[type="checkbox"]:checked + label:after{border:0.8vw solid #446fd8;}
+.caseBookList li:nth-child(3) input[type="checkbox"]:checked + label:after{border:0.8vw solid #297f6f;}
+.caseBookList li:nth-child(4) input[type="checkbox"]:checked + label:after{border:0.8vw solid #6658a6;}
+/* 이벤트 체크박스 비활성화 */
+.caseBookList li input[type="checkbox"]:disabled + label{cursor:default;}
+.caseBookList li input[type="checkbox"]:disabled + label:before{content:'';position:absolute;top:0;left:0;display:inline-block;box-sizing:border-box;width:34.6vw;height:42.1vw;background-image:url(/images/events/2020/event201110/chk_done_casebook01.png);background-position:0 0;background-repeat:no-repeat;background-color:#fff9f0;background-size:100% auto;}
+.caseBookList li:nth-child(2) input[type="checkbox"]:disabled + label:before{background-image:url(/images/events/2020/event201110/chk_done_casebook02.png);}
+.caseBookList li:nth-child(3) input[type="checkbox"]:disabled + label:before{background-image:url(/images/events/2020/event201110/chk_done_casebook03.png);}
+.caseBookList li:nth-child(4) input[type="checkbox"]:disabled + label:before{background-image:url(/images/events/2020/event201110/chk_done_casebook04.png);}
+/**/
+.caseBookInfo{display:flex;justify-content:space-between;margin-top:6.26vw;padding-top:4vw;border-top:0.1vw solid #e9e4e0;}
+.caseBookInfo .txtInfo{flex:0 52.4vw;}
+.caseBookInfo .btnLink01{flex:0 14.5vw;margin-top:auto;}
+.caseBookInfo .btnLink01 img{vertical-align:bottom;}
+.evtCont03:before{content:'';position:absolute;top:0.9vw;right:3.73vw;bottom:-0.9vw;left:5.6vw;display:block;background:#36bebf;z-index:-1;}
+.bannerWrap{position:relative;margin-top:4vw;}
+.bannerWrap .btnLink02{position:absolute;top:16.4vw;left:27vw;width:23.7vw;}
+.event201110 .evtCont04 .inner{padding-bottom:8.26vw;}
+.evtCont04 .btnWrap{margin-top:4vw;font-size:0;text-align:center;}
+.evtCont04 .btnWrap button{width:100%;}
+.evtCont04 .btnWrap .btnApply{display:inline-block;}
+
+/* EventApply */
+.applyDtl_top{background:#46e4e6;padding:4.5vw 15px;}
+.applyDtl_top h3{color:#fff;}
+.applyDtl_top h3 strong{font-family:inherit;color:#284082;}
+.input_wrap + .mt10.mb25.c_gray{color:#888;}
+.acco_notice_cont{display:block;word-break:keep-all;}
+.policy{color:#222;}
+.acco_notice_cont ul.policy + p.comt{color:#888;}
+.acco_notice_tit.info_tit{display:block;color:#333;}

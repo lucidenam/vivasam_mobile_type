@@ -1,0 +1,15 @@
+{
+  "short_name": "비바샘",
+  "name": "선생님과 함께 만들어가는 즐거운 수업 | 비바샘",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

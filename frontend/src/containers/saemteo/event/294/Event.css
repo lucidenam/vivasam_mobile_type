@@ -1,0 +1,65 @@
+.event200514 {position: relative;font-family: "Nanum Gothic","�굹�닎怨좊뵓",NanumGothic,"�룍��",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;}
+.event200514 .btn_myinfo {     position: absolute; height: 6vw; width: 27vw; right: 7%; top: 189vw;}
+.event200514 img,
+.event200514 .img {vertical-align: middle; width:100%; line-height:0}
+.event200514 .cont {position: relative;padding:4vw 7vw 6vw; background: #fffae7;}
+.event200514 .cont + .cont {background: #fff6b8; padding-top: 9.5vw; }
+.event200514 .cont .radio_list { padding-top: 4vw;  margin-bottom: 3.6vw; }
+.event200514 .cont .radio_list ul {box-sizing: border-box; text-align: center;}
+.event200514 .cont .radio_list li { display: inline-block; width: 27.9vw; height: 19.1vw; margin-left: 1.1vw; vertical-align: top; }
+.event200514 .cont .radio_list li:first-child {margin-left:0}
+.event200514 .cont .radio_list li label {display:block;width:100%; height: 19.1vw; background-size: contain; background-repeat: no-repeat; background-position: 0 0; text-indent: -10000px; line-height:0}
+.event200514 .cont .radio_list li input {position:absolute;width:0;height: 0;margin: 0;opacity: 0;}
+.event200514 .cont .radio_list li.radio_01 label {background-image: url(/images/events/2020/event200514/radio1.png);}
+.event200514 .cont .radio_list li.radio_01 input:checked + label {background-image: url(/images/events/2020/event200514/radio1_on.png);}
+.event200514 .cont .radio_list li.radio_02 label {background-image: url(/images/events/2020/event200514/radio2.png);}
+.event200514 .cont .radio_list li.radio_02 input:checked + label {background-image: url(/images/events/2020/event200514/radio2_on.png);}
+.event200514 .cont .radio_list li.radio_03 label {background-image: url(/images/events/2020/event200514/radio3.png);}
+.event200514 .cont .radio_list li.radio_03 input:checked + label {background-image: url(/images/events/2020/event200514/radio3_on.png);}
+
+.event200514 .cont .agree {background-color: #ffffff;padding:5%;; border: 1px solid #d3d3d3; }
+.event200514 .cont .agree h3 {color:#333; margin-bottom: 8px; font-size: 14px; font-family:"Nanum Gothic_Bold"}
+.event200514 .cont .agree li {position: relative;padding-left: 10px;font-size: 12px;}
+.event200514 .cont .agree li:before {content:""; position: absolute;top:8px;left:0; width:4px;height:1px; background-color: #666;}
+.event200514 .cont .agree li em {color: #dc3e3e;font-family:"Nanum Gothic_Bold"}
+.event200514 .cont .agree ul+p { font-size: 12px; color: #888282; padding-top: 1em; padding-left: 1em; text-indent: -1em; }
+.event200514 .cont .agree .btn_myinfo {display:inline-block;color:#000; text-decoration: underline}
+
+.event200514 .cont .agree_check {padding: 5% 0;text-align:left; position: relative;}
+.event200514 .cont .agree_check input {vertical-align: middle; position: absolute; margin-top: 3px;}
+.event200514 .cont .agree_check label {margin-left: 5px;color:#777777; vertical-align: middle; padding-left: 1em; display: block; }
+
+.event200514 .msg {position: relative;padding-right: 90px;}
+.event200514 .msg textarea {width: 100%; height: 90px; background: #fff; padding: 10px; border: 1px #d6d6d6 solid; font-size: 13px; color: #757575; line-height: 1.4; outline: none;}
+.event200514 .btn_submit {display: block;position:absolute;top:0;right:0;background: #566472;width: 80px;height: 90px; font-size: 14px; color: #fff; text-align: center; line-height: 90px; text-decoration: none; font-family:"Nanum Gothic_Bold"}
+
+.event200514 .msg_box {padding-bottom: 6vw; }
+.event200514 .msg_box .msg {padding: 0;}
+.event200514 .msg_box .btn_submit {position: static; width: 100%; height: 50px; line-height: 50px;}
+.event200514 .msg_box .bgbox {height:90px;background:#ffffff;;border: 1px #bcbcbc solid; margin-bottom: 7px;}
+.event200514 .msg_box .msg textarea {background:#ffffff;height: 90px;border: none;}
+.event200514 .msg_box .count {margin:0 1.6vw 0; text-align: right; font-size: 12px; color: #888888;}
+.event200514 .msg_box .count span {color: #333333; }
+
+.event200514 .list_wrap { padding-top: 3vw; }
+.event200514 .list_wrap > ul {margin: 0 4.3%;padding: 0 4% 0;   background: #fff; }
+.event200514 .list_wrap > ul > li {position: relative; padding: 6vw 0; border-bottom: 1px solid #dddddd; }
+.event200514 .list_wrap > ul > li strong {display: inline-block;width:auto;height:22px; border-radius:10px; margin-right: 10px; margin-bottom: 3vw; line-height: 22px;text-align: center; font-size: 14px; font-family:"Nanum Gothic"; font-weight: bold; vertical-align: middle;color: #fff; padding-left: 0.5em; padding-right: 0.5em; }
+.event200514 .list_wrap > ul > li strong.type1 {background-color: #d67531;}
+.event200514 .list_wrap > ul > li strong.type2 {background-color: #48b8a3;}
+.event200514 .list_wrap > ul > li strong.type3 {background-color: #052a88;}
+.event200514 .list_wrap > ul > li > div {text-align: right; }
+.event200514 .list_wrap > ul > li .uid {color: #292929; line-height: 30px; font-size: 12px;}
+.event200514 .list_wrap > ul > li .date {display: inline-block;margin-left:15px;padding-left:15px;color: #999; line-height: 13px; font-size: 12px;}
+.event200514 .list_wrap > ul > li .btns {position: absolute;top:5px;right:0}
+.event200514 .list_wrap > ul > li .btns .btn_edit_control {}
+.event200514 .list_wrap > ul > li .btns .btn_edit_control:after {content: "";display: inline-block;width:19px;height:16px;background: url(/images/sprite.png) -73px -174px no-repeat;background-size: 400px 400px;}
+.event200514 .list_wrap > ul > li .btns .btn_control {position: absolute;top:20px;right:7px; width:70px; background: #fff; border: 1px #d2d2d2 solid; -webkit-box-shadow: 1px 1px 2px rgba(0,0,0, .1);box-shadow: 1px 1px 2px rgba(0,0,0, .1); z-index:5}
+.event200514 .list_wrap > ul > li .btns .btn_control li {border-top: 1px #d2d2d2 solid;}
+.event200514 .list_wrap > ul > li .btns .btn_control li:first-child {border-top: none;}
+.event200514 .list_wrap > ul > li .btns .btn_edit {display:block;width:100%;height: 35px; line-height: 35px; color: #666; text-decoration: none;}
+.event200514 .list_wrap > ul > li .msg {margin-top:7px}
+.event200514 .list_wrap > ul > li p {line-height: 1.4em;}
+.event200514 .btn_more,
+.event200514 .btn_more:active {background-color:transparent; height: 40px; line-height: 40px; color: #848484; }
+.event200514 .btn_more:after {content: ">";display: inline-block;width:13px;height:13px; margin:0 0 0 5px; vertical-align: top; font-size: .8em;}

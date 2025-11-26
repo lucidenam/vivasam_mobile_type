@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.visang.vivasam.member.mapper.MemberMileageMapper">
+
+	<!-- 회원의 사용가능한 마일리지 금액 조회 -->
+	<select id="getMemberMileageUsableAmount" parameterType="String" resultType="int">
+		SELECT IFNULL(SUM(P_AMOUNT) - SUM(M_AMOUNT), 0) AS AMOUNT
+		FROM (
+			SELECT
+				CASE WHEN STATUS = 'P' THEN AMOUNT ELSE 0 END AS P_AMOUNT,
+				CASE WHEN STATUS = 'M' THEN AMOUNT ELSE 0 END AS M_AMOUNT
+			FROM MEMBER_MILEAGE
+			WHERE MEMBER_ID = #{memberId}
+			AND USE_YN = 'Y'
+		) M
+	</select>
+
+	<insert id="insertMileagePlus" parameterType="edu.visang.vivasam.member.model.Mileage">
+		INSERT INTO MEMBER_MILEAGE (
+			MEMBER_ID,
+			AMOUNT,
+			STATUS,
+			MILEAGE_CODE,
+			REG_DTTM,
+			EXP_DTTM,
+			<if test="targetMenu != null and targetMenu != ''">
+				TARGET_MENU,
+			</if>
+			<if test="targetId != null and targetId != ''">
+				TARGET_ID,
+			</if>
+			TARGET_TYPE,
+			USE_YN
+		) VALUES (
+			#{memberId},
+			#{amount},
+			'P',
+			#{mileageCode},
+			CURRENT_TIMESTAMP,
+			CONVERT(CONCAT(YEAR(CURRENT_TIMESTAMP),'1231'),DATETIME),
+			<if test="targetMenu != null and targetMenu != ''">
+				#{targetMenu},
+			</if>
+			<if test="targetId != null and targetId != ''">
+				#{targetId},
+			</if>
+			#{targetType},
+			'Y'
+		)
+	</insert>
+
+	<insert id="insertMileageMinus" parameterType="edu.visang.vivasam.member.model.Mileage">
+		INSERT INTO MEMBER_MILEAGE (
+			MEMBER_ID,
+			AMOUNT,
+			STATUS,
+			MILEAGE_CODE,
+			REG_DTTM,
+			EXP_DTTM,
+			<if test="targetMenu != null and targetMenu != ''">
+				TARGET_MENU,
+			</if>
+			<if test="targetId != null and targetId != ''">
+				TARGET_ID,
+			</if>
+			TARGET_TYPE,
+			USE_YN
+		) VALUES (
+			#{memberId},
+			#{amount},
+			'M',
+			#{mileageCode},
+			CURRENT_TIMESTAMP,
+			CONVERT(CONCAT(YEAR(CURRENT_TIMESTAMP),'1231'),DATETIME),
+			<if test="targetMenu != null and targetMenu != ''">
+				#{targetMenu},
+			</if>
+			<if test="targetId != null and targetId != ''">
+				#{targetId},
+			</if>
+			#{targetType},
+			'Y'
+		)
+	</insert>
+
+	<insert id="insertMileageError" parameterType="edu.visang.vivasam.member.model.Mileage">
+		INSERT INTO MEMBER_MILEAGE_ERROR (
+			MEMBER_ID,
+			AMOUNT,
+			STATUS,
+			MILEAGE_CODE,
+			REG_DTTM,
+			<if test="targetMenu != null and targetMenu != ''">
+				TARGET_MENU,
+			</if>
+			<if test="targetId != null and targetId != ''">
+				TARGET_ID,
+			</if>
+			TARGET_TYPE,
+			ERROR
+		) VALUES (
+			#{memberId},
+			#{amount},
+			'P',
+			#{mileageCode},
+			CURRENT_TIMESTAMP,
+			<if test="targetMenu != null and targetMenu != ''">
+				#{targetMenu},
+			</if>
+			<if test="targetId != null and targetId != ''">
+				#{targetId},
+			</if>
+			#{targetType},
+			#{error}
+		)
+	</insert>
+
+	<select id="getMileageCntByMileageCode" parameterType="edu.visang.vivasam.member.model.Mileage" resultType="int">
+    	SELECT COUNT(1)
+		FROM MEMBER_MILEAGE M
+		WHERE M.MEMBER_ID = #{memberId}
+		AND M.MILEAGE_CODE = #{mileageCode}
+    </select>
+
+	<!-- 이벤트 참여여부 EVENTID -->
+	<select id="getMileageCntByEventId" parameterType="edu.visang.vivasam.member.model.Mileage" resultType="int">
+    	SELECT
+			COUNT(1)
+		FROM MEMBER_MILEAGE M
+		WHERE M.MEMBER_ID = #{memberId}
+		AND M.TARGET_MENU = 'EVENT'
+		AND M.TARGET_ID = #{targetId}
+    </select>
+
+	<select id="getMileageCntByTodayLogin" parameterType="edu.visang.vivasam.member.model.Mileage" resultType="int">
+    	SELECT COUNT(1)
+		FROM MEMBER_MILEAGE M
+		WHERE M.MEMBER_ID = #{memberId}
+		AND M.MILEAGE_CODE = #{mileageCode}
+		AND DATE_FORMAT(M.REG_DTTM, '%Y-%m-%d') = CURRENT_DATE
+    </select>
+
+	<!-- 회원가입 _ 추천인 아이디 있을 경우 추천인에게 마일리지 지급  -->
+	<insert id="saveRecoIdMileagePlus" parameterType="edu.visang.vivasam.member.model.Mileage">
+		INSERT INTO MEMBER_MILEAGE (
+			MEMBER_ID,
+			AMOUNT,
+			STATUS,
+			MILEAGE_CODE,
+			REG_DTTM,
+			EXP_DTTM,
+		<if test="targetMenu != null and targetMenu != ''">
+			TARGET_MENU,
+		</if>
+		<if test="targetId != null and targetId != ''">
+			TARGET_ID,
+		</if>
+			TARGET_TYPE,
+			USE_YN
+		)
+		VALUES (
+			#{memberId},
+			#{amount},
+			'P',
+			#{mileageCode},
+			CURRENT_TIMESTAMP,
+			CONVERT(CONCAT(YEAR(CURRENT_TIMESTAMP),'1231'),DATETIME),
+		<if test="targetMenu != null and targetMenu != ''">
+			#{targetMenu},
+		</if>
+		<if test="targetId != null and targetId != ''">
+			#{targetId},
+		</if>
+			#{targetType},
+			'Y'
+		)
+	</insert>
+
+	<!-- 회원가입 _ 추천인 아이디 있을 경우 추천인 마일리지 차감  -->
+	<insert id="saveRecoIdMileageMinus" parameterType="edu.visang.vivasam.member.model.Mileage">
+		INSERT INTO MEMBER_MILEAGE (
+			MEMBER_ID,
+			AMOUNT,
+			STATUS,
+			MILEAGE_CODE,
+			REG_DTTM,
+			EXP_DTTM,
+			<if test="targetMenu != null and targetMenu != ''">
+				TARGET_MENU,
+			</if>
+			<if test="targetId != null and targetId != ''">
+				TARGET_ID,
+			</if>
+			TARGET_TYPE,
+			USE_YN
+		)
+		VALUES (
+			#{memberId},
+			#{amount},
+			'M',
+			#{mileageCode},
+			CURRENT_TIMESTAMP,
+			CONVERT(CONCAT(YEAR(CURRENT_TIMESTAMP),'1231'),DATETIME),
+			<if test="targetMenu != null and targetMenu != ''">
+				#{targetMenu},
+			</if>
+			<if test="targetId != null and targetId != ''">
+				#{targetId},
+			</if>
+			#{targetType},
+			'Y'
+		)
+	</insert>
+
+	<select id="checkVivasamGoForYear" parameterType="edu.visang.vivasam.member.model.Mileage" resultType="int">
+		SELECT COUNT(1)
+		FROM EVENT_VIVASAM_GO_ANSWER
+		WHERE MEMBER_ID = #{memberId}
+		AND YEAR(REG_DTTM) = #{nowYear}
+	</select>
+</mapper>

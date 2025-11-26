@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.common.mapper.BannerMapper">
+	<resultMap id="bannerResult" type="hashmap">
+		<result column="bannerId" property="bannerId"/>
+		<result column="title" property="title"/>
+		<result column="bannerType" property="bannerType"/>
+		<result column="colorL" property="colorL"/>
+		<result column="colorR" property="colorR"/>
+		<result column="endDttm" javaType="string" property="endDttm"/>
+		<result column="imageCdnYn" property="imageCdnYn"/>
+		<result column="imageName" property="imageName"/>
+		<result column="imagePath" property="imagePath"/>
+		<result column="linkType" property="linkType"/>
+		<result column="openTitle" property="openTitle"/>
+		<result column="orderNo" property="orderNo"/>
+		<result column="positionLeft" property="positionLeft"/>
+		<result column="positoinTop" property="positoinTop"/>
+		<result column="regDt" property="regDt"/>
+		<result column="url" property="url"/>
+		<result column="useYn" property="useYn"/>
+	</resultMap>
+
+	<select id="mainBannerList" resultMap="bannerResult">
+		/* [메인슬라이드배너 목록] BannerMapper.mainBannerList */
+		SELECT
+			BANNER_ID as bannerId
+		    ,TITLE
+			,BANNER_TYPE as bannerType
+			,IFNULL(END_DTTM,'1900-01-01') as endDttm
+			,IMAGE_CDN_YN as imageCdnYn
+			,IMAGE_PATH as imagePath
+			,IMAGE_NAME as imageName
+			,ORDER_NO as orderNo
+			,LINK_TYPE as linkType
+			,URL as url
+			,USE_YN as useYn
+			,DATE_FORMAT(REG_DTTM, '%Y-%m-%d') as regDt
+			,OPEN_TITLE as openTitle
+			,LCOLOR as colorL
+			,RCOLOR as colorR
+			,POSITION_LEFT as positionLeft
+			,POSITION_TOP as positoinTop
+		FROM MAIN_BANNER_INFO_MOBILE
+		WHERE BANNER_TYPE = 'T'
+		AND USE_YN = 'Y'
+		AND CURDATE() BETWEEN CONVERT(OPEN_DATE, DATE) AND CONVERT(IF(IFNULL(CLOSE_DATE, '') = '', CURDATE(), CLOSE_DATE), DATE)
+		ORDER BY ORDER_NO
+    </select>
+
+	<select id="mainBottomBanner" resultType="hashmap">
+		SELECT
+			BANNER_ID AS bannerId,
+			BANNER_NAME AS bannerName,
+			BANNER_FILE_PATH AS bannerFilePath,
+			BANNER_FILE_SAV AS bannerFileSav,
+			LINK_URL AS linkUrl,
+			LINK_TYPE AS linkType
+		FROM MAIN_BOTTOM_BANNER_MOBILE
+		WHERE BANNER_USE_YN = 'Y'
+		AND CURRENT_TIMESTAMP >= BANNER_OPENDATE
+		AND (
+			CURRENT_TIMESTAMP <![CDATA[<=]]> BANNER_CLOSEDATE
+			OR BANNER_CLOSEDATE IS NULL
+		)
+		ORDER BY ORDER_NO
+		LIMIT 1
+	</select>
+
+	<select id="gateBanner" resultType="edu.visang.vivasam.common.model.GateBanner">
+		SELECT
+			MBI.TITLE AS title,
+			MBI.OPEN_TITLE AS openTitle,
+			MBI.SHRT_TITLE AS shrtTitle,
+			MBI.LINK_TYPE AS linkType,
+			MBI.IMAGE_PATH as imagePath,
+			MBI.IMAGE_NAME as imageName,
+			MBI.MOBILE_IMAGE_PATH as mobileImagePath,
+			MBI.MOBILE_IMAGE_NAME as mobileImageName
+		FROM MAIN_BANNER_INFO MBI
+		WHERE MBI.BANNER_TYPE = '6'
+		  AND MBI.USE_YN = 'Y'
+		    AND CURDATE() BETWEEN CONVERT(MBI.OPEN_DATE, DATE) AND CONVERT(IF(IFNULL(MBI.CLOSE_DATE, '') = '', CURDATE(), MBI.CLOSE_DATE), DATE)
+		 ORDER BY REG_DTTM DESC
+		 LIMIT 1
+	</select>
+
+	<select id="getKeywordIssueData" resultType="hashmap">
+		/* BannerMapper.getKeywordIssueData */
+		SELECT
+		    CONCAT(ICG.ISSUE_MM,ICG.ISSUE_DD) AS issueDay,
+			ICG.ISSUE_YYYY,
+			ICG.ISSUE_MM,
+			IF(ICG.ISSUE_DD <![CDATA[<]]> 10, CONCAT('0',ICG.ISSUE_DD) ,ICG.ISSUE_DD) AS ISSUE_DD,
+			ICG.ISSUE_ID,
+			ICG.ISSUE_DATA,
+			ICG.TIMETABLE_KEYWORD
+		FROM ISSUE_CONTENTS_GROUP AS ICG
+		WHERE ISSUE_DD IS NOT NULL
+		AND DATE_FORMAT(CONCAT(YEAR(CURRENT_DATE()),ISSUE_MM,IF(LENGTH(ISSUE_DD) > 1, ISSUE_DD, CONCAT(0,ISSUE_DD))), '%Y-%m-%d') = DATE_FORMAT(CURRENT_DATE(), '%Y-%m-%d')
+		ORDER BY ISSUE_MM,ISSUE_DD
+	</select>
+</mapper>

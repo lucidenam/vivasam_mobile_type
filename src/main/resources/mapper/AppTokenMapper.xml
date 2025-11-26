@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.device.mapper.AppTokenMapper">
+
+	<insert id="saveAppToken" parameterType="edu.visang.vivasam.device.model.AppToken">
+		INSERT INTO DEVICE_APP_TOKENS (token, member_id, os,TARGET)
+		VALUES (#{token}, #{memberId}, #{os}, 'MV')
+	</insert>
+
+	<update id="updateAppToken" parameterType="edu.visang.vivasam.device.model.AppToken">
+		UPDATE DEVICE_APP_TOKENS
+		SET MEMBER_ID = #{memberId}, OS = #{os}, MODDATE = CURRENT_TIMESTAMP, TARGET = 'MV'
+		WHERE TOKEN = #{token}
+	</update>
+
+	<select id="findByToken" parameterType="String" resultType="String">
+		SELECT TOKEN
+		FROM DEVICE_APP_TOKENS
+		WHERE TOKEN = #{token}
+	</select>
+
+	<select id="findByMemberId" parameterType="String" resultType="int">
+		SELECT COUNT(1)
+		FROM DEVICE_APP_TOKENS
+		WHERE MEMBER_ID = #{memberId}
+	</select>
+</mapper>

@@ -1,0 +1,21 @@
+
+.vivasamter {padding-bottom: 50px; }
+
+.event200723 {position: relative; font-family: "Nanum Gothic","?‚˜?ˆ”ê³ ë”•",NanumGothic,"?‹???",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;}
+.event200723 img {vertical-align: middle; width:100%; line-height:0}
+.event200723 a {display: inline;}
+
+.event200723 .msg_box  {background:#ece8c0; padding: 0 8vw 10.8vw; position: relative;  }
+.event200723 .btn-wrap { margin-top: -2vw; }
+
+
+.vivasamter_apply {margin:10px;}
+.vivasamter_apply > button {float:right;margin-bottom:10px;}
+#simple-board th {text-align: center;padding: 8px 0;background-color: #f2f2f2;border-top: 1px solid #ddd;height: 30px;}
+#simple-board td {height: 30px;padding: 8px 10px;border-bottom: 1px solid #ddd;text-align: center;}
+#simple-board th:first-child,
+#simple-board td:first-child {width:50px;}
+#simple-board td:last-child {text-align:left;font-weight: 700;}
+#simple-board td:last-child > span {font-weight: 300;} 
+#simple-board tr:last-child > td {border-bottom:none;}
+

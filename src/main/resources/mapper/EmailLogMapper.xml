@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.common.mapper.EmailLogMapper">
+
+	<insert id="insertEmailLog" parameterType="edu.visang.vivasam.common.model.EmailLogParameter">
+		/* emailLog.insertEmailLog */
+		INSERT INTO email_log (
+			VS_CODE
+			, UID
+			, TITLE
+			, CONTENTS
+			, REG_DTTM
+		) VALUES (
+			#{vsCode}
+			, #{uid}
+			, #{title}
+			, #{contents}
+			, CURRENT_TIMESTAMP()
+		)
+	</insert>
+
+	<update id="updateEmailLog" parameterType="edu.visang.vivasam.common.model.EmailLogParameter">
+		/* emailLog.updateEmailLog */
+		UPDATE email_log
+		SET
+			RESULTS = #{results}
+		  , UDT_DTTM = CURRENT_TIMESTAMP()
+		WHERE UID = #{uid}
+	</update>
+
+</mapper>

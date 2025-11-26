@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.myInfo.mapper.MyInfoMapper">
+
+    <!-- 비밀번호 검증(확인) -->
+    <select id="checkPwd" parameterType="String" resultType="int" >
+        SELECT COUNT(MEMBER_ID)
+        FROM MEMBER
+        WHERE MEMBER_ID = #{memberId}
+        <!-- AND PWD = HASHBYTES('SHA1', #{oldPwd}) -->
+        AND ((PWD2 IS NOT NULL AND PWD2 = SHA1(#{oldPwd}))
+        OR (PASSWORD2 IS NOT NULL AND PASSWORD2 = fnSaltSHA512(#{oldPwd})))
+        AND STATE = 'Y'
+    </select>
+
+    <!-- 비밀번호 수정, SHA2_512로 비밀번호 별도 저장 -->
+    <update id="changePwd" parameterType="String">
+        UPDATE MEMBER
+        <!-- SET PWD = HASHBYTES('SHA1', #{newPwd}) -->
+        SET PWD = NULL
+        , PASSWORD2 = fnSaltSHA512(#{newPwd})
+        , UPDATE_DTTM = CURRENT_TIMESTAMP
+        WHERE MEMBER_ID = #{memberId}
+        AND STATE = 'Y'
+    </update>
+
+    <!-- 학교정보 변경 -->
+    <update id="updateSchoolInfo" parameterType="hashmap">
+        UPDATE MEMBER
+        SET FKAREACODE = #{fkareacode}
+            , FKBRANCHCODE = #{fkbranchcode}
+            , SCH_CODE = #{schCode}
+            , SCH_NAME = #{schName}
+        WHERE MEMBER_ID = #{memberId}
+    </update>
+
+    <!-- 휴대폰정보 변경 -->
+    <update id="updateCellphone" parameterType="hashmap">
+        UPDATE MEMBER
+        SET CELLPHONE = #{cellphone}
+        WHERE MEMBER_ID = #{memberId}
+    </update>
+
+    <!-- SSO 통합회원일 경우 휴대폰정보 변경 로그관련 sql -->
+    <insert id="insertSsoCellphoneUpdateLog" parameterType="edu.visang.vivasam.myInfo.model.SsoCellphoneUpdateLog" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+        INSERT INTO MEMBER_SSO_PHONE_UPDATE_LOG(
+             MEMBER_ID
+           , CELLPHONE
+        ) VALUES (
+            #{memberId}
+            , #{cellphone}
+         )
+    </insert>
+
+    <update id="updateSsoCellphoneUpdateLogTschool" parameterType="hashmap" >
+        UPDATE MEMBER_SSO_PHONE_UPDATE_LOG
+        SET TSCHOOL_YN = #{tschoolYn}
+        WHERE ID = #{id}
+    </update>
+
+    <update id="updateSsoCellphoneUpdateLogSso" parameterType="hashmap" >
+        UPDATE MEMBER_SSO_PHONE_UPDATE_LOG
+        SET SSO_YN = #{ssoYn}
+        WHERE ID = #{id}
+    </update>
+
+    <update id="deleteSsoCellphoneUpdateLog" parameterType="long" >
+        DELETE FROM MEMBER_SSO_PHONE_UPDATE_LOG
+        WHERE ID = #{id}
+    </update>
+
+    <select id="getMemberLeaveMessage"
+            resultType="edu.visang.vivasam.myInfo.model.MyInfoLeave">
+		SELECT
+			DOM_ID AS domId
+			, DOM_ORDER
+			, DOM_MESSAGE
+			, DOM_REG_DTTM
+			, DOM_REG_MEMBER_ID
+			, DOM_MOD_DTTM
+			, DOM_MOD_MEMBER_ID
+			, DOM_DESCRIPTION
+		FROM MEMBER_SECEDE_MESSAGE_INFO
+		WHERE DOM_DEL_YN = 'N'
+		AND DOM_USE_YN = 'Y'
+		ORDER BY DOM_ORDER ASC
+	</select>
+
+    <!-- 회원 탈퇴 : 탈퇴 log -->
+    <insert id="saveMemberLeaveLog" parameterType="edu.visang.vivasam.myInfo.model.MyInfoLeave">
+		INSERT INTO MEMBER_SECEDE_LOG (
+			DOM_ID
+			, DOL_MEMBER_ID
+			, DOL_MESSAGE
+			, DOL_LUNAR
+			, DOL_BIRTH
+			, DOL_FKAREACODE
+			, DOL_FKBRANCHCODE
+			, DOL_SCH_CODE
+			, DOL_SCH_NAME
+			, DOL_MY_GRADE
+			, DOL_REG_DATE
+			, DOL_REG_TIME
+			, DOL_DROP_DATE
+			, DOL_DROP_TIME
+			, DOL_REG_AGE
+			, DOL_DROP_AGE
+			, DOL_CHALK_POINT
+			, DOL_TEACH_PLAN_CNT
+			, DOL_SCRAP_CNT
+			, DOL_EDIT_CNT
+		)
+		SELECT
+			#{domId} AS DOM_ID
+			, M.MEMBER_ID
+			, CASE
+				WHEN #{domId} = 0 THEN #{domMessage}
+				WHEN #{domId} != 0
+					THEN (
+						SELECT DOM_MESSAGE
+						FROM MEMBER_SECEDE_MESSAGE_INFO
+						WHERE DOM_DEL_YN = 'N'
+						AND DOM_USE_YN = 'Y'
+						AND DOM_ID = #{domId}
+					)
+			END AS DOM_MESSAGE
+			, LUNAR
+			, NULL
+			, NULL
+			, NULL
+			, NULL
+			, NULL
+			, (
+				SELECT GROUP_CONCAT(GRADE)
+				FROM MEMBER_GRADE MG
+				WHERE MG.MEMBER_ID = M.MEMBER_ID
+			 ) AS myGrade
+			, REG_DATE
+			, REG_TIME
+			, DATE_FORMAT(CURRENT_TIMESTAMP, '%Y/%m/%d') AS DROP_DATE
+			, DATE_FORMAT(CURRENT_TIMESTAMP,'%T') AS DROP_TIME
+			, CASE
+				WHEN STR_TO_DATE(BIRTH, '%Y%m%d') IS NOT NULL
+					THEN CONVERT(YEAR(REG_DATE),UNSIGNED) - CONVERT (YEAR(BIRTH),UNSIGNED)
+				ELSE NULL
+			END AS REG_AGE
+			, CASE
+				WHEN STR_TO_DATE(BIRTH, '%Y%m%d') IS NOT NULL
+					THEN CONVERT(YEAR(CURRENT_TIMESTAMP),UNSIGNED) - CONVERT(YEAR(BIRTH),UNSIGNED)
+				ELSE NULL
+			END AS DROP_AGE
+			, CHALK_POINT
+			, NULL
+			, SCRAP_CNT
+			, EDIT_CNT
+		FROM MEMBER M
+		WHERE M.MEMBER_ID = #{domMemberId}
+	</insert>
+
+    <!-- 비바샘 회원 탈퇴 -->
+    <update id="updateMemberLeave" parameterType="edu.visang.vivasam.myInfo.model.MyInfoLeave">
+		UPDATE MEMBER
+		SET NAME = '비바샘'
+			, EMAIL = NULL
+			, LUNAR = 0
+			, BIRTH = NULL
+			, FKAREACODE = NULL
+			, FKBRANCHCODE = NULL
+			, SCH_CODE = NULL
+			, SCH_NAME = NULL
+			, MY_GRADE = NULL
+			, TCCODE = NULL
+			, CELLPHONE = NULL
+			, QUESTION_CODE = NULL
+			, ANSWER = NULL
+			, ZIP = NULL
+			, ADDR1 = NULL
+			, ADDR2 = NULL
+			, NICKNAME = NULL
+			, SEX = NULL
+			, IPIN_CI = NULL
+			, EPKI_CERTDN = NULL
+			, EPKI_CERTSN = NULL
+			, PWD = NULL
+			, PASSWORD = NULL
+			, STATE = 'D'
+			, UPDATE_DTTM = CURRENT_TIMESTAMP
+			, IS_SSO_MEMBER = CASE WHEN IS_SSO_MEMBER = 1 THEN NULL ELSE IS_SSO_MEMBER END /* 통합회원 탈퇴 처리 */
+			, SSO_QUIT_DTTM = CASE WHEN IS_SSO_MEMBER = 1 THEN CURRENT_TIMESTAMP ELSE SSO_QUIT_DTTM END
+		 WHERE MEMBER_ID = #{domMemberId}
+	</update>
+
+    <update id="updateSnsMemberLeave" parameterType="String">
+		UPDATE SNS_MEMBER_INFO
+		   SET DELETE_DATE = CURRENT_TIMESTAMP,
+			   USE_YN = 'N' ,
+			   PHONE_NO = '',
+			   NAME = '',
+			   EMAIL = '',
+			   YEAR = ''
+		 WHERE MEMBER_ID = #{memberId}
+	</update>
+
+	<select id="getPrivateMemberInfo" resultType="edu.visang.vivasam.member.model.MemberInfo">
+		SELECT
+			BIRTH,
+			OLD_PASSWORD AS oldPassword,
+			EMAIL,
+			NAME,
+			MEMBER_ID AS memberId,
+			( CASE
+				WHEN LENGTH(REPLACE(M.CELLPHONE,'-','')) = 10 THEN SUBSTRING( M.CELLPHONE, 5, 3 )
+				WHEN LENGTH(REPLACE(M.CELLPHONE,'-','')) = 11 THEN SUBSTRING( M.CELLPHONE, 5, 4 )
+				ELSE SUBSTRING( M.CELLPHONE, 5, 3 )
+			END ) AS CELLPHONE2,
+			( CASE
+				WHEN LENGTH(REPLACE(M.CELLPHONE,'-','')) = 10 THEN SUBSTRING( M.CELLPHONE, 9, 4 )
+				WHEN LENGTH(REPLACE(M.CELLPHONE,'-','')) = 11 THEN SUBSTRING( M.CELLPHONE, 10, 4 )
+				ELSE SUBSTRING( M.CELLPHONE, 9, 4 )
+			END ) AS CELLPHONE3
+		FROM member M
+		WHERE MEMBER_ID = #{memberId}
+	</select>
+
+	<select id="getEncodeNewPassword" resultType="String">
+		SELECT fnSaltSHA512(#{newPwd})
+	</select>
+
+	<update id="updateChangeOldPwd" parameterType="String" >
+        UPDATE member SET OLD_PASSWORD = PASSWORD2
+		WHERE MEMBER_ID = #{memberId}
+			AND STATE = 'Y'
+    </update>
+</mapper>
+
+
+

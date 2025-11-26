@@ -1,0 +1,509 @@
+.event200616 {
+    position: relative;
+    font-family: "Nanum Gothic", "나눔고딕", NanumGothic, "돋움", Dotum, Helvetica, "Apple SD Gothic Neo", sans-serif;
+}
+
+.event200616 img {
+    vertical-align: middle;
+    width: 100%;
+    line-height: 0
+}
+
+.event200616 a {
+    display: inline;
+}
+
+/* form */
+.event200616 .radio_circle {
+    position: absolute;
+    left: -3000px;
+    opacity: 0
+}
+
+.event200616 .radio_circle + label .radio {
+    display: inline-block;
+    letter-spacing: -0.2vw;
+    font-family: "Nanum Gothic_Bold";
+    font-size: 2.8vw;
+    color: #000;
+}
+
+.event200616 .radio_circle + label .radio:before {
+    content: "";
+    display: inline-block;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 3.6vw;
+    height: 3.6vw;
+    margin-top: -0.7vw;
+    margin-right: 1.3vw;
+    border: 1px solid #bfbfbf;
+    vertical-align: middle;
+}
+
+.event200616 .radio_circle:disabled + label .radio:before {
+    background-color: #bfbfbf;
+}
+
+.event200616 .radio_circle:checked + label .radio:before {
+    border: none;
+    background: url(/images/common/bg_check.png) no-repeat;
+    background-size: cover;
+}
+
+.event200616 .radio_circle + label .radio {
+    vertical-align: middle;
+}
+
+/* contents */
+.event200616 .cont_wrap {
+    padding: 8.667vw 6.134vw;
+    background: #fff;
+    font-size: 3.2vw;
+}
+
+.event200616 h2 {
+    margin-bottom: 1.8vw;
+    font-family: "Nanum Gothic_Bold";
+    font-size: 3.2vw;
+    color: #3e3d3d;
+}
+
+.event200616 .list {
+    margin: 3.6vw 0 6.2vw;
+}
+
+.event200616 .list li {
+    position: relative;
+    font-size: 3vw;
+    padding: 5vw 0;
+    background-size: 100% auto;
+}
+.event200616 .list li:first-child { padding-top: 0;  }
+
+.event200616 .list .tit span {
+    color: #fb6d63;
+    display: block;
+    font-size: 3vw;
+    font-weight: bold;
+}
+
+.event200616 .list .tit strong {
+    color:#393d49;
+    display: block;
+    font-size: 3.5vw;
+    padding: 1vw 0 3vw;
+    font-family: "Nanum Gothic_Bold";
+}
+
+.event200616 .link_wrap {
+    line-height: 4.8vw;
+    margin-bottom: 7.4vw;
+    padding: 3vw 6vw;
+    background: #eee;
+    font-family: "Nanum Gothic_Bold";
+    font-size: 2.94vw;
+    color: #3e3d3d;
+}
+
+.event200616 .link_wrap:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.event200616 .btn_link {
+    float: right;
+    box-sizing: border-box;
+    display: inline-block;
+    width: 16.667vw;
+    height: 5.067vw;
+    margin-left: 6vw;
+    border: 1px solid #606060;
+    background: #606060;
+    text-align: center;
+}
+
+.event200616 .btn_link span {
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    padding-right: 1.8vw;
+    font-family: "Nanum Gothic_Bold";
+    font-size: 2.4vw;
+    color: #fff;
+    vertical-align: top;
+}
+
+.event200616 .btn_link span:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 1.4vw;
+    height: 1.4vw;
+    margin-top: -0.7vw;
+    border-top: 0.26vw solid #fff;
+    border-right: 0.26vw solid #fff;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.event200616 .list_num li {
+    position: relative;
+    padding-left: 5.8vw;
+    margin-bottom: 1vw;
+    font-size: 2.8vw;
+    color: #3b3b3b;
+}
+
+.event200616 .list_num li strong {
+    color: #f36056;
+}
+
+.event200616 .list_num li:before {
+    display: block;
+    position: absolute;
+    left: 0.5vw;
+    top: 0.2vw;
+    box-sizing: border-box;
+    width: 3.4vw;
+    height: 3.4vw;
+    padding: 0.7vw;
+    line-height: 2vw;
+    background: #7c7c7c;
+    border-radius: 1.5vw;
+    overflow: hidden;
+    text-align: center;
+    font-family: "Nanum Gothic_Bold";
+    font-size: 2vw;
+    color: #fff;
+}
+
+ul, li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+.blind {
+    position: absolute;
+    left: -1000000px;
+    text-indent: -1000000px;
+    overflow: hidden;
+    margin: -1px;
+    width: 1px;
+    height: 1px;
+}
+
+.event200616 .btn_wrap {
+    margin-bottom: 10vw;
+    margin-top: 0;;
+    text-align: center;
+}
+.btn_apply {
+    width: 82.9%;
+}
+
+.steps {
+    padding-top: 10.5vw;
+    width: 82.9%;
+    margin: 0 auto;
+}
+.steps p { padding-bottom: 2.5vw; }
+.steps .input_wrap + p { padding-top: 4vw; border-top: 1px solid #e9e9e8; }
+.steps textarea {background:#f7f7f7; border: 1px solid #c8c9c5; }
+h1 {
+    margin: 0;
+}
+
+.comment_wrap {
+    padding: 2% 8% 0;
+    background:#f8f1c3;
+}
+
+.comment_wrap .list {
+    margin-bottom: 3%;
+}
+
+.comment_wrap .list li + li  { border-top: 1px solid #d8d3ad; }
+
+.comment_wrap .list li .title {
+    display: block;
+    margin-bottom: 3%;
+    color: #444;
+    font-weight: 500;
+}
+
+.comment_wrap .list li .title .ico {
+    display: inline-block;
+    width: 100%;
+    height: 2vh;
+    background-image: url(/images/events/2020/event200616/ico.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    vertical-align: middle;
+    margin-right: 2%;
+}
+
+.comment_wrap .list li .comment {
+    display: block;
+    margin-bottom: 3%;
+    color: #848484;
+    line-height: 1.4;
+    padding-top: 4.5vw;;
+    position: relative;
+}
+.comment_wrap .list li .comment:before {
+    position: absolute;left: 0; top: 0;
+    content: '감상 팁';
+    color:#559cc7;
+    font-size: 3vw;
+    font-family: "Nanum Gothic_Bold";
+}
+
+.comment_wrap .list li .author {
+    text-align: right;
+}
+
+.comment_wrap .list li .author .user_nickname {
+    display: inline-block;
+    color: #404040;
+    font-size: 3vw;
+    margin-right: 2%;
+}
+
+.comment_wrap .list li .author .date {
+    font-size: 3vw;
+    color: #a6a6a6;
+}
+
+.comment_wrap .paginate {
+    text-align: center;
+}
+
+.comment_wrap .paginate a {
+    padding: 1vw;
+    color: #999;
+    text-decoration: none;
+    font-size: 3vw;
+    vertical-align: middle;
+}
+
+.comment_wrap .paginate a img {
+    width: 1vw;
+    vertical-align: baseline;
+}
+
+.comment_wrap .paginate a.btn_double_prev img,
+.comment_wrap .paginate a.btn_double_next img {
+    width: 2vw;
+}
+
+.event200616 .list li:before {
+    display: none;
+}
+
+
+/************ 0425 ************/
+input[type='radio'],
+input[type='radio']:checked,
+input[type='checkbox'],
+input[type='checkbox']:checked {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.info_tit.type1 {
+    float: left;
+}
+
+.input_wrap.type1 {
+    float: right;
+}
+
+.input_wrap.type2 {
+    clear: both;
+}
+
+.join_ipt_chk.type1 .join_chk_list {
+    float: left;
+    width: auto;
+    margin-left: 10px;
+}
+
+.input_sm.schname {
+    width: 70%;
+}
+
+.btn_schname {
+    float: right;
+    width: 29%;
+    height: 40px;
+    background-color: #508ae8;
+    color: #fff;
+    border-radius: 3px;
+}
+
+.selectbox.type1 {
+    width: 50%;
+}
+
+.input_sm.type1 {
+    width: 70%;
+}
+
+.input_in_btn.type1 {
+    float: right;
+    width: 29%;
+    height: 40px;
+    margin: 0;
+    position: static;
+    background-color: #508ae8;
+    color: #fff;
+    border-radius: 3px;
+}
+
+.selectbox::after {
+    content: "";
+    display: block;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 10px;
+    right: 9px;
+    margin-top: -3px;
+    background: url(/images/events/2020/event200616/select.png) 50% no-repeat;
+    background-size: cover;
+}
+
+.story_count {
+    display: block;
+    text-align: right;
+    font-size: 15px;
+    color: #888;
+}
+
+.story_count b {
+    color: #333;
+}
+
+textarea {
+    resize: none;
+    height: 127px;
+    padding: 10px 12px;
+    border: 1px solid #bfbfbf;
+    border-radius: 3px;
+    outline: 0;
+}
+
+.acco_notice_cont {
+    display: block;
+}
+
+.acco_notice_link.active {
+    margin-bottom: 4px;
+}
+
+.acco_notice_cont ul.policy li {
+    margin-left: 16px;
+    padding-left: 0;
+    text-indent: 0;
+    list-style: disc;
+    font-size: 13px;
+}
+
+.acco_notice_cont em {
+    display: block;
+    position: relative;
+    padding-left: 26px;
+    font-size: 12px;
+}
+
+.acco_notice_cont em::before {
+    content: "*";
+    display: block;
+    clear: both;
+    position: absolute;
+    margin-left: -10px;
+}
+
+input[type='radio'] {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    padding: 3px;
+    background-image: none;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 1px 1px #cdcdcd;
+    vertical-align: bottom;
+    outline: 0;
+}
+
+input[type='radio']:checked {
+    background-color: #508ae8;
+    border: 3px solid #fff;
+}
+
+.join_chk_list label {
+    line-height: 1;
+}
+
+input[type='checkbox'] {
+    width: 15px;
+    height: 15px;
+    margin: 0;
+    box-shadow: 0 0 1px 1px #cdcdcd;
+    outline: 0;
+    vertical-align: middle;
+}
+
+input[type='checkbox']:checked {
+    padding-left: 0;
+    background-color: #508ae8;
+    border: 1px solid #fff;
+}
+
+/*
+.checkbox_circle_tit {
+    display: inline-block;
+    padding-left: 5px;
+    text-indent: -1px;
+}
+*/
+
+.title {
+    position: relative;
+    padding-left: 8vw;
+    margin-bottom: 2vw;
+}
+.title::before {
+    content: "";
+    display: block;
+    clear: both;
+    position: absolute;
+    top: 50%;
+    width: 6vw;
+    height: 6vw;
+    background-image: url(/images/events/2020/event200616/ico.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: -3vw;
+    margin-left: -8vw;
+
+}
+
+.phonecaption { padding-top: 10px; font-size: 12px; }
+
+.btn_more { margin: 0 -8vw;}
+
+.applyDtl_cell { background:#4d98c5; color:#fff; padding: 4.5vw 0; text-align: center; }
+.applyDtl_cell h3 { padding:0; line-height: 1; font-weight: bold; }
+.applyDtl_cell  em { color: #fcef9a; }

@@ -1,0 +1,40 @@
+/* Event */
+.event240524{position:relative;}
+.event240524 img{width:100%;vertical-align:top;}
+.event240524 [class^="evtCont"]{position:relative;}
+.event240524 *{font-family:'Noto Sans KR', sans-serif; box-sizing: border-box;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+.btnShare{position:fixed; top:calc(3.241vw + 55px); right:1.667vw; width:19.074vw; height:19.074vw; background:url('/images/events/2024/event240524/ico_share.png') no-repeat center / contain; z-index:10;}
+.evtCont5{padding-bottom:12.963vw;}
+.evtLoginBox{text-align:center;}
+.evtLoginBox .evtAlertTxt{padding-top:6.667vw; font-size:4.63vw; color:#333; font-family: "GmarketSansMedium","Noto Sans KR",sans-serif; line-height:5.926vw; letter-spacing:-0.05em;}
+.evtLoginBox .evtBtns{margin-top:4.63vw; display:flex; gap:3.426vw; justify-content:center;}
+.evtLoginBox .evtBtns a{display:block; width:37.315vw; height:14.167vw;}
+.evtLoginBox .evtBtns a img{width:100%;}
+.evtLoginBox h4{padding-top:11.111vw; font-size:6.852vw; color:#333; font-family:"GmarketSansMedium","Noto Sans KR",sans-serif; line-height:9.259vw; letter-spacing:-0.045em;}
+.evtLoginBox h4 span{font:inherit; font-family:"GmarketSansBold","Noto Sans KR",sans-serif;}
+.evtLoginBox h4 em{font:inherit; font-family:"GmarketSansBold","Noto Sans KR",sans-serif; color:#e12a18;}
+.evtLoginBox .evtInfoTxt{margin-top:3.241vw; font-size:3.518vw; color:#555; font-weight:300; line-height:1;}
+.evtLoginBox .aside20{padding:6.667vw 3.333vw 0; word-break: keep-all;}
+
+.evtBtnBox{margin:11.111vw auto 0; width:87.037vw;}
+.evtBtnBox .btnApply{margin:0 auto; display:block; height:22.037vw;}
+.evtBtnBox.btn1{padding-top:25.278vw; height:53.056vw; background:url('/images/events/2024/event240524/evtBtnBg1.png') no-repeat center / contain;}
+.evtBtnBox.btn1 .btnApply{width:77.593vw; background:url('/images/events/2024/event240524/btn_apply1.png') no-repeat center / contain;}
+.evtBtnBox.btn2{padding-top:27.13vw; height:54.907vw; background:url('/images/events/2024/event240524/evtBtnBg2.png') no-repeat center / contain;}
+.evtBtnBox.btn2 .btnApply{width:75.741vw; background:url('/images/events/2024/event240524/btn_apply2.png') no-repeat center / contain;}
+
+.evtFooter{background:#666;}
+.evtFooter .inner{padding:9.259vw 0 8.333vw 6.019vw;}
+.evtFooter strong{display:block; font-size:4.074vw; color:#fff; font-weight:600; line-height:1;}
+.evtFooter ul{margin-top:2.778vw;}
+.evtFooter ul li{position:relative; padding-left:2.778vw; font-size:2.778vw; color:#fff; font-weight:400; line-height:4.63vw; letter-spacing:-0.04em; opacity:.8;}
+.evtFooter ul li:before{content:'·'; position:absolute; left:0;}
+
+/*popup*/
+.applyDtl_top{background:#ffd200; text-align:left;}
+.applyDtl_top h3 strong{color:#222;}
+.vivasamter_applyDtl .btn_event_apply{background:#ffd200; color:#222;}

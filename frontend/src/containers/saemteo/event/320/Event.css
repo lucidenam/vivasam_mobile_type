@@ -1,0 +1,38 @@
+/* Event */
+.event201201{text-align:center;}
+.event201201 img{width:100%;vertical-align:top;}
+.event201201 [class^="evtCont"]{position:relative;z-index:1;}
+/* START */
+[class^="evtCont"] button{box-sizing:border-box;width:100%;}
+[class^="evtCont"] .imgWrap{display:block;}
+[class^="evtCont"] .evtInner{padding:0 6.66vw;}
+.evtCont02{width:100%;padding-bottom:9.6vw;background:url(/images/events/2020/event201201/bg_evtmsg.png) 0 0 repeat;background-size:100%;}
+.msgAddWrap [class^="msg"]{background:#fff;border:0.1vw solid #354288;}
+.msgAddWrap .msgTit{padding:0 4vw;text-align:left;}
+.msgAddWrap .msgTit > span{display:inline-block;vertical-align:middle;}
+.msgAddWrap .msgTit > .imgWrap:nth-child(1){width:16.2vw;}
+.msgAddWrap .msgTit > .imgWrap:nth-child(3){width:4vw;}
+.msgAddWrap .msgTit .inputWrap{margin:0 1.3vw;}
+.msgAddWrap .msgTit .inputWrap input[type="text"]{width:20vw;border:0;border-bottom:0.26vw solid #ccc;border-radius:0;font-size:2.6vw;color:#757575;text-align:center;}
+.msgAddWrap .msgTxt{margin-top:1.8vw;}
+.msgAddWrap .msgTxt textarea{resize:none;padding:2.4vw 4vw;height:48.4vw;border:0;border-radius:0;font-size:2.6vw;color:#757575;}
+.msgAddWrap + .btnWrap{margin-top:5.2vw;}
+.evtCont03{background:#809acb;}
+.evtCont03 .msgViewWrap{padding:9.6vw 0 13.3vw;}
+.msgList .msgItem{position:relative;box-sizing:border-box;height:59.5vw;padding:5.2vw 6vw 4.8vw;background:url(/images/events/2020/event201201/bg_msgitem.png) 50% 10vw no-repeat #fdfaf5;background-size:81.4vw 44.8vw;border:0.1vw solid #4c5c9c;text-align:left;box-shadow:1vw 1vw 1vw rgb(58 58 58 / 0.15);}
+.msgList .msgItem + .msgItem{margin-top:4vw;}
+.msgList .msgItem:before{content:'';position:absolute;top:-2vw;left:50%;display:inline-block;width:6.66vw;height:6.66vw;background:url(/images/events/2020/event201201/img_msgpin.png) 0 0 no-repeat;background-size:100%;transform:translateX(-50%);}
+.msgList .msgItem .msgTit{display:inline-block;font-family:'Nanum Gothic_Bold';font-size:2.26vw;color:#333;line-height:5.4vw;}
+.msgList .msgItem .msgTxt{font-size:2.13vw;color:#757575;line-height:5.6vw}
+.msgList + .btnMore{height:12vw;margin-top:5.2vw;background:#697fb7;border:0.1vw solid #a1b5db;font-size:3.4vw;color:#fff;}
+/* EventApply */
+.applyDtl_top{background:#c0d2ee;padding:5.3vw 4vw 4.5vw;}
+.applyDtl_top h3{text-align:center;}
+.applyDtl_top h3 img{width:32.2vw;}
+.applyDtl_top h3 + p{margin-top:1vw;color:#000;word-break:keep-all;}
+.input_wrap + .mt10.mb25.c_gray{color:#888;}
+.acco_notice_cont{display:block;word-break:keep-all;}
+.policy{color:#222;}
+.acco_notice_cont ul.policy + p.comt{color:#888;}
+.acco_notice_tit.info_tit{display:block;color:#333;}
+.checkbox_circle_tit{display:inline-block;text-align:left;}

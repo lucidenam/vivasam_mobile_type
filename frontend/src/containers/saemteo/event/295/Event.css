@@ -1,0 +1,15 @@
+.event200521 {position: relative; font-family:"Nanum Gothic", "sans-serif"; background: #13afe2; }
+.event200521 img {vertical-align: middle; width:100%; line-height:0}
+.event200521 a {display: inline;}
+
+/* btn */
+.event200521 .btn_detail {position: absolute; top:0; left: 0; margin: 208% 0 0 58.54%; width: 35vw; height: 7vw; line-height: 7vw; border-radius: 0.8vw; background: #457cb5;  text-align: center; font-size: 3.2vw; color: #fff; font-weight: 700;}
+/* 신청하기 */
+.event200521 .btn_wrap {position: absolute; top: 70vw;}
+.event200521 .btn_wrap.left {left: 10.4vw;}
+.event200521 .btn_wrap.right {right: 10.4vw;}
+.event200521 .btn_wrap.center {left: 0; width: 100%; text-align: center;}
+.event200521 .btn_apply {width: 32vw; height: 10vw; border-radius: 5vw; background: #0b4da2;  font-size: 3.73vw; color: #fff; font-family: "Nanum Gothic_Bold";}
+
+/* contents */
+.event200521 .cont {position: relative;}

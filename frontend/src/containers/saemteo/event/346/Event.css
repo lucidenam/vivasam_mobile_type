@@ -1,0 +1,36 @@
+/* Event */
+.event210609{position:relative;text-align:center;}
+.event210609 img{width:100%;vertical-align:top;}
+.event210609 [class^="evtCont"]{position:relative;z-index:1;}
+.event210609 div, .event210609 ul, .event210609 li, .event210609 span, .event210609 p, .event210609 strong, .event210609 button, .event210609 input, .event210609 label, .event210609 textarea{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="section"]{position:relative;}
+[class^="section"] .imgWrap{display:block;}
+[class^="evtCont"] button{box-sizing:border-box;}
+.evtInput input::-moz-placeholder,
+.evtTextarea textarea::-moz-placeholder{color:#aaa;}
+.evtInput input:-moz-placeholder,
+.evtTextarea textarea:-moz-placeholder{color:#aaa;}
+.evtInput input::-webkit-input-placeholder{color:#aaa;}
+.evtInput input:-ms-input-placeholder{color:#aaa;}
+/* */
+.evtCont01 .btnWrap{position:absolute;bottom:14.26vw;left:0;width:100%;}
+.evtCont01 .btnWrap .btnApply{display:inline-block;width:66.93vw;height:14.13vw;background:url(/images/events/2021/event210609/btn_apply.png);background-size:100%;}
+/* EventApply */
+.applyDtl_top{padding:12px 15px;background:#f04e37;}
+.applyDtl_top h3{color:#fff;text-align:center;}
+.applyDtl_top h3 strong{font-family:inherit;color:#fdff6c;}
+.bulTxt{position:relative;padding-left:15px;word-break:keep-all;}
+.bulTxt:before{content:'*';position:absolute;top:0;left:0;}
+.input_wrap + .mt10.mb25.c_gray{color:#888;}
+.pointColor{color:#f04e37 !important;}
+span.pointColor{font-weight:normal !important;}
+.acco_notice_cont{display:block;word-break:keep-all;}
+.policy{color:#222;}
+.acco_notice_cont ul.policy li.bulTxt{padding-left:15px;text-indent:0;}
+.policy li.bulTxt:before{content:'•';}
+.acco_notice_cont ul.policy + p.comt{color:#888;letter-spacing:-0.04em;}
+.acco_notice_tit.info_tit{display:block;color:#333;}
+.checkbox_circle_tit{display:inline-block;text-align:left;}
+.btn_full_on{background:#508ae8;}

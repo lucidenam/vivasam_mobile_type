@@ -1,0 +1,40 @@
+.event190402 {position: relative;	font-family: "Nanum Gothic","나눔고딕",NanumGothic,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;}
+.event190402 img {vertical-align: middle; width:100%; line-height:0}
+
+.event190402 .cont {width: 100%;padding: 8% 0 4% 0;background: url(/images/events/2019/event190402/img02.jpg) 0 0 no-repeat;-webkit-background-size: cover;background-size: cover;text-align: center; font-size: 5vw;color: #fff; font-family: Nanum Gothic_Bold; line-height: 1.3em;}
+.event190402 .cont strong {color: #fff200;}
+.event190402 .cont .comment {padding-top: 2%;font-size: 3vw; color: #000;}
+
+.event190402 .cont2 {background-color: #fffff5;}
+.event190402 .cont2 h2 {padding:8% 0 3%}
+.event190402 .cont2 .radio_list {position: relative;padding:0 10% 0 17%;box-sizing: border-box; text-align: center; }
+.event190402 .cont2 .radio_list:after {content:"";display: block;clear: both;}
+.event190402 .cont2 .radio_list li {float:left;position: relative;width:33.3%; margin-bottom: 3.6%; box-sizing: border-box; text-align: center;}
+.event190402 .cont2 .radio_list li input {position: absolute; left:20%;bottom:3%;vertical-align: middle;}
+.event190402 .cont2 .radio_list li label {position: relative;display: block;padding: 92% 0 0 8%; font-size:3.4vw;}
+.event190402 .cont2 .radio_list li label::before {display: block; position: absolute;top:0;left:0;content:"";width: 100%; height: 78%;background-size: contain;  background-position: 50% 0;background-repeat: no-repeat;box-sizing: border-box;}
+.event190402 .cont2 .radio_list li.radio_01 label::before {background-image: url(/images/events/2019/event190402/radio1.png);}
+.event190402 .cont2 .radio_list li.radio_01 input:checked + label::before {background-image: url(/images/events/2019/event190402/radio1_on.png);}
+.event190402 .cont2 .radio_list li.radio_02 label::before {background-image: url(/images/events/2019/event190402/radio2.png);}
+.event190402 .cont2 .radio_list li.radio_02 input:checked + label::before {background-image: url(/images/events/2019/event190402/radio2_on.png);}
+.event190402 .cont2 .radio_list li.radio_03 label::before {background-image: url(/images/events/2019/event190402/radio3.png);}
+.event190402 .cont2 .radio_list li.radio_03 input:checked + label::before {background-image: url(/images/events/2019/event190402/radio3_on.png);}
+.event190402 .cont2 .radio_list li.radio_04 label::before {background-image: url(/images/events/2019/event190402/radio4.png);}
+.event190402 .cont2 .radio_list li.radio_04 input:checked + label::before {background-image: url(/images/events/2019/event190402/radio4_on.png);}
+.event190402 .cont2 .radio_list li.radio_05 label::before {background-image: url(/images/events/2019/event190402/radio5.png);}
+.event190402 .cont2 .radio_list li.radio_05 input:checked + label::before {background-image: url(/images/events/2019/event190402/radio5_on.png);}
+.event190402 .cont2 .radio_list li.radio_06 label::before {background-image: url(/images/events/2019/event190402/radio6.png);}
+.event190402 .cont2 .radio_list li.radio_06 input:checked + label::before {background-image: url(/images/events/2019/event190402/radio6_on.png);}
+.event190402 .cont2 .radio_list li.radio_04 input,
+.event190402 .cont2 .radio_list li.radio_06 input {left:9%;}
+
+.event190402 .msg_box {padding:0 10% 8% 17%}
+.event190402 .msg_box .msg {padding: 0;}
+.event190402 .msg_box .bgbox {position: relative;height:22vw;background:#f5f5f5;;border: 1px #d6d6d6 solid; margin-bottom: 7px;}
+.event190402 .msg_box  textarea {background:#f5f5f5;height: 16vw;padding:2vw;border: none; font-size:3.2vw; outline: none;}
+.event190402 .msg_box  textarea::placeholder {color:#999}
+.event190402 .msg_box .count {position: absolute;bottom:1vw;right:1vw;text-align: right; font-size: 2.8vw; color: #999;}
+.event190402 .msg_box .btn_area {text-align: right;}
+.event190402 .msg_box .btn_mywrite {padding: 2% 4%;background-color: #979792; border: 1px #888 solid; text-align: center; color: #fff; -webkit-border-radius: 2px;-moz-border-radius: 2px;border-radius: 2px; font-size:3.2vw; line-height: 1em;}
+
+.event190402 .btn_apply_wrap {background-color: #fffad1;padding:6% 20% 10%;text-align: center}

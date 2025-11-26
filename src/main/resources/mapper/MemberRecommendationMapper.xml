@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.visang.vivasam.member.mapper.MemberRecommendationMapper">
+
+	<!-- 추천인 코드 -->
+	<select id="getRecommendationCode" parameterType="string" resultType="string">
+		SELECT RECO_CODE
+		FROM MEMBER_RECO_CODE
+		WHERE MEMBER_ID = #{memberId}
+	</select>
+
+	<select id="getRecommendationCodeForCheckDuplicate" parameterType="string" resultType="string">
+		SELECT RECO_CODE
+		FROM MEMBER_RECO_CODE
+		WHERE RECO_CODE = #{recoCode}
+	</select>
+
+	<select id="getValidateRecommendationCode" parameterType="string" resultType="int">
+		SELECT COUNT(A.RECO_CODE)
+		FROM MEMBER_RECO_CODE A
+        LEFT JOIN MEMBER B ON A.member_id = B.member_id
+		WHERE B.STATE = 'Y'
+		AND RECO_CODE = #{recoCode}
+	</select>
+
+	<insert id="insertRecommendationCode" parameterType="map">
+		INSERT INTO MEMBER_RECO_CODE (
+			MEMBER_ID,
+			RECO_CODE
+		)
+		VALUES (
+			#{memberId},
+			#{recoCode}
+		)
+	</insert>
+
+	<select id="getMemberRecommendationCount" parameterType="string" resultType="int">
+		SELECT COUNT(A.JOIN_MEMBER_ID)
+		FROM MEMBER_RECO_POINT A
+		INNER JOIN MEMBER B  ON A.JOIN_MEMBER_ID = B.MEMBER_ID
+		WHERE A.MEMBER_ID = #{memberId}
+		AND A.DEL_YN = 'N'
+		AND A.TYPE = 'RECO'
+		AND B.STATE != 'D'
+	</select>
+
+	<select id="getMemberRecommendationList"
+			parameterType="edu.visang.vivasam.member.model.MemberRecommendationParameter"
+			resultType="edu.visang.vivasam.member.model.MemberRecommendationResult">
+		SELECT *
+		FROM (
+			SELECT
+				ROW_NUMBER() OVER (ORDER BY A.REG_DTTM) AS ROW_NUM,
+				A.JOIN_MEMBER_ID AS memberId,
+				A.JOIN_MEMBER_NAME AS name,
+				A.JOIN_MEMBER_CELLPHONE AS cellphone,
+				CASE WHEN B.STATE = 'D' THEN B.STATE ELSE '' END AS state
+			FROM MEMBER_RECO_POINT A
+			LEFT JOIN MEMBER B ON A.JOIN_MEMBER_ID = B.MEMBER_ID
+			WHERE A.MEMBER_ID = #{memberId}
+			AND A.DEL_YN = 'N'
+			AND A.TYPE = 'RECO'
+		) AS T
+		WHERE T.ROW_NUM BETWEEN (#{page} - 1) * #{size} and #{page} * #{size}
+	</select>
+
+	<select id="getTotalPoint" parameterType="string" resultType="int">
+		SELECT SUM(A.POINT)
+		FROM MEMBER_RECO_POINT A
+		INNER JOIN MEMBER B ON A.JOIN_MEMBER_ID = B.MEMBER_ID
+		WHERE A.MEMBER_ID = #{memberId}
+		AND A.DEL_YN = 'N'
+		AND B.STATE != 'D'
+	</select>
+
+	<!-- 이벤트 상품신청은 3이상부터 -->
+	<select id="getUsedPoint" parameterType="map" resultType="int">
+		SELECT T1.AMOUNT * T2.PRICE
+		FROM (
+			SELECT EVENT_ID, MEMBER_ID, EVENT_ANSWER_SEQ AS PRODUCT_ID, CONVERT(EVENT_ANSWER_DESC, UNSIGNED) AS AMOUNT
+			FROM EVENT_JOIN_ANSWER A
+			WHERE EVENT_ID = #{eventId}
+			AND MEMBER_ID = #{memberId}
+		 	<![CDATA[
+			AND EVENT_ANSWER_SEQ >= 3
+		 	]]>
+		) AS T1
+		LEFT JOIN (
+			SELECT EVENT_ID, CONVERT(EVENT_TYPE, UNSIGNED) AS PRODUCT_ID, PRICE
+			FROM EVENT_AMOUNT B
+			WHERE EVENT_ID = #{eventId}
+		) AS T2 ON T1.EVENT_ID = T2.EVENT_ID
+		AND T1.PRODUCT_ID = T2.PRODUCT_ID
+	</select>
+
+</mapper>

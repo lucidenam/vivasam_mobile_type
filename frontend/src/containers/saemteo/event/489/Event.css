@@ -1,0 +1,58 @@
+/* EVENT 240311 */
+.event240311{position:relative;}
+.event240311 img{width:100%;vertical-align:top;}
+.event240311 [class^="evtCont"]{position:relative;z-index:1; background:#2f9a75;}
+.event240311 *{font-family:'Noto Sans KR', sans-serif;}
+.event240311 input[type="radio"]{display:none;}
+
+.event240311 .evtCont02 {padding:0 8.125vw 9vw; background:#2f9a75;}
+.event240311 .evtCont02 .evtFormWrap {}
+.event240311 .evtCont02 .evtFormWrap ul{display:flex; justify-content:space-between;}
+.event240311 .evtCont02 .evtFormWrap ul li input[type="radio"] + label{position:relative; display:block; width:39.5vw;}
+.event240311 .evtCont02 .evtFormWrap ul li input[type="radio"] + label:before{content:''; position: absolute; left: 50%; bottom:-6.375vw; transform: translateX(-50%); width: 3.75vw; height: 3.75vw; background:url('/images/events/2024/event240311/ico_radio.png') no-repeat center top; background-size: 100% auto;}
+.event240311 .evtCont02 .evtFormWrap ul li input[type="radio"]:checked + label:before{background-position-y:bottom;}
+.event240311 .evtCont02 .evtFormWrap ul li input[type="radio"]:disabled + label:after{content:'';position:absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width:15.25vw; height:15.25vw; background:url('/images/events/2024/event240311/ico_end.png') center center no-repeat; background-size:100% auto;}
+.event240311 .evtCont02 .evtFormWrap ul li input[type="radio"] + label .imgWrap{position:relative; width: 100%;}
+.event240311 .evtCont02 .evtFormWrap ul li input[type="radio"] + label .imgWrap img{width:100%;}
+
+.event240311 .evtCont02 .evtNotiWrap{margin-top:10.25vw; padding-top:3.75vw; border-top:1px solid #19845f;}
+.event240311 .evtCont02 .evtNotiWrap ul{padding-left:2vw;}
+.event240311 .evtCont02 .evtNotiWrap ul li{position:relative; padding-left:3.5vw; font-size:2.625vw; color:#23283d; font-weight:300; line-height:1; letter-spacing:-0.06em;}
+.event240311 .evtCont02 .evtNotiWrap ul li+li{margin-top:2.5vw;}
+.event240311 .evtCont02 .evtNotiWrap ul li:before{content:''; position:absolute; left:0; top:0; width:2.25vw; height:2.625vw; background:url('/images/events/2024/event240311/ico_chk.png') no-repeat left center / 100% auto;}
+.event240311 .evtCont02 .evtNotiWrap ul li span{font:inherit; color:#f0c94a; font-weight:500;}
+.event240311 .evtCont02 .btnWrap{margin:3.75vw 0 7.5vw;}
+.event240311 .evtCont02 .btnApply{margin:0 auto; display:block; width:46.375vw; height:14vw; background:url('/images/events/2024/event240311/btn_apply.png') no-repeat center / contain;}
+
+.event240311 .evtFooter{padding:5vw 10.625vw; background:#305953;}
+.event240311 .evtFooter h2{margin-bottom: 1.75vw; font-size:3.25vw; font-weight:600; letter-spacing:-0.05em; color:#fff; line-height: 1; }
+.event240311 .evtFooter .evtInfoList li{position:relative;padding-left:2.5vw;text-indent:-2.5vw;font-size:2.5vw;font-weight:400;color:#fff;line-height:1.5; word-break:keep-all;}
+
+.vivasamter_applyDtl .privacyList li span{font:inherit; color:#ff8125;}
+
+/*신청하기 팝업*/
+.bg_yell {background-color: #ffd563 !important;}
+.bg_yell h3{text-align:center;}
+.event240311 .vivasamter_applyDtl .info_tit>.join_ipt_chk {display:inline-block;}
+.event240311 .vivasamter_applyDtl .info_tit>.join_ipt_chk .join_chk_list.half {margin:0 0 0 20px; float:none; width:auto; display:inline-block;}
+.event240311 .vivasamter_applyDtl .info_tit>.join_ipt_chk .join_chk_list.half.ml38 {margin-left:38px !important;}
+.event240311 .bulTxt {padding-left:25px; margin-top:5px;text-indent:-10px;}
+.event240311 .vivasamter_applyDtl .input_wrap.school .input_sm {width:calc(100% - 130px); margin-top:10px;}
+.event240311 .vivasamter_applyDtl .input_wrap.school .input_in_btn.btn_gray {margin-left:5px; margin-top:-24px; right:0; width:125px; height:48px; font-size:14px; font-weight:600; vertical-align:top;}
+.event240311 .input_wrap.receiveGradeClass{display:flex; align-items: center;}
+.event240311 .input_wrap.receiveGradeClass>.input_sm, .event220322 .input_wrap.receiveGradeClass>.label_txt{display:block;}
+.event240311 .input_wrap.receiveGradeClass>.input_sm.wp143{width:143px;}
+.event240311 .input_wrap.receiveGradeClass>.label_txt{line-height:48px;}
+.event240311 .evtForm_labelTxt{margin-top:10px;padding-left:17px;font-size:12px; font-weight:400;color:#ff8125;line-height:1;}
+.vivasamter_applyDtl .privacyList li.pt35:before {top: 35px;}
+.tit_flex {display:flex;}
+.tit_flex label {margin-right:12px;}
+.tit_flex ul {width: calc(100% - 21.33vw);}
+.tit_flex ul li:first-child {width:60%;}
+.tit_flex ul li:nth-child(2) {width:40%;}
+.evt_info_txt{margin-top:8px; padding-left:13px; text-indent:-13px; font-size:12px; color:#ff6832; font-weight:400; line-height:1.3; word-break:keep-all; letter-spacing:-0.04em;}
+
+
+
+
+

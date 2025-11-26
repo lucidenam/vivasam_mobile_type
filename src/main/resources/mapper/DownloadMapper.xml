@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.common.mapper.DownloadMapper">
+    <select id="getFileList" parameterType="hashmap" resultType="hashmap">
+        WITH FILETABLE AS (
+            SELECT
+                CONCAT(
+                    CASE FILE_CDN_YN
+                        WHEN 'N' THEN 'https://www.vivasam.com'
+                        WHEN 'Y'
+                            THEN
+                                CASE FN_GET_EDU_CLS_CODE(#{contentId})
+                                    WHEN '2015' THEN 'https://dn.vivasam.com'
+                                    ELSE 'https://dn22.vivasam.com'
+                                END
+                    END
+                    , FILE_PATH
+                    , SAVE_FILE_NAME, 'x%x'
+                    , FILE_CDN_YN, 'x%x'
+                    , DOWN_YN, 'x%x'
+                    , TN_YN
+                ) AS result
+                , CASE FILE_CDN_YN
+                    WHEN 'N' THEN 'https://www.vivasam.com'
+                    WHEN 'Y'
+                        THEN
+                            CASE FN_GET_EDU_CLS_CODE(#{contentId})
+                                WHEN '2015' THEN 'https://dn.vivasam.com'
+                                ELSE 'https://dn22.vivasam.com'
+                            END
+                END	AS fulluser
+                , FILE_CDN_YN AS cndyn
+                , DOWN_YN AS downyn
+                , TN_YN AS tnyn
+                , CONTENT_ID AS p_contentid
+                , CONTENT_GUBUN AS p_contentgubun
+            FROM MASTER_CONTENT
+            WHERE CONTENT_ID = #{contentid}
+                AND CONTENT_GUBUN = #{contentgubun}
+                AND SAVE_FILE_NAME IS NOT NULL
+                AND SAVE_FILE_NAME <![CDATA[ <> ]]> ''
+                AND USE_YN = 'Y'
+
+            UNION ALL
+
+            SELECT
+                'https://www.vivasam.com/filename.jpgx%xNx%xNx%xN' AS result
+                , 'https://www.vivasam.com/filename.jpg' AS fulluser
+                ,'N' AS cndyn
+                ,'N' AS downyn
+                ,'N' AS tnyn
+                ,''  AS p_contentid
+                ,''  AS p_contentgubun
+        )
+
+        SELECT
+			CONCAT(
+				CASE
+					WHEN b.CONTENT_ID IS NULL THEN a.result
+					ELSE CONCAT(a.fulluser, b.file_path, b.FILE_NAME)
+				END, 'x%x'
+				, cndyn, 'x%x'
+				, cndyn, 'x%x'
+				, tnyn
+			) AS result
+			, a.fulluser
+			, a.cndyn
+			, a.downyn
+			, a.tnyn
+			, a.p_contentid AS pid
+			, a.p_contentgubun AS pgubun
+		FROM FILETABLE AS A
+		LEFT JOIN MASTER_CONTENT_EXTRA AS B ON A.P_CONTENTID = B.CONTENT_ID AND A.P_CONTENTGUBUN = B.CONTENT_GUBUN AND B.TYPE = 'DOWN'
+    </select>
+
+    <insert id="insertFiledownLog" parameterType="hashmap">
+		INSERT FILEDOWN_LOG (
+			userid
+			, p_action_type
+			, p_content_type
+			, p_content_id
+			, regymd,successyn
+		) VALUES (
+			#{userid}
+			, 'AC701'
+			, #{pgubun}
+			, #{pid}
+			, CURRENT_TIMESTAMP()
+			, 'C'
+		)
+	</insert>
+</mapper>

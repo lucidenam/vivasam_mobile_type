@@ -1,0 +1,89 @@
+/* 비바클래스 홍보페이지 */
+/* common */
+.vivaIntroWrap{padding-bottom:50px;}
+.vivaIntroWrap [class^="section"]{position:relative;z-index:1;}
+.vivaIntroWrap img{width:100%;max-width:100%;vertical-align:top;}
+.vivaIntroWrap .listSwiper .slick-prev,
+.vivaIntroWrap .listSwiper .slick-next{position:absolute;top:24%;display:block;width:4.44vw;height:7.96vw;background-position:0 0;background-repeat:no-repeat;background-size:100%;z-index:1;}
+.vivaIntroWrap .listSwiper .slick-prev{left:13%;}
+.vivaIntroWrap .listSwiper .slick-next{right:13%;}
+/* section */
+.vivaIntroWrap .section1 .viversam{position:absolute;bottom:13.51vw;left:0;width:92.59vw;margin:0 3.7vw;}
+/* section2-0 | 2024-06-12 영상 영역 추가 */
+.vivaIntroWrap .section2-0{padding-bottom:21.75vw;background:#e8f6ff;}
+.vivaIntroWrap .videoWrap{overflow:hidden;position:relative;width:92.6%;margin:0 auto;border:0.48vw solid #55c1e6;border-radius:2vw;}
+.vivaIntroWrap .videoWrap video{vertical-align:top;}
+.vivaIntroWrap .btnPlay{position:absolute;top:50%;left:50%;display:inline-block;width:13vw;height:13vw;background:url(/images/saemteo/vivaintro/btn_play.png) 0 0 no-repeat;background-size:100% auto;transform:translate(-50%, -50%);}
+/* */
+.vivaIntroWrap .section2{padding-bottom:21.75vw;background:#cfecff;}
+.vivaIntroWrap .section2 .listSwiper .slick-prev{top:32%;background-image:url(/images/saemteo/vivaintro/btn_list1_prev.png);}
+.vivaIntroWrap .section2 .listSwiper .slick-next{top:32%;background-image:url(/images/saemteo/vivaintro/btn_list1_next.png);}
+.vivaIntroWrap .section2 .btnWrap{text-align:center;}
+.vivaIntroWrap .section2 .btnClassApply{width:68.7vw;height:14.6vw;margin-top:3vw;}
+.vivaIntroWrap .section3{padding-bottom:21.75vw;background:#fff;}
+.vivaIntroWrap .section3 .listSwiper .slick-prev{background-image:url(/images/saemteo/vivaintro/btn_list2_prev.png);}
+.vivaIntroWrap .section3 .listSwiper .slick-next{background-image:url(/images/saemteo/vivaintro/btn_list2_next.png);}
+.vivaIntroWrap .section4{padding-bottom:21.75vw;background:#eaf8f7;}
+.vivaIntroWrap .section4 .listSwiper .slick-prev{background-image:url(/images/saemteo/vivaintro/btn_list3_prev.png);}
+.vivaIntroWrap .section4 .listSwiper .slick-next{background-image:url(/images/saemteo/vivaintro/btn_list3_next.png);}
+.vivaIntroWrap .section3 .listSwiper .slide,
+.vivaIntroWrap .section4 .listSwiper .slide{position:relative;}
+.vivaIntroWrap .section3 .listSwiper .slide .btnAlert,
+.vivaIntroWrap .section4 .listSwiper .slide .btnAlert{position:absolute;bottom:0;left:20%;width:60%;height:15vw;}
+.vivaIntroWrap .section6 .listSwiper .slide .btnAlert{position:absolute;bottom:2.53%;left:20%;width:60%;height:15vw;z-index: 1000;}
+.vivaIntroWrap .section5{background:#fff;}
+.vivaIntroWrap .section5 [class^="card label"]:before{position:absolute;top:1.8vw;right:1.4vw;box-sizing:border-box;display:flex;justify-content:center;align-items:center;height:5.5vw;padding:0 2vw;border-radius:1.5vw;font-family:'GmarketSansBold', sans-serif;font-size:2vw;color:#fff;text-align:center;z-index:1;}
+.vivaIntroWrap .section5 .card.labelOpen:before{content:'OPEN';background:#ff4d24;}
+.vivaIntroWrap .section5 .card.labelNew:before{content:'N';background:#ff4d24;}
+.vivaIntroWrap .section5 .card.labelUpgrade:before{content:'UPGRADE';background:#4a6c96;}
+.vivaIntroWrap .section5 .btnWrap{margin-bottom:10vw;text-align:center;}
+.vivaIntroWrap .section5 .btnWrap .btnLink{display:inline-block;width:68.7vw;height:14.6vw;}
+/* funcSwiper */
+.vivaIntroWrap .funcSwiper{overflow:hidden;margin:0 0 8vw 6.48vw;}
+.vivaIntroWrap .funcSwiper .slick-slide{width:45.4vw;height:50.4vw;margin:0 4vw 0 0;opacity:1;}
+.vivaIntroWrap .funcSwiper .slick-slide > div{width:100%;height:100%;}
+.vivaIntroWrap .funcSwiper .slick-slide .card{position:relative;width:100%;height:100%;}
+.vivaIntroWrap .funcSwiper .slick-slide.slick-active{opacity:1;}
+/*
+.vivaIntroWrap .funcSwiper .slick-slide .card{position:relative;width:100%;height:100%;transition:.4s;transform-style:preserve-3d;}
+.vivaIntroWrap .funcSwiper .slick-slide .front,
+.vivaIntroWrap .funcSwiper .slick-slide .back{position:absolute;top:0;left:0;border-radius:2vw;backface-visibility:hidden;}
+.vivaIntroWrap .funcSwiper .slick-slide .back{transform:rotateY(180deg);}
+.vivaIntroWrap .funcSwiper .slick-slide.slick-active{opacity:1;}
+.vivaIntroWrap .funcSwiper .slick-slide.slick-active .card.flip{transform:rotateY(180deg);}
+.vivaIntroWrap .funcSwiper .slick-slide.slick-active .card.soon{transform:none;}
+.vivaIntroWrap .funcSwiper .slick-slide.slick-active .front,
+.vivaIntroWrap .funcSwiper .slick-slide.slick-active .back{overflow:hidden;box-shadow:1.8vw 1.8vw 1.4vw rgba(55, 59, 67, 0.17);}
+.vivaIntroWrap .funcSwiper .slick-slide.slick-active .card.soon .front:after{content:'';position:absolute;top:0;right:0;display:inline-block;width:175px;height:50px;background:url(/images/saemteo/vivaintro/ico_soon.png) 0 0 no-repeat;transform:scale(0.685);}
+.vivaIntroWrap .section5 .surveyWrap,
+.vivaIntroWrap .section5 .alarmWrap{position:relative;}
+.vivaIntroWrap .section5 .btnSurvey{display:block;width:51.94vw;margin:11.94vw auto 13.14vw;}
+.vivaIntroWrap .section5 .btnAlarm{position:absolute;bottom:10.83vw;left:28.7vw;display:block;width:42.59vw;}
+*/
+
+/* 2024-09-05 */
+.vivaIntroWrap .section3{padding-bottom:17.59vw;}
+.vivaIntroWrap .section3 .listSwiper .swiper-slide .btnAlert,
+.vivaIntroWrap .section4 .listSwiper .swiper-slide .btnAlert{left: 50%; transform: translateX(-50%);width:58.8%; height:15.65vw;}
+.vivaIntroWrap .section5{padding:21.76vw 0 13.89vw; background:#fff url('/images/saemteo/vivaintro/250212/bg05.png') no-repeat center bottom / 100% auto;}
+.vivaIntroWrap .section5 .cardSwiper0 .swiper-slide{width:37.59vw;}
+.vivaIntroWrap .section5 .cardSwiper1 .swiper-slide{width:47.41vw;}
+.vivaIntroWrap .section5 .funcSwiper{margin:0 0 0 6.48vw;}
+.vivaIntroWrap .section5 .funcSwiper .slide{position:relative; margin-right:2.778vw;}
+.vivaIntroWrap .section5 .funcSwiper .slide .badge{position:absolute; left:0; right:0; top:2.96vw; padding:0 2.31vw; overflow:hidden;z-index:10;}
+.vivaIntroWrap .section5 .funcSwiper .slide .badge span{display:block; height:5.65vw; background-repeat:no-repeat; background-position:center; background-size:contain;}
+.vivaIntroWrap .section5 .funcSwiper .slide .badge .data{float:right; width:10.65vw;background-image:url('/images/saemteo/vivaintro/240905/ico_data.png');}
+.vivaIntroWrap .section5 .funcSwiper .slide .badge .new{float:right; width:5.65vw;background-image:url('/images/saemteo/vivaintro/240905/ico_new.png');}
+.vivaIntroWrap .section5 .funcSwiper .slide .badge .open{float:right; width:10.65vw;background:#ffe9e4;border-radius:2.83vw;font-size:2.59vw;line-height:5.65vw;text-align:center;font-weight:500;color:#ff4d24;}
+
+
+.vivaIntroWrap .section6{padding-bottom:17.59vw;background:#fff2f8;}
+.vivaIntroWrap .section6 .listSwiper .slick-prev{background-image:url('/images/saemteo/vivaintro/250212/list6_prev.png');}
+.vivaIntroWrap .section6 .listSwiper .slick-next{background-image:url('/images/saemteo/vivaintro/250212/list6_next.png');}
+.vivaIntroWrap .section6 .btnWrap{text-align:center;}
+.vivaIntroWrap .section6 .btnCreate{width:68.7vw;height:14.6vw;margin-top:3vw;}
+.vivaIntroWrap .section6 .slide{position:relative;}
+.vivaIntroWrap .section6 .btnAlert{display:none}
+.vivaIntroWrap .section6 .slick-active .btnAlert{display:block}
+.section_bnr{position:relative;}
+.section_bnr .btn_link{position:absolute;top:31.5vw;left:9.07vw;width:26.76vw;height:8.3vw;}

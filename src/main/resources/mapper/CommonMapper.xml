@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.common.mapper.CommonMapper">
+	<resultMap id="vscodeResult" type="hashmap">
+		<result column="codeName" property="codeName"/>
+		<result column="codeId" property="codeId"/>
+	</resultMap>
+
+	<select id="vscodeList" parameterType="String" resultMap="vscodeResult">
+		SELECT VC.NAME as codeName, VC.CODE as codeId
+		FROM VS_CODE as VC
+		WHERE VC.REF_CODE = #{code}
+		AND VC.USE_YN ='Y'
+		AND VC.CODE NOT IN ('QA021', 'SC115')
+		ORDER BY ORDER_NO
+	</select>
+
+	<select id="codeList" parameterType="hashmap" resultType="hashmap">
+		SELECT /*교과서 대,중, 소 단원 목록 조회*/
+			ROW_NUMBER() OVER(ORDER BY CODELIST_ID ASC) AS IDX
+			, DecToRom( ROW_NUMBER() OVER(ORDER BY CODELIST_ID ASC)) AS RIDX
+			, IFNULL(MD_VALUE, '') AS mdvalue
+			, CASE
+				WHEN CHAR_LENGTH(ROW_NUMBER() OVER(ORDER BY CODELIST_ID ASC)) = 1
+					THEN CONCAT('0',CONVERT(ROW_NUMBER() OVER(ORDER BY CODELIST_ID ASC),CHAR))
+				ELSE CONVERT(ROW_NUMBER() OVER(ORDER BY CODELIST_ID ASC),CHAR)
+			END AS ZIDX
+			, CODELIST_ID AS codeId
+			, CODE_NAME AS codeName
+			, ORDER_NO AS orderNo
+		FROM
+			CODELIST
+		WHERE CODEGROUP_ID = #{grpCode}
+			AND USE_YN = 'Y'
+			<if test="grpCode == 203">
+				AND CODELIST_ID IN (SELECT CODELIST_ID FROM CODELIST  WHERE CODEGROUP_ID ='203' AND REF_CODE= #{refCode} )
+			</if>
+			<if test="grpCode != 203 and (refCode != null and refCode != '')">
+				AND REF_CODE = #{refCode}
+			</if>
+		ORDER BY ORDER_NO
+	</select>
+
+	<!-- 학교급별 교과 코드조회 -->
+	<select id="subjectCodeList" resultType="hashmap">
+		SELECT
+			CSI.CAFE_SUBJECT_CD AS codeId
+			, VC.NAME AS codeName
+		FROM CAFE_SUBJECT_INFO CSI
+		INNER JOIN VS_CODE VC ON CSI.CAFE_SUBJECT_CD = VC.CODE
+			AND VC.REF_CODE = 'SC000'
+		WHERE CSI.SCHOOL_LVL_CD = #{schLvlCd}
+		AND CSI.CAFE_SUBJECT_USE_YN = 'Y'
+		GROUP BY CSI.CAFE_SUBJECT_CD, VC.NAME, VC.ORDER_NO
+		ORDER BY VC.ORDER_NO ASC
+	</select>
+
+	<!-- 스마트교안 상세뷰 문서 변환 이미지 목록 -->
+	<select id="convertedSmartDocumentList" resultType="edu.visang.vivasam.common.model.ConvertedDocCondition">
+		SELECT /*교과 상세뷰 교안 변환 이미지 목록*/
+			 'CN070' AS MEDIA_GUBUN
+			 ,LP_ID AS MEDIA_ID
+			 ,COUNT(LP_ID) OVER () AS PAGE_NO
+			 ,IMG_PATH + THUM_IMG_NAME AS THUMBNAIL_PATH
+			 ,IMG_PATH + LARGE_IMG_NAME AS FILE_PATH
+			 ,SLIDE_ORDER AS ORDER_NO
+		FROM LESSON_SLIDE
+		WHERE LP_ID = #{mediaId}
+		ORDER BY SLIDE_ORDER
+	</select>
+
+	<!-- 교과 상세뷰 문서 변환 이미지 목록 -->
+	<select id="convertedDocumentList" resultType="edu.visang.vivasam.common.model.ConvertedDocCondition">
+		SELECT /*교과 상세뷰 문서 변환 이미지 목록*/
+			DI.MEDIA_GUBUN,
+			DI.MEDIA_ID,
+			DI.PAGE_NO,
+			DI.RETAIN_CNT,
+			DI.DOC_CNT,
+			DI.DOC_CONVERT_YN,
+			DID.FILE_CDN_YN,
+			DID.THUMBNAIL_PATH,
+			DID.FILE_PATH,
+			DID.ORDER_NO
+		FROM DOC_INFO DI
+		JOIN DOC_INFO_DETAIL DID ON DI.MEDIA_GUBUN = DID.MEDIA_GUBUN
+			AND DI.MEDIA_ID = DID.MEDIA_ID
+		WHERE DI.MEDIA_GUBUN = #{mediaGubun}
+		AND DI.MEDIA_ID = #{mediaId}
+		ORDER BY DID.ORDER_NO
+	</select>
+
+
+	<select id="selectMemberSpPointCheck" parameterType="String" resultType="String">
+		SELECT MEMBER_ID
+		FROM MEMBER
+		WHERE MEMBER_ID = #{memberId}
+			AND (DATE_FORMAT(NOW(), '%Y-%m-%d') > LAST_DATE OR LAST_DATE IS NULL)
+	</select>
+	<select id="selectSocialContentHisCount" parameterType="hashmap" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM (
+			SELECT
+				SEQ
+			FROM SOCIAL_CONTENT_HIS
+			WHERE MEMBER_ID = #{memberId}
+				AND CONTENT_ID = #{contentId}
+				AND CONTENT_GUBUN = #{contentGubun}
+				AND `TYPE` = #{type}
+			UNION ALL
+			SELECT
+				SEQ
+			FROM SOCIAL_CONTENT_HIS_BAK
+			WHERE MEMBER_ID = #{memberId}
+				AND CONTENT_ID = #{contentId}
+				AND CONTENT_GUBUN = #{contentGubun}
+				AND `TYPE` = #{type}
+			) T
+	</select>
+
+	<insert id="insertPointHistoryInfo">
+		INSERT INTO POINT_HISTORY_INFO
+			(
+				MEMBER_ID,
+				TYPE,
+				POINT,
+				CONTENT_TYPE,
+				CONTENT_TYPE_ID,
+				REG_DTTM
+			)
+		VALUES
+			(
+				#{memberId},
+				#{type},
+				#{point},
+				#{contentType},
+				#{contentTypeId},
+				CURRENT_TIMESTAMP()
+			)
+
+	</insert>
+	<insert id="insertSocialContentHis">
+		INSERT INTO SOCIAL_CONTENT_HIS
+			(
+				MEMBER_ID,
+				CONTENT_GUBUN,
+				CONTENT_ID,
+				TYPE,
+				POINT,
+				REF,
+				REG_DTTM
+			)
+		VALUES
+			(
+				#{memberId},
+				#{contentGubun},
+				#{contentId},
+				#{type},
+				#{point},
+				#{ref},
+				CURRENT_TIMESTAMP()
+			)
+	</insert>
+
+	<select id="getContentMemLevelCheck"  parameterType="String" resultType="java.lang.Integer">
+		SELECT COUNT(1)
+			/*EDUCOURSE_ID, TYPE_1, TYPE_2 --준회원 권한 제한을 위한 평가자료 여부 체크*/
+		FROM MASTER_CONTENT AS MC
+		JOIN MASTER_CONTENT_EDUCOURSE AS MCE ON MC.CONTENT_GUBUN = MCE.CONTENT_GUBUN
+			AND MC.CONTENT_ID = MCE.CONTENT_ID
+		WHERE MC.CONTENT_GUBUN = #{contentGubun}
+		AND MC.CONTENT_ID = #{contentId}
+		AND (MCE.TYPE_1 = '1110002' OR
+			 (EDUCOURSE_ID = '103011' AND SUBSTRING(TYPE_2, 1, 3) = '303'))
+	</select>
+	
+	<insert id="setPushAlarms" parameterType="edu.visang.vivasam.common.model.PushAlarms">
+		INSERT INTO APP_NOTIFICATION_SETTINGS (
+			MEMBER_ID,
+			ALARM_EVENT,
+			ALARM_MATERIAL_UPDATE,
+			ALARM_QNA_ANSWER,
+			ALARM_NOTI,
+			REGDATE,
+			MODDATE
+		) VALUES (
+			#{memberId},
+			#{eventYn},
+			#{materialUpdateYn},
+			#{qnaAnswerYn},
+			#{notiYn},
+			CURRENT_TIMESTAMP,
+			CURRENT_TIMESTAMP
+		) ON DUPLICATE KEY UPDATE
+			ALARM_EVENT = #{eventYn},
+			ALARM_MATERIAL_UPDATE = #{materialUpdateYn},
+			ALARM_QNA_ANSWER = #{qnaAnswerYn},
+			ALARM_NOTI = #{notiYn},
+			MODDATE = CURRENT_TIMESTAMP()
+	</insert>
+
+	<select id="getPushAlarms" parameterType="String" resultType="edu.visang.vivasam.common.model.PushAlarms">
+		SELECT MEMBER_ID,
+			   ALARM_EVENT AS EVENT_YN,
+			   ALARM_MATERIAL_UPDATE AS MATERIAL_UPDATE_YN,
+			   ALARM_QNA_ANSWER AS QNA_ANSWER_YN,
+			   ALARM_NOTI AS NOTI_YN
+		FROM APP_NOTIFICATION_SETTINGS
+		WHERE MEMBER_ID = #{memberId}
+		ORDER BY REGDATE DESC
+		LIMIT 1
+	</select>
+
+	<insert id="insertEpkStatusInfo" parameterType="edu.visang.vivasam.common.model.EpkStatusInfo">
+		<![CDATA[
+		INSERT INTO EPK_STATUS_INFO (
+			  REG_ID
+			, REG_DTTM
+			, EPK_STATUS_CD
+			, ATTACH_FILE
+			, ATTACH_FILE2
+			, ATTACH_FILE3
+			, COMMENT
+			, VIA
+			, EPK_TYPE
+		) VALUES (
+		  	#{regId}
+		   , CURRENT_TIMESTAMP
+		   , #{epkStatusCd}
+		   , #{attachFile}
+		   , #{attachFile2}
+		   , #{attachFile3}
+		   , #{comment}
+		   , 'MOBILE'
+		   , #{type}
+		)
+		]]>
+	</insert>
+
+	<!-- 회원학교정보 조회 -->
+	<select id="getMemberSchoolYn" parameterType="string" resultType="hashmap">
+		SELECT
+			  SCH_CODE AS schCode
+		     ,SCH_NAME AS schName
+		  FROM MEMBER
+		 WHERE MEMBER_ID = #{memberId}
+	</select>
+
+	<insert id="insertEpkStatusInfoKEy" parameterType="edu.visang.vivasam.common.model.EpkStatusInfo">
+		<![CDATA[
+		INSERT INTO EPK_STATUS_INFO (
+			  REG_ID
+			, REG_DTTM
+			, EPK_STATUS_CD
+			, ATTACH_FILE
+			, ATTACH_FILE2
+			, ATTACH_FILE3
+			, COMMENT
+			, VIA
+			, EPK_TYPE
+		) VALUES (
+		  	#{regId}
+		   , CURRENT_TIMESTAMP
+		   , #{epkStatusCd}
+		   , #{attachFile}
+		   , #{attachFile2}
+		   , #{attachFile3}
+		   , #{comment}
+		   , 'MOBILE'
+		   , #{type}
+		)
+		]]>
+		<selectKey keyProperty="epkId" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+
+	<!-- 교과 상세뷰 문서 컨텐츠 정보 -->
+	<select id="getDocumentContentInfo" parameterType="edu.visang.vivasam.common.model.DocumentContentInfo" resultType="edu.visang.vivasam.common.model.DocumentContentInfo">
+		SELECT MC.CONTENT_ID AS contentId
+			 , MC.CONTENT_GUBUN AS contentGubun
+			 , MC.SUBJECT AS subject
+			 , MC.SAVE_FILE_NAME AS saveFileName
+			 , MC.COPYRIGHT_NAME AS copyrightName
+			 , MC.ADDITIONAL_DESC AS additionalDesc
+			 , FN_SHORT_URL('content', MC.CONTENT_ID) AS shortUrl
+		FROM MASTER_CONTENT MC
+		WHERE MC.CONTENT_ID = #{contentId}
+		  AND MC.CONTENT_GUBUN = #{contentGubun}
+	</select>
+</mapper>

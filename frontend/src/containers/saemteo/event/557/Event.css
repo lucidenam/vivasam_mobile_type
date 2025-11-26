@@ -1,0 +1,59 @@
+/* Event */
+.event250318{position:relative;}
+.event250318 img{width:100%;vertical-align:top;}
+.event250318 [class^="evtCont"]{position:relative;z-index:1;}
+.event250318 *{font-family:'Noto Sans KR', sans-serif; box-sizing: border-box;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+/* EVENT 557 */
+.event250318 .btn_share{position:absolute; top:96.729vw; right:2.804vw; width:28.037vw; height:20.093vw; background:url('/images/events/2025/event250318/ico_share.png') no-repeat center / contain; z-index:11;}
+.event250318 .btn_share.fixed{position:fixed; top:15.576vw;}
+.event250318 .evtCont1{z-index:3;}
+.event250318 .evtCont2{z-index:2;}
+.event250318 .evtCont3{margin-top:-1px; padding:10.981vw 0 17.29vw; background:linear-gradient(180deg, #3cd5ca, #17877F);}
+.event250318 .evtCont3 h3{margin:0 auto; width:60.826vw;}
+.event250318 .evtCont3 .evt_rank_wrap{margin-top:5.607vw;}
+.event250318 .evtCont3 .evt_rank_wrap .evt_rank_list{padding:0 6.62vw; display:flex; flex-wrap:wrap; gap:8.255vw 4.673vw;}
+.event250318 .evtCont3 .evt_rank_wrap .evt_rank_list li{padding-top:35.125vw; width:calc(50% - 2.336vw); height:51.324vw; font-family:'SUIT', 'Noto Sans KR', sans-serif; text-align:center;}
+.event250318 .evtCont3 .evt_rank_wrap .evt_rank_list li h6{font-size:4.673vw; font-weight:700; line-height:1; color:#fff;}
+.event250318 .evtCont3 .evt_rank_wrap .evt_rank_list li p{margin-top:2.726vw; font-size:3.972vw; font-weight:700; line-height:1; color:#21659A;}
+.event250318 .evtCont3 .evt_rank_wrap .evt_rank_list li:nth-child(1){padding-top:41.667vw; width:100%; height:58.567vw; background:url('/images/events/2025/event250318/bg_rank1.png') no-repeat center / contain;}
+.event250318 .evtCont3 .evt_rank_wrap .evt_rank_list li:nth-child(1) p{color:#98D2FF;}
+.event250318 .evtCont3 .evt_rank_wrap .evt_rank_list li:nth-child(2){background:url('/images/events/2025/event250318/bg_rank2.png') no-repeat center / contain;}
+.event250318 .evtCont3 .evt_rank_wrap .evt_rank_list li:nth-child(3){background:url('/images/events/2025/event250318/bg_rank3.png') no-repeat center / contain;}
+.event250318 .evtCont3 .evt_rank_wrap .btnViewRanking{margin:6.854vw auto 0; display:block; width:36.449vw; height:7.165vw; background:url('/images/events/2025/event250318/btn_allRank.png') no-repeat center / contain;}
+.event250318 .evtCont3 .btn_wrap{margin-top:17.134vw;}
+.event250318 .evtCont3 .btn_wrap [class^="evtBtn"]{margin:0 auto; display:block; width:82.165vw; height:23.364vw; background-repeat:no-repeat; background-size:contain; background-position:center;}
+.event250318 .evtCont3 .btn_wrap .evtBtn1{background-image:url('/images/events/2025/event250318/evtBtn1.png');}
+.event250318 .evtCont3 .btn_wrap .evtBtn2{margin-top:3.972vw; background-image:url('/images/events/2025/event250318/evtBtn2.png');}
+
+.event250318 .dimmed{position:fixed; left:0; right:0; top:0; bottom:0; background:rgba(24,24,24,.8); z-index:11;}
+.event250318 .join_ranking_pop {position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); width:84.813vw; border-radius:7.009vw; overflow: hidden; z-index: 12;}
+.event250318 .join_ranking_pop *{font-family:'SUIT', 'Noto Sans KR', sans-serif;}
+.event250318 .join_ranking_pop .pop_head {position:relative; padding:0 6.667vw; background:#F24269;}
+.event250318 .join_ranking_pop .pop_head .popTit {font-size:6.075vw; font-weight:800; color:#fff; line-height:15.888vw; text-align:center;}
+.event250318 .join_ranking_pop .pop_head .btnPopClose {position:absolute; right:4.667vw; top:50%; transform:translateY(-50%); width: 3.467vw; height: 3.467vw; background: url('/images/events/2025/event250318/popClose.png') no-repeat center / contain;}
+.event250318 .join_ranking_pop .pop_body {padding:7.009vw 4.63vw; background: #fff;}
+.event250318 .join_ranking_pop .pop_body .scroll-area{padding-top:3.505vw; overflow-y:scroll; max-height:40vh;}
+.event250318 .join_ranking_pop .pop_body table {width: 100%; text-align:center;}
+.event250318 .join_ranking_pop .pop_body table thead th{padding:1.40vw 1.168vw; font-size:6.075vw; font-weight:600; color: #000; line-height:6.542vw; border-bottom: 1px solid #CACACA;}
+.event250318 .join_ranking_pop .pop_body table tbody td{padding:1.40vw 2.336vw; font-size:5.14vw; color:#000; font-weight:500; line-height:6.542vw;}
+.event250318 .join_ranking_pop .pop_body .widTy1{width:13.318vw;}
+.event250318 .join_ranking_pop .pop_body .widTy2{width:21.028vw;}
+.event250318 .join_ranking_pop .pop_body .widTy3{width:auto;}
+.event250318 .rank_txt{margin-top:3.505vw; font-size:3.505vw; color:#0a4f4b; font-weight:400; line-height:1.4; text-align:center;}
+
+.event250318 .evtNotice {padding:11.293vw 6.62vw 14.252vw; background:#1659ac;}
+.event250318 .evtNotice strong {display:block; margin-bottom:7.009vw; font-size:4.206vw; font-weight: 600; color: #fff; line-height: 1;}
+.event250318 .evtNotice ul li{position:relative; padding-left:4.673vw; font-size:3.271vw; font-weight: 400; color: #fff; line-height: 1.8;word-break:keep-all; word-wrap:break-word;}
+.event250318 .evtNotice ul li:before{content:''; position:absolute; left:2.025vw; top:2.414vw; width:1.012vw; height:1.012vw; background:#fff; border-radius:50%;}
+
+.vivasamter_applyDtl .input_wrap.school .input_sm {width: calc(100% - 130px);margin-top: 10px;}
+.vivasamter_applyDtl .input_wrap.school .input_in_btn.btn_gray {    margin-left: 5px;margin-top: -24px;right: 0;width: 125px;height: 48px;font-size: 14px;font-weight: 600;vertical-align: top;}
+.vivasamter_applyDtl .apply_form_wrap {position: relative;}
+.vivasamter_applyDtl .apply_noti {display: flex; justify-content: center;  width: 100%; padding: 10px 0; background: #ffeac7; }
+.vivasamter_applyDtl .apply_noti p { font-size: 12px; font-weight: 400; color: #f47314; line-height: 17px; letter-spacing: -0.04em; padding-left: 7px; text-indent: -7px;}
+.vivasamter_applyDtl .recommedCheck {font-size: 12px; letter-spacing: -0.04em;}
+

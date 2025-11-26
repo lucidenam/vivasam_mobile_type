@@ -1,0 +1,46 @@
+/* 위챌 홍보페이지 */
+/* animation */
+@keyframes bounce {
+    0%{transform:translateY(-30px);transform:translateY(-30px);}
+    100%{transform:translateY(-20px);transform:translateY(-20px);}
+}
+
+/* START */
+/* common */
+.wechallWrap{padding-bottom:50px;}
+.wechallWrap [class^="section"]{overflow:hidden;position:relative;width:100%;height:100%;background:rgb(232,253,255);background:linear-gradient(0deg, rgba(232,253,255,1) 0%, rgba(255,255,255,1) 100%);z-index:1;}
+.wechallWrap img{width:100%;max-width:100%;vertical-align:top;}
+/* section1 */
+.wechallWrap .section1{background:rgb(255,51,102);background:linear-gradient(0deg, rgba(255,51,102,1) 24%, rgba(255,185,164,1) 99%);}
+.wechallWrap .section1:after{content:'';position:absolute;bottom:0;left:50%;display:inline-block;width:3.8vw;height:4.3vw;margin-left:-1.9vw;background:url(/images/saemteo/wechall/ico_scroll.png) 0 0 no-repeat;background-size:100%;transform:translateY(-30px);animation:bounce 1s infinite alternate;}
+/* section2, section7 */
+.wechallWrap .section2,
+.wechallWrap .section7{background:rgb(255,228,218);background:linear-gradient(0deg, rgba(255,228,218,1) 0%, rgba(255,255,255,1) 100%);}
+/* section2 */
+.wechallWrap #tabWrap{height:144.81vw;}
+.wechallWrap .btnTabWrap{display:flex;justify-content:center;}
+.wechallWrap .btnTabWrap [class^="btnTab"]{width:36.20vw;height:13.42vw;background-position:50% 0;background-repeat:no-repeat;background-size:100% auto;}
+.wechallWrap .btnTabWrap .btnTab01{background-image:url(/images/saemteo/wechall/btn_tab01.png);}
+.wechallWrap .btnTabWrap .btnTab02{background-image:url(/images/saemteo/wechall/btn_tab02.png);}
+.wechallWrap .btnTabWrap .btnTab01.on{background-image:url(/images/saemteo/wechall/btn_tab01_on.png);}
+.wechallWrap .btnTabWrap .btnTab02.on{background-image:url(/images/saemteo/wechall/btn_tab02_on.png);}
+.wechallWrap .tabContWrap{overflow:hidden;height:90.7%;}
+.wechallWrap .tabContWrap .tabCont{display:none;width:66.7%;height:90.2%;margin:3% auto 0;}
+.wechallWrap .tabContWrap .tabCont.on{display:block;}
+.wechallWrap .videoWrap{position:relative;width:100%;height:100%;box-shadow:0 0 5px rgba(255, 192, 168, 0.2);}
+.wechallWrap .btnPlay{position:absolute;top:50%;left:50%;display:inline-block;width:9.9vh;height:9.9vh;background:url(/images/saemteo/wechall/btn_play.png) 0 0 no-repeat;transform:translate(-50%, -50%);background-size:100% auto;}
+/* section3 - section6*/
+.wechallWrap .swiper-container-horizontal>.swiper-pagination-bullets{bottom:12vw;}
+.wechallWrap .innerSwiper{position:static;}
+.wechallWrap .innerSwiper .slick-dots{bottom:12vw;height:auto;line-height:1;}
+.wechallWrap .innerSwiper .slick-dots li{vertical-align:top;}
+.wechallWrap .innerSwiper .slick-dots li button{width:1.85vw;height:1.85vw;border-radius:100%;background:#aec0c2 !important;}
+.wechallWrap .innerSwiper .slick-dots li button:before{display:none;}
+.wechallWrap .innerSwiper .slick-dots li.slick-active button{width:7.13vw;border:0;border-radius:0.92vw;background:#666 !important;}
+.wechallWrap .section3{padding-bottom:8vw;}
+.wechallWrap .section4,
+.wechallWrap .section5,
+.wechallWrap .section6{padding-bottom:12vw;}
+/* section7 */
+.wechallWrap .section7 .btnWrap{position:absolute;top:87.77vw;display:flex;justify-content:center;align-items:center;width:100%;gap:0 5.5vw;}
+.wechallWrap .section7 .btnWrap .btnLink{display:block;width:35.18vw;height:24.16vw;}

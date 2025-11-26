@@ -1,0 +1,65 @@
+/* Event */
+.event230116{position:relative;background:#d5edd9;}
+.event230116 img{width:100%;vertical-align:top;}
+.event230116 [class^="evtCont"]{position:relative;z-index:1;}
+.event230116 *{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+
+.evtCon{position:absolute;top:0;right:0;display:block;width:19.86vw;height:28vw;background:url(/images/events/2023/event230116/corn.png) 0 0 no-repeat;background-size:100% auto;}
+
+/* EVENT 427 */
+.event230116 .evtCont02 {position: relative;}
+.event230116 .evtCont02 .btnInstagram { display: flex; justify-content: center; align-items: center; position: absolute; left: 16vw; top: 52.4vw; width: 27.06vw; height: 9.2vw; background: #00d07d; border-radius: 4.6vw; text-align: center;}
+.event230116 .evtCont02 .btnInstagram span {font-size: 2.66vw; font-weight: 500; color: #055f3b; line-height: 3.46vw; letter-spacing: -0.04em;}
+.event230116 .evtCont02 .btnApply {display: inline-block; position: absolute; left: 50%; bottom: 10vw; width: 83.6vw; height: 15.46vw; background:url(/images/events/2023/event230116/btn_apply.png) 0 0 no-repeat;background-size:100% auto; transform: translateX(-50%); font-size: 0;}
+.event230116 .evtCont02 .btnApply span {font-size: 0;}
+
+.event230116 .notice {background:#555056; padding: 8vw 4.66vw 9.06vw;}
+.event230116 .notice strong {display: inline-block;  margin-bottom: 3.33vw; font-size: 4vw; color: #ffffff; font-weight:600; line-height: 1;}
+.event230116 .notice ul li {position: relative; padding-left:1.86vw; line-height: 4.93vw; font-size:2.93vw;  color:#fff; letter-spacing:-0.05em;}
+.event230116 .notice ul li:after {content: ""; display: inline-block; position: absolute; left: 0; top: 1.7vw; width: 0.8vw; height: 0.8vw; border-radius: 50%; background: #fff;}
+
+/*popup*/
+.applyDtl_top { background: #fff9e3; }
+.applyDtl_top h3 {text-align:center!important;}
+.applyDtl_top strong {font-size:4.26vw; font-weight:600; color: #ff8125;}
+.input_wrap .count {display:flex; justify-content:flex-end; margin-top:1.33vw;}
+.input_wrap .count span{font-size:3.2vw; font-weight:400; color:#888;}
+.vivasamter_applyDtl .info_tit.info_textarea {position:relative; padding-left:3.8vw; text-indent:-1.8vw;}
+.vivasamter_applyDtl .info_tit.info_textarea .txt_count {position:absolute; right:5px; bottom: 7px;}
+.input_wrap textarea {width:100%; min-height:45.33vw; padding:4vw; font-size:14px; border:1px solid #eaeaea; border-radius:2.66vw;}
+.input_wrap textarea::placeholder {color:#838a95;}
+.vivasamter_apply .info_tit span {font-size:14px;}
+.vivasamter_apply .currentCount {font-size:14px;}
+.join_chk_list {width:50%;}
+.privacyTxt a {color:#01aeff;}
+.vivasamter_applyDtl .pdside20 + .acco_notice_list.notice_sec {padding-top:0; margin-top:0; border-top:0; padding-bottom:0; border-bottom: 0;}
+.vivasamter_applyDtl .pdside20 + .acco_notice_list.notice_sec .acco_notice_cont {border-top:0; border-bottom: 0;}
+
+
+/*
+	반응형 사이즈 (750기준)
+
+	- 12px - 1.6vw;
+	- 14px - 1.86vw;
+	- 15px - 2vw;
+	- 16px - 2.13vw;
+	- 17px - 2.26vw;
+	- 18px - 2.4vw;
+
+	- 20px - 2.66vw;   - 80px - 10.66vw;
+	- 22px - 2.93vw;   - 90px - 12vw;
+	- 24px - 3.2vw;    - 100px - 13.33vw;
+	- 26px - 3.46vw;
+	- 28px - 3.73vw;
+	- 30px - 4vw;
+	- 35px - 4.66vw;
+	- 40px - 5.33vw;
+	- 50px - 6.66vw;
+	- 60px - 8vw;
+	- 70px - 9.33vw;
+
+*/

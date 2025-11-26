@@ -1,0 +1,55 @@
+/* Event */
+.vivasamgo [class^="evtCont"]{position:relative;z-index:1;}
+.vivasamgo *{font-family:'Noto Sans KR', sans-serif;}
+.vivasamgo img {display:block; width: 100%;}
+/* START */
+/* common */
+[class^="evtCont"] {position: relative;}
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+
+.btnWrap button	{display:inline-block; position: absolute; left: 50%; bottom: 7.33vw; transform:translateX(-50%);  width: 53.33vw; height: 10.66vw; background: url('/images/saemteo/vivago/vivago2023/btn_apply.png')no-repeat center; background-size: 100% auto;}
+.evtCon {position:absolute;top:0;right:0;display:block;width:18.62vw;height:23.75vw;background:url(/images/saemteo/vivago/common/corn.png) 0 0 no-repeat;background-size:100% auto;}
+.evtEnd {position:absolute;top: 55vw; left: 68.75vw;display:block;width:22.5vw;height:22.5vw;background:url(/images/saemteo/vivago/common/comming_soon.png) 0 0 no-repeat;background-size:100% auto; border-radius: 50%;}
+
+
+/* evtNoti */
+.applyDtl_top {text-align: center;background: #ffe785;}
+.applyDtl_top h3 {font-size: 16px;color: #393d49;font-weight: 700;}
+.applyDtl_top h3 strong {font: inherit;color: #ff8125;}
+.person_box .select_sm {display: inline-block; }
+.person_box > span {font-size: 14px; color: #474e62;}
+.person_box .select_sm select {display: inline-block; width: 84px; margin-right: 7px; color: #474e62;}
+.calendar_wrap ul li {display: flex; align-items: center;}
+.calendar_wrap ul li:first-child {margin-bottom: 3px;}
+.calendar_wrap ul li >  span {display: inline-block; margin-right: 20px; font-size: 14px; font-weight: 400; color: #474e62; }
+.calendar_wrap ul li .calendar_box {flex:1; position: relative;}
+.calendar_wrap ul li .calendar_box .myCalendar {display: none; position: absolute; left: 0; bottom: 0; width:100%; }
+.calendar_wrap ul li .calendar_box .myCalendar.on {display: block;}
+.calendar_wrap ul li .calendar_box .myCalendar .react-calendar {width: 100%;}
+.reason_list ul li input[type="checkbox"]  + label {font-size: 14px; font-weight: 500; color: #393d49; line-height: 19px; letter-spacing: -0.02em;}
+.vivasamter_apply .vivasamter_applyDtl .acco_notice_list + .acco_notice_list {margin-top: 0; padding-top: 0; border-top: 0;}
+
+.tit_flex {display: flex; align-items: center; }
+.tit_flex > label {display: inline-block; margin-right: 20px;}
+.tit_flex .join_ipt_chk {width: auto;}
+.tit_flex .join_ipt_chk li {width: auto;}
+.tit_flex .join_ipt_chk li:first-child {margin-right: 20px;}
+.tit_flex .join_ipt_chk li input[type="radio"] + label {display: block; margin-top: -1px;}
+.boxFlex {display:flex;}
+.boxFlex label{display: inline-block; margin-right: 10px;}
+.boxFlex ul {display: flex; flex: 1; flex-wrap: wrap; }
+.boxFlex ul li {width: 50%; margin-bottom: 9px;}
+.pointTxt {padding-left: 12px; text-indent: -12px;}
+
+.react-calendar__tile {color:#393d49;}
+.react-calendar__tile:disabled {color: #999;}
+
+@media screen and (max-width: 390px){
+	.bulTxt.type02 br {display: none; }
+}
+
+@media screen and (max-width: 333px){
+	.tit_flex {display: block;}
+	.tit_flex .join_ipt_chk {margin-top: 2px;}
+}

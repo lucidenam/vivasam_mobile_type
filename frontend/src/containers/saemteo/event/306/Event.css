@@ -1,0 +1,54 @@
+.event200716 {position: relative; font-family: "Nanum Gothic","나눔고딕",NanumGothic,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;}
+.event200716 img {vertical-align: middle; width:100%; line-height:0}
+.event200716 a {display: inline;}
+
+/* contents */
+.event200716 .cont {position: relative;}
+.event200716 .btn_apply {
+    position: absolute;
+    top: 188.7vw;
+    right: 8vw;
+    width: 84vw;
+    display: block;
+    height: 14vw;
+    opacity: 0;
+}
+.btn_full_on {background:#866acf !important; }
+
+.vivasamter .applyDtl_top { padding: 4.5vw 0; text-align: center;  background: #70cdc7; }
+.vivasamter .applyDtl_top h3 {color: #42375f; font-weight: bold; }
+.vivasamter .applyDtl_top h3 em { color: #ffffff; font-weight: bold; }
+
+button.input_in_btn {background: #866acf; height: 40px; margin-top: -20px; right: 0;  width: 26.9vw; }
+/*input[type=text].input_sm.school_name { width: calc(100% - 28.3vw); }*/
+.school_address[value=""] { width: calc(100% - 28.3vw); }
+
+.join_ipt_chk { position: absolute; right: 0; text-align: right; top: -32px; }
+.join_ipt_chk li { float: none; display: inline-block; width: auto; }
+.join_ipt_chk li + li {margin-left: 1em; }
+
+.choice_book { overflow: hidden;}
+.choice_book li {display: inline-block; width: 48.8%; }
+.choice_book li + li { float: right; }
+.choice_book label {line-height: 40px; padding: 0 2.8vw;
+    display: block;
+    box-sizing: border-box;
+    background-color: rgb(255, 255, 255);
+    border: 1px rgb(188, 188, 188) solid;
+    border-radius: 12px;
+height: 40px; }
+.choice_book label:before { vertical-align: middle; }
+.choice_book .checkbox_circle[disabled] + label {background:#f3f3f3; color:#888888; }
+.choice_book .checkbox_circle[disabled] + label:before {
+    border: 1px rgb(188, 188, 188) solid;
+    border-radius: 50%;
+    background: rgb(232, 232, 232);
+}
+.input_wrap .txt li { color:#888; font-size: 12px; }
+
+.acco_notice_tit { color: #333; display: block; }
+.acco_notice_cont { display: block; }
+
+.policy { color: #222222; }
+
+.acco_notice_cont ul.policy + p.comt { color: #888888}

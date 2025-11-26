@@ -1,0 +1,67 @@
+.event200416 {position: relative;background: url(/images/events/2020/event200416/bg.jpg) 0 0 repeat-y;background-size: contain;	font-family: "Nanum Gothic","�굹�닎怨좊뵓",NanumGothic,"�룍��",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;}
+.event200416 img,
+.event200416 .img {vertical-align: middle; width:100%; line-height:0}
+.event200416 .cont {position: relative;padding:0 4%; margin: 0 4.3%; background: #fff;}
+.event200416 .cont .radio_list {}
+.event200416 .cont .radio_list ul {box-sizing: border-box; text-align: center; }
+.event200416 .cont .radio_list li {margin-top:3%}
+.event200416 .cont .radio_list li:first-child {margin-top:0}
+.event200416 .cont .radio_list li label {display:block;width:100%; padding-top:35.3%;background-size: contain; background-repeat: no-repeat; background-position: 0 0; text-indent: -10000px; line-height:0}
+.event200416 .cont .radio_list li input {position:absolute;width:0;height: 0;margin: 0;opacity: 0;}
+.event200416 .cont .radio_list li.radio_01 label {background-image: url(/images/events/2020/event200416/radio1.jpg);}
+.event200416 .cont .radio_list li.radio_01 input:checked + label {background-image: url(/images/events/2020/event200416/radio1_on.jpg);}
+.event200416 .cont .radio_list li.radio_02 label {background-image: url(/images/events/2020/event200416/radio2.jpg);}
+.event200416 .cont .radio_list li.radio_02 input:checked + label {background-image: url(/images/events/2020/event200416/radio2_on.jpg);}
+.event200416 .cont .radio_list li.radio_03 label {background-image: url(/images/events/2020/event200416/radio3.jpg);}
+.event200416 .cont .radio_list li.radio_03 input:checked + label {background-image: url(/images/events/2020/event200416/radio3_on.jpg);}
+.event200416 .cont .radio_list li.radio_04 label {background-image: url(/images/events/2020/event200416/radio4.jpg);}
+.event200416 .cont .radio_list li.radio_04 input:checked + label {background-image: url(/images/events/2020/event200416/radio4_on.jpg);}
+.event200416 .cont .radio_list li.radio_05 label {background-image: url(/images/events/2020/event200416/radio5.jpg);}
+.event200416 .cont .radio_list li.radio_05 input:checked + label {background-image: url(/images/events/2020/event200416/radio5_on.jpg);}
+
+.event200416 .cont .agree {background-color: #f3f3f3;padding:5%;margin-top:4%;}
+.event200416 .cont .agree h3 {color:#333; margin-bottom: 8px; font-size: 14px; font-family:"Nanum Gothic_Bold"}
+.event200416 .cont .agree li {position: relative;padding-left: 10px;font-size: 12px;}
+.event200416 .cont .agree li:before {content:""; position: absolute;top:8px;left:0; width:4px;height:1px; background-color: #666;}
+.event200416 .cont .agree li em {color: #dc3e3e;font-family:"Nanum Gothic_Bold"}
+.event200416 .cont .agree ul+p { font-size: 12px; color: #888282; padding-top: 1em; }
+.event200416 .cont .agree .btn_myinfo {display:inline-block;color:#000; text-decoration: underline}
+
+.event200416 .cont .agree_check {padding: 5% 0;text-align:left; position: relative;}
+.event200416 .cont .agree_check input {vertical-align: middle; position: absolute; margin-top: 3px;}
+.event200416 .cont .agree_check label {margin-left: 5px;color:#777777; vertical-align: middle; padding-left: 1em; display: block; }
+
+.event200416 .msg {position: relative;padding-right: 90px;}
+.event200416 .msg textarea {width: 100%; height: 90px; background: #fff; padding: 10px; border: 1px #d6d6d6 solid; font-size: 13px; color: #757575; line-height: 1.4; outline: none;}
+.event200416 .btn_submit {display: block;position:absolute;top:0;right:0;background: #e27272;width: 80px;height: 90px; font-size: 14px; color: #fff; text-align: center; line-height: 90px; text-decoration: none; font-family:"Nanum Gothic_Bold"}
+
+.event200416 .msg_box {padding-bottom: 25px;}
+.event200416 .msg_box .msg {padding: 0;}
+.event200416 .msg_box .btn_submit {position: static; width: 100%; height: 50px; line-height: 50px;}
+.event200416 .msg_box .bgbox {height:90px;background:#f5f5f5;;border: 1px #d6d6d6 solid; margin-bottom: 7px;}
+.event200416 .msg_box .msg textarea {background:#f5f5f5;height: 62px;border: none;}
+.event200416 .msg_box .count {margin:0 10px 0 0; text-align: right; font-size: 12px; color: #999;}
+
+.event200416 .list_wrap {}
+.event200416 .list_wrap > ul {margin: 0 4.3%;padding: 0 4% 30px;    border-top: 1px #cdcdcd dashed;    background: #fff; }
+.event200416 .list_wrap > ul > li {position: relative; margin-top: 25px;}
+.event200416 .list_wrap > ul > li strong {display: inline-block;width:130px;height:22px; border-radius:10px; margin-right: 10px;line-height: 22px;text-align: center; font-size: 14px; font-family:"Nanum Gothic"; font-weight: bold; vertical-align: middle;}
+.event200416 .list_wrap > ul > li strong.type1 {color: #ef6f52;background-position: 0 0;border: 1px #ef6f52 solid;}
+.event200416 .list_wrap > ul > li strong.type2 {color: #deb700;background-position: 0 -30px;border: 1px #deb700 solid;}
+.event200416 .list_wrap > ul > li strong.type3 {color: #2aae2a;background-position: 0 -60px;border: 1px #2aae2a solid;}
+.event200416 .list_wrap > ul > li strong.type4 {color: #1e8fd0;background-position: 0 -90px;border: 1px #1e8fd0 solid;}
+.event200416 .list_wrap > ul > li strong.type5 {color: #c14ed6;background-position: 0 -120px;border: 1px #c14ed6 solid;}
+.event200416 .list_wrap > ul > li .uid {color: #333; line-height: 30px; font-size: 12px;}
+.event200416 .list_wrap > ul > li .date {display: inline-block;margin-left:15px;padding-left:15px;color: #999; border-left:1px #ccc solid; line-height: 13px; font-size: 12px;}
+.event200416 .list_wrap > ul > li .btns {position: absolute;top:5px;right:0}
+.event200416 .list_wrap > ul > li .btns .btn_edit_control {}
+.event200416 .list_wrap > ul > li .btns .btn_edit_control:after {content: "";display: inline-block;width:19px;height:16px;background: url(/images/sprite.png) -73px -174px no-repeat;background-size: 400px 400px;}
+.event200416 .list_wrap > ul > li .btns .btn_control {position: absolute;top:20px;right:7px; width:70px; background: #fff; border: 1px #d2d2d2 solid; -webkit-box-shadow: 1px 1px 2px rgba(0,0,0, .1);box-shadow: 1px 1px 2px rgba(0,0,0, .1); z-index:5}
+.event200416 .list_wrap > ul > li .btns .btn_control li {border-top: 1px #d2d2d2 solid;}
+.event200416 .list_wrap > ul > li .btns .btn_control li:first-child {border-top: none;}
+.event200416 .list_wrap > ul > li .btns .btn_edit {display:block;width:100%;height: 35px; line-height: 35px; color: #666; text-decoration: none;}
+.event200416 .list_wrap > ul > li .msg {margin-top:7px}
+.event200416 .list_wrap > ul > li p {line-height: 1.4em;}
+.event200416 .btn_more,
+.event200416 .btn_more:active {background-color:#e27272; height: 40px; line-height: 40px;}
+.event200416 .btn_more:after {content: "";display: inline-block;width:13px;height:13px;background: url(/images/sprite.png) -130px -40px no-repeat;background-size: 200px 200px;margin:13px 0 0 5px; vertical-align: top}

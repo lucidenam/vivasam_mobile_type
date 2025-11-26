@@ -1,0 +1,38 @@
+/* Event */
+.event201130{background: #ebdcd0;}
+.event201130 img{margin:0;padding:0;vertical-align: top;width: 100%;}
+.event201130 #eMore{width: 100%;}
+.event201130 [class^="evtCont"],
+.event201130 .cont_box{position: relative;}
+.event201130 .top_dd{position: relative;z-index: 10;}
+.event201130 .intop_dd{margin-top: -9%;z-index: 9;}
+.event201130 .btn_sns01,
+.event201130 .btn_sns02,
+.event201130 .btn_sns03,
+.event201130 .btn_sns01_2,
+.event201130 .btn_sns02_2,
+.event201130 .btn_sns03_2,
+.event201130 .btn_02,
+.event201130 .btn_03,
+.event201130 .btn_04{position: absolute;}
+.event201130 .btn_sns01 a,
+.event201130 .btn_sns02 a,
+.event201130 .btn_sns03 a,
+.event201130 .btn_sns01_2 a,
+.event201130 .btn_sns02_2 a,
+.event201130 .btn_sns03_2 a,
+.event201130 .btn_02 a,
+.event201130 .btn_03 a,
+.event201130 .btn_04 a{display: inline-block;width: 100%;height: 100%;text-indent: -999em;}
+
+.event201130 .btn_sns01{width: 8.5%;height: 5.5%;bottom: 1.2%;left: 66.3%;}
+.event201130 .btn_sns02{width: 8.5%;height: 5.5%;bottom: 1.2%;left: 75.6%;}
+.event201130 .btn_sns03{width: 8.5%;height: 5.5%;bottom: 1.2%;left: 84.9%;}
+
+.event201130 .btn_sns01_2{width: 8.5%;height: 6.7%;bottom: 1.2%;left: 66.3%;}
+.event201130 .btn_sns02_2{width: 8.5%;height: 6.7%;bottom: 1.2%;left: 75.6%;}
+.event201130 .btn_sns03_2{width: 8.5%;height: 6.7%;bottom: 1.2%;left: 84.9%;}
+
+.event201130 .btn_02{width: 51.3%;height: 6.2%;top: 57.5%;left: 13%;}
+.event201130 .btn_03{width: 21.7%;height: 3.6%;top: 87%;left: 49%;}
+.event201130 .btn_04{width: 24.8%;height: 6%;top: 64.3%;left: 60.2%;}

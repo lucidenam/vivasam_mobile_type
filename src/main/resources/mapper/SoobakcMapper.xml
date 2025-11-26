@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    <mapper namespace="edu.visang.vivasam.common.mapper.SoobakcMapper">
+        <select id="getSoobakcList" parameterType="java.util.Map" resultType="java.util.Map">
+            {CALL SP_SOOBAKC_LEC_LIST(#{ACTION_TYPE}, #{FKSUB}, #{SJCODE}, #{LECTURECD}, #{LECCNT}, #{GRADE})}
+        </select>
+
+        <select id="getSoobakcDetail" parameterType="java.util.Map" resultType="java.util.Map">
+            {CALL SP_SOOBAKC_LEC_DETAIL(#{LECTURECD}, #{SJCODE}, #{LP_IDX},#{MEMBERID})}
+        </select>
+
+        <select id="rmetaCode" parameterType="java.util.Map" resultType="edu.visang.vivasam.common.model.MetaCode">
+            {CALL SP_OPENDATA_METACODE (#{ctype} ,#{code} ,#{code1} ,#{code2} ,#{code3} ,#{code4}  ) }
+        </select>
+
+        <select id="getSoobakcImagePath" parameterType="java.util.Map" resultType="java.lang.String">
+            SELECT CONCAT(IMAGE_PATH,IMAGE_NAME) AS imagePath
+            FROM SOOBAKC_BANNER_MOBILE
+            WHERE SCHOOL_GRADE = #{schoolGrade}
+            AND EDUCOURSE = #{educourse}
+            AND USE_YN = 'Y'
+        </select>
+
+        <select id="getSoobakcImagePathOnlySchoolGrade" parameterType="java.util.Map" resultType="java.lang.String">
+            SELECT CONCAT(IMAGE_PATH,IMAGE_NAME) AS imagePath
+            FROM SOOBAKC_BANNER_MOBILE
+            WHERE SCHOOL_GRADE = #{schoolGrade}
+            AND EDUCOURSE IS NULL
+            AND USE_YN = 'Y'
+        </select>
+
+        <select id="getSoobakcImageBanner" parameterType="java.util.Map" resultType="java.util.Map">
+            SELECT
+                CONCAT(IMAGE_PATH,IMAGE_NAME) AS imagePath
+                , LINK_URL AS linkUrl
+            FROM SOOBAKC_BANNER_MOBILE
+            WHERE SCHOOL_GRADE = #{schoolGrade}
+            AND USE_YN = 'Y'
+            ORDER BY REG_DTTM DESC
+            LIMIT 1
+        </select>
+</mapper>

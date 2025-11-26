@@ -1,0 +1,1441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.member.mapper.MemberMapper">
+
+    <select id="AccountManageSignIn" parameterType="string" resultType="string">
+        SELECT /*회원 아이디 존재 여부 체크*/
+        	CASE
+        	    WHEN ISRESTING = 1
+        	        THEN 'X1ISRESTINGY1'
+        	    ELSE MM.MEMBER_ID
+        	END AS memberId
+        FROM MEMBER AS MM
+        WHERE MM.MEMBER_ID = #{memberId}
+        AND MM.STATE = 'Y'
+        UNION
+        SELECT /*회원 아이디 존재 여부 체크*/
+            CASE
+                WHEN ISRESTING = 1
+                    THEN 'X1ISRESTINGY1'
+                ELSE MM.MEMBER_ID
+            END AS memberId
+        FROM ONTEACHER_MEMBER AS MM
+        WHERE MM.MEMBER_ID = #{memberId}
+        AND MM.STATE = 'Y'
+    </select>
+
+    <select id="checkExistPerson" parameterType="String" resultType="int">
+        SELECT
+            IF(COUNT(1) > 0, 1, 0) AS isExist
+        FROM (
+            SELECT name
+            FROM MEMBER
+            WHERE STATE = 'Y'
+            AND name = #{name}
+            AND email = #{email}
+        	UNION ALL
+        	SELECT email
+        	FROM MEMBER
+        	WHERE STATE = 'Y'
+        	AND email = #{email}
+        ) T
+    </select>
+
+    <select id="checkExistPersonEmail" parameterType="String" resultType="int">
+        SELECT
+            IF(COUNT(1) > 0, 1, 0) AS isExist
+        FROM (
+            SELECT email
+            FROM MEMBER
+            WHERE STATE = 'Y'
+            AND MEMBER_ID != #{memberId}
+            AND email = #{email}
+        ) T
+    </select>
+
+    <select id="checkExistId"  parameterType="String" resultType="String">
+        SELECT 0 as isExist
+        WHERE NOT EXISTS (
+            SELECT member_id
+            FROM member
+            WHERE member_id = #{id}
+            UNION
+            SELECT member_id
+            FROM onteacher_member
+            WHERE member_id = #{id}
+        )
+    </select>
+
+    <select id="insertJoin" parameterType="hashmap" resultType="string">
+        {CALL SP_MEMBER_INSERT_SSO(
+            #{id},
+            #{name},
+            #{password},
+            #{Email},
+            #{cellphone},
+            #{myGrade},
+            #{SchoolName},
+            #{SchoolCode},
+            #{loc_dept1},
+            #{loc_dept2},
+            #{mainSubject},
+            #{secondSubject},
+            #{birth},
+            #{lunar},
+            #{IPIN_CI},
+            #{EPKI_CERTDN},
+            #{EPKI_CERTSN},
+            #{VALID_YN},
+            #{authentication},
+            #{ArrayTbCd},
+            '',
+            #{zip},
+            '',
+            '',
+            '',
+            #{expiryTermNum},
+            #{Agree3},
+            #{Agree4},
+            #{Agree5},
+            #{Agree6},
+            #{snsJoin}
+        ) }
+    </select>
+
+    <update id="updateMemberVia" parameterType="string">
+        UPDATE MEMBER
+        SET JOIN_DOMAIN='MOBILE'
+        WHERE MEMBER_ID=#{memberId}
+    </update>
+
+    <select id="updateMemberInfo" parameterType="hashmap" resultType="int">
+        {CALL SP_MEMBER_UPDATE_SSO(
+            #{memberId},
+            #{email},
+            #{cellphone},
+            #{myGrade},
+            #{schName},
+            #{schCode},
+            #{fkareacode},
+            #{fkbranchcode},
+            #{birth},
+            #{lunar},
+            '',
+            #{zip},
+            #{addr1},
+            #{addr2},
+            #{visangTbYN},
+            #{expiryTermNum},
+            #{marketingSmsYn},
+            #{marketingEmailYn},
+            #{marketingTelYn},
+            #{mainSubject},
+            #{secondSubject},
+            #{agree5},
+            #{agree6},
+            #{ci}
+        ) }
+    </select>
+
+    <update id="updateMemberMTypeCd" parameterType="hashmap">
+		UPDATE MEMBER
+		SET M_TYPE_CD = #{mTypeCd}
+		WHERE MEMBER_ID = #{memberId}
+	</update>
+
+    <insert id="insertVmagazine" parameterType="hashmap">
+        INSERT TBL_VMAGAZINE_USER (
+            IDX,
+            MEMBER_ID,
+            SCH_NAME,
+            ZIP,
+            ADDRESS,
+            ADDRESSETC,
+            HP,
+            REGDATE,
+            ETC
+        )
+        VALUES (
+            #{idx},
+            #{id},
+            #{SchoolName},
+            #{zip},
+            #{addr1},
+            #{addr2},
+            #{cellphone},
+            CURRENT_TIMESTAMP,
+            #{etc}
+        )
+    </insert>
+
+    <update id="updateSignInDateTime" parameterType="string">
+        UPDATE MEMBER
+        SET LAST_DATE = CURRENT_TIMESTAMP,
+            LAST_TIME = CURRENT_TIMESTAMP
+        WHERE MEMBER_ID=#{memberId}
+    </update>
+
+    <update id="updateSsoSignInDateTime" parameterType="string">
+        UPDATE MEMBER
+        SET LAST_DATE = CURRENT_TIMESTAMP,
+            LAST_TIME = CURRENT_TIMESTAMP,
+            SSO_LAST_LOGIN_DTTM = CURRENT_TIMESTAMP
+        WHERE MEMBER_ID = #{memberId}
+    </update>
+
+    <select id="inactiveMovePersonal" parameterType="String" resultType="string">
+        {CALL SP_MEMBER_INACTIVE_MOVE_PERSONAL(/*휴면회원 해제 및 설정*/
+            #{isResting},#{memberId} ,#{password}
+        ) }
+    </select>
+
+    <select id="marketingAgreeInfoCheck" parameterType="string" resultType="int">
+        SELECT COUNT(MEMBER_ID) AS CNT
+        FROM MEMBER_MARKETING_AGREE_INFO AS MA
+        WHERE MA.MEMBER_ID = #{memberId}
+    </select>
+
+    <select id="marketingAgreeInfoList" parameterType="string" resultType="hashmap">
+        SELECT
+			memberId,
+			gubunCd,
+			agreeYn,
+			agreeDt,
+			agreeAdmId
+		FROM (
+			SELECT
+				ROW_NUMBER() OVER (PARTITION BY MEMBER_ID, GUBUN_CD ORDER BY AGREE_DTTM DESC) AS NUM,
+				MEMBER_ID AS memberId,
+				GUBUN_CD AS gubunCd,
+				AGREE_YN AS agreeYn,
+				DATE_FORMAT(AGREE_DTTM, '%Y-%m-%d') AS agreeDt,
+				AGREE_ADM_ID AS agreeAdmId
+			FROM MEMBER_MARKETING_AGREE_INFO
+			WHERE MEMBER_ID = #{memberId}
+		) A
+		WHERE NUM = 1
+    </select>
+    <!-- marketingAgreeUpdate : SP_ADMIN_MEMBER_MARKETING_AGREE_UPDATE 분기시작 -->
+    <update id="marketingAgreeUpdate" parameterType="edu.visang.vivasam.member.model.MarketingAgree" statementType="CALLABLE">
+    	INSERT INTO MEMBER_MARKETING_AGREE_INFO (MEMBER_ID,GUBUN_CD,AGREE_YN,AGREE_DTTM,AGREE_ADM_ID)
+		-- 이메일 동의 변경 처리
+		<if test="marketingEmailYn != ''">
+			<choose>
+				<when test='recentMarketingEmailYn == "Y" or recentMarketingEmailYn == "N"'>
+					SELECT #{memberId}, 'E', #{marketingEmailYn}, CURRENT_TIMESTAMP(), #{admId}
+					FROM MEMBER_MARKETING_AGREE_INFO
+					WHERE MEMBER_ID = #{memberId}
+					AND GUBUN_CD = 'E'
+					AND #{marketingEmailYn} != #{recentMarketingEmailYn}
+				</when>
+				<otherwise>
+					SELECT #{memberId},'E',#{marketingEmailYn},CURRENT_TIMESTAMP,#{admId}
+				</otherwise>
+			</choose>
+		</if>
+		-- 문자 동의 Y 일때
+		<if test="marketingSmsYn != ''">
+			<if test="marketingEmailYn != ''">
+			-- 이메일 쿼리가 들어갔을 때 UNION ALL 처리
+				UNION ALL
+			</if>
+			<choose>
+				<when test='recentMarketingSmsYn == "Y" or recentMarketingSmsYn == "N"'>
+					SELECT #{memberId}, 'S', #{marketingSmsYn}, CURRENT_TIMESTAMP(), #{admId}
+					FROM MEMBER_MARKETING_AGREE_INFO
+					WHERE MEMBER_ID = #{memberId}
+					AND GUBUN_CD = 'S'
+					AND #{marketingSmsYn} != #{recentMarketingSmsYn}
+				</when>
+				<otherwise>
+					SELECT #{memberId},'S',#{marketingSmsYn},CURRENT_TIMESTAMP,#{admId}
+				</otherwise>
+			</choose>
+		</if>
+		-- 전화 동의 Y 일때
+		<if test="marketingTelYn != ''">
+			<if test="marketingSmsYn != '' OR marketingSmsYn != ''">
+				-- 위에 쿼리가 들어갔을 때 UNION ALL 처리
+				UNION ALL
+			</if>
+			<choose>
+				<when test='recentMarketingTelYn == "Y" or recentMarketingTelYn == "N"'>
+					SELECT #{memberId}, 'T', #{marketingTelYn}, CURRENT_TIMESTAMP(), #{admId}
+					FROM MEMBER_MARKETING_AGREE_INFO
+					WHERE MEMBER_ID = #{memberId}
+					AND GUBUN_CD = 'T'
+					AND #{marketingTelYn} != #{recentMarketingTelYn}
+				</when>
+				<otherwise>
+					SELECT #{memberId},'T',#{marketingTelYn},CURRENT_TIMESTAMP,#{admId}
+				</otherwise>
+			</choose>
+		</if>
+    </update>
+    <select id="marketingOldAgreeList" parameterType="String" resultType="hashmap">
+		SELECT
+			A.MEMBER_ID AS memberId,
+			A.NAME AS name,
+			A.email AS email,
+			MAX(CASE WHEN GUBUN_CD = 'S' THEN AGREE_YN ELSE 'N' END) AS smsYn,
+			MAX(CASE WHEN GUBUN_CD = 'S' THEN CONVERT(AGREE_DTTM, DATE) ELSE '' END) AS smsDttm,
+			MAX(CASE WHEN GUBUN_CD = 'E' THEN AGREE_YN ELSE 'N' END) AS emailYn,
+			MAX(CASE WHEN GUBUN_CD = 'E' THEN CONVERT(AGREE_DTTM, DATE) ELSE '' END) AS emailDttm,
+			MAX(CASE WHEN GUBUN_CD = 'T' THEN AGREE_YN ELSE 'N' END) AS telYn,
+			MAX(CASE WHEN GUBUN_CD = 'T' THEN CONVERT(AGREE_DTTM, DATE) ELSE '' END) AS telDttm
+		FROM MEMBER A
+		LEFT JOIN (
+				SELECT
+					*
+				FROM (
+						 SELECT ROW_NUMBER() OVER (PARTITION BY MEMBER_ID, GUBUN_CD ORDER BY AGREE_DTTM DESC) AS NUM,
+								MEMBER_ID,
+								GUBUN_CD,
+								AGREE_YN,
+								AGREE_DTTM
+						 FROM MEMBER_MARKETING_AGREE_INFO
+						 WHERE MEMBER_ID = #{memberId}
+					 ) MAI
+					WHERE NUM = 1
+			 ) B ON A.MEMBER_ID = B.MEMBER_ID
+		WHERE A.MEMBER_ID = #{memberId}
+		GROUP BY A.MEMBER_ID
+	</select>
+	<select id="getMailContent" parameterType="hashmap" resultType="String">
+		SELECT replace(
+				replace(
+					replace(
+						replace(
+							replace(
+								replace(
+									replace(
+										replace(mailContent, '${SMS_AGREE_TXT}', CASE WHEN #{smsYn} = 'Y' THEN '수신동의' ELSE '수신거부' )
+										,'${SMS_AGREE_DT}',#{smsDttm})
+									,'${EMAIL_AGREE_TXT}', CASE WHEN #{emailYn} = 'Y' THEN '수신동의' ELSE '수신거부')
+								,'${EMAIL_AGREE_DT}',#{emailDttm})
+							,'${TEL_AGREE_TXT}',CASE WHEN #{telYn} = 'Y' THEN '수신동의' ELSE '수신거부')
+						,'${TEL_AGREE_DT}',#{telDttm})
+					,'${MEMBER_ID}',#{memberId})
+				,'${MEMBER_NM}',#{name}
+			) AS mailContent
+		FROM TBL_SEND_MAILING_SQL
+		WHERE IDX = 11;
+	</select>
+
+    <!-- marketingAgreeUpdate : SP_ADMIN_MEMBER_MARKETING_AGREE_UPDATE 분기종료 -->
+    <select id="findId" parameterType="String" resultType="hashMap">
+        SELECT
+        	MM.MEMBER_ID as memberId
+            , MM.NAME as memberName
+            , MM.NICKNAME as nickname
+            , IFNULL(CONVERT(YEAR(MM.REG_DATE),CHAR),'0000') as regiYear
+            , IFNULL(CONVERT(MONTH(MM.REG_DATE),CHAR),'0000') as regiMonth
+            , IFNULL(CONVERT(DAY(MM.REG_DATE),CHAR),'0000') as regiDay
+        FROM MEMBER as MM
+        WHERE MM.NAME = #{memberName, mode=IN, jdbcType=NVARCHAR}
+            <if test="certifyMethod eq 'E'.toString()">
+        AND MM.EMAIL = #{searchString, mode=IN, jdbcType=NVARCHAR}
+            </if>
+            <if test="certifyMethod eq 'P'.toString()">
+        AND REPLACE(MM.CELLPHONE, '-', '') = #{searchString, mode=IN, jdbcType=NVARCHAR}
+            </if>
+        AND MM.STATE = 'Y'
+        LIMIT 1
+     </select>
+
+    <select id="findSleepId" parameterType="String" resultType="hashMap">
+        SELECT
+        	MM.MEMBER_ID as memberId
+            , MM.NAME as memberName
+            , MM.NAME as nickname
+            , IFNULL(CONVERT(YEAR(MM.RESTING_DATE),CHAR),'0000') as regiYear
+            , IFNULL(CONVERT(MONTH(MM.RESTING_DATE),CHAR),'0000') as regiMonth
+            , IFNULL(CONVERT(DAY(MM.RESTING_DATE),CHAR),'0000') as regiDay
+        FROM [ViVaSam_V2_inactive].MEMBER_INACTIVE as MM
+        WHERE MM.NAME = #{memberName, mode=IN, jdbcType=NVARCHAR}
+        AND MM.EMAIL = #{memberEmail, mode=IN, jdbcType=NVARCHAR}
+        LIMIT 1
+     </select>
+
+    <select id="findPw" parameterType="edu.visang.vivasam.member.model.FindPwd" resultType="String">
+        /*비바샘 일반회원 비밀번호 찾기 인증하기*/
+        SELECT MM.MEMBER_ID as memberId
+        FROM MEMBER as MM
+        WHERE MM.MEMBER_ID = #{memberId}
+        AND MM.NAME = #{memberName, mode=IN, jdbcType=NVARCHAR}
+        <if test ="memberEmail != null and memberEmail != ''">
+        AND MM.EMAIL = #{memberEmail, mode=IN, jdbcType=NVARCHAR}
+        </if>
+        <if test ="cellPhone != null and cellPhone != ''">
+        AND REPLACE(MM.CELLPHONE, '-', '') = #{cellPhone, mode=IN, jdbcType=NVARCHAR}
+        </if>
+        AND MM.STATE = 'Y'
+    </select>
+
+    <select id="findPwdIpin" parameterType="edu.visang.vivasam.member.model.FindPwd" resultType="hashMap">
+        SELECT /*비바샘 일반회원 비밀번호 찾기 인증하기*/
+            MM.MEMBER_ID as memberId,
+            MM.IPIN_CI as memberIpin,
+            MM.EMAIL as memberEmail
+        FROM MEMBER as MM
+        WHERE MM.MEMBER_ID = #{memberId}
+        AND MM.NAME = #{memberName, mode=IN, jdbcType=NVARCHAR}
+        AND MM.IPIN_CI = #{memberIpin, mode=IN, jdbcType=NVARCHAR}
+        AND MM.STATE = 'Y'
+    </select>
+
+    <update id="resetMemberPwd" parameterType="edu.visang.vivasam.member.model.FindPwd" statementType="CALLABLE">
+        {
+          CALL SP_MEMBER_PWD_UPDATE(
+            #{memberId, mode=IN, jdbcType=VARCHAR},
+            #{memberName, mode=IN, jdbcType=NVARCHAR},
+            #{memberEmail, mode=IN, jdbcType=NVARCHAR},
+            #{cellPhone, mode=IN, jdbcType=VARCHAR},
+            #{tempPwd, mode=IN, jdbcType=VARCHAR},
+            #{result, mode=OUT, jdbcType=INTEGER}
+          )
+        }
+    </update>
+
+    <!-- 회원 정보 조회 -->
+    <select id="getMemberInfo" resultType="edu.visang.vivasam.member.model.MemberInfo">
+      WITH MARKETING_AGREE_INFO AS (
+			/*마케팅 활용 동의*/
+			SELECT
+				MEMBER_ID,
+				MAX(CASE WHEN GUBUN_CD = 'S' THEN AGREE_YN ELSE 'N' END) AS MARKETING_SMS_YN,
+				MAX(CASE WHEN GUBUN_CD = 'E' THEN AGREE_YN ELSE 'N' END) AS MARKETING_EMAIL_YN,
+				MAX(CASE WHEN GUBUN_CD = 'T' THEN AGREE_YN ELSE 'N' END) AS MARKETING_TEL_YN
+			FROM (
+				SELECT
+					ROW_NUMBER() OVER (PARTITION BY MEMBER_ID, GUBUN_CD ORDER BY AGREE_DTTM DESC) AS NUM,
+					MEMBER_ID, GUBUN_CD, AGREE_YN, AGREE_DTTM
+				FROM MEMBER_MARKETING_AGREE_INFO
+				WHERE MEMBER_id = #{memberId}
+			) A
+			WHERE NUM = 1
+			GROUP BY MEMBER_ID
+		)
+		SELECT
+			  M.MEMBER_ID                          			AS memberId
+			, M.NICKNAME                           			AS nickname
+			, IFNULL(M.NICKNAME_YN,'N')					  	AS nicknameYn
+			, M.PWD2                               			AS pwd
+			, M.QUESTION_CODE						  		AS questionCode
+			, M.ANSWER                             			AS answer
+			, M.NAME                               			AS name
+			, M.EMAIL_YN                           			AS emailYn
+			, M.EMAIL                              			AS email
+			, M.MAILING_YN                         			AS mailingYn
+			, M.SCHOOLNAME_YN                      			AS schoolnameYn
+			, M.SCH_CODE                           			AS schCode
+			, CASE
+					WHEN M.SCH_CODE = '99999' OR M.SCH_CODE = '99998' OR M.SCH_CODE = '99997' OR M.SCH_CODE = '99993' OR M.SCH_CODE = '99992' OR M.SCH_CODE = '99991'
+						 THEN M.SCH_NAME
+					ELSE S.NAME END AS schName
+			, M.SCHOOLLOC_YN                       			AS schoollocYn
+			, S.FKCODE	                         			AS fkareacode
+			, S.PKCODE		                       			AS fkbranchcode
+			, ( SELECT CODENAME
+				FROM SCHOOL_AREA
+				WHERE PKCODE = S.FKCODE AND CODEFLAG = 'B'
+			)                                  				AS fkareaname
+			, ( SELECT CODENAME
+				FROM SCHOOL_AREA
+				WHERE PKCODE = S.PKCODE AND CODEFLAG = 'S'
+			)                                  				AS fkbranchname
+			, M.LUNAR                              			AS lunar
+			, M.BIRTH_YN                           			AS birthYn
+			, M.BIRTH                              			AS birth
+			, M.TEXTBOOK_YN                        			AS textbookYn
+			, M.PROFILE_IMG_PATH					 		AS profileImgPath
+			, M.CELLPHONE_YN						  		AS cellphoneYn
+			, M.CELLPHONE                          			AS cellphone
+			, SUBSTRING( M.CELLPHONE, 1, 3 )				AS cellphone1
+			, ( CASE
+				 WHEN CHAR_LENGTH(REPLACE(M.CELLPHONE,'-','')) = 10 THEN
+					  SUBSTRING( M.CELLPHONE, 5, 3 )
+				 WHEN CHAR_LENGTH(REPLACE(M.CELLPHONE,'-','')) = 11 THEN
+					  SUBSTRING( M.CELLPHONE, 5, 4 )
+				 ELSE
+					  SUBSTRING( M.CELLPHONE, 5, 3 )
+			 END
+			)                                  				AS cellphone2
+			, ( CASE
+				 WHEN CHAR_LENGTH(REPLACE(M.CELLPHONE,'-','')) = 10 THEN
+					  SUBSTRING( M.CELLPHONE, 9, 4 )
+				 WHEN CHAR_LENGTH(REPLACE(M.CELLPHONE,'-','')) = 11 THEN
+					  SUBSTRING( M.CELLPHONE, 10, 4 )
+				 ELSE
+					  SUBSTRING( M.CELLPHONE, 9, 4 )
+			 END
+			)                                  				AS cellphone3
+			, M.TCCODE                             			AS tcCode
+			, M.SMS_YN                             			AS smsYn
+			, M.TEL_YN                             			AS telYn
+			, M.VISIT_CNT                          			AS visitCnt
+			, M.REG_DATE                           			AS regDate
+			, M.REG_TIME									AS regTime
+			, M.REG_TIME									AS regTime
+			, M.CHALK_POINT									AS chalkPoint
+			, M.ZIP                                			AS zip
+			, M.ADDR1                              			AS addr1
+			, M.ADDR2                              			AS addr2
+			-- , M.MY_GRADE                           			AS myGrade
+			, (
+				SELECT GROUP_CONCAT(GRADE)
+				FROM MEMBER_GRADE MG
+				WHERE MG.MEMBER_ID = M.MEMBER_ID
+			)                        AS myGrade
+			, M.SEX                                			AS sex
+			, M.VISANG_TEXTBOOK_YN						 	AS visangTbYN
+			, S.TAB                 						AS schFlag
+			, S.ZIP											AS schZipCd
+			, S.ADDR										AS schAddr
+			, M.JOIN_DOMAIN									AS joinDomain
+			, DATE_FORMAT(M.UPDATE_DTTM	,  '%Y-%m-%d')		AS updateDt
+			, IFNULL(MAIN_SUBJECT,'') 						AS mainSubject
+			, MS.mainSubjectName 							AS mainSubjectName
+			, IFNULL(SECOND_SUBJECT,'') 					AS secondSubject
+			, SS.secondSubjectName 							AS secondSubjectName
+			, M.EXPIRY_TERM_NUM								AS expiryTermNum
+			, MK.MARKETING_SMS_YN							AS marketingSmsYn
+			, MK.MARKETING_EMAIL_YN							AS marketingEmailYn
+			, MK.MARKETING_TEL_YN							AS marketingTelYn
+			, M.M_TYPE_CD 									AS memberTypeCode
+			, M.RECOMMEND_ID								AS recommendId
+		FROM MEMBER AS M
+        LEFT OUTER JOIN LATERAL (
+            SELECT
+                CODE, TAB, NAME, ZIP, ADDR, PKCODE, FKCODE
+            FROM
+                SCHOOL
+            WHERE CODE = M.SCH_CODE
+            UNION ALL
+            SELECT
+                CODE, TAB, NAME, ZIP, ADDR, PKCODE, FKCODE
+            FROM
+                SCHOOL_ETC
+            WHERE CODE = M.SCH_CODE
+        ) AS S ON 1 = 1
+		LEFT JOIN MARKETING_AGREE_INFO AS MK ON M.MEMBER_ID = MK.MEMBER_ID
+		LEFT JOIN LATERAL (
+			SELECT NAME AS mainSubjectName
+			FROM VS_CODE
+			WHERE CODE = M.MAIN_SUBJECT
+		) AS MS ON 1=1
+		LEFT JOIN LATERAL (
+			SELECT NAME AS secondSubjectName
+			FROM VS_CODE
+			WHERE CODE = M.SECOND_SUBJECT
+		) AS SS ON 1=1
+		WHERE M.MEMBER_ID = #{memberId}
+    </select>
+
+    <update id="myInfoModify" parameterType="hashmap" >
+        UPDATE MEMBER
+        SET NAME = #{name}
+            , EMAIL = #{email}
+            , CELLPHONE = #{cellphone}
+        <if test ="mSubjectCd != null and mSubjectCd != ''">
+            , MAIN_SUBJECT = #{mSubjectCd}
+        </if>
+            , UPDATE_DTTM = CURRENT_TIMESTAMP
+        WHERE MEMBER_ID = #{memberId}
+        AND STATE = 'Y'
+    </update>
+
+    <select id="getMemberReqChk" parameterType="String" resultType="int" >
+		SELECT /*사용자 정보 필수입력 사항 체크*/
+			CONCAT(
+			    EMAIL,
+			    CELLPHONE,
+			    SCH_CODE,
+			    MY_GRADE,
+			    BIRTH,
+			    NONAGE,
+			    YEAR1_NOT_UPDATE,
+			    EXPIRY_TERM_NUM
+			) AS CHKSUM
+		FROM (
+			SELECT
+				CASE WHEN RTRIM(LTRIM(M.EMAIL)) = '' THEN 1
+                     WHEN M.EMAIL IS NULL THEN 1
+                     ELSE 0
+                END AS EMAIL
+                , CASE WHEN RTRIM(LTRIM(M.CELLPHONE)) = '' THEN 1
+                     WHEN M.CELLPHONE IS NULL THEN 1
+                     ELSE 0
+                END AS CELLPHONE
+                , CASE WHEN RTRIM(LTRIM(M.SCH_CODE)) = '' THEN 1
+              		 WHEN M.SCH_CODE = 0 THEN 1
+                     WHEN S.CODE IS NULL THEN 1
+                     ELSE 0
+                END AS SCH_CODE
+			    , CASE WHEN RTRIM(LTRIM((
+                        SELECT GROUP_CONCAT(GRADE)
+                        FROM MEMBER_GRADE MG
+                        WHERE MG.MEMBER_ID = M.MEMBER_ID
+                     ))) = '' THEN 1
+                     WHEN (
+                        SELECT GROUP_CONCAT(GRADE)
+                        FROM MEMBER_GRADE MG
+                        WHERE MG.MEMBER_ID = M.MEMBER_ID
+                     ) IS NULL THEN 1
+                     ELSE 0
+                END AS MY_GRADE
+                , CASE WHEN RTRIM(LTRIM(M.BIRTH)) = '' THEN 1
+                     WHEN M.BIRTH IS NULL THEN 1
+                     ELSE 0
+                END AS BIRTH
+                , CASE
+                    WHEN FN_AGE_FROM_BIRTH(M.BIRTH) <![CDATA[<]]> 20
+                         OR
+                         FN_AGE_FROM_BIRTH(M.BIRTH) <![CDATA[>]]> 65
+                            THEN 1
+              		ELSE 0
+              	END AS NONAGE
+                , CASE
+                    WHEN DATEDIFF(CURRENT_TIMESTAMP, M.UPDATE_DTTM) > 365
+							OR (IFNULL(M.UPDATE_DTTM, '') = '' AND DATEDIFF(CURRENT_TIMESTAMP,REG_DATE) > 365) THEN 1
+					ELSE 0
+				END AS YEAR1_NOT_UPDATE
+			    , CASE WHEN RTRIM(LTRIM(M.EXPIRY_TERM_NUM)) = '' THEN 1
+                     WHEN M.EXPIRY_TERM_NUM IS NULL THEN 1
+                     ELSE 0
+                END AS EXPIRY_TERM_NUM
+			FROM MEMBER AS M
+            LEFT JOIN LATERAL (
+                SELECT
+                    CODE
+                FROM
+                    SCHOOL
+                WHERE CODE = M.SCH_CODE
+                UNION ALL
+                SELECT
+                    CODE
+                FROM
+                    SCHOOL_ETC
+                WHERE CODE = M.SCH_CODE
+            ) AS S ON 1 = 1
+          	WHERE M.MEMBER_ID = #{memberId}
+       ) AS CHKSUMT
+    </select>
+
+    <select id="delUserInfo" parameterType="String" resultType="string">
+        {CALL SP_MEMBER_DelUserInfo( #{sid}) }
+    </select>
+
+    <insert id="insertMemberLoginfoLog" parameterType="String">
+        INSERT INTO MEMBER_LOGINFO_LOG (
+            MEMBER_ID
+            ,SID
+            ,IPADDRESS
+            ,REGDATE
+            ,DEL
+            ,`STATS`
+        ) VALUES (
+            #{memberId}
+            ,LEFT(#{jwt}, 100)
+            ,#{ipAddress}
+            ,CURRENT_TIMESTAMP()
+            ,0
+            ,#{state}
+        )
+    </insert>
+
+    <select id="getMemberLoginfoCntForCheck" parameterType="String" resultType="int">
+        SELECT COUNT(1)
+        FROM MEMBER_LOGINFO
+        WHERE MEMBER_ID = #{memberId}
+		AND (sid = #{jwt} OR ipaddress = #{ipAddress})
+		AND Del = 1
+    </select>
+
+    <delete id="delMemberLoginfo1" parameterType="String">
+        DELETE FROM MEMBER_LOGINFO
+	    WHERE MEMBER_ID = #{memberId}
+		AND (SID = LEFT(#{jwt},100) OR IPADDRESS = #{ipAddress})
+		AND DEL = 1
+    </delete>
+
+    <delete id="delMemberLoginfo2" parameterType="String">
+        DELETE FROM MEMBER_LOGINFO
+        WHERE REGDATE <![CDATA[ < ]]> DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL -1 HOUR)
+		AND MEMBER_ID = #{memberId}
+		AND DEL = 1
+    </delete>
+
+    <select id="getMemberLoginfoCntForAdd" parameterType="hashmap" resultType="int">
+        SELECT COUNT(1)
+        FROM MEMBER_LOGINFO
+        WHERE MEMBER_ID = #{memberId}
+		AND (sid = LEFT(#{jwt},100) OR ipaddress = #{ipAddress})
+    </select>
+
+    <update id="updateMemberLoginfo" parameterType="hashmap">
+        UPDATE MEMBER_LOGINFO
+        SET DEL = 1
+		WHERE MEMBER_ID = #{memberId}
+    </update>
+
+    <select id="getMemberLoginfoCnt" parameterType="hashmap" resultType="int">
+        SELECT COUNT(1)
+        FROM MEMBER_LOGINFO
+        WHERE MEMBER_ID = #{memberId}
+    </select>
+
+    <insert id="insertMemberLoginfo" parameterType="hashmap">
+        INSERT INTO MEMBER_LOGINFO (
+            MEMBER_ID
+            ,SID
+            ,IPADDRESS
+            ,REGDATE
+            ,DEL
+        ) VALUES (
+            #{memberId}
+            ,LEFT(#{jwt},100)
+            ,#{ipAddress}
+            ,CURRENT_TIMESTAMP()
+            ,0
+        )
+    </insert>
+
+    <!-- 비밀번호 변경 일 수 체크 -->
+    <select id="getMemberModifyChk" parameterType="hashmap" resultType="int" >
+		SELECT
+			DATEDIFF(CURRENT_TIMESTAMP,IFNULL(MP.UPDATE_DTTM, IFNULL(M.UPDATE_DTTM, M.REG_DATE))) + 1 AS MODIFY_CNT
+		FROM MEMBER AS M
+		LEFT JOIN MEMBER_PASSWORD_MODIFY_LOG AS MP ON MP.MEMBER_ID = M.MEMBER_ID
+		WHERE M.MEMBER_ID = #{memberId}
+		ORDER BY MP.UPDATE_DTTM DESC
+		LIMIT 1
+    </select>
+
+    <!-- 비밀번호 변경 이력 저장 -->
+    <insert id="inserPwModifyLog" parameterType="hashmap">
+        INSERT INTO MEMBER_PASSWORD_MODIFY_LOG (MEMBER_ID, UPDATE_DTTM)
+        VALUES (#{memberId}, CURRENT_TIMESTAMP)
+    </insert>
+
+    <!-- ================================ -->
+    <!-- === 통합 회원 관련 추가 쿼리 START === -->
+    <!-- ===               2019.08.16 === -->
+    <!-- ================================ -->
+
+    <!-- 통합회원 여부 저장 -->
+    <update id="setSsoMember" parameterType="hashmap">
+        UPDATE MEMBER
+        SET IS_SSO_MEMBER = #{isSsoMember}
+        WHERE MEMBER_ID = #{memberId}
+    </update>
+
+    <!-- 본인인증 CI 저장-->
+    <update id="setIpinCI" parameterType="hashmap">
+        UPDATE MEMBER
+        SET IPIN_CI = fnIpinCiSaltSHA512(#{ipinCI}),
+			NAME = #{name},
+			BIRTH = #{birth}
+        <if test ="cellphone != null and cellphone != ''">
+            , CELLPHONE = #{cellphone}
+        </if>
+        <if test ="mlevel != null and mlevel != ''">
+            , M_LEVEL = #{mlevel}
+        </if>
+        WHERE MEMBER_ID = #{memberId}
+    </update>
+
+    <!-- 본인인증 CI로 회원 찾기 -->
+    <select id="getMemberAllByIpinCI" parameterType="hashmap" resultType="hashmap">
+        SELECT t.memberId, t.isActiveYN
+        FROM (
+            SELECT
+                member_id as memberId,
+                'Y' as isActiveYN
+            FROM member
+            WHERE IPIN_CI = #{ipinCI}
+        ) t
+    </select>
+
+    <select id="getMemberByIpinCI" parameterType="hashmap" resultType="string">
+        SELECT member_id as memberId
+        FROM member
+        WHERE IPIN_CI = #{ipinCI}
+    </select>
+
+    <!-- ID로 IPIN_CI 가져오기 -->
+    <select id="getIpinCI" parameterType="hashmap" resultType="string">
+        SELECT IPIN_CI as ipinCi
+        FROM member
+        WHERE MEMBER_ID = #{memberId}
+    </select>
+
+    <!-- 교사인증 여부 체크 -->
+    <select id="checkCertifyCheck" parameterType="String" resultType="string">
+        SELECT
+            CASE
+            	WHEN VALID_YN = 'Y' AND (
+            		IFNULL(EPKI_CERTDN, '') != '' OR
+            		(
+            			IFNULL(EPKI_CERTDN, '') = '' AND
+            			DATE_FORMAT(VAL_END_DATE, '%Y-%m-%d') >= CURRENT_DATE
+            		)
+            	)
+            		THEN 'Y' -- 인증
+            	ELSE 'N'
+            END -- 미인증
+        FROM MEMBER
+        WHERE MEMBER_ID = #{memberId}
+		AND STATE = 'Y'  -- 정상회원
+		AND ISRESTING = 0 -- 비휴면
+    </select>
+
+    <!-- 회원 가입시 가입여부 확인(성명, 이메일, 휴대전화번호 일치) -->
+    <select id="checkJoinedMember" resultType="java.lang.String">
+            SELECT member_id as memberId
+            FROM MEMBER
+            WHERE STATE = 'Y'
+            AND name = #{name}
+            AND email = #{email}
+            AND cellphone = #{cellphone}
+            ORDER BY REG_DATE DESC, REG_TIME DESC
+    </select>
+
+    <!-- 통합 회원 정보 조회 -->
+    <select id="getSsoMemberInfo" parameterType="string" resultType="edu.visang.vivasam.member.model.MemberInfo">
+        WITH MARKETING_AGREE_INFO AS (
+            /*마케팅 활용 동의*/
+            SELECT
+                MEMBER_ID,
+                MAX(CASE WHEN GUBUN_CD = 'S' THEN AGREE_YN ELSE 'N' END) AS MARKETING_SMS_YN,
+                MAX(CASE WHEN GUBUN_CD = 'E' THEN AGREE_YN ELSE 'N' END) AS MARKETING_EMAIL_YN,
+                MAX(CASE WHEN GUBUN_CD = 'T' THEN AGREE_YN ELSE 'N' END) AS MARKETING_TEL_YN
+            FROM (
+                     select
+                         ROW_NUMBER() OVER (PARTITION BY MEMBER_id, gubun_cd ORDER BY AGREE_DTTM DESC) AS NUM,
+                         MEMBER_id, gubun_cd, agree_yn, AGREE_DTTM
+                     from MEMBER_MARKETING_AGREE_INFO
+                     WHERE MEMBER_id = #{memberId}
+                 ) A
+            WHERE NUM = 1
+            GROUP BY MEMBER_ID
+        )
+        SELECT
+            M.IS_SSO_MEMBER                                     AS ssoMember
+             , M.THIRD_MARKETING_AGREE_YN                       AS thirdMarketingAgree
+             , CASE WHEN M.IPIN_CI IS NOT NULL AND M.IPIN_CI != '' THEN 'Y' ELSE 'N' END AS identified
+             , M.IPIN_CI as ipinCi
+             , DATE_FORMAT(M.SSO_REG_DTTM, '%Y.%m.%d')            AS ssoRegDate
+             , M.MEMBER_ID                          			AS memberId
+             , M.NICKNAME                           			AS nickname
+             , IFNULL(M.NICKNAME_YN,'N')            	AS nicknameYn
+             , M.PWD                                			AS pwd
+             , M.QUESTION_CODE                      		AS questionCode
+             , M.ANSWER                             			AS answer
+             , M.NAME                               			AS name
+             , M.EMAIL_YN                           			AS emailYn
+             , M.EMAIL                              			AS email
+             , M.MAILING_YN                         			AS mailingYn
+             , M.SCHOOLNAME_YN                      		AS schoolnameYn
+             , M.SCH_CODE                           			AS schCode
+             , CASE WHEN M.SCH_CODE = '99999' OR M.SCH_CODE = '99998' OR M.SCH_CODE = '99997' OR M.SCH_CODE = '99991' OR M.SCH_CODE = '99992' OR M.SCH_CODE = '99993' THEN M.SCH_NAME ELSE S.NAME END AS schName
+             , M.SCHOOLLOC_YN                       		AS schoollocYn
+             , S.FKCODE	                         		AS fkareacode
+             , S.PKCODE		                       		AS fkbranchcode
+             , ( SELECT CODENAME
+                 FROM SCHOOL_AREA
+                 WHERE PKCODE = S.FKCODE AND CODEFLAG = 'B' )       AS fkareaname
+             , ( SELECT CODENAME
+                 FROM SCHOOL_AREA
+                 WHERE PKCODE = S.PKCODE AND CODEFLAG = 'S' )       AS fkbranchname
+             , M.LUNAR                              			AS lunar
+             , M.BIRTH_YN                           			AS birthYn
+             , M.BIRTH                              			AS birth
+             , M.TEXTBOOK_YN                        		AS textbookYn
+             , M.PROFILE_IMG_PATH                   		AS profileImgPath
+             , M.CELLPHONE_YN                       		AS cellphoneYn
+             , M.CELLPHONE                          			AS cellphone
+             , SUBSTRING( M.CELLPHONE, 1, 3 )       	AS cellphone1
+             , ( CASE
+                     WHEN CHAR_LENGTH(REPLACE(M.CELLPHONE,'-','')) = 10 THEN
+                         SUBSTRING( M.CELLPHONE, 5, 3 )
+                     WHEN CHAR_LENGTH(REPLACE(M.CELLPHONE,'-','')) = 11 THEN
+                         SUBSTRING( M.CELLPHONE, 5, 4 )
+                     ELSE
+                         SUBSTRING( M.CELLPHONE, 5, 3 )
+            	END
+             ) AS cellphone2
+             , ( CASE
+                     WHEN CHAR_LENGTH(REPLACE(M.CELLPHONE,'-','')) = 10 THEN
+                         SUBSTRING( M.CELLPHONE, 9, 4 )
+                     WHEN CHAR_LENGTH(REPLACE(M.CELLPHONE,'-','')) = 11 THEN
+                         SUBSTRING( M.CELLPHONE, 10, 4 )
+                     ELSE
+                         SUBSTRING( M.CELLPHONE, 9, 4 )
+            END
+            )                                  					AS cellphone3
+             , M.TCCODE                             			AS tcCode
+             , M.SMS_YN                             			AS smsYn
+             , M.TEL_YN                             			AS telYn
+             , M.VISIT_CNT                          			AS visitCnt
+             , M.REG_DATE                           			AS regDate
+             , M.CHALK_POINT                        		AS chalkPoint
+             , M.INTRODUCE_YN                       		AS introduceYn
+             , M.CHANNEL_URL                          			AS introduce
+             , M.ZIP                                				AS zip
+             , M.ADDR1                              			AS addr1
+             , M.ADDR2                              			AS addr2
+             -- , M.MY_GRADE                           			AS myGrade
+             , (
+				SELECT GROUP_CONCAT(GRADE)
+				FROM MEMBER_GRADE MG
+				WHERE MG.MEMBER_ID = M.MEMBER_ID
+			 )                           AS myGrade
+             , M.SEX                                				AS sex
+             , M.VISANG_TEXTBOOK_YN                 	AS visangTbYN
+             , S.TAB                 							AS schFlag
+             , S.ZIP												AS schZipCd
+             , S.ADDR											AS schAddr
+             , M.JOIN_DOMAIN								AS joinDomain
+             , DATE_FORMAT(M.UPDATE_DTTM, '%Y-%m-%d')							AS updateDt
+             ,IFNULL(MAIN_SUBJECT,'') as mainSubject
+             ,IFNULL(SECOND_SUBJECT,'') as secondSubject
+             , M.EXPIRY_TERM_NUM                 	AS expiryTermNum
+             , MK.MARKETING_SMS_YN					AS marketingSmsYn
+             , MK.MARKETING_EMAIL_YN					AS marketingEmailYn
+             , MK.MARKETING_TEL_YN					AS marketingTelYn
+             , M.VALID_YN AS validYn
+		     , M.M_TYPE_CD AS mTypeCd
+        FROM MEMBER AS M
+        LEFT OUTER JOIN LATERAL (
+            SELECT
+                CODE, TAB, NAME, ZIP, ADDR, PKCODE, FKCODE
+            FROM
+                SCHOOL
+            WHERE CODE = M.SCH_CODE
+            UNION ALL
+            SELECT
+                CODE, TAB, NAME, ZIP, ADDR, PKCODE, FKCODE
+            FROM
+                SCHOOL_ETC
+            WHERE CODE = M.SCH_CODE
+        ) AS S ON 1 = 1
+        LEFT JOIN MARKETING_AGREE_INFO AS MK ON M.MEMBER_ID = MK.MEMBER_ID
+        WHERE M.MEMBER_ID = #{memberId}
+    </select>
+
+    <!-- 회원 필수 정보 체크 -->
+    <select id="rMemberRequiredCheck" parameterType="hashmap" resultType="string">
+        SELECT FN_MEMBER_REQUIRED_CHECK(#{memberId}, #{addRequiredYn}, #{isSsoMember})
+    </select>
+
+
+    <select id="getSsoMemberByUserId" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT IS_SSO_MEMBER as ssoMember
+        FROM MEMBER
+        WHERE MEMBER_ID = #{memberId}
+    </select>
+
+    <insert id="iIdentificationResultLog" parameterType="hashmap">
+        INSERT INTO IDENTIFICATION_RESULT_LOG_INFO (
+			PROGRESS_TYPE,
+			REQ_MEMBER_ID,
+			CERT_MEMBER_ID,
+			CERT_NAME,
+			CERT_BIRTH,
+			REG_DTTM
+		)
+        VALUES (
+			#{progress_type},
+			#{req_member_id},
+			#{cert_member_id},
+			#{cert_name},
+			#{cert_birth},
+			CURRENT_TIMESTAMP
+        )
+    </insert>
+
+    <!-- 서류인증 신청 정보 체크 -->
+    <select id="getEpkStatusInfo" parameterType="String" resultType="hashmap">
+	  	SELECT
+	  		EPK_ID,
+			REG_ID,
+			DATE_FORMAT(REG_DTTM, '%Y-%m-%d') AS REG_DATE,
+			EPK_STATUS_CD,
+			ANS_ADM_ID,
+			ANS_DTTM,
+			UPT_ADM_ID,
+			UPT_DTTM,
+			ATTACH_FILE,
+			ANSWER,
+			EMAIL_SEND_YN,
+			ATTACH_FILE2,
+			ATTACH_FILE3,
+			COMMENT
+		FROM EPK_STATUS_INFO
+		WHERE REG_ID = #{memberId}
+		ORDER BY REG_DTTM DESC
+		LIMIT 1
+	</select>
+
+    <select id="getSnsMember" parameterType="edu.visang.vivasam.member.model.SnsLoginParameter"
+            resultType="edu.visang.vivasam.member.model.SnsMemberInfo">
+        WITH SNS AS (
+			SELECT CASE WHEN #{type} = 'KAKAO' THEN fnIpinCiSaltSHA512(#{id}) ELSE #{id} END AS userSnsId
+		)
+        SELECT
+        	SNS_TYPE,
+            SNS_ID,
+            MEMBER_ID,
+            INSERT_DATE,
+            DELETE_DATE,
+            USE_YN
+        FROM SNS_MEMBER_INFO
+        WHERE SNS_TYPE = #{type}
+            AND SNS_ID = (SELECT userSnsId from SNS)
+            AND USE_YN = 'Y'
+        LIMIT 1
+    </select>
+
+    <select id="checkSnsInfoUser" parameterType="edu.visang.vivasam.member.model.SnsLoginParameter"
+            resultType="String">
+        SELECT MEMBER_ID
+        FROM MEMBER
+        WHERE IS_SSO_MEMBER = 1
+        AND (
+            <if test="phoneNumber != null and phoneNumber != ''">
+                CELLPHONE = #{phoneNumber} OR
+            </if>
+            EMAIL = #{email}
+        )
+
+    </select>
+
+    <insert id="insertSnsMemberInfo" parameterType="edu.visang.vivasam.member.model.SnsLoginParameter">
+        INSERT INTO SNS_MEMBER_INFO (
+            SNS_TYPE,
+            SNS_ID,
+            MEMBER_ID,
+            PHONE_NO,
+            NAME,
+            EMAIL,
+            YEAR
+        )
+        VALUES (
+           #{type},
+            <choose>
+                <when test="type == 'KAKAO'">fnIpinCiSaltSHA512(#{id}),</when>
+                <otherwise>#{id},</otherwise>
+            </choose>
+           #{memberId},
+           IF(#{phoneNumber} IS NOT NULL AND #{phoneNumber} != '', 'Y' , 'N'),
+           IF(#{name} IS NOT NULL AND #{name} != '' , 'Y' , 'N'),
+           IF(#{email} IS NOT NULL AND #{email} != '' , 'Y' , 'N'),
+           IF(#{year} IS NOT NULL AND #{year} != '' , 'Y' , 'N')
+       )
+    </insert>
+
+    <update id="updateSnsMemberId" parameterType="hashmap">
+    	UPDATE SNS_MEMBER_INFO
+    	SET JOIN_PATH = 1 ,
+    		MEMBER_ID = #{memberId}
+        WHERE USE_YN = 'Y'
+        AND SNS_TYPE = #{snsType}
+        AND SNS_ID = #{snsId}
+    </update>
+
+    <select id="insertSnsJoin" parameterType="hashmap" resultType="string">
+        {CALL SP_MEMBER_INSERT_SSO(
+                #{id},
+                #{name},
+                #{password},
+                #{Email},
+                #{cellphone},
+                '',
+                #{SchoolName},
+                #{SchoolCode},
+                #{loc_dept1},
+                #{loc_dept2},
+                '',
+                '',
+                #{birth},
+                '',
+                #{IPIN_CI},
+                '',
+                '',
+                'N',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                #{expiryTermNum},
+                'N',
+                #{Agree4},
+                NULL,
+                NULL,
+                #{snsJoin}
+            )
+            }
+    </select>
+
+    <update id="updateMappinSnsMemberId" parameterType="edu.visang.vivasam.member.model.SnsLoginParameter">
+        UPDATE SNS_MEMBER_INFO
+        SET MEMBER_ID = #{memberId}
+        WHERE USE_YN = 'Y'
+        AND SNS_TYPE = #{type}
+        AND SNS_ID = #{id}
+    </update>
+
+    <select id="getMemberPasswordNotExistence" resultType="boolean" parameterType="String">
+		SELECT COUNT(1) AS CNT
+		FROM MEMBER
+		WHERE MEMBER_ID = #{memberId}
+		AND PASSWORD2 IS NULL
+	</select>
+
+    <select id="getSleepMemberPasswordNotExistence" resultType="boolean" parameterType="String">
+        SELECT COUNT(1) AS CNT
+        FROM ViVaSam_V2_inactive.MEMBER_INACTIVE
+        WHERE MEMBER_ID = #{memberId}
+          AND PASSWORD2 IS NULL
+    </select>
+
+    <select id="getSnsMemberList" parameterType="String"
+            resultType="edu.visang.vivasam.member.model.SnsMemberInfo">
+        SELECT SNS_TYPE,
+               SNS_ID,
+               MEMBER_ID,
+               JOIN_PATH
+        FROM SNS_MEMBER_INFO
+        WHERE USE_YN = 'Y'
+        AND MEMBER_ID = #{memberId}
+        AND SNS_TYPE != 'FACEBOOK'
+    </select>
+
+    <select id="getSleepMemberCellPhone" parameterType="String" resultType="String">
+        SELECT CELLPHONE
+        FROM ViVaSam_V2_inactive.MEMBER_INACTIVE
+        WHERE MEMBER_ID = #{memberId}
+    </select>
+
+    <select id="saveMms" parameterType="edu.visang.vivasam.member.model.SmsInfo">
+        {
+            CALL SP_MMS_MSG(
+                #{phone, mode=IN, jdbcType=VARCHAR},
+                #{subject, mode=IN, jdbcType=VARCHAR},
+                #{msg, mode=IN, jdbcType=VARCHAR}
+            )
+        }
+    </select>
+
+    <select id="isMemberSnsCheck"
+            parameterType="edu.visang.vivasam.member.model.SnsLoginParameter"
+            resultType="Integer">
+        SELECT COUNT(1) AS CNT
+        FROM MEMBER
+        WHERE IS_SSO_MEMBER = 1
+		AND (EMAIL = #{email} OR
+			CELLPHONE = #{phoneNumber})
+    </select>
+
+    <delete id="deleteSnsMemberInfo"
+            parameterType="edu.visang.vivasam.member.model.SnsLoginParameter">
+        DELETE
+        FROM SNS_MEMBER_INFO
+        WHERE SNS_TYPE = #{type}
+        AND MEMBER_ID = #{memberId}
+    </delete>
+
+    <select id="getMemberSnsJoinInfo" parameterType="String" resultType="String">
+        SELECT JOIN_SNS
+        FROM MEMBER
+        WHERE MEMBER_ID = #{memberId}
+    </select>
+
+    <select id="saveMmsJoin" parameterType="String" resultType="Integer">
+        SELECT COUNT(1) AS CNT
+        FROM MEMBER
+        WHERE CELLPHONE = #{cellphone}
+    </select>
+
+    <update id="upateIpinCi" parameterType="edu.visang.vivasam.member.model.SnsLoginParameter">
+        UPDATE MEMBER
+        SET IPIN_CI = #{isIpin}
+        WHERE MEMBER_ID = #{memberId}
+    </update>
+
+    <!-- 회원 교사 인증 여부 체크 -->
+    <select id="getMemberTeacherCertifiedYn" parameterType="string" resultType="string">
+        SELECT FN_MEMBER_TEACHER_CERTIFY_CHECK(#{memberId})
+    </select>
+
+    <!-- 회원 교사 서류인증 재인증 가능 여부 체크 -->
+    <select id="getMemberTeacherCertifiedCheckYn" parameterType="String" resultType="String">
+		<![CDATA[
+		SELECT
+			CASE
+				WHEN
+					VALID_YN = 'Y' AND (
+						IFNULL(EPKI_CERTDN, '') <> '' OR
+						(
+							IFNULL(EPKI_CERTDN, '') = '' AND
+							DATE_FORMAT(VAL_END_DATE, '%Y-%m-%d') >= CURRENT_DATE
+						)
+					)
+					THEN
+						CASE
+							WHEN DATE_ADD(CURRENT_TIMESTAMP,INTERVAL 30 DAY) > VAL_END_DATE
+								THEN 'Y' -- 재인증 가능
+						ELSE 'N'
+					END -- 재인증 불가능
+				ELSE 'Y'
+			END -- 인증 가능
+		FROM MEMBER
+		WHERE MEMBER_ID = #{memberId}
+		AND STATE = 'Y' -- 정상회원
+		]]>
+	</select>
+
+    <!-- 추천인 코드 등록 -->
+    <insert id="updateMemberRecommenderCode" parameterType="map">
+        UPDATE MEMBER
+        SET ANSWER = #{recommenderCode}
+        WHERE MEMBER_ID = #{memberId}
+    </insert>
+
+    <!-- 공직자 이메일 인증 정보 -->
+    <update id="updateMemberValidateEmail" parameterType="edu.visang.vivasam.member.model.MemberValidateEmail">
+		INSERT INTO MEMBER_VALIDATE_EMAIL (
+			EMAIL
+			, MEMBER_ID
+			, SECRET_KEY
+			, CERTIFICATION
+			, REG_DTTM
+		) VALUES (
+			#{email}
+			, IFNULL(#{memberId}, '')
+			, #{certifiNum}
+			, 'N'
+			, CURRENT_TIMESTAMP()
+		) ON DUPLICATE KEY UPDATE
+			MEMBER_ID  = IFNULL(#{memberId}, '')
+			,CERTIFICATION = IFNULL(#{certification}, 'N')
+			,REG_DTTM = CURRENT_TIMESTAMP()
+	</update>
+
+    <select id="getMemberValidateEmailCnt" parameterType="edu.visang.vivasam.member.model.MemberValidateEmail" resultType="int">
+		SELECT COUNT(1)
+		FROM MEMBER_VALIDATE_EMAIL AS A
+		WHERE A.EMAIL = #{email}
+		AND A.CERTIFICATION = 'Y'
+	</select>
+
+    <update id="updateMemberReCertify" parameterType="hashmap">
+		UPDATE MEMBER
+		SET EPKI_CERTDN = #{EPKI_CERTDN}
+	  		,EPKI_CERTSN = #{EPKI_CERTSN}
+	  		,VAL_END_DATE = CASE #{VALID_YN} WHEN 'Y' THEN '9999-12-31' ELSE NULL END
+	  		,VALID_YN = #{VALID_YN}
+			,VAL_DATE = DATE_FORMAT(CURRENT_TIMESTAMP,'%Y-%m-%d')
+			,VAL_TIME = DATE_FORMAT(CURRENT_TIMESTAMP, '%T')
+	  		,UPDATE_DTTM = CURRENT_TIMESTAMP
+		WHERE MEMBER_ID = #{memberId}
+	</update>
+
+    <insert id="insertMemberValidateLogInfo" parameterType="hashmap">
+		INSERT INTO MEMBER_VALIDATE_LOG_INFO (REG_DTTM, ADM_ID, MEMBER_ID, VALID_TYPE)
+    	VALUES (CURRENT_TIMESTAMP, #{memberId}, #{memberId}, #{validType});
+	</insert>
+
+    <update id="updateMemberInfoOnlyViva" parameterType="hashmap">
+		UPDATE MEMBER
+		SET MY_GRADE = #{myGrade}
+            <if test='sch_name_searchedv != null and sch_name_searchedv != ""'>
+            , SCH_NAME = #{sch_name_searchedv}
+            </if>
+        WHERE MEMBER_ID = #{memberId}
+	</update>
+
+    <insert id="insertMemberGradeInfoOnlyViva" parameterType="edu.visang.vivasam.member.model.MemberInfo">
+		INSERT INTO MEMBER_GRADE(MEMBER_ID,GRADE)
+		VALUES
+		<foreach collection="grade" item="item" separator=",">
+			(#{memberId},#{item})
+		</foreach>
+	</insert>
+
+	<delete id="deleteMemberGradeInfoOnlyViva" parameterType="String">
+		DELETE FROM MEMBER_GRADE
+		WHERE MEMBER_ID = #{memberId}
+	</delete>
+
+    <select id="getWhalespaceSnsId" parameterType="hashmap" resultType="String">
+        SELECT SNS_ID
+        FROM SNS_MEMBER_INFO
+        WHERE USE_YN = 'Y'
+        AND SNS_TYPE = 'WHALESPACE'
+        AND SNS_ID IN (#{newId}, #{oldId})
+    </select>
+
+    <update id="updateWhalespaceSnsId" parameterType="hashmap">
+        UPDATE SNS_MEMBER_INFO
+        SET SNS_ID = #{newId}
+        WHERE USE_YN = 'Y'
+        AND SNS_TYPE = 'WHALESPACE'
+         AND SNS_ID = #{oldId}
+    </update>
+
+    <select id="recommenderCheck" parameterType="string" resultType="int">
+        SELECT COUNT(member_id)
+        FROM MEMBER AS M
+        WHERE 1=1
+        AND STATE != 'D'
+        AND MEMBER_ID = #{recommender}
+    </select>
+
+    <select id="existRecommender" parameterType="String" resultType="String">
+        SELECT NAME as memberName
+        FROM MEMBER
+        WHERE 1 = 1
+        AND MEMBER_ID = #{recommender}
+    </select>
+
+    <select id="validYn" parameterType="String" resultType="String">
+        SELECT VALID_YN as validYn
+        FROM MEMBER
+        WHERE 1 = 1
+        AND MEMBER_ID = #{recommender}
+    </select>
+
+    <select id="selectRecommendId"  resultType="string">
+        SELECT member_Id as recommendId
+		FROM MEMBER_MILEAGE AS M
+		WHERE 1 = 1
+		  AND target_Menu LIKE CONCAT('%',#{memberId},'%')
+    </select>
+    <select id="findRecommendId"  resultType="string">
+        SELECT recommend_Id as recommendId
+          FROM member
+         WHERE member_Id = #{memberId}
+    </select>
+
+	<select id="getMarketingAgreeInfo" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			A.MEMBER_ID AS memberId,
+			A.NAME AS name,
+			MAX(CASE WHEN GUBUN_CD = 'S' THEN AGREE_YN ELSE 'N' END) AS smsYn,
+			MAX(CASE WHEN GUBUN_CD = 'S' THEN CONVERT(AGREE_DTTM, DATE) ELSE '' END) AS smsDttm,
+			MAX(CASE WHEN GUBUN_CD = 'E' THEN AGREE_YN ELSE 'N' END) AS emailYn,
+			MAX(CASE WHEN GUBUN_CD = 'E' THEN CONVERT(AGREE_DTTM, DATE) ELSE '' END) AS emailDttm,
+			MAX(CASE WHEN GUBUN_CD = 'T' THEN AGREE_YN ELSE 'N' END) AS telYn,
+			MAX(CASE WHEN GUBUN_CD = 'T' THEN CONVERT(AGREE_DTTM, DATE) ELSE '' END) AS telDttm
+		FROM MEMBER A
+				 LEFT JOIN (
+			SELECT
+				*
+			FROM (
+					 SELECT ROW_NUMBER() OVER (PARTITION BY MEMBER_ID, GUBUN_CD ORDER BY AGREE_DTTM DESC) AS NUM,
+							MEMBER_ID,
+							GUBUN_CD,
+							AGREE_YN,
+							AGREE_DTTM
+					 FROM MEMBER_MARKETING_AGREE_INFO
+					 WHERE MEMBER_ID = #{memberId}
+				 ) MAI
+			WHERE NUM = 1
+		) B ON A.MEMBER_ID = B.MEMBER_ID
+		WHERE A.MEMBER_ID = #{memberId}
+		GROUP BY A.MEMBER_ID
+	</select>
+
+	<insert id="saveMarketingInfoEach" parameterType="edu.visang.vivasam.member.model.MemberMarketingAgreeInfo">
+		INSERT INTO member_marketing_agree_info (member_id, gubun_cd, agree_yn, agree_dttm)
+		VALUES (#{memberId}, #{gubunCd}, #{agreeYn}, CURRENT_TIMESTAMP())
+	</insert>
+
+	<update id="updateMemberUpdateSso" parameterType="hashmap">
+		UPDATE MEMBER SET
+			EMAIL                 = #{email}           -- 이메일 -->
+						, CELLPHONE           = #{cellphone}       -- 핸드폰 번호 : cellphone1, cellphone2, cellphone3 -->
+						, SCH_CODE            = #{schCode}         -- 학교코드 : sch_code_searched -->
+						, SCH_NAME            = #{schName}         -- 학교이름 : sch_name_searched -->
+						, MY_GRADE            = #{myGrade}         -- 담당학년 : myGrade1, myGrade2, myGrade3 -->
+						, FKAREACODE          = #{fkareacode}      -- 학교 소재지 : 시도 -->
+						, FKBRANCHCODE        = #{fkbranchcode}    -- 학교 소재지 : 구군 -->
+						, BIRTH               = #{birth}           -- 생년월일 -->
+						, LUNAR               = #{lunar}           -- 음력 / 양력 여부 -->
+						, ZIP                 = #{zip}             -- 우편번호 : postNo_1, postNo_2 -->
+						, ADDR1               = #{addr1}           -- 주소1 : Addr1 -->
+						, ADDR2               = #{addr2}           -- 주소2 : Addr2 -->
+						, SEX                 = #{sex}             -- 성별 : sex -->
+						, VISANG_TEXTBOOK_YN  = #{visangTbYN}      -- 비상교과서 채택여부 : visangTbYN -->
+						, EXPIRY_TERM_NUM	   = #{expiryTermNum} -- 개인정보유효기간설정
+						, MAIN_SUBJECT        = #{mainSubject} -- 내 교과 1
+						, SECOND_SUBJECT      = #{secondSubject} -- 내 교과 2
+						, IPIN_CI             = #{ci}
+						, UPDATE_DTTM = CURRENT_TIMESTAMP()
+						, IS_SSO_MEMBER = IFNULL(#{agree2}, IS_SSO_MEMBER)
+						, THIRD_MARKETING_AGREE_YN = CASE WHEN IFNULL(#{agree2}, '') = 'true' THEN #{agree5} ELSE THIRD_MARKETING_AGREE_YN END
+						, SSO_REG_DTTM = CASE WHEN IFNULL(#{agree2}, '') = 'true' THEN CURRENT_TIMESTAMP() ELSE SSO_REG_DTTM END
+						, SSO_REG_PATH_SITE = CASE WHEN IFNULL(#{agree2}, '') = 'true' THEN 'VIVASAM' ELSE SSO_REG_PATH_SITE END
+						, M_LEVEL = IF(FN_MEMBER_REQUIRED_CHECK(#{memberId}, 'Y', '') = 'Y', 'AU300', M_LEVEL)
+		WHERE MEMBER_ID = #{memberId}
+		  AND STATE = 'Y'
+	</update>
+
+	<update id="updateMemberMLevel" parameterType="hashmap">
+		UPDATE MEMBER SET
+			M_LEVEL = 'AU300'
+		WHERE MEMBER_ID = #{memberId}
+		  AND M_LEVEL != 'AU300'
+		  AND FN_MEMBER_REQUIRED_CHECK(#{memberId}, 'Y', '') = 'Y'
+	</update>
+
+    <!-- 기존 SNS ID 암호화 업데이트 -->
+    <update id="updateSnsIdForEncrypt" parameterType="edu.visang.vivasam.member.model.SnsLoginParameter">
+        UPDATE SNS_MEMBER_INFO
+        SET SNS_ID = fnIpinCiSaltSHA512(#{id})
+        WHERE SNS_TYPE = #{type}
+          AND SNS_ID = #{id}
+    </update>
+
+    <select id="getMemberRetCnt" resultType="int">
+        SELECT IF(COUNT(1) <![CDATA[ < ]]> 1,IFNULL(RET_CNT,15),RET_CNT)
+          FROM MEMBER
+         WHERE MEMBER_ID = #{memberId}
+    </select>
+
+    <select id="getMemberLoginInfo" resultType="String">
+        SELECT MEMBER_ID
+          FROM MEMBER
+         WHERE MEMBER_ID = #{username}
+            AND `PASSWORD2` = fnSaltSHA512(#{password})
+    </select>
+
+    <update id="updateMemberRetCnt" parameterType="edu.visang.vivasam.payload.LoginRequest">
+        UPDATE MEMBER
+        SET RET_CNT = #{retCnt}
+        WHERE MEMBER_ID = #{username}
+    </update>
+
+    <update id="updateMemberPw" parameterType="edu.visang.vivasam.member.model.FindPwd">
+        UPDATE MEMBER SET `PASSWORD2` = fnSaltSHA512(#{tempPwd})
+		WHERE MEMBER_ID = #{memberId}
+			AND REPLACE(CELLPHONE, '-', '') = #{cellPhone}
+			AND `NAME` = #{memberName}
+			AND STATE = 'Y'
+    </update>
+
+    <update id="updateMemberOldPassword" parameterType="edu.visang.vivasam.member.model.FindPwd">
+        UPDATE MEMBER SET OLD_PASSWORD = PASSWORD2
+		WHERE MEMBER_ID = #{memberId}
+			AND REPLACE(CELLPHONE, '-', '') = #{cellPhone}
+			AND `NAME` = #{memberName}
+			AND STATE = 'Y'
+    </update>
+</mapper>

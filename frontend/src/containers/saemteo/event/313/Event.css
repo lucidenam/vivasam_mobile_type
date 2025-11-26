@@ -1,0 +1,34 @@
+/* Event */
+.event201028{background:#e8ecef;text-align:center;}
+.event201028 img{width:100%;}
+.event201028 [class^="evtCont"] .inner{padding:0 5.3vw;}
+.event201028 [class^="evtCont"] .inner h2 + *{margin-top:3.7vw;}
+.event201028 .evtCont02{padding-bottom:8vw;}
+.event201028 .evtWordWrap{padding:3.7vw 3.6vw;background:#dde1eb;border:0.1vw solid #d4dbec;border-radius:25px;font-size:0;text-align:left;}
+.event201028 .evtWordWrap .word{overflow:hidden;position:relative;display:inline-block;padding:0.5vw 0.6vw;}
+.event201028 .evtWordWrap .word input[type="checkbox"]{overflow:hidden;position:absolute;top:-99px;left:-99px;width:1px;height:1px;margin:0;}
+.event201028 .evtWordWrap .word input[type="checkbox"] + label{position:relative;display:inline-block;box-sizing:border-box;width:15vw;height:7vw;background:#fff;border:0.1vw solid #fff;border-radius:3.5vw;font-family:'Noto Sans KR', sans-serif;font-size:3.2vw;font-weight:500;color:#424756;text-align:center;line-height:7vw;cursor:pointer;}
+.event201028 .evtWordWrap .word #chk23 + label,
+.event201028 .evtWordWrap .word #chk24 + label{width:23vw;}
+.event201028 .evtWordWrap .word input[type="checkbox"]:checked + label{background:#ff8282;border:0.1vw solid #ee5656;color:#fff;}
+.event201028 .evtCont03{padding-bottom:6.1vw;}
+.event201028 .evtTxtWrap{position:relative;left:auto;bottom:auto;width:100%;height:59.3vw;background:url(/images/events/2020/event201028/bg_item.png) 0 0 repeat-y;background-size:100% auto;transform:none;}
+.event201028 .evtTxtWrap .selItem{overflow:hidden;position:relative;border-radius:4vw;}
+.event201028 .evtTxtWrap .selItem:before{content:'';position:absolute;top:0;left:0;display:block;width:50%;height:11.3vw;background:#5870e1;}
+.event201028 .evtTxtWrap .selItem:nth-child(even):before{background:#6e5cdf;}
+.event201028 .evtTxtWrap .selItem + .selItem{margin-top:0.7vw;}
+.event201028 .evtTxtWrap .selItem dt{float:left;position:relative;box-sizing:border-box;width:18.4vw;height:11.3vw;padding-left:3.3vw;font-size:2.9vw;font-weight:600;color:#fff;text-align:left;line-height:11vw;}
+.event201028 .evtTxtWrap .selItem dd{float:left;position:relative;width:calc(100% - 18.4vw);height:11.3vw;background:#fff;border-top-left-radius:5.5vw;border-bottom-left-radius:5.5vw;}
+.event201028 .evtTxtWrap .selItem dd .evtAreaWrap{box-sizing:border-box;width:100%;height:11.3vw;}
+.event201028 .evtTxtWrap .selItem dd .evtAreaWrap textarea{resize:none;width:53vw;height:11.3vw;margin:0 12vw 0 6vw;padding:1.8vw 0;font-family:'Noto Sans KR', sans-serif;font-size:2.9vw;font-weight:500;color:#616a86;line-height:3.8vw;}
+.event201028 .evtTxtWrap .selItem dd .txtInfo{position:absolute;top:50%;right:3vw;font-family:'Noto Sans KR', sans-serif;font-size:2.6vw;color:#888;transform:translateY(-50%);}
+.event201028 .evtTxtWrap .selItem dd .txtInfo em{font-family:'Noto Sans KR', sans-serif;color:#333;}
+.event201028 .evtCont04 .btnWrap{padding-bottom:6.1vw;}
+
+/* EventApply */
+.applyDtl_top{background:#5870e1;padding:4.5vw 15px}
+.applyDtl_top h3{color:#fff;}
+.applyDtl_top h3 strong{font-family:inherit;color:#fbcd2e;}
+.input_wrap + .mt10.mb25.c_gray{color:#888;}
+.policy{color:#222;}
+.acco_notice_cont ul.policy + p.comt { color: #888;}

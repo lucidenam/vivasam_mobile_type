@@ -1,0 +1,59 @@
+/* Event */
+.event231103{position:relative;background:#fff;}
+.event231103 img{width:100%;vertical-align:top;}
+.event231103 [class^="evtCont"]{position:relative;z-index:1;}
+.event231103 *{font-family:'Noto Sans KR', sans-serif; box-sizing: border-box;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+
+/* evtNoti */
+.event231103 .evtCont1 {position: relative; z-index: 20;}
+.event231103 .evtGift {width: 99.2vw; position: absolute; left: 50%; bottom: -6.8vw; transform: translateX(-50%); }
+.event231103 .evtCont2 {padding: 18.533vw 5.33vw 10vw; background: #89c6ff;}
+.event231103 .evtCont2 .cont {position: relative; width: 100%; padding: 8.93vw 4.66vw 6.26vw; background: #eafffe; border: 0.133vw solid #2c2c2c; border-radius: 2.66vw; box-shadow: 4px 4px 0 rgba(44, 44, 44, 1);}
+.event231103 .evtCont2 .evtBadge {display: inline-block; position: absolute; left: 50%; top: -4vw; transform: translateX(-50%); width: 54.13vw; }
+.event231103 .evtCont2 .profile_btn {display: flex; flex-direction: column; position: absolute; right: 20.66vw; top: 16.26vw; }
+.event231103 .evtCont2 .btnInstagram {display: inline-block; width: 28.66vw; margin-bottom: 0.53vw; }
+.event231103 .evtCont2 .btnYouTube {display: inline-block; width: 24.93vw;}
+.event231103 .evtCont2 .btnApply {display: block; width: 38.13vw; margin: 3.33vw auto 0;}
+
+.notice { padding: 6vw 4vw 4vw 10.66vw; background: #2c2c2c;}
+.notice strong {display: inline-block; margin-bottom: 1.73vw; font-size: 3.46vw; font-weight: 500; color: #fff; line-height: 1; letter-spacing: -0.045em;}
+.notice ul li {position: relative; padding-left: 1.86vw; font-size: 2.26vw; font-weight: 300; color: #fff; line-height: 1.5; letter-spacing: -0.045em; word-break: keep-all;}
+.notice ul li:after {content: ""; display: inline-block; position: absolute; left: 0; top: 1.4vw; width: 0.53vw; height: 0.53vw; background: #fff; border-radius: 50%; }
+
+
+
+
+/*applyPop*/
+.vivasamter_applyDtl {padding-top: 17px;}
+.applyDtl_top {background: #ffd563; border-bottom: 1px solid #d0d0d0;}
+.applyDtl_cell h3 strong {font-size: 16px; color: #e6563c; letter-spacing: -0.05em;}
+.vivasamter_applyDtl .input_wrap.school_wrap.style2 .input_school + button {width: 125px; padding: 0; text-align: center; background: #abadb5;}
+.vivasamter_applyDtl .input_wrap.school_wrap.style2 .input_school + button:before {display: none;}
+.vivasamter_applyDtl .input_wrap input[name="personnel"] {width: 88px   ;}
+.vivasamter_applyDtl .ipt_textarea {height: 150px; padding-left: 30px;}
+.vivasamter_applyDtl .count_wrap .count span span {font-size: 12px; font-weight: 500; color: #fd5b76;}
+.vivasamter_applyDtl .input_wrap.receiveGradeClass {display: flex; align-items: center; gap: 5px; }
+.vivasamter_applyDtl .input_wrap.receiveGradeClass input[type="number"] {display: inline-block; flex: 1;}
+.vivasamter_apply .vivasamter_applyDtl .acco_notice_list + .acco_notice_list.acco_notice_list_last {padding-bottom: 0; border-bottom: 0; }
+.vivasamter_apply .vivasamter_applyDtl .acco_notice_list + .acco_notice_list.acco_notice_list_last .acco_notice_cont {padding-bottom: 0; border-bottom: 0;}
+.vivasamter_applyDtl .input_wrap.person_wrap {position: relative;}
+.vivasamter_applyDtl .input_wrap.person_wrap span {display: inline-block; position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 14px; font-weight: 400; color: #464a55; letter-spacing: -0.04em;}
+.vivasamter_applyDtl .select_wrap { display: flex; align-items: center;}
+.vivasamter_applyDtl .select_wrap .selectbox {width: 167px; margin-top: 0;}
+.vivasamter_applyDtl .date_btn_wrap button {display: inline-block; width: 48px; height: 48px; margin-left: 5px}
+
+
+
+
+
+
+
+
+
+
+
+

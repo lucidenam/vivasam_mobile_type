@@ -1,0 +1,161 @@
+-- =============================================
+-- Author:		심원보
+-- Create date: 2016-09-08
+-- Description:	비비샘 > 비바샘터 > 교사문화프로그램
+-- SP_SAEMTEO_CULTURE_OFFLINE_LIST 1, 5, '', '', '1', '1'
+-- SP_SAEMTEO_CULTURE_OFFLINE_LIST 1, 3, '', '', '1', '1','15'
+-- SP_SAEMTEO_CULTURE_OFFLINE_LIST 1, 3, '', '', '1', '2',''
+-- =============================================
+CREATE PROCEDURE [dbo].SP_SAEMTEO_CULTURE_OFFLINE_LIST
+@P_PAGE_NO			INT = 1,
+@P_PAGE_SIZE		INT = 10,
+@P_SRCHTYPE			VARCHAR(10) = null,
+@P_KEYWORD			NVARCHAR(100) = null,
+@P_STATE			VARCHAR(1) = null,
+@P_PROGRAM_GUBUN_CD	VARCHAR(1) = null, /*프로그램구분(1:교사문화프로그램,2:세미나)*/
+@P_CULTUREACT_ID	INT = 0  -- root : id 에 따른 page 번호 매칭 위해 추가.
+
+AS
+BEGIN
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+-- SET NOCOUNT ON added to prevent extra result sets from
+-- interfering with SELECT statements.
+SET NOCOUNT ON;
+
+DECLARE @TBL_IDX TABLE (IDX INT PRIMARY KEY, CULTURE_ACT_ID INT)
+
+DECLARE   @ROW_TOTAL  int --전체 Row 수
+DECLARE   @ROW_MAX    nvarchar(10) --조회할 Row 수 중 최대 Row수
+DECLARE   @ROW_MIN    nvarchar(10) --조회할 Row수 중 최소 Row수
+DECLARE   @PAGE_TOTAL int --전체 페이지 수
+
+-- 조회 조건에 따른 컨텐츠만 임시테이블에 저장하기 위한 동적쿼리 작성
+INSERT INTO @TBL_IDX (IDX, CULTURE_ACT_ID)
+SELECT
+  ROW_NUMBER() OVER(ORDER BY CI.REG_DTTM DESC) AS idx
+    ,CI.CULTURE_ACT_ID
+FROM dbo.CULTURE_ACT_INFO AS CI
+WHERE 1 = 1
+  AND ((ISNULL(@P_PROGRAM_GUBUN_CD, '') <> '' AND CI.PROGRAM_GUBUN_CD = @P_PROGRAM_GUBUN_CD)
+  OR (ISNULL(@P_PROGRAM_GUBUN_CD, '') = '' AND 1 = 1))
+  AND ((ISNULL(@P_STATE, '') <> '' AND CI.DATA_STATE_CD = @P_STATE)
+  OR (ISNULL(@P_STATE, '') = '' AND 1 = 1))
+  AND ((ISNULL(@P_KEYWORD, '') <> '' AND ((@P_SRCHTYPE = 'title' AND CI.TITLE LIKE '%' + @P_KEYWORD + '%')
+  OR (@P_SRCHTYPE = 'content' AND PATINDEX('%' + @P_KEYWORD + '%', CI.CONTENTS) > 0)))
+  OR (ISNULL(@P_KEYWORD, '') = '' AND 1 = 1))
+
+  SET @ROW_TOTAL = @@ROWCOUNT
+
+
+  IF  @P_CULTUREACT_ID > 0
+BEGIN
+--조회수 update(CULTURE_ACT_ID가 선택된 경우), 20160909, SWB
+UPDATE dbo.CULTURE_ACT_INFO
+SET READ_CNT = READ_CNT + 1
+WHERE CULTURE_ACT_ID = @P_CULTUREACT_ID;
+
+
+-- ROOT  추가작업. 페이지 번호 매칭작업 START
+-- 정보가 추가 등록되면 이전 자료의 페이지 번호가 달라져서 현재 기준으로 페이지 번호를 재설정함.
+DECLARE @R_TOPROW INT
+DECLARE @R_PAGE INT
+
+SELECT
+    @R_TOPROW = COUNT(1)
+FROM DBO.CULTURE_ACT_INFO
+WHERE DATA_STATE_CD = '1'
+  AND CULTURE_ACT_ID >= @P_CULTUREACT_ID
+  AND PROGRAM_GUBUN_CD = @P_PROGRAM_GUBUN_CD
+
+
+  SET  @R_PAGE =   @R_TOPROW / @P_PAGE_SIZE +(CASE WHEN @R_TOPROW % @P_PAGE_SIZE > 0 THEN 1 ELSE 0 END)
+
+  IF ( @P_PAGE_NO <> @R_PAGE ) BEGIN
+SET @P_PAGE_NO = @R_PAGE
+END
+-- root  추가작업. 페이지 번호 매칭작업 end
+END
+ELSE
+BEGIN
+--조회수 update(CULTURE_ACT_ID가 선택되지 않은 경우 첫번째 정보를 조회한 것으로 처리), 20160909, SWB
+UPDATE dbo.CULTURE_ACT_INFO
+SET READ_CNT = READ_CNT + 1
+WHERE CULTURE_ACT_ID = (SELECT TOP 1 CULTURE_ACT_ID FROM @TBL_IDX);
+END
+
+
+-- 총페이지 수
+IF @ROW_TOTAL % @P_PAGE_SIZE = 0
+SET @PAGE_TOTAL = @ROW_TOTAL/@P_PAGE_SIZE
+ELSE
+SET @PAGE_TOTAL = (@ROW_TOTAL/@P_PAGE_SIZE) + 1
+
+SET @ROW_MIN = (@P_PAGE_NO-1) * @P_PAGE_SIZE + 1
+SET @ROW_MAX = @P_PAGE_NO * @P_PAGE_SIZE
+
+
+SELECT
+  0 AS IDX,
+  CAST(@ROW_TOTAL as NVARCHAR) AS cultureact_Id,
+  CAST(@PAGE_TOTAL as NVARCHAR) AS title,
+  CAST(@P_PAGE_NO as NVARCHAR) AS start_Dt,
+  NULL AS end_Dt,
+  NULL AS contentsGubunCd,
+  NULL AS contents,
+  NULL AS summary,
+  NULL AS url,
+  NULL AS thumbnail,
+  NULL AS postscriptGubunCd,
+  NULL AS postscript,
+  NULL AS postscriptLinkUrl,
+  NULL AS state,
+  NULL AS readCnt,
+  NULL AS applyCnt,
+  NULL AS applyCntMob,
+  NULL AS regDt,
+  NULL AS regId,
+  NULL AS upDt,
+  NULL AS upId,
+  NULL AS state_desc,
+  NULL AS target_platform
+UNION ALL
+  -- 페이징 처리된 컨텐츠 반환
+SELECT
+  TMCI.IDX,
+  CAST(TMCI.CULTURE_ACT_ID AS VARCHAR(20)) AS cultureact_Id,
+  CI.TITLE AS title,
+  CONVERT(VARCHAR(10), CI.ACT_START_DT, 121) AS start_Dt,
+  CONVERT(VARCHAR(10), CI.ACT_END_DT, 121) AS end_Dt,
+  CI.CTNT_GUBUN_CD AS contentsGubunCd,
+  CI.CONTENTS AS contents,
+  CI.SUMMARY_DESC AS summary,
+  CI.LINK_URL AS url,
+  CI.THUM_PATH_URL AS thumbnail,
+  CI.POSTSCRIPT_GUBUN_CD AS postscriptGubunCd,
+  CI.POSTSCRIPT AS postscript,
+  CI.POSTSCRIPT_LINK_URL AS postscriptLinkUrl,
+  CI.DATA_STATE_CD AS state,
+  CI.READ_CNT AS readCnt,
+  (SELECT COUNT(1) FROM dbo.CULTURE_ACT_APPLY_INFO WHERE CULTURE_ACT_ID = CI.CULTURE_ACT_ID AND VIA = 'WEB') AS applyCnt,
+  (SELECT COUNT(1) FROM dbo.CULTURE_ACT_APPLY_INFO WHERE CULTURE_ACT_ID = CI.CULTURE_ACT_ID AND VIA = 'MOBILE') AS applyCntMob,
+  CONVERT(VARCHAR(10), CI.REG_DTTM, 121) AS regDt,
+  CI.REGR_ID AS regId,
+  CONVERT(VARCHAR(10), CI.UPT_DTTM, 121) AS upDt,
+  CI.UPTR_ID AS upId,
+  CASE WHEN CI.ACT_START_DT <= CAST(GETDATE() AS DATE) AND CI.ACT_END_DT >= CAST(GETDATE() AS DATE)
+    AND (DATALENGTH(ISNULL(CI.POSTSCRIPT, '')) = 0 AND ISNULL(CI.POSTSCRIPT_LINK_URL, '') = '') THEN '모객 중'
+       WHEN CI.ACT_START_DT > CAST(GETDATE() AS DATE) THEN '대기'
+       WHEN CI.ACT_END_DT < CAST(GETDATE() AS DATE)
+         AND (DATALENGTH(ISNULL(CI.POSTSCRIPT, '')) = 0 AND ISNULL(CI.POSTSCRIPT_LINK_URL, '') = '') THEN '모객 종료'
+       WHEN CI.ACT_END_DT < CAST(GETDATE() AS DATE)
+         AND (DATALENGTH(ISNULL(CI.POSTSCRIPT, '')) > 0 OR ISNULL(CI.POSTSCRIPT_LINK_URL, '') != '') THEN '후기' END AS state_desc,
+  CI.TARGET_PLATFORM AS target_platform
+FROM @TBL_IDX AS TMCI
+       JOIN dbo.CULTURE_ACT_INFO AS CI ON TMCI.CULTURE_ACT_ID = CI.CULTURE_ACT_ID
+WHERE TMCI.IDX BETWEEN (@P_PAGE_NO-1) * @P_PAGE_SIZE + 1 AND @P_PAGE_NO * @P_PAGE_SIZE
+
+END
+
+
+go
+

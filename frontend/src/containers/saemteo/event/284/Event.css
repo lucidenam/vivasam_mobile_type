@@ -1,0 +1,36 @@
+.event200217 {position: relative; font-family:"Nanum Gothic", "sans-serif";}
+.event200217 img {vertical-align: middle; width:100%; line-height:0}
+.event200217 a {display: inline;}
+
+
+.event200217 {padding-top: 69.067vw; background:#97d89a url('/images/events/2020/event200217/img.jpg') 0 0 no-repeat; background-size:contain;}
+.event200217 .inner {padding: 0 4vw;}
+.event200217 .cont,
+.event200217 .cont2 {position: relative; background-color: #fff; padding-bottom: 6.667vw; margin-bottom: 5.333vw;}
+
+.event200217 .cont .btn_join {position: absolute;top:6.400vw;right: 4.267vw;}
+.event200217 .cont .btn_join img {width: auto;height: 5.733vw;}
+
+.event200217 .cont .question {padding: 0 9.333vw; margin-top: 6.667vw;}
+.event200217 .cont .question h2 {text-indent: -4.2vw;font-size: 2.933vw; color: #111; font-family:"Nanum Gothic_Bold";}
+
+.event200217 .cont .question > ul:after {content: "";display: block;clear: both;}
+.event200217 .cont .question > ul > li {position: relative;float:left; width: 50%; margin-top: 1.333vw;}
+.event200217 .cont .question > ul > li > input {position:absolute; left:-3000px; opacity:0}
+.event200217 .cont .question > ul > li > label {display: inline-block;height: 4.800vw;background: url('/images/events/2020/event200217/chk_off.png') 0 0 no-repeat;  background-size:4.800vw auto; padding: 1vw 0 1vw 6vw;  font-size: 2.667vw; color: #333; font-family:"Nanum Gothic_Bold"; line-height: 1.2em;}
+.event200217 .cont .question > ul > li > label.on {background: url('/images/events/2020/event200217/chk_on.png') 0 0 no-repeat; background-size:4.800vw auto;}
+
+.event200217 .cont .question > ul > li > .pop_etc {position: absolute;top:6.667vw;right:-9.333vw; width: 100%; background-color: #e0e0e0; border: 1px #bfbfbf solid; padding:2.667vw 13.333vw 1.3vw 2.667vw; z-index: 5;}
+.event200217 .cont .question > ul > li > .pop_etc .btn_pop_close {position: absolute;top:2.667vw;right:2.667vw;display: inline-block;width: 2.933vw; height: 2.933vw;background: url('/images/events/2020/event200217/btn_close.png') 0 0 no-repeat;background-size:contain;}
+.event200217 .cont .question > ul > li > .pop_etc textarea {width: 100%;height: 17.333vw;padding: 1.333vw;font-size: 2.667vw; color: #333;box-sizing:border-box;}
+.event200217 .cont .question > ul > li > .pop_etc .btn_submit {position: absolute;bottom:2.667vw;right:2.667vw;display: inline-block;width: 8.933vw; height: 4.933vw; background-color: #454545;color: #fff; font-size: 2.400vw; text-align: center; border-radius:0.667vw; line-height: 4.933vw; cursor: pointer;}
+
+.event200217 .agree_info {margin-top: 6.333vw;padding: 0 9.333vw;}
+.event200217 .agree_info dl {margin-bottom: 4vw;padding: 2vw 4vw;background-color: #f6f6f6;}
+.event200217 .agree_info dl dt {margin-bottom: 1.333vw;font-size: 2.667vw; color: #222;  font-family:"Nanum Gothic_Bold";}
+.event200217 .agree_info dl dd li {padding-left: 1.373vw;text-indent: -1.373vw;font-size: 2.400vw; color: #888; line-height: 1.3em;}
+.event200217 .join_ipt_chk .checkbox_circle + label {font-size: 2.667vw; }
+.event200217 .cont .btn_wrap,
+.event200217 .cont2 .btn_wrap {margin-top: 5.333vw;text-align: center;}
+.event200217 .cont .btn_wrap img,
+.event200217 .cont2 .btn_wrap img {width: auto;height: 9.733vw;}

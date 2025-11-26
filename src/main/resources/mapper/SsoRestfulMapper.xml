@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.sso.mapper.SsoRestfulMapper">
+
+	<select id="selectID" resultType="edu.visang.vivasam.sso.vo.ParamVo" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		SELECT
+			MEMBER_ID AS username,
+			CASE
+				WHEN ISRESTING = 1 THEN 'H'
+				ELSE 'A'
+			END AS mem_gn
+		FROM MEMBER
+		WHERE MEMBER_ID=#{username}
+	</select>
+
+	<update id="updateSsoMemPassWd" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE MEMBER
+		SET PASSWORD2 = fnSaltSHA512(#{password})
+			,UPDATE_DTTM= CURRENT_TIMESTAMP
+		WHERE MEMBER_ID=#{username}
+		AND IS_SSO_MEMBER= 1
+	</update>
+
+
+	<insert id="insertToidAsidFailLog" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		INSERT INTO sso_id_change_fail_log(
+			to_id,
+			as_id,
+			proc_gn,
+			MESSAGE,
+			reg_dttm
+			)
+		VALUES (
+			#{v_AfterID},
+			#{v_BeforeID},
+			#{proc_gn},
+			#{fail_log},
+			CURRENT_TIMESTAMP
+		)
+	</insert>
+
+	<select id="updateMemberDirectChange" parameterType="edu.visang.vivasam.sso.vo.ParamVo" resultType="int">
+        {call SP_SSO_MOD_ID_PROC  (#{v_BeforeID},#{v_AfterID} ,#{v_FromSite}) }
+    </select>
+
+
+    <update id="updateMemberDirectChange01" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDAET folder
+		SET member_id=#{v_AfterID}
+		WHERE member_id =  #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange02" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE folder_content
+		SET member_id=#{v_AfterID}
+		WHERE member_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange03" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE QBANK_V2_INFO_ITEM
+		SET member_id=#{v_AfterID}
+		WHERE member_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange04" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE APP_NOTIFICATION_SETTINGS
+		SET member_id=#{v_AfterID}
+		WHERE member_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange05" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE CREATE_JAEWOO_QNA_INFO
+		SET member_id=#{v_AfterID}
+		WHERE member_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange06" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE CULTURE_ACT_APPLY_INFO
+		SET member_id=#{v_AfterID}
+		WHERE member_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange07" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE DEVICE_APP_TOKENS
+		SET member_id=#{v_AfterID}
+		WHERE member_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange08" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE FOLDER
+		SET member_id=#{v_AfterID}
+		WHERE member_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange09" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE FOLDER_CONTENT
+		SET member_id=#{v_AfterID}
+		WHERE member_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange10" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE MEMBER_FAVORITES_MENU_INFO
+		SET member_id=#{v_AfterID}
+		WHERE member_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange11" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE MEMBER_MARKETING_AGREE_INFO
+		SET member_id=#{v_AfterID}
+		WHERE member_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange12" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE MEMBER_MOBILE_EPKI_REJECT_INFO
+		SET member_id=#{v_AfterID}
+		WHERE member_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange13" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE MEMBER_TEXTBOOK
+		SET member_id=#{v_AfterID}
+		WHERE member_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange14" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE PERIOD_MEMBER_TOC
+		SET member_id=#{v_AfterID}
+		WHERE member_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange15" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE PUSH_MESSAGES
+		SET target_member_id=#{v_AfterID}
+		WHERE target_member_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange16" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE PUSH_MESSAGES
+		SET reg_id=#{v_AfterID}
+		WHERE reg_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange17" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE PUSH_MESSAGES
+		SET mod_id=#{v_AfterID}
+		WHERE mod_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange18" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE QBANK_INFO
+		SET member_id=#{v_AfterID}
+		WHERE member_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange19" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE QBANK_SCRAP_ITEM
+		SET member_id=#{v_AfterID}
+		WHERE member_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange20" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE QBANK_V2_TYPE
+		SET member_id=#{v_AfterID}
+		WHERE member_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange21" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE QNA_INFO
+		SET REG_ID=#{v_AfterID}
+		WHERE REG_ID = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange22" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE QNA_INFO
+		SET UPT_ADM_ID=#{v_AfterID}
+		WHERE UPT_ADM_ID = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange23" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE REQ_DATA_INFO
+		SET REG_ID=#{v_AfterID}
+		WHERE REG_ID = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange24" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE REQ_DATA_INFO
+		SET ANS_ADM_ID=#{v_AfterID}
+		WHERE ANS_ADM_ID = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange25" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE SURVEY_APPLY_INFO
+		SET member_id=#{v_AfterID}
+		WHERE member_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange26" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE SURVEY_SEL_ITEM_INFO
+		SET member_id=#{v_AfterID}
+		WHERE member_id = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange27" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE tblMembershipCoupon_v2
+		SET RegID=#{v_AfterID}
+		WHERE RegID = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange28" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE tblMembershipCoupon_v2
+		SET TargetID=#{v_AfterID}
+		WHERE TargetID = #{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange29" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE SOCIAL_CONTENT_HIS
+		SET MEMBER_ID=#{v_AfterID}
+		WHERE MEMBER_ID=#{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange30" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE FILEDOWN_LOG
+		SET userid=#{v_AfterID}
+		WHERE userid=#{v_BeforeID}
+	</update>
+
+    <update id="updateMemberDirectChange31" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		UPDATE member
+		SET MEMBER_ID=#{v_AfterID} ,
+			SSO_BEFORE_ID=#{v_BeforeID},
+			SSO_REG_DTTM=CURRENT_TIMESTAMP,
+			SSO_REG_PATH_SITE=#{v_FromSite},
+			IS_SSO_MEMBER=1
+		WHERE MEMBER_ID=#{v_BeforeID}
+	</update>
+
+    <insert id="updateMemberDirectChange32" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		INSERT INTO [MEMBER] (
+			MEMBER_ID
+			, [NAME]
+			, REG_DATE
+			, REG_TIME
+			, UPDATE_DTTM
+			, PWD2
+			, PASSWORD2
+			, STATE
+    	)
+    	SELECT
+			#{v_BeforeID},
+			'비바샘'
+			,REG_DATE
+			,REG_TIME
+      		,UPDATE_DTTM
+			,PWD2
+			,PASSWORD2
+	    	,'D'
+	  	FROM member
+	  	WHERE member_id=#{v_AfterID};
+	</insert>
+
+
+    <select id="selectCheckChange" resultType="hashmap" parameterType="edu.visang.vivasam.sso.vo.ParamVo">
+		SELECT v_AfterID,
+			   MAX(after_id_exist) AS after_id_exist,
+			   v_BeforeID,
+			   MAX(before_id_rest_exist) AS before_id_rest_exist,
+			   MAX(ci_rest_yn) AS ci_rest_yn
+		  FROM (
+		  		SELECT #{v_AfterID} AS v_AfterID,
+					   'N' AS after_id_exist,
+					   #{v_BeforeID}  AS v_BeforeID,
+					   'N' AS before_id_rest_exist,
+					   'N' AS ci_rest_yn
+				UNION
+
+		  		SELECT #{v_AfterID} AS v_AfterID,
+					   'N' AS after_id_exist,
+					   #{v_BeforeID}  AS v_BeforeID,
+					   'Y' AS before_id_rest_exist,
+					   'N' AS ci_rest_yn
+				FROM ViVaSam_V2_inactive.MEMBER_INACTIVE
+				WHERE member_id = #{v_BeforeID}
+				UNION
+
+				SELECT #{v_AfterID}  AS v_AfterID,
+					   'N' AS after_id_exist,
+					   #{v_BeforeID} AS v_BeforeID,
+					   'N' AS before_id_rest_exist,
+					   'Y' AS ci_rest_yn
+				FROM ViVaSam_V2_inactive.MEMBER_INACTIVE
+				WHERE ipin_ci =  #{ci}
+				UNION
+
+				SELECT #{v_AfterID}  AS v_AfterID,
+					   'Y' AS after_id_exist,
+					   #{v_BeforeID} AS v_BeforeID,
+					   'N' AS before_id_rest_exist,
+					   'N' AS ci_rest_yn
+				FROM MEMBER
+				WHERE member_id = #{v_AfterID}
+			) a
+		GROUP BY v_AfterID, v_BeforeID
+	</select>
+
+</mapper>
+
+
+

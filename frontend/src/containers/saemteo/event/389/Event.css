@@ -1,0 +1,42 @@
+/* Event */
+.event220125{position:relative;background:#fff;}
+.event220125 img{width:100%;vertical-align:top;}
+.event220125 [class^="evtCont"]{position:relative;z-index:1;}
+.event220125 *{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+/* EVENT 387 */
+
+/* evtCont01 */
+*{box-sizing:border-box;}
+.color3 {color:#232225 !important;}
+
+.event220215 {width:100vw; background-color:#ffc000;}
+.event220215 .evtCont01{ padding: 0 5.333vw; padding-top:13.33vw;}
+.event220215 .evtCont01 h1 { font-size:0; width:79.73vw; height:20.53vw; margin:0 auto; margin-bottom:5.333vw; background:url(/images/events/2022/event220215/evt_tit.png)no-repeat; background-size:100% auto; }
+.event220215 .evtCont01 .evtNoti ul {margin-bottom:4vw;}
+.event220215 .evtCont01 .evtNoti ul li {width:100%; text-align:center; padding:1.86vw; font-size:3.2vw; color:#000; font-weight:600; letter-spacing:-0.05em;}
+.event220215 .evtCont01 .evtNoti ul li span { font-size:3.33vw; color:#fff; font-weight:600; letter-spacing:-0.05em;}
+.event220215 .evtCont01 .evtNoti .evtOpenwrap {width:100%; padding-left:5.06vw;}
+.event220215 .evtCont01 .evtNoti .evtOpen {width:84.53vw; height:30.13vw; background:url(/images/events/2022/event220215/evt_open.png)no-repeat; background-size:100% auto; background-position:right top; margin-bottom:11.33vw;}
+.event220215 .evtCont01 .evtNoti .evtOpen .openDate {font-size:0;}
+.event220215 .evtCont01 .evtNoti .evtOpen .openNotice {font-size:0;}
+.event220215 .evtCont02 {width:100vw; height:186.7vw; background:url(/images/events/2022/event220215/evt_calendar.png)no-repeat; background-size:100% auto; padding-top:37.06vw; position:relative;}
+.event220215 .evtCont02 h2 {font-size:0;}
+.event220215 .evtCont02 ul {width:100%; display:flex; justify-content:center; flex-wrap:wrap; padding:0 9.06vw;}
+.event220215 .evtCont02 ul li {padding-left:6.4vw; width:100%; position:relative; color:#7a7a7a; font-size:3.73vw; line-height:5.333vw; font-weight:500; margin-bottom:2.66vw; letter-spacing: -0.03em; }
+.event220215 .evtCont02 ul li:after {content:""; display:block; position:absolute; left:0; top:0.8vw;  width:3.86vw; height:3.86vw; background:url(/images/events/2022/event220215/evt_ic.png)no-repeat; background-size:100% auto;}
+.event220215 .evtCont02 ul li span {font-size:3.73vw; font-weight:500;}
+.event220215 .evtCont02 .btnApply {width:89.33vw; height:14.13vw; font-size:0; position:absolute; background:url(/images/events/2022/event220215/evt_btn.png)no-repeat; background-size:100% auto; left:50%; bottom:14.13vw; transform:translateX(-50%); }
+
+.event220215 .evtNotice {background-color:#e5dfd4; padding:8vw 6.66vw;}
+.event220215 .evtNotice strong{font-size:3.73vw;color:#444;font-weight:600; margin-bottom:4vw; display:inline-block;}
+.event220215 .evtNotice ul li{font-size:3.2vw; color:#686868; margin-bottom:1.33vw; padding-left: 2.93vw; text-indent: -2.93vw; letter-spacing:-0.05em;}
+.event220215 .evtNotice ul li span {margin-right:1.33vw; letter-spacing:-0.06em;}
+
+/*popup*/
+.applyDtl_cell h3 {color:#393d49; font-weight:600;}
+.applyDtl_cell h3 strong {color:#4083ed; font-weight:600;}
+.applyDtl_cell h1 strong {color:#ff8125;}

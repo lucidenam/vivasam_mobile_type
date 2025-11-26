@@ -1,0 +1,8 @@
+.event200214 {position: relative; font-family:"Nanum Gothic", "sans-serif";}
+.event200214 img {vertical-align: middle; width:100%; line-height:0}
+.event200214 a {display: inline;}
+
+/* btn */
+.event200214 .cont3 {position: relative; background-color:#649369}
+.event200214 .cont3 .btn_wrap {box-sizing:border-box; padding: 5.333vw 4.667vw;}
+.event200214 .cont3 .btn_wrap button {width: 100%;}

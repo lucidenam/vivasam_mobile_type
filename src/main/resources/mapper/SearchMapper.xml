@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.common.mapper.SearchMapper">
+    <select id="searchList" parameterType="Object" resultType="hashmap">
+        {CALL SP_SEARCH_DATA(#{word, jdbcType=CHAR}, #{member, jdbcType=CHAR})}
+    </select>
+
+    <select id="searchEducourseListCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM keyword AS k
+        JOIN V_SEARCH_EDUCOURSE_INFO AS VS ON VS.CONTENT_GUBUN = k.CONTENT_GUBUN
+            AND VS.CONTENT_ID = k.CONTENT_ID
+        WHERE k.SEARCH_NAME LIKE CONCAT(#{word},'%')
+        LIMIT 3
+    </select>
+
+    <select id="searchEducourseListTop3" parameterType="java.lang.String" resultType="hashmap">
+        SELECT
+            k.NAME,
+            k.SEARCH_NAME,
+            k.CONTENT_GUBUN,
+            k.CONTENT_ID,
+            VS.SCHOOL_LVL,
+            VS.PAGE_PATH,
+            VS.SUBJECT,
+            VS.PAGE_LINK_URL,
+            VS.FILE_TYPE,
+            VS.THUMBNAIL_PATH,
+            VS.THUMBNAIL_PATH_L,
+            VS.TYPE_1,
+            VS.TYPE_1_NM,
+            VS.TYPE_2,
+            VS.TYPE_2_NM
+        FROM keyword AS k
+        JOIN V_SEARCH_EDUCOURSE_INFO AS VS ON VS.CONTENT_GUBUN = k.CONTENT_GUBUN
+            AND VS.CONTENT_ID = k.CONTENT_ID
+        WHERE k.SEARCH_NAME LIKE CONCAT(#{word},'%')
+        ORDER BY CONTENT_ID DESC
+        LIMIT 3
+    </select>
+
+    <select id="searchEducourseList" parameterType="Object" resultType="hashmap">
+        <!--
+        DECLARE @RowsPerPage INT = 20, @PageNumber INT = #{pageNumber}
+        SELECT
+            EDU.*
+        FROM (
+                 SELECT
+                    <if test="type == 'DEFAULT'">ROW_NUMBER() OVER (ORDER BY k.CONTENT_ID) AS RowNum,</if>
+                    <if test="type == 'REG_DTTM'">ROW_NUMBER() OVER (ORDER BY VS.REG_DTTM DESC) AS RowNum,</if>
+                    <if test="type == 'VIEW_CNT'">ROW_NUMBER() OVER (ORDER BY VS.VIEW_CNT DESC) AS RowNum,</if>
+                    k.NAME,
+                    k.SEARCH_NAME,
+                    k.CONTENT_GUBUN,
+                    k.CONTENT_ID,
+                    VS.SCHOOL_LVL,
+                    VS.PAGE_PATH,
+                    VS.SUBJECT,
+                    VS.PAGE_LINK_URL,
+                    VS.FILE_TYPE,
+                    VS.THUMBNAIL_PATH,
+                    VS.THUMBNAIL_PATH_L,
+                    VS.TYPE_1,
+                    VS.TYPE_1_NM,
+                    VS.TYPE_2,
+                    VS.TYPE_2_NM,
+                    VS.REG_DTTM,
+                    VS.VIEW_CNT
+                 FROM keyword AS k
+                      JOIN V_SEARCH_EDUCOURSE_INFO AS VS ON VS.CONTENT_GUBUN = k.CONTENT_GUBUN AND VS.CONTENT_ID = k.CONTENT_ID
+                 WHERE
+                    k.SEARCH_NAME like #{word} + '%'
+                    <if test="schoolLevels != null">
+                        AND VS.SCHOOL_LVL IN
+                        <foreach collection="schoolLevels" separator="," open="(" close=")" item="item">#{item}</foreach>
+                    </if>
+                    <if test="eduYears != null">
+                        AND VS.EDU_YEAR IN
+                        <foreach collection="eduYears" separator="," open="(" close=")" item="item">#{item}</foreach>
+                    </if>
+                    <if test="type1 != null">
+                        AND VS.TYPE_1 IN
+                        <foreach collection="type1" separator="," open="(" close=")" item="item">#{item}</foreach>
+                    </if>
+                    <if test="extNames != null">
+                        AND VS.TYPE_1 IN
+                        <foreach collection="extNames" separator="," open="(" close=")" item="item">#{item}</foreach>
+                    </if>
+                    <if test="subjectCodes != null">
+                        AND VS.SUBJECT_CODE IN
+                        <foreach collection="subjectCodes" separator="," open="(" close=")" item="item">#{item}</foreach>
+                    </if>
+             ) AS EDU
+        WHERE EDU.RowNum BETWEEN ((@PageNumber-1)*@RowsPerPage)+1 AND @RowsPerPage*(@PageNumber)
+        -->
+        SELECT
+            0 AS IDX
+            , CAST(COUNT(1) AS CHAR) AS NAME
+            , CAST(CEILING(CAST(COUNT(1) AS FLOAT) / 10) AS CHAR) AS SEARCH_NAME
+            , CAST(10 AS CHAR) AS CONTENT_GUBUN
+            , NULL AS CONTENT_ID
+            , NULL AS SCHOOL_LVL
+            , NULL AS PAGE_PATH
+            , NULL AS SUBJECT
+            , NULL AS PAGE_LINK_URL
+            , NULL AS FILE_TYPE
+            , NULL AS THUMBNAIL_PATH
+            , NULL AS THUMBNAIL_PATH_L
+            , NULL AS TYPE_1
+            , NULL AS TYPE_1_NM
+            , NULL AS TYPE_2
+            , NULL AS TYPE_2_NM
+            , NULL AS REG_DTTM
+            , NULL AS VIEW_CNT
+        FROM keyword AS k
+        LEFT JOIN V_SEARCH_EDUCOURSE_INFO AS VS ON VS.CONTENT_GUBUN = k.CONTENT_GUBUN
+            AND VS.CONTENT_ID = k.CONTENT_ID
+        WHERE k.SEARCH_NAME like CONCAT(#{educourseSearch.word}, '%')
+        <if test="educourseSearch.schoolLevels != null">
+            AND VS.SCHOOL_LVL IN
+            <foreach
+                collection="educourseSearch.schoolLevels"
+                separator=","
+                open="("
+                close=")"
+                item="item"
+            >#{item}</foreach>
+        </if>
+        <if test="educourseSearch.eduYears != null">
+            AND VS.EDU_YEAR IN
+            <foreach
+                collection="educourseSearch.eduYears"
+                separator=","
+                open="("
+                close=")"
+                item="item"
+            >#{item}</foreach>
+        </if>
+        <if test="educourseSearch.type1 != null">
+            AND VS.TYPE_1 IN
+            <foreach
+                collection="educourseSearch.type1"
+                separator=","
+                open="("
+                close=")"
+                item="item"
+            >#{item}</foreach>
+        </if>
+        <if test="educourseSearch.extNames != null">
+            AND VS.TYPE_1 IN
+            <foreach
+                collection="educourseSearch.extNames"
+                separator=","
+                open="("
+                close=")"
+                item="item"
+            >#{item}</foreach>
+        </if>
+        <if test="educourseSearch.subjectCodes != null">
+            AND VS.SUBJECT_CODE IN
+            <foreach
+                collection="educourseSearch.subjectCodes"
+                separator=","
+                open="("
+                close=")"
+                item="item"
+            >#{item}</foreach>
+        </if>
+        UNION
+        SELECT *
+        FROM (
+            SELECT
+                ROW_NUMBER() OVER (ORDER BY VS.REG_DTTM DESC) AS IDX
+                , k.NAME
+                , k.SEARCH_NAME
+                , k.CONTENT_GUBUN
+                , k.CONTENT_ID
+                , VS.SCHOOL_LVL
+                , VS.PAGE_PATH
+                , VS.SUBJECT
+                , VS.PAGE_LINK_URL
+                , VS.FILE_TYPE
+                , VS.THUMBNAIL_PATH
+                , VS.THUMBNAIL_PATH_L
+                , VS.TYPE_1
+                , VS.TYPE_1_NM
+                , VS.TYPE_2
+                , VS.TYPE_2_NM
+                , VS.REG_DTTM
+                , VS.VIEW_CNT
+            FROM keyword AS k
+            LEFT JOIN V_SEARCH_EDUCOURSE_INFO AS VS ON VS.CONTENT_GUBUN = k.CONTENT_GUBUN
+                AND VS.CONTENT_ID = k.CONTENT_ID
+            WHERE k.SEARCH_NAME like CONCAT(#{educourseSearch.word}, '%')
+            <if test="educourseSearch.schoolLevels != null">
+                AND VS.SCHOOL_LVL IN
+                <foreach
+                    collection="educourseSearch.schoolLevels"
+                    separator=","
+                    open="("
+                    close=")"
+                    item="item"
+                >#{item}</foreach>
+            </if>
+            <if test="educourseSearch.eduYears != null">
+                AND VS.EDU_YEAR IN
+                <foreach
+                    collection="educourseSearch.eduYears"
+                    separator=","
+                    open="("
+                    close=")"
+                    item="item"
+                >#{item}</foreach>
+            </if>
+            <if test="educourseSearch.type1 != null">
+                AND VS.TYPE_1 IN
+                <foreach
+                    collection="educourseSearch.type1"
+                    separator=","
+                    open="("
+                    close=")"
+                    item="item"
+                >#{item}</foreach>
+            </if>
+            <if test="educourseSearch.extNames != null">
+                AND VS.TYPE_1 IN
+                <foreach
+                    collection="educourseSearch.extNames"
+                    separator=","
+                    open="("
+                    close=")"
+                    item="item"
+                >#{item}</foreach>
+            </if>
+            <if test="educourseSearch.subjectCodes != null">
+                AND VS.SUBJECT_CODE IN
+                <foreach
+                    collection="educourseSearch.subjectCodes"
+                    separator=","
+                    open="("
+                    close=")"
+                    item="item"
+                >#{item}</foreach>
+            </if>
+        ) AS EDU
+        WHERE EDU.IDX <![CDATA[ > ]]> #{pageRequest.offset}
+        AND EDU.IDX <![CDATA[ <= ]]> (#{pageRequest.pageSize} * (#{pageRequest.pageNumber} + 1))
+    </select>
+
+    <select id="searchLibraryListCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM keyword AS k
+        JOIN V_SEARCH_LIBRARY_INFO AS VS ON VS.CONTENT_GUBUN = k.CONTENT_GUBUN
+            AND VS.CONTENT_ID = k.CONTENT_ID
+        WHERE k.SEARCH_NAME LIKE CONCAT(#{word},'%')
+        LIMIT 3
+    </select>
+
+    <select id="searchLibraryListTop3" parameterType="java.lang.String" resultType="hashmap">
+        SELECT
+            k.NAME,
+            k.SEARCH_NAME,
+            k.CONTENT_GUBUN,
+            k.CONTENT_ID,
+            VS.PAGE_PATH,
+            VS.SUBJECT,
+            VS.PAGE_LINK_URL,
+            VS.FILE_TYPE,
+            VS.THUMBNAIL_PATH,
+            VS.THUMBNAIL_PATH_L,
+            VS.TYPE_1,
+            VS.TYPE_1_NM,
+            VS.TYPE_2,
+            VS.TYPE_2_NM
+        FROM keyword AS k
+        JOIN V_SEARCH_LIBRARY_INFO AS VS ON VS.CONTENT_GUBUN = k.CONTENT_GUBUN
+            AND VS.CONTENT_ID = k.CONTENT_ID
+        WHERE k.SEARCH_NAME LIKE CONCAT(#{word},'%')
+        ORDER BY CONTENT_ID DESC
+        LIMIT 3
+    </select>
+
+    <select id="searchLibraryList" parameterType="object" resultType="hashmap">
+        SSELECT
+            0 AS IDX
+            , CAST(COUNT(1) AS CHAR) AS NAME
+            , CAST(CEILING(CAST(COUNT(1) AS FLOAT) / 10) AS CHAR) AS SEARCH_NAME
+            , CAST(10 AS CHAR) AS CONTENT_GUBUN
+            , NULL AS CONTENT_ID
+            , NULL AS SIDX
+            , NULL AS PAGE_PATH
+            , NULL AS SUBJECT
+            , NULL AS VIEW_CNT
+            , NULL AS PAGE_LINK_URL
+            , NULL AS FILE_PATH
+            , NULL AS SAVE_FILE_NAME
+            , NULL AS THUMBNAIL_PATH
+            , NULL AS THUMBNAIL_PATH_L
+            , NULL AS FILE_TYPE
+        FROM keyword AS k
+        LEFT JOIN V_SEARCH_EDUCOURSE_INFO AS VS ON VS.CONTENT_GUBUN = k.CONTENT_GUBUN
+            AND VS.CONTENT_ID = k.CONTENT_ID
+        WHERE k.SEARCH_NAME like CONCAT(#{educourseSearch.word}, '%')
+
+        UNION
+
+        SELECT *
+        FROM (
+            SELECT
+                ROW_NUMBER() OVER (ORDER BY VS.REG_DTTM DESC) AS IDX,
+                , k.NAME
+                , k.SEARCH_NAME
+                , k.CONTENT_GUBUN
+                , k.CONTENT_ID
+                , VS.SIDX
+                , VS.PAGE_PATH
+                , VS.SUBJECT
+                , VS.VIEW_CNT
+                , VS.PAGE_LINK_URL
+                , VS.FILE_PATH
+                , VS.SAVE_FILE_NAME
+                , VS.THUMBNAIL_PATH
+                , VS.THUMBNAIL_PATH_L
+                , VS.FILE_TYPE
+            FROM keyword AS k
+            LEFT JOIN V_SEARCH_LIBRARY_INFO AS VS ON VS.CONTENT_GUBUN = k.CONTENT_GUBUN
+                AND VS.CONTENT_ID = k.CONTENT_ID
+            WHERE k.SEARCH_NAME like CONCAT(#{educourseSearch.word},'%')
+            AND VS.FILE_TYPE IN ('FT203', 'FT201')
+            AND VS.TYPE_1 IN ('304001', '304002', '304003', '304004', '304005', '304006');
+        ) AS LIBRARY
+        WHERE LIBRARY.IDX <![CDATA[ > ]]> #{pageRequest.offset}
+        AND LIBRARY.IDX <![CDATA[ <= ]]> (#{pageRequest.pageSize} * (#{pageRequest.pageNumber} + 1))
+    </select>
+
+    <select id="searchNoticeListCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM V_SEARCH_CS_INFO
+        WHERE CONTENTS LIKE CONCAT('%',#{word},'%')
+    </select>
+
+    <select id="searchNoticeListTop3" parameterType="java.lang.String" resultType="hashmap">
+        SELECT *
+        FROM V_SEARCH_CS_INFO
+        WHERE CONTENTS
+        LIKE CONCAT('%',#{word},'%')
+        ORDER BY REG_DTTM DESC
+        LIMIT 3
+    </select>
+
+    <select id="searchNoticeList" parameterType="java.lang.String" resultType="hashmap">
+        SELECT *
+        FROM V_SEARCH_CS_INFO
+        WHERE CONTENTS LIKE CONCAT('%',#{word},'%')
+        ORDER BY REG_DTTM DESC
+    </select>
+</mapper>

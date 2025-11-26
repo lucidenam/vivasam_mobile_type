@@ -1,0 +1,65 @@
+/* Event */
+.event230809{position:relative;}
+.event230809 img{width:100%;vertical-align:top;}
+.event230809 [class^="evtCont"]{position:relative;z-index:1;}
+.event230809 *{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+
+/* EVENT 428 */
+.teacherProgram {display: inline-block; position: absolute; left: 0; top: 0; width: 28vw; font-size: 2.4vw; font-weight: 400; color: #fff; line-height: 6.66vw; text-align: center; border-radius: 0 0 2.8vw; background: #5146d8; z-index: 99;}
+
+/* evtNoti */
+.event230809 .evtCon{z-index:2; position:absolute;top:0;right:0;display:block;width:16.4vw;height:21.86vw;background:url(/images/events/common/corn.png) 0 0 no-repeat;background-size:100% auto;}
+.event230809 .evtCont2{ position: relative; background: #be67a0; text-align: center;}
+.event230809 .evtCont2 .btnMap {display: inline-block; position: absolute; left: 50.4vw; top: 19vw; width: 19.73vw; height: 5.06vw; background:url(/images/events/2023/event230809/btn_map.png)no-repeat center; background-size: 100% auto;}
+.event230809 .evtCont2 .btnShare {display: inline-block; position: absolute; width: 25.3vw; height: 5.06vw; left: 48.93vw; top: 320.4vw; background:url(/images/events/2023/event230809/btn_share.png)no-repeat center; background-size: 100% auto;}
+.event230809 .evtCont2 .btnApply {display: inline-block; width: 70.93vw; height: 13.6vw; margin: 5.33vw 0 10.4vw; font-size: 0; background:url(/images/events/2023/event230809/btn_apply.png)no-repeat center; background-size: 100% auto;}
+
+/*popup*/
+
+.applyDtl_top {padding: 0;}
+.applyDtl_top h3 {color: #393d49; text-align:center!important;}
+.applyDtl_top h3 strong {font-size:4.26vw; font-weight:600; color: #e6563c !important;}
+.applyDtl_top .applyDtl_cell {display: flex; justify-content: center; align-items: center; height: 14.13vw; }
+.applyDtl_top .applyDtl_cell:nth-of-type(1) {background: #ffda70; border-bottom: 1px solid #d0d0d0;}
+.applyDtl_top .applyDtl_cell:nth-of-type(2) {background: #faf5f3;}
+.applyDtl_top .applyDtl_cell:nth-of-type(2) p {font-size:3.2vw; font-weight: 400; color: #ff8125; text-align: center;}
+.vivasamter_applyDtl .input_name input[type="text"] {height: auto; padding-left: 0; font-weight: 400; color: #838a95; line-height: 1; background: #fff; border: 0;  }
+.join_chk_list {width:50%; padding: 0;}
+.privacyTxt a {color:#01aeff;}
+.vivasamter_applyDtl .pdside20 + .acco_notice_list.notice_sec {padding-top:0; margin-top:0; border-top:0;}
+.vivasamter_applyDtl .pdside20 + .acco_notice_list.notice_sec .acco_notice_cont {border-top:0;}
+.info_tit.chk_tit > label {display: inline-block; width: 20%; vertical-align: middle;}
+.info_tit.chk_tit .join_ipt_chk {display: inline-block;width: 75%;margin: 0;padding-left: 32px;vertical-align: middle;}
+.info_wrap .inner {display: flex; align-items: center; gap: 10px;}
+.info_wrap .inner > * {flex: 1;}
+.info_wrap input[type="text"] {margin-bottom: 0;}
+.info_wrap input[type="text"]:nth-of-type(1) { border-radius: 10px; }
+.info_wrap input[type="text"]:nth-of-type(2) { border-radius: 10px;}
+.info_wrap ul {flex: 1;}
+.info_wrap ul.join_ipt_chk li.join_chk_list {width: 100%;}
+.info_wrap input[type="radio"] + label {display: inline-block; margin-top: 20px; vertical-align: super;}
+.info_wrap .join_ipt_chk {margin: 0;}
+.info_wrap .join_ipt_chk:after {display: none;}
+.privacyList.event2 .c_o {font-weight:600;}
+.checkbox_circle_simple .c_o {font-weight: 600;}
+.input_wrap .count span {color: #fd5b76 !important; font-size: 12px;}
+.evtForm_labelTxt {padding-left: 9px; text-indent: -9px;}
+
+.textarea_tit {position: relative;}
+.textarea_tit .count_wrap {position: absolute; right: 0; top: 50%; transform: translateY(-21px);}
+.input_wrap .count {display:flex; justify-content:flex-end; margin-top:1.33vw;}
+.input_wrap .count span{font-size:3.2vw; font-weight:400; color:#888;}
+.vivasamter_applyDtl .info_tit.info_textarea {position:relative; padding-left:3.8vw; text-indent:-1.8vw;}
+.vivasamter_applyDtl .info_tit.info_textarea .txt_count {position:absolute; right:5px; bottom: 7px;}
+.input_wrap textarea {width:100%; min-height:45.33vw; padding:4vw; font-size:14px; border:1px solid #eaeaea; border-radius:2.66vw;}
+.input_wrap textarea::placeholder {color:#838a95;}
+.vivasamter_apply .info_tit span {font-size:14px;}
+.vivasamter_apply .currentCount {font-size:14px;}
+
+.vivasamter_applyDtl .checkbox_circle_tit span{letter-spacing:-0.04em; word-break: break-all;}
+
+#teacherInfo2 + lable {display:inline-block; margin-top: 15px;}

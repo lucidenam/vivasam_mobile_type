@@ -1,0 +1,36 @@
+/* EVENT 507 */
+.event240610{position:relative;}
+.event240610 img{width:100%;vertical-align:top;}
+.event240610 [class^="evtCont"]{position:relative;z-index:1;}
+.event240610 *{font-family:'Noto Sans KR', sans-serif;}
+.event240610 input[type="checkbox"]{display:none;}
+
+.btn_link{position:absolute; right:9.63vw; bottom:36.111vw; width:29.074vw; height:30.093vw;}
+.btnApply{position:absolute; bottom:28.519vw; left:50%; transform:translateX(-50%); width:58.796vw; height:19.63vw; background:url('/images/events/2024/event240610/btn_apply.png') no-repeat center / contain;}
+
+.notice { padding:13.889vw 0 13.889vw 5vw; background: #fff;}
+.notice strong {font-size:3.704vw; font-weight:600; color:#211915; line-height:1;}
+.notice ul{margin-top:2.778vw;}
+.notice ul li{padding-left:2.13vw; text-indent:-2.13vw; font-size:2.407vw; color:#211915; font-weight:400; line-height:1.5}
+.notice ul li+li{margin-top:0.926vw;}
+
+
+
+/*신청하기팝업*/
+.event240610 .applyDtl_top{background:#ffe785;}
+.event240610 .applyDtl_top h3{font-size:17px; text-align:left;}
+.event240610 .applyDtl_top h3 strong{color:#222;}
+.event240610 .info_tit label{font-size:14px;font-weight:600;color:#393d49;}
+.event240610 .vivasamter_applyDtl .info_tit > .join_ipt_chk{display:inline-block;}
+.event240610 .vivasamter_applyDtl .info_tit > .join_ipt_chk .join_chk_list.half{margin:0 0 0 20px;float:none;width:auto;display:inline-block;}
+.event240610 .join_chk_list input[type="radio"].checkbox_circle + label{font-size:14px;font-weight:400;color:#464a55;}
+.event240610 .join_chk_list input[type="radio"].checkbox_circle:checked + label{font-size:14px;font-weight:400;}
+.event240610 .vivasamter_applyDtl .input_wrap.school .input_sm{width:calc(100% - 130px);}
+.event240610 .vivasamter_applyDtl .input_wrap.school .input_in_btn.btn_gray{margin-left:5px;margin-top:-24px;right:0;width:125px;height:48px;font-size:14px;font-weight:600;vertical-align: top;}
+.event240610 .bulTxt{padding-left:25px;margin-top:5px;text-indent:-10px;}
+.event240610 .vivasamter_applyDtl .privacyList li{padding-left:7px;font-weight:400;}
+.event240610 .vivasamter_applyDtl .privacyList li:before{left:0;}
+.event240610 .vivasamter_applyDtl .acco_notice_cont .privacyTxt{font-weight:400;}
+.event240610 .infoTxtWrap{margin-top:7px; padding:0 15px;}
+.event240610 .inputInfoTxt{font-size:12px; color:#888888; padding-left:10px; text-indent:-10px;}
+.event240610 .evtItemWRap img{width:100%;}

@@ -1,0 +1,53 @@
+/* EVENT 240429 */
+.event240429{position:relative;}
+.event240429 img{width:100%;vertical-align:top;}
+.event240429 [class^="evtCont"]{position:relative;z-index:1;}
+.event240429 *{font-family:'Noto Sans KR', sans-serif;}
+.event240429 input[type="checkbox"]{display:none;}
+
+.event240429 .evtIntro{position:relative; background:#4476fb;}
+.event240429 .evtIntro .tabWrap{margin:0 2.778vw; background:transparent;}
+.event240429 .evtIntro .tabMenu{display:flex; gap:0.37vw;}
+.event240429 .evtIntro .tabMenu li{flex:1;}
+.event240429 .evtIntro .tabMenu li button{display:block; width:100%; font-size:3.241vw; color:#fff; font-weight:600; line-height:7.778vw; background:#95abe7; border:1px solid #15254f; border-radius:1.852vw 1.852vw 0 0;}
+.event240429 .evtIntro .tabMenu li button i{margin-left:1.204vw; display:inline-block; width:2.407vw; height:7.778vw; vertical-align:top;}
+.event240429 .evtIntro .tabMenu li.on button{background:#0000ea; border-color:#26428d;}
+.event240429 .evtIntro .tabMenu li.on button i{background:url('/images/events/2024/event240429/arr_down.png') no-repeat center / 100% auto;}
+.event240429 .evtIntro .contVideo{display:none; position:relative; width:100%;}
+.event240429 .evtIntro .contVideo.on{display:block;}
+.event240429 .evtIntro .contVideo:after{content:''; display:block; padding-top:56.25%;}
+.event240429 .evtIntro .contVideo .thumb{display:none; position:absolute; left:0; right:0; top:0; bottom:0; width:100%; height:100%; z-index:10; overflow:hidden;}
+.event240429 .evtIntro .contVideo .thumb.on{display:block;}
+.event240429 .evtIntro .contVideo .thumb .btn_play{position:absolute; left:50%; top:50%; transform:translate(-50%, -50%); width:7.685vw; height:8.426vw; background:url('/images/events/2024/event240429/btn_play.png') no-repeat center / 100% auto;}
+.event240429 .evtIntro .contVideo iframe{position:absolute; left:0; right:0; top:0; bottom:0; width:100%; height:100%;}
+.event240429 .evtIntro .btn_view{position:absolute; top:181.852vw; left:50%; transform:translateX(-50%); width:65.648vw; height:17.037vw; background:url('/images/events/2024/event240429/btn_view.png') no-repeat center / 100% auto;}
+.event240429 .evtIntro .btn_app_down_wrap{position:absolute; bottom:12.037vw; left:50%; transform:translateX(-50%); width:90.741vw; display:flex; justify-content:space-between;}
+.event240429 .evtIntro .btn_app_down_wrap a{display:block; width:42.593vw; height:18.519vw;}
+
+.event240429 .btnApply{position:absolute; bottom:9.259vw; left:50%; transform:translateX(-50%); width:83.6vw; height:15.6vw; background:url('/images/events/2024/event240429/btn_apply.png') no-repeat center center / 100% auto;}
+
+
+.event240429 .evtFooterWrap{padding:8.333vw 0 8.333vw 4.63vw; background:#434343;}
+.event240429 .evtFooterWrap h6{font-size:3.704vw; color:#fff; font-weight:600; line-height:1;}
+.event240429 .evtFooterWrap ul{margin-top:4.167vw}
+.event240429 .evtFooterWrap ul li{position:relative; padding-left:1.852vw; font-size:2.407vw; color:#fff; font-weight:400; line-height:3.333vw; opacity:.8;}
+.event240429 .evtFooterWrap ul li:before{content:''; position:absolute; left:0; top:1.389vw; width:0.556vw; height:0.556vw; background:#fff; border-radius:50%;}
+.event240429 .evtFooterWrap ul li.ty2{color:#f7f18e;}
+
+/*신청하기 팝업*/
+.event240429 .applyDtl_top.bg_pink{background:#ffc1d0;}
+.event240429 .applyDtl_top.bg_pink .applyDtl_cell h3{color:#ff1f54;}
+.vivasamter_applyDtl .privacyList li span{font:inherit; color:#ff8125;}
+.event240429 .vivasamter_applyDtl .info_tit>.join_ipt_chk {display:inline-block;}
+.event240429 .vivasamter_applyDtl .info_tit>.join_ipt_chk .join_chk_list.half {margin:0 0 0 20px; float:none; width:auto; display:inline-block;}
+.event240429 .vivasamter_applyDtl .info_tit>.join_ipt_chk .join_chk_list.half.ml38 {margin-left:38px !important;}
+.event240429 .bulTxt {padding-left:25px; margin-top:5px;text-indent:-10px;}
+.event240429 .vivasamter_applyDtl .input_wrap.school .input_sm {width:calc(100% - 130px); margin-top:10px;}
+.event240429 .vivasamter_applyDtl .input_wrap.school .input_in_btn.btn_gray {margin-left:5px; margin-top:-24px; right:0; width:125px; height:48px; font-size:14px; font-weight:600; vertical-align:top;}
+
+
+
+
+
+
+

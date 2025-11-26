@@ -1,0 +1,48 @@
+/* EVENT 381 */
+.event381{position:relative;}
+.event381 img{width:100%;vertical-align:top;}
+.event381 [class^="evtCont"]{position:relative;z-index:1;}
+.event381 *{font-family:'Noto Sans KR', sans-serif;}
+.event381 input[type="checkbox"]{display:none;}
+
+.event381 .evtCont01{padding:13.33vw 10.93vw 0;background:#eddecf;}
+.event381 .evtCont01 .logo{position:absolute; top:15px; left:0; width:100%; padding:0 20px; overflow: hidden;}
+.event381 .evtCont01 .logo img{width:100%;}
+.event381 .evtCont01 .logo .logoVisang{float:left; width:13.87vw;}
+.event381 .evtCont01 .logo .logoVivasam{float:right; width:11.73vw;}
+
+.event381 .evtCont02{padding:0 8vw 33.33vw;background:#eddecf;}
+.event381 .evtCont02 .btnView1{position:absolute; left:57.87%; top:27.67%; width:12.8vw; height:12.8vw; background:url('/images/events/2021/381/viewBtn.png') no-repeat center center; background-size:100% 100%;}
+.event381 .evtCont02 .btnView2{position:absolute; left:57.87%; top:67.55%; width:12.8vw; height:12.8vw; background:url('/images/events/2021/381/viewBtn.png') no-repeat center center; background-size:100% 100%;}
+.event381 .evtCont02 .btnApply{position:absolute; left:50%; bottom:45px; transform:translateX(-50%); width:58.67vw; height:13.33vw; background:url('/images/events/2021/381/applyBtn.png') no-repeat center center; background-size:100% 100%;}
+
+
+
+.event381 .evtCont03{background:#6a6865;}
+.event381 .evtCont03 .evtFootWrap{padding:10.67vw 8vw 9.33vw;}
+.event381 .evtCont03 p{font-size:3.73vw; color:#eddecf; line-height:1; font-weight:600;}
+.event381 .evtCont03 ul{margin-top:4vw;}
+.event381 .evtCont03 ul li{padding-left:2.67vw; text-indent: -2.67vw; font-size:2.93vw; color:#c9c9c9; line-height:4.8vw; font-weight:400;}
+
+
+
+/*신청하기팝업*/
+.event381 .applyDtl_top{background:#fff;padding: 15px 20px;}
+.event381 .applyDtl_top h3{text-align:center; font-size: 20px; color: #393d49; font-weight: 700;}
+.event381 .applyDtl_top h3 strong{color:#4083ed; font-size:inherit; font-weight:inherit;}
+.event381 .info_tit label{font-size:14px;font-weight:600;color:#393d49;}
+.event381 .vivasamter_applyDtl .info_tit {margin: 17px 0 0; padding: 0 0 7px; font-size: 14px; font-weight: 500; color: #393d49; letter-spacing: -.04em;}
+.event381 .vivasamter_applyDtl .info_tit:before {content: "*"; display: inline-block; margin-right: 5px; font-size: 19px; color: #4083ed; vertical-align: middle; line-height: 1;}
+.event381 .vivasamter_applyDtl .info_tit > .join_ipt_chk{display:inline-block;}
+.event381 .vivasamter_applyDtl .info_tit > .join_ipt_chk .join_chk_list.half{margin:0 0 0 20px;float:none;width:auto;display:inline-block;}
+.event381 .join_chk_list input[type="radio"].checkbox_circle + label{font-size:14px;font-weight:400;color:#464a55;}
+.event381 .join_chk_list input[type="radio"].checkbox_circle:checked + label{font-size:14px;font-weight:400;}
+.event381 .vivasamter_applyDtl .input_wrap.school .input_sm{width:calc(100% - 130px);}
+.event381 .vivasamter_applyDtl .input_wrap.school .input_in_btn.btn_gray{margin-left:5px;margin-top:-24px;right:0;width:125px;height:48px;font-size:14px;font-weight:600;vertical-align: top;}
+.event381 .bulTxt{padding-left:25px;margin-top:5px;text-indent:-10px;}
+.event381 .vivasamter_applyDtl .privacyList li{font-weight:400;}
+.event381 .vivasamter_applyDtl .acco_notice_cont .privacyTxt{font-weight:400;}
+.event381 .infoTxtWrap{margin-top:15px; padding:0 15px;}
+.event381 .inputInfoTxt{font-size:12px; color:#888888; padding-left:10px; text-indent:-10px;}
+.event381 .evtItemWRap img{width:100%;}
+.event381 .vivasamter_applyDtl .btn_event_apply {display: block; width: 90%; height: 48px; margin: 0 auto; background: #4083ed; border-radius: 6.4vw; font-size: 17px; font-weight: 700; color: #fff;}

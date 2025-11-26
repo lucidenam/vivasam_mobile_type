@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.cs.mapper.CsMapper">
+
+	<!-- NOTICE_INFO 목록 -->
+	<select id="noticeList" parameterType="Object" resultType="hashmap">
+		SELECT
+			0 AS rnum
+			, CAST(COUNT(1) AS CHAR) AS noticeId
+			, null AS title
+			, null AS regDttm
+			, null AS noticeNm
+			, null AS schLvlNm
+			, null AS fixYn
+			, null AS isNew
+			, null AS openDttm
+		FROM NOTICE_INFO AS NI
+		LEFT OUTER JOIN VS_CODE AS VC ON (NI.NOTICE_CD=VC.CODE)
+		LEFT OUTER JOIN CODELIST AS CL ON (NI.SCH_LVL_CD = CL.CODELIST_ID AND CL.CODEGROUP_ID = '101' AND CL.USE_YN = 'Y' )
+		WHERE NI.NOTICE_CD NOT IN ('NT004')
+		AND NI.OPEN_YN = 'Y'
+		AND NI.OPEN_DTTM <![CDATA[ < ]]> CURRENT_TIMESTAMP
+			<if test ="srchCate != null and srchCate != ''">
+		AND NI.NOTICE_CD = #{srchCate}
+			</if>
+		UNION
+		SELECT *
+		FROM (
+			SELECT
+				ROW_NUMBER() OVER(ORDER BY  NI.FIXYN DESC,NI.REG_DTTM DESC) AS rnum
+				, NI.NOTICE_ID as noticeId
+				, NI.TITLE as title
+				, DATE_FORMAT(NI.REG_DTTM, '%Y-%m-%d') as regDttm
+				, VC.NAME AS noticeNm
+				, CL.CODE_NAME AS schLvlNm
+				, NI.fixYn AS fixYn
+				, CASE
+					WHEN NI.OPEN_DTTM <![CDATA[ > ]]> DATE_ADD(CURRENT_TIMESTAMP, INTERVAL -7 DAY) THEN 'Y'
+					ELSE 'N'
+				  END AS isNew
+				, DATE_FORMAT(NI.OPEN_DTTM, '%Y-%m-%d') as openDttm
+			FROM NOTICE_INFO AS NI
+			LEFT OUTER JOIN VS_CODE AS VC ON (NI.NOTICE_CD=VC.CODE)
+			LEFT OUTER JOIN CODELIST AS CL ON (NI.SCH_LVL_CD = CL.CODELIST_ID AND CL.CODEGROUP_ID = '101' AND CL.USE_YN = 'Y' )
+			WHERE NI.NOTICE_CD NOT IN ('NT004')
+			AND NI.OPEN_YN = 'Y'
+			AND NI.OPEN_DTTM <![CDATA[ < ]]> CURRENT_TIMESTAMP
+			AND VC.CODE != 'NT012'
+			<if test ="srchCate != null and srchCate != '' and srchCate != 'ALL'">
+				<choose>
+					<when test="srchCate == 'MS'">
+						AND NI.SCH_LVL_CD IN ('', 'MS', 'HS')
+					</when>
+					<otherwise>
+						AND NI.SCH_LVL_CD IN ('', #{srchCate})
+					</otherwise>
+				</choose>
+			</if>
+		) noti
+		WHERE noti.rnum <![CDATA[ > ]]> #{pageRequest.offset}
+		AND noti.rnum <![CDATA[ <= ]]> (#{pageRequest.pageSize} * (#{pageRequest.pageNumber} + 1))
+	</select>
+
+	<!-- NOTICE_INFO 상세 -->
+	<select id="noticeView" parameterType="String" resultType="hashmap">
+		SELECT
+			NI.NOTICE_ID as noticeId
+			, NI.TITLE as title
+			, NI.CONTENTS as contents
+			, NI.NOTICE_CD as noticeCd
+			, VC.NAME AS noticeCdNm
+			, NI.SCH_LVL_CD as schLvlCd
+			, NI.SUBJECT_CD as subjectCd
+			, NI.READ_CNT as readCnt
+			, NI.HTML_YN as htmlYn
+		    , NI.OPEN_YN as openYn
+			, DATE_FORMAT(NI.REG_DTTM, '%Y-%m-%d') as regDttm
+			, DATE_FORMAT(NI.OPEN_DTTM, '%Y-%m-%d') as openDttm
+			, NI.fixYn AS fixYn
+		FROM NOTICE_INFO AS NI
+		LEFT OUTER JOIN VS_CODE AS VC ON (NI.NOTICE_CD=VC.CODE)
+		WHERE NI.NOTICE_ID = #{id}
+		AND NI.OPEN_YN = 'Y'
+		AND NI.OPEN_DTTM <![CDATA[ < ]]> CURRENT_TIMESTAMP
+	</select>
+
+	<!-- NOTICE_INFO 상세 - 이전글 -->
+	<select id="preNotice" parameterType="String" resultType="hashmap">
+		SELECT
+			noti.NOTICE_ID as noticeId
+			, noti.TITLE as title
+		FROM NOTICE_INFO AS noti
+		WHERE noti.NOTICE_ID = (
+			SELECT
+		    	MAX(NI.NOTICE_ID)
+			FROM NOTICE_INFO AS NI
+			WHERE NI.NOTICE_ID <![CDATA[ < ]]> #{id}
+				<if test ="cd != null and cd != ''">
+			AND NI.NOTICE_CD=#{cd}
+				</if>
+		)
+	</select>
+
+	<!-- NOTICE_INFO 상세 - 다음글 -->
+	<select id="nextNotice" parameterType="String" resultType="hashmap">
+		SELECT
+			noti.NOTICE_ID as noticeId
+			, noti.TITLE as title
+		FROM NOTICE_INFO AS noti
+		WHERE noti.NOTICE_ID = (
+			SELECT
+		    	MIN(NI.NOTICE_ID)
+			FROM NOTICE_INFO AS NI
+			WHERE NI.NOTICE_ID <![CDATA[ > ]]> #{id}
+				<if test ="cd != null and cd != ''">
+			AND NI.NOTICE_CD=#{cd}
+				</if>
+		)
+	</select>
+
+	<!-- 교과자료 요청 목록 -->
+	<select id="reqDataList" parameterType="Object" resultType="hashmap">
+		WITH TBL_IDX AS (
+			SELECT *
+			FROM (
+				SELECT ROW_NUMBER() OVER (ORDER BY RDI.REG_DTTM DESC) AS idx,
+					   RDI.REQ_DATA_ID                                AS reqDataId,
+					   RDI.TITLE                                      AS reqDataTitle,
+					   VC.NAME                                        AS reqDataNm,
+					   CASE RDI.SCH_LVL_CD
+						   WHEN 'ES' THEN '초등'
+						   WHEN 'MS' THEN '중학'
+						   WHEN 'HS' THEN '고등'
+						   END                                        AS reqDataSchLvlNm,
+					   VC2.NAME                                       AS reqDataSubjectNm,
+					   DATE_FORMAT(RDI.REG_DTTM, '%Y-%m-%d')          AS regDt,
+					   CASE
+						   WHEN (RDI.SELECT_YN = 'Y' AND RDI.UPDATE_CD = 'Y') OR RDI.UPDATE_CD = 'P' THEN '답변 준비중'
+						   WHEN (RDI.SELECT_YN = 'N' AND RDI.UPDATE_CD = 'Y') OR RDI.UPDATE_CD = 'C' THEN '답변 완료'
+						   ELSE '문의 접수'
+					   END                           AS updateNm,
+					   COUNT(1) OVER() ROW_TOTAL
+				FROM REQ_DATA_INFO AS RDI
+				LEFT OUTER JOIN VS_CODE VC ON RDI.REQ_DATA_CD = VC.CODE
+				LEFT OUTER JOIN VS_CODE VC2 ON RDI.SUBJECT_CD = VC2.CODE
+				WHERE RDI.REG_ID =  #{userId}
+				AND IFNULL(RDI.USE_YN, 'Y') != 'N'
+			) AS tblData
+			WHERE tblData.idx <![CDATA[ >= ]]> ((#{pageRequest.pageNumber} - 1) * #{pageRequest.pageSize} + 1)
+			AND tblData.idx <![CDATA[ <= ]]> (#{pageRequest.pageNumber} * #{pageRequest.pageSize})
+		)
+		SELECT *
+		FROM (
+			SELECT
+				0 AS idx,
+				ROW_TOTAL AS reqDataId,
+				IF((C.ROW_TOTAL % 10 = 0), FLOOR(C.ROW_TOTAL/10), FLOOR(C.ROW_TOTAL/10 + 1)) AS reqDataTitle,
+				NULL AS reqDataNm,
+				NULL AS reqDataSchLvlNm,
+				NULL AS reqDataSubjectNm,
+				NULL AS regDt,
+				NULL AS updateNm
+			FROM (
+				SELECT IFNULL((SELECT ROW_TOTAL FROM TBL_IDX LIMIT 1), 0) AS ROW_TOTAL
+			) AS C
+			UNION ALL
+			SELECT
+				idx,
+				reqDataId,
+				reqDataTitle,
+				reqDataNm,
+				reqDataSchLvlNm,
+				reqDataSubjectNm,
+				regDt,
+				updateNm
+			FROM TBL_IDX
+		) AS RSLT
+		ORDER BY RSLT.idx
+    </select>
+
+	<!-- 교과자료 요청 상세 -->
+	<select id="reqDataView" parameterType="Object" resultType="hashmap">
+		SELECT
+			RDI.REQ_DATA_ID AS reqDataId,
+			VC.NAME AS reqDataNm,
+			RDI.TITLE as reqDataTitle,
+			RDI.CONTENTS AS reqDataContents,
+			RDI.REG_ID AS regId,
+			M.NAME AS regNm,
+			M.CELLPHONE AS cellPhone,
+			RDI.REG_DTTM AS regDt,
+			RDI.ANSWER AS answer,
+			RDI.SELECT_YN AS selectYn,
+			RDI.UPDATE_CD AS ansStatusCd,
+			CASE
+				WHEN (RDI.SELECT_YN = 'N' AND RDI.UPDATE_CD = 'Y') OR RDI.UPDATE_CD = 'C'
+					THEN '답변 완료'
+				WHEN RDI.SELECT_YN = 'Y' AND RDI.UPDATE_CD = 'Y'
+					THEN '처리중'
+				ELSE '접수'
+			END AS updateNm,
+			RDI.UPDATE_YM AS updateYm,
+			RDI.UPDATE_URL AS updateUrl,
+			RDI.ANS_ADM_ID AS ansAdmId,
+			RDI.EMAIL_SEND_YN AS emailSendYn,
+			DATE_FORMAT(RDI.UPDATE_DTTM, '%Y-%m-%d') AS updateDt,
+			DATE_FORMAT(RDI.ANS_DTTM, '%Y-%m-%d') AS ansDttm,
+			M.EMAIL AS regEmail,
+			CL.CODE_NAME AS reqDataSchLvlNm, /*학교급*/
+			VC2.NAME AS reqDataSubjectNm /*과목*/
+		FROM REQ_DATA_INFO AS RDI
+		JOIN MEMBER AS M ON RDI.REG_ID = M.MEMBER_ID
+		LEFT JOIN VS_CODE AS VC ON RDI.REQ_DATA_CD = VC.CODE /*내용분류*/
+		LEFT JOIN CODELIST AS CL ON RDI.SCH_LVL_CD = CL.CODELIST_ID
+			AND CL.CODEGROUP_ID = '101'
+			AND CL.USE_YN ='Y' /*학교급*/
+		LEFT JOIN VS_CODE AS VC2 ON RDI.SUBJECT_CD = VC2.CODE /*과목*/
+		WHERE RDI.REQ_DATA_ID = #{reqDataId}
+		AND RDI.REG_ID = #{userId}
+    </select>
+
+	<!-- 문제은행 문항 오류 -->
+	<select id="qbankErrorList" parameterType="Object" statementType="CALLABLE" resultType="hashmap">
+		{ CALL SP_QBANK_MY_ERROR_LIST (
+							#{pageRequest.pageNumber, mode=IN, jdbcType=VARCHAR}
+							,#{pageRequest.pageSize, mode=IN, jdbcType=VARCHAR}
+							,#{userId, mode=IN, jdbcType=VARCHAR}
+							,#{srchType, mode=IN, jdbcType=VARCHAR}
+							,#{keyword, mode=IN, jdbcType=VARCHAR}
+		) }
+    </select>
+
+	<!-- QNA_INFO 목록 -->
+	<select id="qnaList" parameterType="Object" resultType="hashmap">
+		SELECT
+			0 AS rnum
+			, CAST(COUNT(1) AS CHAR) AS qnaId
+			, null as qnaCd
+			, null as qnaCdNm
+			, null as title
+			, null as ansStatusCd
+			, null as unitTitle
+			, null as schLvlCd
+			, null as subjectCd
+			, null as ansAdmId
+			, null as ansDttm
+			, null as emailSendYn
+			, null as tmpSaveYn
+			, null as regAdmId
+			, null as regDttm
+			, null as regIp
+			, null as uptAdmId
+			, null as uptDttm
+		FROM QNA_INFO AS QA
+		LEFT OUTER JOIN VS_CODE AS VC ON (QA.QNA_CD=VC.CODE)
+		WHERE QA.DEL_YN = 'N'
+			<if test ="userId != null and userId != ''">
+		AND QA.REG_ID = #{userId}
+			</if>
+            <if test ="srchCate != null and srchCate != ''">
+        AND QA.QNA_CD = #{srchCate}
+            </if>
+		UNION
+		SELECT * FROM
+		(
+			SELECT
+				ROW_NUMBER() OVER(ORDER BY  QA.REG_DTTM DESC) AS rnum
+				, QA.QNA_ID as qnaId
+				, QA.QNA_CD as qnaCd
+				, VC.NAME AS qnaCdNm
+				, QA.TITLE as title
+				, QA.ANS_STATUS_CD as ansStatusCd
+				, QA.UNIT_TITLE as unitTitle
+				, QA.SCH_LVL_CD as schLvlCd
+				, QA.SUBJECT_CD as subjectCd
+				, QA.ANS_ADM_ID as ansAdmId
+				, DATE_FORMAT(QA.ANS_DTTM, '%Y-%m-%d') as ansDttm
+				, QA.EMAIL_SEND_YN as emailSendYn
+				, QA.TMP_SAVE_YN as tmpSaveYn
+				, QA.REG_ID as regId
+				, DATE_FORMAT(QA.REG_DTTM, '%Y-%m-%d') as regDttm
+				, QA.REG_IP as regIp
+				, QA.UPT_ADM_ID as uptAdmId
+				, DATE_FORMAT(QA.UPT_DTTM, '%Y-%m-%d') as uptDttm
+			FROM QNA_INFO AS QA
+			LEFT OUTER JOIN VS_CODE AS VC ON (QA.QNA_CD=VC.CODE)
+			WHERE QA.DEL_YN = 'N'
+				<if test ="userId != null and userId != ''">
+			AND QA.REG_ID = #{userId}
+				</if>
+                <if test ="srchCate != null and srchCate != ''">
+            AND QA.QNA_CD = #{srchCate}
+                </if>
+		) qna
+		WHERE qna.rnum <![CDATA[ > ]]> #{pageRequest.offset}
+		AND qna.rnum <![CDATA[ <= ]]> (#{pageRequest.pageSize} * (#{pageRequest.pageNumber} + 1))
+	</select>
+
+    <!-- QNA_INFO 상세 -->
+    <select id="qnaView" parameterType="String" resultType="hashmap">
+    	SELECT
+        	QA.QNA_ID as qnaId
+            , QA.QNA_CD as qnaCd
+            , VC.NAME AS qnaCdNm
+            , QA.TITLE as title
+            , QA.CONTENTS as contents
+            , QA.ANSWER as answer
+            , QA.ANS_STATUS_CD as ansStatusCd
+            , QA.UNIT_TITLE as unitTitle
+            , QA.SCH_LVL_CD as schLvlCd
+            , QA.SUBJECT_CD as subjectCd
+            , QA.ANS_ADM_ID as ansAdmId
+            , DATE_FORMAT(QA.ANS_DTTM, '%Y-%m-%d') as ansDttm
+            , QA.EMAIL_SEND_YN as emailSendYn
+            , QA.TMP_SAVE_YN as tmpSaveYn
+            , QA.REG_ID as regId
+            , DATE_FORMAT(QA.REG_DTTM, '%Y-%m-%d') as regDttm
+            , QA.REG_IP as regIp
+            , QA.UPT_ADM_ID as uptAdmId
+            , DATE_FORMAT(QA.UPT_DTTM, '%Y-%m-%d') as uptDttm
+            , FI1.ORG_FILE_NM as qnaUploadFile
+            , FI2.ORG_FILE_NM as answerUploadFile
+        FROM QNA_INFO AS QA
+		LEFT OUTER JOIN VS_CODE AS VC ON (QA.QNA_CD=VC.CODE)
+		LEFT OUTER JOIN FILE_INFO AS FI1 ON QA.QNA_ID = FI1.FILE_REF_ID
+			AND FI1.FILE_REF_SEQ = 1
+		LEFT OUTER JOIN FILE_INFO AS FI2 ON QA.QNA_ID = FI2.FILE_REF_ID
+	   		AND FI2.FILE_REF_SEQ = 2
+        WHERE QA.DEL_YN = 'N'
+        AND QA.QNA_ID = #{id}
+    </select>
+
+	<!-- QNA_INFO 등록 쿼리 -->
+	<insert id="cQnaInsert" parameterType="hashmap" useGeneratedKeys="true" keyProperty="QNA_ID">
+		INSERT INTO QNA_INFO (
+			QNA_CD
+			,TITLE
+			,CONTENTS
+			,UNIT_TITLE
+			,SCH_LVL_CD
+			,SUBJECT_CD
+			,REQ_DATA_CD
+			,TEXTBOOK_CD
+			,HIGH_UNIT_CD
+			,KIND_CD
+			,REG_ID
+			,REG_DTTM
+			,REG_IP
+			,VIA
+			,CALL_YN
+			,CALL_TYPE
+			,EPK_ID
+			,USE_YN
+			,DEL_YN
+		)
+		VALUES (
+			#{qnaCd},
+			#{qnaTitle},
+			#{qnaContents}
+			<choose>
+				<when test="qnaUnitTitle==null">
+					,NULL
+				</when>
+				<otherwise>
+					, #{qnaUnitTitle}
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="qnaSchLvlCd==null">
+					,NULL
+				</when>
+				<otherwise>
+					, #{qnaSchLvlCd}
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="qnaSubjectCd==null">
+					,NULL
+				</when>
+				<otherwise>
+					, #{qnaSubjectCd}
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="reqDataCd==null">
+				,NULL
+				</when>
+				<otherwise>
+				, #{reqDataCd}
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="qnaTextBookCd==null">
+					,NULL
+				</when>
+				<otherwise>
+					, #{qnaTextBookCd}
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="qnaHighUnitCd==null">
+					,NULL
+				</when>
+				<otherwise>
+					, #{qnaHighUnitCd}
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="qnaKindCd==null">
+					,NULL
+				</when>
+				<otherwise>
+					, #{qnaKindCd}
+				</otherwise>
+			</choose>
+			, #{member_id}
+			, CURRENT_TIMESTAMP
+			, #{regIp}
+			, 'MOBILE'
+			<choose>
+				<when test="callYn==null">
+					,NULL
+				</when>
+				<otherwise>
+					, #{callYn}
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="callType==null">
+					,NULL
+				</when>
+				<otherwise>
+					, #{callType}
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="epkId==null or epkId == 0">
+					,NULL
+				</when>
+				<otherwise>
+					, #{epkId}
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="useYn==null">
+					,NULL
+				</when>
+				<otherwise>
+					, #{useYn}
+				</otherwise>
+			</choose>
+			, 'N'
+		);
+	</insert>
+
+	<!-- QNA 첨부 파일 등록 쿼리 -->
+	<insert id="cQnaFileInsert" useGeneratedKeys="true" parameterType="string">
+		INSERT INTO FILE_INFO (
+			FILE_REF_ID
+           	,FILE_REF_SEQ
+           	,FILE_GRP_CD
+           	,REAL_FILE_NM
+           	,ORG_FILE_NM
+           	,FILE_SZ
+           	,FILE_REG_DTTM
+        )
+     	VALUES (
+           	#{qnaId},
+			(SELECT SEQ
+			 FROM (
+				  SELECT IFNULL(MAX(FILE_REF_SEQ), 0) + 1 AS SEQ
+				  FROM FILE_INFO
+				  WHERE FILE_REF_ID = #{qnaId}
+					AND FILE_GRP_CD = #{fileGrpCd}
+			  ) AS seqTbl),
+			#{fileGrpCd},
+			#{realFileName},
+			#{orgFileName},
+			#{fileSize},
+			CURRENT_TIMESTAMP
+		)
+	</insert>
+
+	<!-- 시/도 목록 -->
+	<select id="sidoCodeList" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			ROW_NUMBER() OVER(ORDER BY PKCODE ASC) AS IDX
+			, PKCODE AS codeId
+			, CODENAME AS codeName
+		FROM
+			/*NEOE.CG_MA_AREA */
+			ERP.NEOE.NEOE.CG_MA_AREA
+		WHERE CODELINK = 'AREA'
+			AND CODEFLAG = #{codeflag}
+			<if test="codeflag != B and (pkcode != '' and pkcode != null)">
+				AND FKCODE = #{pkcode}
+			</if>
+	</select>
+
+	<select id="contactList" parameterType="Object" resultType="hashmap">
+		SELECT
+			0 AS rnum
+			, null AS pkCd
+			, CAST(COUNT(1) AS CHAR) AS codeNm
+			, null AS ptnCd
+			, null AS ptnLn
+			, null AS tel
+			, null AS addr
+			, null AS chargeGugunNm
+			, null AS areaCd
+		FROM (
+			SELECT
+				C.PKCODE
+				, C.CODENAME
+				, B.CD_PARTNER
+				, B.LN_PARTNER
+				, B.NO_TEL
+				, B.DC_ADS1_H
+				, B.CHARGE_GUGUN_NM
+				, B.AREA_CODE
+			FROM
+			(
+				SELECT
+					MP.CD_PARTNER,
+					MP.LN_PARTNER,
+					MP.NO_TEL,
+					MP.DC_ADS1_H,
+					null AS CHARGE_GUGUN_NM,
+					( SELECT TOP 1 A.AREA_CODE
+						FROM ERP.NEOE.NEOE.CG_MA_CUST_SAMPLE A
+						WHERE A.CUST_CODE = MP.CD_PARTNER ) AS AREA_CODE
+				FROM ERP.NEOE.NEOE.MA_PARTNER AS MP
+					INNER JOIN ERP.NEOE.NEOE.CG_MA_CUST_SAMPLE AS CMCS  ON MP.CD_PARTNER = CMCS.CUST_CODE
+				WHERE MP.USE_YN = 'Y'
+					AND CMCS.CD_PARTNER = '200'
+				GROUP BY MP.CD_PARTNER, MP.LN_PARTNER, MP.NO_TEL, MP.DC_ADS1_H
+			) B
+			JOIN ERP.NEOE.NEOE.CG_MA_AREA AS C  ON C.PKCODE = LEFT(B.AREA_CODE, 4) + '000'
+		) D
+		WHERE 1=1
+			<if test ="pkcode != null and pkcode != ''">
+				AND D.PKCODE = #{pkcode}
+			</if>
+		UNION
+		SELECT * FROM
+		(
+			SELECT
+				ROW_NUMBER() OVER(ORDER BY D.PKCODE, D.LN_PARTNER ASC) AS rnum
+				, D.PKCODE AS pkCd
+				, D.CODENAME AS codeNm
+				, D.CD_PARTNER AS ptnCd
+				, D.LN_PARTNER AS ptnLn
+				, D.NO_TEL AS tel
+				, D.DC_ADS1_H AS addr
+				, D.CHARGE_GUGUN_NM AS chargeGugunNm
+				, D.AREA_CODE AS areaCd
+			FROM (
+				SELECT
+					C.PKCODE
+					, C.CODENAME
+					, B.CD_PARTNER
+					, B.LN_PARTNER
+					, B.NO_TEL
+					, B.DC_ADS1_H
+					, B.CHARGE_GUGUN_NM
+					, B.AREA_CODE
+				FROM
+				(
+					SELECT
+						MP.CD_PARTNER,
+						MP.LN_PARTNER,
+						MP.NO_TEL,
+						MP.DC_ADS1_H,
+						( SELECT STUFF((SELECT CAST(',' AS VARCHAR(MAX)) + B.CODENAME
+							FROM ERP.NEOE.NEOE.CG_MA_CUST_SAMPLE A
+								INNER JOIN ERP.NEOE.NEOE.CG_MA_AREA B ON B.PKCODE = A.AREA_CODE
+							WHERE A.CUST_CODE = MP.CD_PARTNER
+							FOR XML PATH('')), 1, 1, '') ) AS CHARGE_GUGUN_NM,
+						( SELECT TOP 1 A.AREA_CODE
+							FROM ERP.NEOE.NEOE.CG_MA_CUST_SAMPLE A
+							WHERE A.CUST_CODE = MP.CD_PARTNER ) AS AREA_CODE
+					FROM ERP.NEOE.NEOE.MA_PARTNER AS MP
+						INNER JOIN ERP.NEOE.NEOE.CG_MA_CUST_SAMPLE AS CMCS ON MP.CD_PARTNER = CMCS.CUST_CODE
+					WHERE MP.USE_YN = 'Y'
+						AND CMCS.CD_PARTNER = '200'
+					GROUP BY MP.CD_PARTNER, MP.LN_PARTNER, MP.NO_TEL, MP.DC_ADS1_H
+				 ) B
+				 JOIN ERP.NEOE.NEOE.CG_MA_AREA C ON C.PKCODE = LEFT(B.AREA_CODE, 4) + '000'
+			) D
+			WHERE 1=1
+				<if test ="pkcode != null and pkcode != ''">
+					AND D.PKCODE = #{pkcode}
+				</if>
+		) contact
+		WHERE contact.rnum <![CDATA[ > ]]> #{pageRequest.offset}
+			AND contact.rnum <![CDATA[ <= ]]> (#{pageRequest.pageSize} * (#{pageRequest.pageNumber} + 1))
+	</select>
+
+	<select id="allContactList" resultType="hashmap">
+
+		SELECT
+			C.PKCODE AS pkCd
+			, C.CODENAME AS codeNm
+			, B.CD_PARTNER AS ptnCd
+			, B.LN_PARTNER AS ptnLn
+			, B.NO_TEL AS tel
+			, B.DC_ADS1_H AS addr
+			, B.CHARGE_GUGUN_NM AS chargeGugunNm
+			, B.AREA_CODE AS areaCd
+		FROM
+		(
+			SELECT
+				MP.CD_PARTNER
+				, MP.LN_PARTNER
+				, MP.NO_TEL
+				, MP.DC_ADS1_H
+				, ( SELECT STUFF((SELECT CAST(',' AS VARCHAR(MAX)) + B.CODENAME
+					FROM ERP.NEOE.NEOE.CG_MA_CUST_SAMPLE A
+					INNER JOIN ERP.NEOE.NEOE.CG_MA_AREA B ON B.PKCODE = A.AREA_CODE
+					WHERE A.CUST_CODE = MP.CD_PARTNER
+					FOR XML PATH('')), 1, 1, '') ) AS CHARGE_GUGUN_NM
+				, ( SELECT TOP 1 A.AREA_CODE
+					FROM ERP.NEOE.NEOE.CG_MA_CUST_SAMPLE A
+					WHERE A.CUST_CODE = MP.CD_PARTNER ) AS AREA_CODE
+			FROM ERP.NEOE.NEOE.MA_PARTNER AS MP
+				INNER JOIN ERP.NEOE.NEOE.CG_MA_CUST_SAMPLE AS CMCS ON MP.CD_PARTNER = CMCS.CUST_CODE
+			WHERE MP.USE_YN = 'Y'
+				AND CMCS.CD_PARTNER = '200'
+			GROUP BY MP.CD_PARTNER, MP.LN_PARTNER, MP.NO_TEL, MP.DC_ADS1_H
+		) B
+		JOIN ERP.NEOE.NEOE.CG_MA_AREA C ON C.PKCODE = LEFT(B.AREA_CODE, 4) + '000'
+
+	</select>
+
+	<update id="updateQnaCheck" parameterType="String">
+		UPDATE QNA_INFO
+		SET CHECK_YN = 'Y',
+			CHECK_DTTM = NOW()
+		WHERE QNA_ID = #{qnaId}
+	</update>
+
+	<select id="getMemberNoticeCnt" parameterType="String" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM MEMBER_NOTICE
+		WHERE MEMBER_ID = #{memberId}
+		AND NOTICE_ID = #{noticeId}
+	</select>
+
+	<insert id="insertNoticeCheck" parameterType="string">
+		INSERT INTO MEMBER_NOTICE (
+			MEMBER_ID,
+			NOTICE_ID,
+			CHECK_DTTM,
+			CHECK_YN
+		)
+		VALUES(
+			#{memberId},
+			#{noticeId},
+			NOW(),
+			'Y'
+		)
+	</insert>
+
+	<update id="updateNoticeCheck" parameterType="String">
+		UPDATE MEMBER_NOTICE
+		SET CHECK_YN = 'Y',
+			CHECK_DTTM = NOW()
+		WHERE NOTICE_ID = #{noticeId}
+			AND MEMBER_ID = #{memberId}
+	</update>
+</mapper>

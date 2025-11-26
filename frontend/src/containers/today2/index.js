@@ -1,0 +1,1 @@
+export {default as Season2} from './Season2'

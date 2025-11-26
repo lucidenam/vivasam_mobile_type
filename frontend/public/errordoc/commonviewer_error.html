@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+
+	<title>컨텐츠가 존재하지 않습니다.</title>
+
+	<!--js-->
+	<script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="/js/common.js"></script>
+
+	<!--css-->
+	<link rel="stylesheet" type="text/css" href="/css/common.css"><common.css 항상 유지-->
+	<script type="text/javascript">
+	   var prev = $.getURLParam("prev");
+       $(document).ready(function() {
+    	   $("#go_home").click(function(){
+                location.href = CONTEXTPATH+"/main.do";
+           });
+           $("#go_back").click(function(){
+               history.go(-2);
+               return false;
+          });
+       });
+	</script>
+</head>
+
+<body class="bgtype_01">
+
+<div class="error_type_02">
+	<h1 class="type1 none"><img src="/images/error/title_error_02.gif" alt="죄송합니다. 요청하신 페이지를 찾을 수 없습니다." /></h1>
+	<h1 class="type2 none"><img src="/images/error/title_error_02_type2.gif" alt="죄송합니다. 고객님께서는 서류인증이 완료되지 않아 현재 비바샘에 로그인하실 수 없습니다." /></h1>
+	<h1 class="type3 block"><img src="/images/error/title_error_02_type3.gif" alt="죄송합니다. 찾으시는 콘텐츠가 삭제되었거나 비공개 처리되었습니다." /></h1>
+
+	<p class="errtext type1 none"><img src="/images/error/text_error_02.gif" alt="방문하시려는 페이지의 주소가 잘못 입력되었거나, 페이지의 주소가 변경 혹은 삭제되어 요청하신 페이지를 찾을 수 없습니다. 입력하신 주소를 다시 한번 확인해 주시기 바랍니다." /></p>
+	<p class="errtext type2 none"><img src="/images/error/text_error_02_type2.gif" alt="서비스 이용에 불편을 드려 죄송합니다. 본인 확인 서류(재직증명서 등)를 비상교과서 고객센터 (전화 1544-7714 / 팩스 02-2176-6799)로 보내주시면 빠르게 처리해 드리겠습니다." /></p>
+	<p class="errtext type3 block"><img src="/images/error/text_error_02_type3.gif" alt="서비스 이용에 불편을 드려 죄송합니다. 접근하신 경로의 콘텐츠가 원저작자의 요청에 의해 삭제되었거나 비공개 처리되었습니다. 다른 콘텐츠를 이용해 주시기 바랍니다." /></p>
+
+	<p class="errbtn">
+		<a id="go_home" href="javascript:">
+			<img src="/images/error/btn_vivasamhome.gif" alt="비바샘 첫화면" />
+		</a>
+		<a href="javascript:" class="none">
+			<img src="/images/error/btn_customer.gif" alt="고객센터" />
+		</a>
+		<a id="go_back" href="javascript:" class="in_block">
+			<img src="/images/error/btn_back_error.gif" alt="이전으로" />
+		</a>
+	</p>
+</div>
+
+</body>
+
+</html>

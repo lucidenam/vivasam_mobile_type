@@ -1,0 +1,1248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.visang.vivasam.educourse.mapper.EducourseMapper">
+
+    <!-- 학교급별 교과 그룹 코드 조회(SC3??) -->
+    <select id="subjectGroupList" parameterType="String" resultType="hashmap">
+        SELECT /*GNB 학교급별 교과 그룹 코드 조회(SC3??)*/
+		      A.SUBJECT as subjectCd
+		    , A.CAFE_SUBJECT_CD AS cafeSubjectCd
+		    , A.SUBJECTNM AS subjectNm
+		    , A.ORDER_NO AS orderNo
+		    , A.NEW_ICON_VIEW_YN AS newIconViewYn
+		    , B.COURSE_CD AS courseCd
+	    FROM (
+	        SELECT
+	            CSI.SUBJECT_GRP_CD AS SUBJECT
+	            , CSI.CAFE_SUBJECT_CD
+	            , VC.NAME AS SUBJECTNM
+	            , VC.ORDER_NO
+	            , T.NEW_ICON_VIEW_YN
+	        FROM CAFE_SUBJECT_INFO CSI
+			INNER JOIN VS_CODE VC ON CSI.SUBJECT_GRP_CD = VC.CODE
+			    AND VC.REF_CODE = 'SC300'
+			LEFT JOIN LATERAL (
+				SELECT MAX(ED.NEW_ICON_VIEW_YN) AS NEW_ICON_VIEW_YN
+				FROM TEXTBOOK_GROUP_INFO AS TGI
+				JOIN EDUCOURSE_DATA AS ED ON TGI.TEXTBOOK_CD = ED.EDUCOURSE_ID
+				WHERE TGI.SUBJECT_CD = CSI.SUBJECT_GRP_CD
+	        ) T ON 1=1
+	        WHERE CSI.SCHOOL_LVL_CD = #{schoolLvlCd}
+	        AND CSI.CAFE_SUBJECT_USE_YN = 'Y'
+	        GROUP BY CSI.SUBJECT_GRP_CD, CSI.CAFE_SUBJECT_CD, VC.NAME, VC.ORDER_NO, T.NEW_ICON_VIEW_YN
+	        LIMIT 20
+	    ) A
+        LEFT JOIN (
+            SELECT /*대표 교과명에 대한 103코드 조회*/
+                <choose>
+                	<when test="schoolLvlCd == 'HS'">
+						CASE CODE_NAME
+							WHEN '윤리' THEN '도덕'
+							ELSE CODE_NAME
+						END AS CODE_NAME
+					</when>
+                	<otherwise>
+                 		CODE_NAME
+					</otherwise>
+				</choose>
+				, MAX(CASE WHEN REF_CODE = #{schoolLvlCd} THEN CODELIST_ID ELSE '' END) COURSE_CD
+            FROM CODELIST
+            WHERE CODEGROUP_ID = '103'
+            GROUP BY CODE_NAME
+        ) B ON A.SUBJECTNM = B.CODE_NAME
+	    <if test="schoolLvlCd == 'HS'">
+			AND COURSE_CD != ''
+		</if>
+        ORDER BY A.ORDER_NO ASC
+    </select>
+
+    <!-- 교과그룹에 속한 교과서 목록조회  -->
+    <select id="getTextbookListbyGrpCd" parameterType="String" resultType="hashmap">
+        SELECT /*같은 교과목에 있는 교과서 목록 조회(추가 교과서 포함)*/
+            CL.CODELIST_ID AS textbook
+            , CL.CODE_NAME AS textbooknm
+            , CL.MD_VALUE as eduYear
+            , ED.THUMBNAIL_PATH AS thumbnailpath
+            , ED.NEW_ICON_VIEW_YN AS newIconViewYn
+            ,TGI.GROUP_NO AS groupNo
+            ,TGI.SIDE_MENU_CD AS sideMenuCd
+            ,CL.USE_YN as useYn
+        FROM CODELIST CL
+        INNER JOIN CAFE_SUBJECT_INFO CSI ON CSI.SUBJECT_GRP_CD IN
+                        <foreach collection="subjectGrpCds" separator="," open="(" close=")" item="item">
+                            #{item}
+                        </foreach>
+            AND CL.REF_CODE = CSI.EDUCOURSE_ID
+            AND CL.CODEGROUP_ID = '106'
+            AND CSI.CAFE_SUBJECT_USE_YN = 'Y'
+            AND (
+                    1=1
+                    <if test="mdValue != null">
+                    <choose>
+                        <when test="mdValue eq '2015'.toString()">
+                            AND (
+                                CL.MD_VALUE = #{mdValue}
+                                OR (CL.MD_VALUE = '2009' AND CL.CODELIST_ID IN ('106071', '106072', '106046', '106047', '106094','106109' ,'106110'))
+                            )
+                        </when>
+                        <when test="mdValue eq '2022'.toString()">
+                            AND CL.MD_VALUE = #{mdValue}
+                        </when>
+                    </choose>
+                    </if>
+                )
+        INNER JOIN VS_CODE VC ON CSI.SUBJECT_GRP_CD = VC.CODE
+            AND VC.REF_CODE = 'SC300'
+        LEFT JOIN TEXTBOOK_GROUP_INFO AS TGI ON TGI.TEXTBOOK_CD = CL.CODELIST_ID
+        LEFT JOIN LATERAL (
+              SELECT THUMBNAIL_PATH, THUMBNAIL_CDN_YN, NEW_ICON_VIEW_YN
+                FROM EDUCOURSE_DATA
+               WHERE EDUCOURSE_ID = CL.CODELIST_ID
+                 AND USE_YN = 'Y'
+        ) AS ED ON 1=1
+        WHERE 1 = 1
+        AND CL.USE_YN = 'Y'
+        AND CL.CODELIST_ID NOT IN (
+            <!--
+            	국어1-2(박현숙),국어1-2(박영민),기술가정②(김지숙),체육②(이민표), 물리학(손정우)
+				화학(최원호),생명과학(심규철),지구과학(이기영),역학과 에너지(손정우),전자기와 양자(손정우)
+				물질과 에너지(최원호),화학 반응의 세계(최원호),세포와 물질대사(심규철),생물의 유전(심규철),지구시스템과학(이기영)
+ 				행성우주과학(이기영),과학의 역사와 문화(정인경),기후변화와 환경생태(이기영),융합과학 탐구(손정우),공통국어2(강호영)
+ 				공통국어2(박영민),체육2(이민표),스포츠 생활2(천항욱),
+ 				도덕2(김국현),사회2(강창숙),역사2(이병인),세계사(이병인),동아시아 역사 기행(이병인),
+ 				세계시민과 지리(박배균),사회와 문화(유종열),한국지리 탐구(정성훈),정치(정필운),여행지리(이우평),사회문제 탐구(이영호),현대사회와 윤리(김국현),
+ 				경제(유종열)
+			-->
+            <!--
+            	106422,106421,106436,106443,106487
+            	106488,106489,106490,106491,106492
+            	106493,106494,106495,106496,106497
+            	106498,106499,106500,106501,106447
+            	106448,106510,106512,
+            	106432,106426,106429,106480,106481,
+            	106473,106470,106474,106472,106475,106471,106482,
+            	106462,106464,106465,106466,106467,
+            	106457,106458,106459,106460,
+            	106568
+             -->
+			'106576','106577','106578','106579','106581','106580','106564','106582'
+		) <!-- 미노출 교과서 코드 -->
+        <if test="subjectTypeTexbookList != null">
+			AND CL.CODELIST_ID IN
+				<foreach collection="subjectTypeTexbookList" separator="," open="(" close=")" item="item">
+                	#{item}
+				</foreach>
+		</if>
+        <if test='grade != null and grade != ""'>
+        AND CL.CODE_NAME LIKE CONCAT('%', #{grade}, '%')
+        </if>
+        ORDER BY CL.MD_VALUE DESC,
+		(CASE
+			WHEN CL.CODELIST_ID = '106445' THEN 1
+			WHEN CL.CODELIST_ID = '106447' THEN 2
+			WHEN CL.CODELIST_ID = '106446' THEN 3
+			WHEN CL.CODELIST_ID = '106448' THEN 4
+			WHEN CL.CODELIST_ID = '106420' THEN 5
+			WHEN CL.CODELIST_ID = '106422' THEN 6
+			WHEN CL.CODELIST_ID = '106419' THEN 7
+			WHEN CL.CODELIST_ID = '106421' THEN 8
+			ELSE 9
+		END),
+        <if test='grade != null and grade != ""'>
+             VC.ORDER_NO,
+        </if>
+             CL.ORDER_NO ASC
+    </select>
+
+    <select id="getEduCourseSubjectCd" parameterType="hashmap" resultType="string" >
+        SELECT
+            CASE
+                WHEN IFNULL(#{schoolLvlCd}, '') = ''
+                    THEN MAIN_CD
+                ELSE SUBJECT_GRP_CD
+            END
+        FROM CAFE_SUBJECT_INFO
+        WHERE CAFE_SUBJECT_CD = #{subjectCd}
+        AND CAFE_SUBJECT_USE_YN = 'Y'
+        <!-- AND IFNULL(#{schoolLvlCd}, '') <![CDATA[<>]]> '' -->
+        <if test="schoolLvlCd != null and schoolLvlCd != '' ">
+            AND SCHOOL_LVL_CD = IFNULL(#{schoolLvlCd}, '')
+            AND IFNULL(SUBJECT_GRP_CD, '') != ''
+        </if>
+        LIMIT 1
+    </select>
+
+    <select id="getTextbookList" resultType="hashmap">
+        SELECT /*교과가 같은 전체 교과서 목록 조회*/
+	        CL.CODELIST_ID AS textbookCd,
+	        CL.CODE_NAME AS textbookNm,
+	        CL.MD_VALUE AS eduYear,
+	        ED.THUMBNAIL_PATH AS thumbnailPath,
+	        ED.NEW_ICON_VIEW_YN AS newIconViewYn,
+	        CL.REF_CODE2 AS schoolLvlCd,
+	        TB.COURSE AS courseCd,
+	        TB.LAB_COURSE AS courseNm,
+	        SI.SUBJECT_GRP_CD AS subjectGrpCd,
+	        SI.CAFE_SUBJECT_CD AS subjectCd
+        FROM CODELIST AS CL
+        LEFT JOIN LATERAL (
+	        SELECT
+	            THUMBNAIL_PATH
+		        ,THUMBNAIL_CDN_YN
+		        ,NEW_ICON_VIEW_YN
+		        ,URL_LINK
+	        FROM EDUCOURSE_DATA
+	        WHERE EDUCOURSE_ID = CL.CODELIST_ID
+	        AND USE_YN = 'Y'
+        ) AS ED ON 1=1
+        LEFT JOIN LATERAL (
+       	 	SELECT SUBJECT, COURSE, LAB_COURSE
+       	 	FROM EDUCOURSE_INFO
+        	WHERE CODELIST_ID = CL.REF_CODE
+        ) AS TB ON 1=1
+        LEFT JOIN LATERAL (
+        	SELECT
+        	    DISTINCT SUBJECT_GRP_CD,
+        	    CAFE_SUBJECT_CD
+        	FROM CAFE_SUBJECT_INFO
+        	WHERE EDUCOURSE_ID = TB.SUBJECT
+        	AND CAFE_SUBJECT_USE_YN = 'Y'
+        ) AS SI ON 1=1
+        WHERE 1 = 1
+	        <!-- AND CL.USE_YN = 'Y' -->
+	        AND CL.CODEGROUP_ID = '106'	        
+        	/*AND (CL.MD_VALUE = '2015'
+				OR (CL.MD_VALUE = '2009' AND CL.CODELIST_ID IN ('106071', '106072', '106046', '106047', '106094', '106109' ,'106110'))
+			)*/
+	        AND SI.SUBJECT_GRP_CD = (
+	        	SELECT SUBJECT_GRP_CD
+	        	FROM CAFE_SUBJECT_INFO
+		        WHERE CAFE_SUBJECT_USE_YN = 'Y'
+                AND EDUCOURSE_ID = (
+                    SELECT REF_CODE
+                    FROM CODELIST
+                    WHERE CODELIST_ID = #{textbookCd}
+                )
+        	)
+        ORDER BY CL.MD_VALUE DESC, CL.ORDER_NO ASC
+    </select>
+
+    <select id="getTextbookDvdCnt" parameterType="string" resultType="string">
+		SELECT /*교과서 DVD 자료 존재 COUNT*/
+			IFNULL(MAX(DVD_BTN_USE_YN), 'N')
+		FROM TEXTBOOK_DVD_DOWN_INFO
+		WHERE TEXTBOOK_CD = #{textbookCd}
+			AND DVD_BTN_TP LIKE 'DVD%'
+			-- AND REVISION_YEAR = '2009' /*2007 개정 교과서 제외(교과서마케팅 요청)*/
+    </select>
+
+    <select id="getCourseBaseClassInfoList" parameterType="string" resultType="hashmap">
+        SELECT /*교과 메인 페이지의 교과서 분류 정보 조회*/
+            C.TEXTBOOK_CD AS textbookCd,
+            C.GUBUN_CD AS gubunCd,
+            C.CLASS1_CD AS class1Cd,
+            C.ORDER_NO AS orderNo,
+            C.UNIT_NUM AS unitNum,
+            C.DATA_CNT AS dataCnt,
+            C.CLASS2_CD AS class2Cd,
+            C.CLASS1_NM AS class1Nm,
+            C.CLASS2_NM AS class2Nm,
+            L.USE_YN AS useYn,
+            CASE
+                WHEN C.CLASS2_CD IN ('3030127', '3030128', '3030129', '3030130') AND DATEDIFF(CURRENT_DATE(),'2024-09-25') <![CDATA[ <= ]]> 91
+                    THEN ' newIcon'
+                ELSE ''
+            END AS newIcon
+        FROM COURSE_BASE_CLASS_INFO C
+        LEFT JOIN CODELIST L ON C.CLASS1_CD = L.CODELIST_ID
+        WHERE TEXTBOOK_CD = #{textbookCd}
+        <if test='gubunCd != null and gubunCd != ""'>
+        AND GUBUN_CD = #{gubunCd}
+        </if>
+        <if test='(gubunCd eq "C" or gubunCd eq "S") and (type1Cd != null and type1Cd != "")'>
+        AND CLASS2_CD = #{type1Cd}
+        </if>
+        <if test='gubunCd eq "T" and (type1Cd != null and type1Cd != "")'>
+        AND CLASS1_CD = #{type1Cd}
+        </if>
+        ORDER BY C.GUBUN_CD, C.ORDER_NO ASC
+    </select>
+
+	<select id="getCourseBaseClassInfoLnbList" parameterType="string" resultType="hashmap">
+		SELECT
+			C.TEXTBOOK_CD AS textbookCd,
+			C.GUBUN_CD AS gubunCd,
+			C.CLASS1_CD AS class1Cd,
+			L.ORDER_NO AS orderNo,
+			C.UNIT_NUM AS unitNum,
+			C.CLASS1_NM AS class1Nm,
+			SUM(C.DATA_CNT) AS dataCnt,
+			L.USE_YN AS useYn
+		FROM COURSE_BASE_CLASS_INFO C
+		LEFT JOIN CODELIST L ON C.CLASS1_CD = L.CODELIST_ID
+		WHERE TEXTBOOK_CD = #{textbookCd}
+		AND GUBUN_CD = #{gubunCd}
+		AND L.USE_YN = 'Y'
+		AND L.CODEGROUP_ID = '201'
+		GROUP BY C.TEXTBOOK_CD, C.CLASS1_CD, L.ORDER_NO, C.UNIT_NUM, C.CLASS1_NM, C.GUBUN_CD, L.USE_YN
+		ORDER BY L.ORDER_NO ASC
+	</select>
+
+    <!-- 차시별 자료 유무 확인 -->
+    <select id="getPeriodCheck" parameterType="String" resultType="String">
+        SELECT 'Y'
+        FROM PERIOD A
+        JOIN EDUCOURSE_INFO B ON A.BL_CODELIST_ID = B.CODELIST_ID
+        WHERE A.OPEN_YN = 'Y'
+        AND A.USE_YN = 'Y'
+        AND B.TEXTBOOK = #{textbookCd}
+        LIMIT 1
+    </select>
+
+    <select id="getUnitTypeList" parameterType="string" resultType="hashmap">
+        WITH RECURSIVE EDUCOURSE_CHILD AS (
+			SELECT CODELIST_ID, REF_CODE, CODE_NAME, 0 AS LEVEL
+			FROM CODELIST AS C
+			WHERE C.CODELIST_ID IN (#{classCd})
+			UNION ALL
+			SELECT C.CODELIST_ID, C.REF_CODE, C.CODE_NAME, CH.LEVEL + 1
+			FROM CODELIST C
+			INNER JOIN EDUCOURSE_CHILD CH
+			ON C.REF_CODE = CH.CODELIST_ID
+		)
+
+		/*공통 자료 > 화면에 노출된 자료 분류 종류를 리턴 */
+		SELECT
+			#{classCd} as eduCourseId
+			, MCE.TYPE_1 as type1Cd
+			, CL.CODE_NAME as type1Nm
+			, COUNT(1) as type1Cnt
+			, CL.ORDER_NO as orderNo
+			, 'T' as gubunCd
+		FROM (
+			SELECT CODELIST_ID, LEVEL
+			FROM EDUCOURSE_CHILD
+			ORDER BY CODELIST_ID
+		) AS EC
+		INNER JOIN MASTER_CONTENT_EDUCOURSE AS MCE ON EC.CODELIST_ID = MCE.EDUCOURSE_ID
+		INNER JOIN MASTER_CONTENT AS MC ON MC.CONTENT_ID = MCE.CONTENT_ID AND MC.CONTENT_GUBUN = MCE.CONTENT_GUBUN
+		INNER JOIN CODELIST AS CL ON MCE.TYPE_1 = CL.CODELIST_ID
+		AND CL.CODEGROUP_ID = '111'
+		AND CL.USE_YN = 'Y'
+		LEFT OUTER JOIN COURSE_BASE_CLASS_INFO AS C ON C.CLASS2_CD = CL.CODELIST_ID AND C.CLASS1_CD = EC.CODELIST_ID
+		WHERE 1 = 1
+		AND MCE.TYPE_1 = (CASE WHEN IFNULL(#{type1Cd}, '') != '' THEN NULL ELSE IFNULL(MCE.TYPE_1,'') END)
+		AND MC.USE_YN = 'Y'
+		AND MC.UP_OPEN_YN = 'Y'
+		AND MCE.TYPE_1 NOT IN ('1110014','1110007')
+		GROUP BY MCE.TYPE_1, CL.CODE_NAME, CL.ORDER_NO
+		ORDER BY CL.ORDER_NO
+    </select>
+
+    <select id="rEducourseUnitDataList" parameterType="string" resultType="hashmap">
+        <bind name="page" value="pageRequest.pageNumber+1"/>
+        WITH RECURSIVE EDUCOURSE_CHILD AS (
+			SELECT CODELIST_ID, REF_CODE, CODE_NAME, 0 AS LEVEL
+			FROM CODELIST AS C
+			WHERE C.CODELIST_ID IN (#{classCd})  -- 조회기준 항목
+			UNION ALL
+			SELECT C.CODELIST_ID, C.REF_CODE, C.CODE_NAME, CH.LEVEL + 1
+			FROM CODELIST C
+			INNER JOIN EDUCOURSE_CHILD CH
+			ON C.REF_CODE = CH.CODELIST_ID
+		),
+		tmpTbl as (
+			SELECT *
+			FROM (
+				SELECT
+					ROW_NUMBER() OVER  (
+						ORDER BY
+						CASE
+						WHEN right(#{type1Cd}, 4) in ('0003', '0004', '0005')
+						THEN CAST(IFNULL(MCE.ORDER_BOOKPAGE, '999999') AS UNSIGNED) END,
+						CASE WHEN right(#{type1Cd}, 4) NOT IN ('0000') THEN CL2.ORDER_NO END,
+						MCE.ORDER_BOOKPAGE ASC,
+						CASE
+						WHEN LEFT(MC.SUBJECT, 1) LIKE '[ㄱ-힇]' THEN 1
+						WHEN LEFT(MC.SUBJECT, 1) LIKE '[0-9]' THEN 2
+						WHEN LEFT(MC.SUBJECT, 1) LIKE '[A-Z]' THEN 3
+						ELSE 4 END,
+						MC.SUBJECT
+					) AS idx,
+					MC.CONTENT_GUBUN AS contentGubun,
+					MC.CONTENT_ID AS contentId,
+					MC.FILE_TYPE AS fileType,
+					MC.SUBJECT AS subject,
+					CASE MC.FILE_TYPE
+						WHEN 'FT206' THEN MC.SITE_URL
+						ELSE MC.SAVE_FILE_NAME
+					END AS saveFileNm,
+					MC.FILE_PATH AS filePath,
+					MC.FILE_CDN_YN AS fileCdnYn,
+					IFNULL(MC.THUMBNAIL_PATH, '') AS thumbnailPath,
+					MCE.EDUCOURSE_ID AS eduCourseId,
+					MCE.TYPE_1 AS type1Cd,
+					MCE.TYPE_2 AS type2Cd,
+					MC.COPYRIGHT_NAME AS copyrightName,
+					MC.PROVIDER_ID AS copyrightId,
+					MC.COPYRIGHT_THUMB_PATH AS copyrightThumbPath,
+					CASE MC.CONTENT_GUBUN
+						WHEN 'CN020' THEN 'N'
+						ELSE MC.DOWN_YN
+					END AS dnYn,
+					CASE MC.CONTENT_GUBUN
+						WHEN 'CN020' THEN 'N'
+						ELSE MC.TN_YN
+					END AS tnYn,
+					MC.DOC_CONVERT_YN AS docConvertYn,
+					IFNULL(MCE.ORDER_BOOKPAGE, 0) AS orderBookpage,
+					CASE
+						WHEN DATEDIFF(CURRENT_TIMESTAMP,IFNULL(MC.UPD_DTTM, MC.REG_DTTM)) <![CDATA[ <= ]]> 30
+							THEN 'Y'
+						ELSE 'N'
+					END AS newImgYn,
+					IFNULL(MC.SITE_URL, '') AS siteUrl,
+					CSU.SHORT_URL AS shortUrl,
+					MC.REG_DTTM AS regDttm,
+					COUNT(1) OVER() AS ROW_TOTAL
+				FROM EDUCOURSE_CHILD AS EC
+				INNER JOIN MASTER_CONTENT_EDUCOURSE AS MCE ON EC.CODELIST_ID = MCE.EDUCOURSE_ID
+				INNER JOIN MASTER_CONTENT AS MC ON MC.CONTENT_ID = MCE.CONTENT_ID
+					AND MC.CONTENT_GUBUN = MCE.CONTENT_GUBUN
+				LEFT JOIN CODELIST AS CL2 ON CL2.CODELIST_ID = MCE.TYPE_2
+				LEFT OUTER JOIN CMS_SHORT_URL CSU ON MC.CONTENT_ID = CSU.CONTENT_ID
+				WHERE MC.USE_YN = 'Y'
+				AND MC.UP_OPEN_YN = 'Y'
+				AND (IFNULL(MCE.TYPE_1, '') =
+					CASE
+						WHEN IFNULL(#{type1Cd}, '') <![CDATA[ <> ]]> ''
+							THEN #{type1Cd}
+						ELSE IFNULL(MCE.TYPE_1, '')
+					END
+				)
+				AND IFNULL(MCE.TYPE_2, '') =
+					CASE
+						WHEN IFNULL(#{type2Cd}, '') <![CDATA[ <> ]]> ''
+							THEN #{type2Cd}
+						ELSE IFNULL(MCE.TYPE_2, '')
+					END
+			) AS allData
+			WHERE allData.idx BETWEEN (#{page} - 1) * #{pageRequest.pageSize} + 1 AND #{page} * #{pageRequest.pageSize}
+		)
+		SELECT
+			0 AS idx,
+			TMPCNT.ROW_TOTAL AS contentGubun,
+			IF((TMPCNT.ROW_TOTAL % 10 = 0), FLOOR(TMPCNT.ROW_TOTAL/10), FLOOR(TMPCNT.ROW_TOTAL/10 + 1))  AS contentId,
+			#{pageRequest.pageSize} AS fileType,
+			NULL                           AS subject,
+			NULL                           AS saveFileNm,
+			NULL                           AS filePath,
+			NULL                           AS fileCdnYn,
+			NULL                           AS thumbnailPath,
+			NULL                           AS eduCourseId,
+			NULL                           AS type1Cd,
+			NULL                           AS type2Cd,
+			NULL                           AS copyrightName,
+			NULL                           AS copyrightId,
+			NULL                           AS copyrightThumbPath,
+			NULL                           AS dnYn,
+			NULL                           AS tnYn,
+			NULL                           AS docConvertYn,
+			NULL                           AS orderBookpage,
+			NULL                           AS newImgYn,
+			NULL                           AS siteUrl,
+			NULL                           AS shortUrl,
+			NULL                           AS regDttm,
+			NULL						   AS mdValue
+		FROM (
+			SELECT
+				0 AS ID
+				,IFNULL((SELECT ROW_TOTAL FROM tmpTbl LIMIT 1), 0) AS ROW_TOTAL
+			FROM DUAL
+		) AS TMPCNT
+		UNION ALL
+		SELECT
+			idx,
+			contentGubun,
+			contentId,
+			fileType,
+			subject,
+			saveFileNm,
+			filePath,
+			fileCdnYn,
+			thumbnailPath,
+			eduCourseId,
+			type1Cd,
+			type2Cd,
+			copyrightName,
+			copyrightId,
+			copyrightThumbPath,
+			dnYn,
+			tnYn,
+			docConvertYn,
+			orderBookpage,
+			newImgYn,
+			siteUrl,
+			shortUrl,
+			regDttm,
+			MDA.MD_VALUE AS mdValue
+		FROM tmpTbl AS C
+        LEFT JOIN LATERAL (
+			SELECT
+				CASE
+					WHEN CG2.CATEGORY = 'BS110' THEN
+						IFNULL(
+			        		(
+			        			SELECT CC.MD_VALUE
+			         			FROM CODELIST CC
+			         			WHERE CC.CODELIST_ID = EC.TEXTBOOK),
+			        		'2015'
+			       		)
+			     	ELSE
+			      		IFNULL(
+			        		(
+			        			SELECT CC.MD_VALUE
+			         			FROM CODELIST CC
+			         			WHERE CC.CODELIST_ID = B.EDUCOURSE_ID),
+			        		'2015'
+			       		)
+				END AS MD_VALUE
+			FROM MULTIMEDIA M
+			LEFT JOIN MULTIMEDIA_EDUCOURSE B
+				ON M.MULTIMEDIA_ID = B.MULTIMEDIA_ID
+					AND M.MULTIMEDIA_GUBUN = B.MULTIMEDIA_GUBUN
+			LEFT JOIN EDUCOURSE_INFO EC
+				ON B.EDUCOURSE_ID = EC.CODELIST_ID
+			LEFT JOIN CODELIST CL
+				ON CL.CODELIST_ID = B.EDUCOURSE_ID
+			LEFT JOIN CODEGROUP CG2
+				ON CG2.CODEGROUP_ID = CL.CODEGROUP_ID
+					AND CG2.CATEGORY = 'BS110'
+					AND CG2.USE_YN = 'Y'
+			WHERE M.MULTIMEDIA_ID = C.CONTENTID
+			LIMIT 1
+		) MDA ON 1 = 1
+    </select>
+
+    <select id="getCourseBaseClassSubInfotList" parameterType="string" resultType="hashmap">
+        SELECT
+			#{class1Cd} AS class1Cd,
+			CL.CODELIST_ID AS class2Cd,
+			CL.CODE_NAME AS class2Nm,
+			IFNULL(CL.MD_VALUE, '') AS unitNum,
+			CL.ORDER_NO AS orderNo,
+			CL.USE_YN AS useYn
+		FROM CODELIST AS CL
+		INNER JOIN MASTER_CONTENT_EDUCOURSE AS MCE ON CL.CODELIST_ID = MCE.EDUCOURSE_ID AND CL.USE_YN = 'Y'
+		INNER JOIN MASTER_CONTENT AS MC ON MC.CONTENT_ID = MCE.CONTENT_ID AND MC.CONTENT_GUBUN = MCE.CONTENT_GUBUN
+		WHERE MC.USE_YN = 'Y'
+			AND MC.UP_OPEN_YN = 'Y'
+			AND CL.REF_CODE = #{class1Cd}
+		GROUP BY CL.CODELIST_ID, CL.CODE_NAME, CL.MD_VALUE, CL.ORDER_NO, CL.USE_YN
+		UNION ALL
+		SELECT
+			#{class1Cd} AS class1Cd,
+			CODELIST_ID AS class2Cd,
+			CODE_NAME AS class2Nm,
+			IFNULL(MD_VALUE, '') AS unitNum,
+			ORDER_NO AS orderNo,
+			USE_YN AS useYn
+		FROM CODELIST
+		WHERE CODELIST_ID NOT IN (
+				SELECT
+					CL.CODELIST_ID AS class2Cd
+				FROM CODELIST AS CL
+				LEFT JOIN MASTER_CONTENT_EDUCOURSE AS MCE ON CL.CODELIST_ID = MCE.EDUCOURSE_ID
+						AND CL.USE_YN = 'Y'
+				LEFT JOIN MASTER_CONTENT AS MC ON MC.CONTENT_ID = MCE.CONTENT_ID AND MC.CONTENT_GUBUN = MCE.CONTENT_GUBUN
+				WHERE MC.USE_YN = 'Y'
+					AND MC.UP_OPEN_YN = 'Y'
+					AND CL.REF_CODE = #{class1Cd}
+				GROUP BY CL.CODELIST_ID, CL.CODE_NAME, CL.MD_VALUE, CL.ORDER_NO
+			) AND REF_CODE = #{class1Cd}
+		GROUP BY CODELIST_ID, CODE_NAME, MD_VALUE, ORDER_NO, USE_YN
+		ORDER BY orderNo
+    </select>
+
+    <select id="getUnitSubTypeList" parameterType="string" resultType="hashmap">
+        WITH RECURSIVE EDUCOURSE_CHILD AS (
+			SELECT CODELIST_ID, REF_CODE, CODE_NAME, 0 AS LEVEL
+			FROM CODELIST AS C
+			WHERE C.CODELIST_ID IN (#{classCd})
+			UNION ALL
+			SELECT C.CODELIST_ID, C.REF_CODE, C.CODE_NAME, CH.LEVEL + 1
+			FROM CODELIST C
+			INNER JOIN EDUCOURSE_CHILD CH
+				ON C.REF_CODE = CH.CODELIST_ID
+		)
+		SELECT *
+		FROM (
+			SELECT
+				ROW_NUMBER() OVER(PARTITION BY MCE.TYPE_2 ORDER BY IFNULL(MC.UPD_DTTM, MC.REG_DTTM) DESC) AS no
+				, #{classCd} as educourseId
+				, MCE.TYPE_1      as type1Cd
+				, CL.CODE_NAME    as type1Nm
+				, MCE.TYPE_2      as type2Cd
+				, CL2.CODE_NAME   as type2Nm
+				, COUNT(1)        as type2Cnt
+				, CL2.ORDER_NO    as orderNo
+				, CASE
+					WHEN 90 >= DATEDIFF(CURDATE(), COALESCE(CL2.MOD_DTTM, CL2.REG_DTTM)) THEN 'new'
+					WHEN 90 >= DATEDIFF(CURDATE(), COALESCE(MC.UPD_DTTM, MC.REG_DTTM)) THEN 'new'
+					ELSE ''
+				END AS recentlyCheck
+			FROM (
+				SELECT CODELIST_ID, LEVEL
+				FROM EDUCOURSE_CHILD
+				ORDER BY CODELIST_ID
+			) AS EC
+			INNER JOIN MASTER_CONTENT_EDUCOURSE AS MCE ON EC.CODELIST_ID = MCE.EDUCOURSE_ID
+			INNER JOIN MASTER_CONTENT AS MC
+			ON MC.CONTENT_ID = MCE.CONTENT_ID AND MC.CONTENT_GUBUN = MCE.CONTENT_GUBUN
+			INNER JOIN CODELIST AS CL ON MCE.TYPE_1 = CL.CODELIST_ID
+			AND CL.USE_YN = 'Y'
+			INNER JOIN CODELIST AS CL2 ON MCE.TYPE_2 = CL2.CODELIST_ID
+			AND CL2.USE_YN = 'Y'
+			WHERE 1 = 1
+			AND MC.USE_YN = 'Y'
+			AND MC.UP_OPEN_YN = 'Y'
+			AND MCE.TYPE_1 = #{type1Cd}
+			GROUP BY MCE.TYPE_1, CL.CODE_NAME, MCE.TYPE_2, CL2.CODE_NAME, CL2.ORDER_NO, CL2.MOD_DTTM, CL2.REG_DTTM, MC.UPD_DTTM, MC.REG_DTTM
+		) AS temp
+		WHERE temp.no = 1
+		ORDER BY temp.orderNo
+    </select>
+
+    <select id="rEducourseCommonDataList" parameterType="string" resultType="hashmap">
+        <bind name="page" value="pageRequest.pageNumber+1"/>
+        WITH TEMPTABLE_CODELIST AS (
+			SELECT REF_CODE AS CODELIST_ID FROM CODELIST
+			WHERE CODEGROUP_ID = '104'
+			AND CODELIST_ID = (SELECT REF_CODE AS CODE FROM CODELIST WHERE CODEGROUP_ID = '106' AND CODELIST_ID = #{textbookCd})
+			UNION ALL
+			SELECT REF_CODE AS CODELIST_ID FROM CODELIST
+			WHERE CODEGROUP_ID = '106'
+			AND CODELIST_ID = #{textbookCd}
+			UNION ALL
+			SELECT CODELIST_ID AS CODELIST_ID FROM CODELIST
+			WHERE CODEGROUP_ID = '106'
+			AND CODELIST_ID = #{textbookCd}
+		), TEMPTABLE_DATA AS (
+			SELECT
+				ROW_NUMBER() OVER (
+					ORDER BY
+					CL2.ORDER_NO,
+					CAST(IFNULL(MCE.ORDER_BOOKPAGE, '999999') AS UNSIGNED),
+					CASE
+						WHEN LEFT(MC.SUBJECT,1) LIKE '[ㄱ-힇]' THEN 1
+						WHEN LEFT(MC.SUBJECT,1) LIKE '[0-9]' THEN 2
+						WHEN LEFT(MC.SUBJECT,1) LIKE '[A-Z]' THEN 3
+						ELSE 4
+					END,
+					MC.SUBJECT
+				) AS idx,
+				MC.CONTENT_GUBUN AS contentGubun ,
+				MC.CONTENT_ID AS contentId,
+				MC.FILE_TYPE AS fileType,
+				MC.SUBJECT AS subject,
+				CASE
+					WHEN MC.FILE_TYPE = 'FT206'
+						THEN MC.SITE_URL
+					ELSE MC.SAVE_FILE_NAME
+				END AS saveFileNm,
+				MC.FILE_PATH AS filePath,
+				MC.FILE_CDN_YN AS fileCdnYn,
+				IFNULL(MC.THUMBNAIL_PATH, '') AS thumbnailPath,
+				MCE.EDUCOURSE_ID AS eduCourseId,
+				MCE.TYPE_1 AS type1Cd,
+				MCE.TYPE_2 AS type2Cd,
+				MC.COPYRIGHT_NAME AS copyrightName,
+				MC.PROVIDER_ID AS copyrightId,
+				MC.COPYRIGHT_THUMB_PATH AS copyrightThumbPath,
+				CASE WHEN MC.CONTENT_GUBUN = 'CN020' THEN 'N' ELSE MC.DOWN_YN END AS dnYn,
+				CASE WHEN MC.CONTENT_GUBUN = 'CN020' THEN 'N' ELSE MC.TN_YN END AS tnYn,
+				MC.DOC_CONVERT_YN AS docConvertYn,
+				CASE
+					WHEN 30 >= DATEDIFF(CURRENT_TIMESTAMP, IFNULL(MC.UPD_DTTM, MC.REG_DTTM))
+						THEN 'Y'
+					ELSE 'N'
+				END AS newImgYn,
+				MC.REG_DTTM  AS regDttm
+			FROM TEMPTABLE_CODELIST AS EC
+			INNER JOIN MASTER_CONTENT_EDUCOURSE AS MCE ON EC.CODELIST_ID = MCE.EDUCOURSE_ID
+				AND (MCE.EDUCOURSE_CATEGORY = IFNULL((SELECT MD_VALUE FROM EDUCOURSE_INFO WHERE CODELIST_ID = #{textbookCd} LIMIT 1), '') OR MCE.EDUCOURSE_CATEGORY IS NULL OR MCE.EDUCOURSE_CATEGORY = '')
+			INNER JOIN MASTER_CONTENT AS MC ON MC.CONTENT_ID = MCE.CONTENT_ID
+				AND MC.CONTENT_GUBUN = MCE.CONTENT_GUBUN
+			INNER JOIN CODELIST AS CL ON CL.CODELIST_ID = MCE.TYPE_1
+				AND CL.CODEGROUP_ID = '111'
+			LEFT JOIN CODELIST AS CL2 ON CL2.CODELIST_ID = MCE.TYPE_2
+			WHERE MC.USE_YN = 'Y'
+			AND MC.UP_OPEN_YN = 'Y'
+			AND IFNULL(MCE.TYPE_1,'') = (CASE WHEN IFNULL(#{class2Cd}, '') != '' THEN #{class2Cd} ELSE IFNULL(MCE.TYPE_1,'') END)
+			AND IFNULL(MCE.TYPE_2,'') = (CASE WHEN IFNULL(#{type2Cd}, '') != '' THEN #{type2Cd} ELSE IFNULL(MCE.TYPE_2,'') END)
+		)
+		SELECT
+			0 AS idx,
+			CAST((SELECT COUNT(1) FROM TEMPTABLE_DATA) as CHAR) AS contentGubun,
+			CAST(IF((SELECT COUNT(1) FROM TEMPTABLE_DATA) % #{pageRequest.pageSize} = 0, CAST(((SELECT COUNT(1) FROM TEMPTABLE_DATA) / #{pageRequest.pageSize}) AS UNSIGNED), CAST(((SELECT COUNT(1) FROM TEMPTABLE_DATA) / #{pageRequest.pageSize} + 1) AS UNSIGNED)) as CHAR) AS contentId,
+			CAST(#{pageRequest.pageSize} as CHAR) AS fileType,
+			NULL AS subject,
+			NULL AS saveFileNm,
+			NULL AS filePath,
+			NULL AS fileCdnYn,
+			NULL AS thumbnailPath,
+			NULL AS eduCourseId,
+			NULL AS type1Cd,
+			NULL AS type2Cd,
+			NULL AS copyrightName,
+			NULL AS copyrightId,
+			NULL AS copyrightThumbPath,
+			NULL AS dnYn,
+			NULL AS tnYn,
+			NULL AS docConvertYn,
+			NULL AS newImgYn,
+			NULL AS regDttm,
+			NULL AS mdValue
+		UNION ALL
+		SELECT
+		    idx
+			, contentGubun
+			, contentId
+			, fileType
+			, subject
+			, C.saveFileNm
+			, filePath
+			, fileCdnYn
+			, thumbnailPath
+			, eduCourseId
+			, type1Cd
+			, type2Cd
+			, copyrightName
+			, copyrightId
+			, copyrightThumbPath
+			, dnYn
+			, tnYn
+			, docConvertYn
+			, newImgYn
+			, regDttm
+			, MDA.MD_VALUE as mdValue
+		FROM TEMPTABLE_DATA AS C
+		LEFT JOIN LATERAL (
+			SELECT
+				CASE
+					WHEN CG2.CATEGORY = 'BS110' THEN
+						IFNULL(
+			        		(
+			        			SELECT CC.MD_VALUE
+			         			FROM CODELIST CC
+			         			WHERE CC.CODELIST_ID = EC.TEXTBOOK),
+			        		'2015'
+			       		)
+			     	ELSE
+			      		IFNULL(
+			        		(
+			        			SELECT CC.MD_VALUE
+			         			FROM CODELIST CC
+			         			WHERE CC.CODELIST_ID = B.EDUCOURSE_ID),
+			        		'2015'
+			       		)
+				END AS MD_VALUE
+			FROM MULTIMEDIA M
+			LEFT JOIN MULTIMEDIA_EDUCOURSE B
+				ON M.MULTIMEDIA_ID = B.MULTIMEDIA_ID
+					AND M.MULTIMEDIA_GUBUN = B.MULTIMEDIA_GUBUN
+			LEFT JOIN EDUCOURSE_INFO EC
+				ON B.EDUCOURSE_ID = EC.CODELIST_ID
+			LEFT JOIN CODELIST CL
+				ON CL.CODELIST_ID = B.EDUCOURSE_ID
+			LEFT JOIN CODEGROUP CG2
+				ON CG2.CODEGROUP_ID = CL.CODEGROUP_ID
+					AND CG2.CATEGORY = 'BS110'
+					AND CG2.USE_YN = 'Y'
+			WHERE M.MULTIMEDIA_ID = C.CONTENTID
+			LIMIT 1
+		) MDA ON 1 = 1
+		WHERE idx BETWEEN (#{page} - 1) * #{pageRequest.pageSize} + 1 AND #{page} * #{pageRequest.pageSize}
+    </select>
+
+    <select id="rEducourseCommonDataTypeList" parameterType="string" resultType="hashmap">
+        WITH TEMPTABLE_CODELIST AS (
+			SELECT REF_CODE AS CODELIST_ID FROM CODELIST
+			WHERE CODEGROUP_ID = '104'
+				AND CODELIST_ID = (SELECT REF_CODE AS CODE FROM CODELIST WHERE CODEGROUP_ID = '106' AND CODELIST_ID = #{textbookCd})
+			UNION ALL
+			SELECT REF_CODE AS CODELIST_ID FROM CODELIST
+			WHERE CODEGROUP_ID = '106'
+				AND CODELIST_ID = #{textbookCd}
+			UNION ALL
+			SELECT CODELIST_ID AS CODELIST_ID FROM CODELIST
+			WHERE CODEGROUP_ID = '106'
+				AND CODELIST_ID = #{textbookCd}
+		)
+		SELECT *
+		FROM (
+			SELECT
+				ROW_NUMBER() OVER (PARTITION BY MCE.TYPE_2 ORDER BY IFNULL(MC.UPD_DTTM, MC.REG_DTTM) DESC) AS no,
+				#{textbookCd}                                                                       as educourseId,
+				MCE.TYPE_1                                                                            AS type1Cd,
+				MCE.TYPE_2                                                                            AS type2Cd,
+				CL.CODE_NAME                                                                          as type1Nm,
+				CL2.CODE_NAME                                                                         as type2Nm,
+				COUNT(1)                                                                              as type2Cnt,
+				CL2.ORDER_NO                                                                          as orderNo,
+				CASE
+					WHEN 90 >= DATEDIFF(CURDATE(), COALESCE(CL2.MOD_DTTM, CL2.REG_DTTM)) THEN 'new'
+					WHEN 90 >= DATEDIFF(CURDATE(), COALESCE(MC.UPD_DTTM, MC.REG_DTTM)) THEN 'new'
+					ELSE ''
+				END AS recentlyCheck
+			FROM TEMPTABLE_CODELIST AS EC
+			INNER JOIN MASTER_CONTENT_EDUCOURSE AS MCE ON EC.CODELIST_ID = MCE.EDUCOURSE_ID
+					AND (MCE.EDUCOURSE_CATEGORY = (SELECT MD_VALUE FROM EDUCOURSE_INFO WHERE CODELIST_ID = #{textbookCd} LIMIT 1) OR MCE.EDUCOURSE_CATEGORY IS NULL OR MCE.EDUCOURSE_CATEGORY = '')
+			INNER JOIN MASTER_CONTENT AS MC ON MC.CONTENT_ID = MCE.CONTENT_ID
+					AND MC.CONTENT_GUBUN = MCE.CONTENT_GUBUN
+			INNER JOIN CODELIST AS CL ON CL.CODELIST_ID = MCE.TYPE_1
+					AND CL.CODEGROUP_ID = '111'
+			LEFT JOIN CODELIST AS CL2 ON CL2.CODELIST_ID = MCE.TYPE_2
+			WHERE MC.USE_YN = 'Y'
+				AND MC.UP_OPEN_YN = 'Y'
+				AND MCE.TYPE_1 = #{class2Cd}
+			GROUP BY MCE.TYPE_1, MCE.TYPE_2, CL.CODE_NAME,
+				CL2.CODE_NAME, CL2.ORDER_NO, CL2.MOD_DTTM, CL2.REG_DTTM, MC.UPD_DTTM, MC.REG_DTTM
+		) AS temp
+		WHERE temp.no = 1
+		ORDER BY temp.orderNo
+    </select>
+
+    <!-- 특화 자료 목록 조회-->
+    <select id="rEducourseSpecialDataList" parameterType="string" resultType="hashmap">
+        <bind name="page" value="pageRequest.pageNumber+1"/>
+        WITH TEMPTABLE_CODELIST AS (
+			SELECT REF_CODE AS CODELIST_ID FROM CODELIST
+			WHERE CODEGROUP_ID = '104'
+			AND CODELIST_ID = (SELECT REF_CODE AS CODE FROM CODELIST WHERE CODEGROUP_ID = '106' AND CODELIST_ID = #{textbookCd})
+			UNION ALL
+			SELECT REF_CODE AS CODELIST_ID FROM CODELIST
+			WHERE CODEGROUP_ID = '106'
+			AND CODELIST_ID = #{textbookCd}
+			UNION ALL
+			SELECT CODELIST_ID AS CODELIST_ID FROM CODELIST
+			WHERE CODEGROUP_ID = '106'
+			AND CODELIST_ID = #{textbookCd}
+		), TEMPTABLE_DATA AS (
+			SELECT
+			ROW_NUMBER() OVER (
+				ORDER BY
+					MCE.TYPE_2 ASC,
+					CASE
+						WHEN right(MCE.TYPE_1,4) in ('0003' , '0004' ,'0005' )
+							THEN  CAST(IFNULL(MCE.ORDER_BOOKPAGE, '999999') AS UNSIGNED)
+					END,
+					CASE
+						WHEN LEFT(MC.SUBJECT,1) LIKE '[ㄱ-힇]' THEN 1
+						WHEN LEFT(MC.SUBJECT,1) LIKE '[0-9]' THEN 2
+						WHEN LEFT(MC.SUBJECT,1) LIKE '[A-Z]' THEN 3
+					ELSE 4
+					END,
+				MC.SUBJECT
+			) AS idx,
+			MC.CONTENT_GUBUN AS contentGubun ,
+			MC.CONTENT_ID AS contentId,
+			MC.FILE_TYPE AS fileType,
+			CASE
+				WHEN AMI.CONTENT_GUBUN IS NULL
+				 	THEN MC.SUBJECT
+				ELSE AMI.TITLE
+			END AS subject,
+			CASE
+				WHEN MC.FILE_TYPE = 'FT206'
+					THEN MC.SITE_URL
+					ELSE MC.SAVE_FILE_NAME
+				END AS saveFileNm,
+			MC.FILE_PATH AS filePath,
+			MC.FILE_CDN_YN AS fileCdnYn,
+			IFNULL(MC.THUMBNAIL_PATH, '') AS thumbnailPath,
+			MCE.EDUCOURSE_ID AS eduCourseId,
+			MCE.TYPE_1 AS type1Cd,
+			MCE.TYPE_2 AS type2Cd,
+			MC.COPYRIGHT_NAME AS copyrightName,
+			MC.PROVIDER_ID AS copyrightId,
+			MC.COPYRIGHT_THUMB_PATH AS copyrightThumbPath,
+			CASE WHEN MC.CONTENT_GUBUN = 'CN020' THEN 'N' ELSE MC.DOWN_YN END AS dnYn,
+			CASE WHEN MC.CONTENT_GUBUN = 'CN020' THEN 'N' ELSE MC.TN_YN END AS tnYn,
+			MC.DOC_CONVERT_YN AS docConvertYn,
+			IFNULL(MCE.ORDER_BOOKPAGE, 0) AS orderBookpage,
+			CASE
+				WHEN 30 >= DATEDIFF(CURRENT_TIMESTAMP, IFNULL(MC.UPD_DTTM, MC.REG_DTTM))
+					THEN 'Y'
+				ELSE 'N'
+			END AS newImgYn
+			FROM TEMPTABLE_CODELIST AS EC
+			INNER JOIN MASTER_CONTENT_EDUCOURSE AS MCE ON EC.CODELIST_ID = MCE.EDUCOURSE_ID
+			INNER JOIN MASTER_CONTENT AS MC ON MC.CONTENT_ID = MCE.CONTENT_ID
+				AND MC.CONTENT_GUBUN = MCE.CONTENT_GUBUN
+			LEFT JOIN CODELIST AS CL ON MCE.TYPE_2 = CL.CODELIST_ID
+				AND CL.USE_YN = 'Y'
+			LEFT JOIN AUTHOR_MEETING_INFO AS AMI ON AMI.CONTENT_ID = MCE.CONTENT_ID
+				AND AMI.CONTENT_GUBUN = MCE.CONTENT_GUBUN AND AMI.OPEN_YN = 'Y' /*작가와의 만남 영상 자료를 특화자료의 영상으로 노출 시켜줘야 하는 요건에 의한 처리*/
+			WHERE MC.USE_YN = 'Y'
+			AND MC.CONTENT_GUBUN = 'CN030'
+			AND MCE.TYPE_1 = (SELECT REF_CODE FROM CODELIST WHERE CODELIST_ID = #{class2Cd})
+			AND MCE.TYPE_2 = #{class2Cd}
+		)
+		SELECT
+			0 AS idx,
+			CAST((SELECT COUNT(1) FROM TEMPTABLE_DATA) as CHAR) AS contentGubun,
+			CAST(IF((SELECT COUNT(1) FROM TEMPTABLE_DATA) % #{pageRequest.pageSize} = 0, CAST(((SELECT COUNT(1) FROM TEMPTABLE_DATA) / #{pageRequest.pageSize}) AS UNSIGNED), CAST(((SELECT COUNT(1) FROM TEMPTABLE_DATA) / #{pageRequest.pageSize} + 1) AS UNSIGNED)) as CHAR) AS contentId,
+			CAST(#{pageRequest.pageSize} as CHAR) AS fileType,
+			NULL AS subject,
+			NULL AS saveFileNm,
+			NULL AS filePath,
+			NULL AS fileCdnYn,
+			NULL AS thumbnailPath,
+			NULL AS eduCourseId,
+			NULL AS type1Cd,
+			NULL AS type2Cd,
+			NULL AS copyrightName,
+			NULL AS copyrightId,
+			NULL AS copyrightThumbPath,
+			NULL AS dnYn,
+			NULL AS tnYn,
+			NULL AS docConvertYn,
+			NULL AS orderBookpage,
+			NULL AS newImgYn,
+			NULL AS mdValue
+		UNION ALL
+		SELECT
+		    idx,
+			contentGubun,
+			contentId,
+			fileType,
+			subject,
+			saveFileNm,
+			filePath,
+			fileCdnYn,
+			thumbnailPath,
+			eduCourseId,
+			type1Cd,
+			type2Cd,
+			copyrightName,
+			copyrightId,
+			copyrightThumbPath,
+			dnYn,
+			tnYn,
+			docConvertYn,
+			orderBookpage,
+			newImgYn,
+			MDA.MD_VALUE AS mdValue
+		FROM TEMPTABLE_DATA AS C
+		LEFT JOIN LATERAL (
+			SELECT
+				CASE
+					WHEN CG2.CATEGORY = 'BS110' THEN
+						IFNULL(
+			        		(
+			        			SELECT CC.MD_VALUE
+			         			FROM CODELIST CC
+			         			WHERE CC.CODELIST_ID = EC.TEXTBOOK),
+			        		'2015'
+			       		)
+			     	ELSE
+			      		IFNULL(
+			        		(
+			        			SELECT CC.MD_VALUE
+			         			FROM CODELIST CC
+			         			WHERE CC.CODELIST_ID = B.EDUCOURSE_ID),
+			        		'2015'
+			       		)
+				END AS MD_VALUE
+			FROM MULTIMEDIA M
+			LEFT JOIN MULTIMEDIA_EDUCOURSE B
+				ON M.MULTIMEDIA_ID = B.MULTIMEDIA_ID
+					AND M.MULTIMEDIA_GUBUN = B.MULTIMEDIA_GUBUN
+			LEFT JOIN EDUCOURSE_INFO EC
+				ON B.EDUCOURSE_ID = EC.CODELIST_ID
+			LEFT JOIN CODELIST CL
+				ON CL.CODELIST_ID = B.EDUCOURSE_ID
+			LEFT JOIN CODEGROUP CG2
+				ON CG2.CODEGROUP_ID = CL.CODEGROUP_ID
+					AND CG2.CATEGORY = 'BS110'
+					AND CG2.USE_YN = 'Y'
+			WHERE M.MULTIMEDIA_ID = C.CONTENTID
+			LIMIT 1
+		) MDA ON 1 = 1
+		WHERE idx BETWEEN (#{page} - 1) * #{pageRequest.pageSize} + 1 AND #{page} * #{pageRequest.pageSize}
+    </select>
+
+    <!-- 교과 목록 > 특화 자료 > 분류별 자료 서브카피 정보 조회 -->
+    <select id="getEduCourseSpecialDataSubCopy" parameterType="string" resultType="string">
+	   	SELECT SUMMARY
+	   	FROM CODELIST
+       	WHERE CODELIST_ID = #{class2Cd}
+	</select>
+
+    <!-- 차시목록 -->
+    <resultMap id="periodInfoWithDoc" type="hashmap">
+        <result property="periodId" column="PERIOD_ID" javaType="java.lang.Integer"/>
+        <result property="blYear" column="BL_YEAR" javaType="java.lang.String"/>
+        <result property="blCodelistId" column="BL_CODELIST_ID" javaType="java.lang.String"/>
+        <result property="periodName" column="PERIOD_NAME" javaType="java.lang.String"/>
+        <result property="periodPage" column="PERIOD_PAGE" javaType="java.lang.String"/>
+        <result property="openYn" column="OPEN_YN" javaType="java.lang.String"/>
+        <result property="subject" column="SUBJECT" javaType="java.lang.String"/>
+        <result property="textbook" column="TEXTBOOK" javaType="java.lang.String"/>
+        <result property="unit1" column="UNIT1" javaType="java.lang.String"/>
+        <result property="unit2" column="UNIT2" javaType="java.lang.String"/>
+        <result property="subjectNm" column="LAB_SUBJECT" javaType="java.lang.String"/>
+        <result property="textbookNm" column="LAB_TEXTBOOK" javaType="java.lang.String"/>
+        <result property="unit1Nm" column="LAB_UNIT1" javaType="java.lang.String"/>
+        <result property="unit2Nm" column="LAB_UNIT2" javaType="java.lang.String"/>
+        <result property="orderNoUnit1" column="ORDER_NO_UNIT1" javaType="java.lang.String"/>
+        <collection property="docDataList" column="periodId" javaType="java.util.ArrayList" ofType="hashmap">
+            <result property="periodId" column="PERIOD_ID1" javaType="java.lang.Integer"/>
+            <result property="contentId" column="CONTENT_ID" javaType="java.lang.String"/>
+            <result property="contentGubun" column="CONTENT_GUBUN" javaType="java.lang.String"/>
+            <result property="order" column="ORDER" javaType="java.lang.Integer"/>
+            <result property="title" column="TITLE" javaType="java.lang.String"/>
+            <result property="mediaKind" column="MEDIA_KIND" javaType="java.lang.String"/>
+            <result property="fileType" column="FILE_TYPE" javaType="java.lang.String"/>
+            <result property="subject" column="SUBJECT1" javaType="java.lang.String"/>
+            <result property="saveFileName" column="SAVE_FILE_NAME" javaType="java.lang.String"/>
+            <result property="downYn" column="DOWN_YN" javaType="java.lang.String"/>
+        </collection>
+    </resultMap>
+    <select id="getPeriodListMain" parameterType="Object" statementType="CALLABLE" resultMap="periodInfoWithDoc">
+        <bind name="page" value="pageRequest.pageNumber+1"/>
+    	WITH TBL_IDX AS (
+			SELECT
+				TMP.*
+			FROM (
+				SELECT
+					ROW_NUMBER() OVER(ORDER BY A.PERIOD_PAGE) AS ID,
+					COUNT(1) OVER () ROW_TOTAL,
+					A.PERIOD_ID,
+					A.BL_YEAR,
+					A.BL_CODELIST_ID,
+					A.PERIOD_NAME,
+					A.PERIOD_PAGE,
+					A.OPEN_YN,
+					B.SUBJECT,
+					B.TEXTBOOK,
+					B.UNIT1,
+					B.UNIT2,
+					B.LAB_SUBJECT,
+					B.LAB_TEXTBOOK,
+					B.LAB_UNIT1,
+					B.LAB_UNIT2
+				FROM PERIOD A
+				JOIN EDUCOURSE_INFO B ON A.BL_CODELIST_ID = B.CODELIST_ID
+				WHERE A.OPEN_YN = 'Y'
+					AND A.USE_YN = 'Y'
+                    <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(class1Cd)">
+                        AND B.UNIT1 = #{class1Cd}
+                    </if>
+			) AS TMP
+			WHERE ID <![CDATA[ >= ]]> ((#{page} - 1) * #{pageRequest.pageSize} + 1) AND ID <![CDATA[ <= ]]> (#{page} * #{pageRequest.pageSize})
+		)
+
+		SELECT
+			ID AS idx
+			, PERIOD_ID
+			, BL_YEAR
+			, BL_CODELIST_ID
+			, PERIOD_NAME
+			, PERIOD_PAGE
+			, OPEN_YN
+			, SUBJECT
+			, TEXTBOOK
+			, UNIT1
+			, UNIT2
+			, LAB_SUBJECT
+			, LAB_TEXTBOOK
+			, LAB_UNIT1
+			, LAB_UNIT2
+			, PERIOD_ID1
+			, CONTENT_ID
+			, CONTENT_GUBUN
+			, `ORDER`
+			, TITLE
+			, FILE_TYPE
+			, SUBJECT1
+			, SAVE_FILE_NAME
+			, DOWN_YN
+			, TYPE_2
+		FROM (
+			SELECT
+				0 AS ID
+				, C.ROW_TOTAL AS PERIOD_ID
+				, NULL AS BL_YEAR
+				, NULL AS BL_CODELIST_ID
+				, NULL AS PERIOD_NAME
+				, NULL AS PERIOD_PAGE
+				, NULL AS OPEN_YN
+				, NULL AS SUBJECT
+				, NULL AS TEXTBOOK
+				, NULL AS UNIT1
+				, NULL AS UNIT2
+				, NULL AS LAB_SUBJECT
+				, NULL AS LAB_TEXTBOOK
+				, NULL AS LAB_UNIT1
+				, NULL AS LAB_UNIT2
+				, NULL AS PERIOD_ID1
+				, NULL AS CONTENT_ID
+				, NULL AS CONTENT_GUBUN
+				, NULL AS `ORDER`
+				, NULL AS TITLE
+				, NULL AS FILE_TYPE
+				, NULL AS SUBJECT1
+				, NULL AS SAVE_FILE_NAME
+				, NULL AS DOWN_YN
+				, NULL AS TYPE_2
+			FROM (
+				SELECT
+					0 AS IDX
+					,IFNULL((SELECT ROW_TOTAL FROM TBL_IDX LIMIT 1), 0) AS ROW_TOTAL
+				FROM DUAL
+			) AS C
+
+			UNION ALL
+
+			SELECT
+				TMCI.ID
+				, TMCI.PERIOD_ID
+				, TMCI.BL_YEAR
+				, TMCI.BL_CODELIST_ID
+				, TMCI.PERIOD_NAME
+				, TMCI.PERIOD_PAGE
+				, TMCI.OPEN_YN
+				, TMCI.SUBJECT
+				, TMCI.TEXTBOOK
+				, TMCI.UNIT1
+				, TMCI.UNIT2
+				, TMCI.LAB_SUBJECT
+				, TMCI.LAB_TEXTBOOK
+				, TMCI.LAB_UNIT1
+				, TMCI.LAB_UNIT2
+
+				, B.PERIOD_ID AS PERIOD_ID1
+				, B.CONTENT_ID
+				, B.CONTENT_GUBUN
+				, B.`ORDER`
+				, CASE WHEN IFNULL(B.TITLE,'') = '' THEN C.SUBJECT ELSE B.TITLE END AS TITLE
+				, C.FILE_TYPE
+				, C.SUBJECT AS SUBJECT1
+				, C.SAVE_FILE_NAME
+				, C.DOWN_YN
+				, (SELECT TYPE_2 FROM MASTER_CONTENT_EDUCOURSE WHERE CONTENT_ID = B.CONTENT_ID AND CONTENT_GUBUN = B.CONTENT_GUBUN LIMIT 1) AS TYPE_2
+			FROM (
+				SELECT
+					*
+				FROM TBL_IDX
+			) TMCI
+			LEFT OUTER JOIN PERIOD_DOC_DATA B ON TMCI.PERIOD_ID = B.PERIOD_ID
+			LEFT OUTER JOIN MASTER_CONTENT C ON B.CONTENT_ID = C.CONTENT_ID AND C.CONTENT_GUBUN = 'CN030' AND C.USE_YN = 'Y'
+		) AS RSLT
+		ORDER BY RSLT.ID
+    </select>
+
+    <select id="getContentInfo" parameterType="String" resultType="hashmap">
+        SELECT
+            CONTENT_ID AS contentId,
+            CONTENT_GUBUN AS contentGubun,
+            FILE_TYPE AS fileType,
+            SUBJECT AS subject,
+            SUMMARY AS summary,
+            ORG_FILE_NAME AS orgFileName,
+            SAVE_FILE_NAME as saveFileName,
+            FILE_PATH as filePath,
+            FILE_CDN_YN as fileCdnYn,
+            THUMBNAIL_PATH as thumbnailPath,
+            THUMBNAIL_PATH_L as thumbnailPathL,
+            DOWN_YN AS downYn,
+            DOC_CONVERT_YN AS docConvertYn,
+            COPYRIGHT_NAME AS copyrightName,
+            SITE_URL AS siteUrl,
+            MDA.MD_VALUE AS mdValue
+        FROM MASTER_CONTENT a
+        LEFT JOIN LATERAL (
+			SELECT
+				CASE
+					WHEN CG2.CATEGORY = 'BS110' THEN
+						IFNULL(
+			        		(
+			        			SELECT CC.MD_VALUE
+			         			FROM CODELIST CC
+			         			WHERE CC.CODELIST_ID = EC.TEXTBOOK),
+			        		'2015'
+			       		)
+			     	ELSE
+			      		IFNULL(
+			        		(
+			        			SELECT CC.MD_VALUE
+			         			FROM CODELIST CC
+			         			WHERE CC.CODELIST_ID = B.EDUCOURSE_ID),
+			        		'2015'
+			       		)
+				END AS MD_VALUE
+			FROM MULTIMEDIA M
+			LEFT JOIN MULTIMEDIA_EDUCOURSE B
+				ON M.MULTIMEDIA_ID = B.MULTIMEDIA_ID
+					AND M.MULTIMEDIA_GUBUN = B.MULTIMEDIA_GUBUN
+			LEFT JOIN EDUCOURSE_INFO EC
+				ON B.EDUCOURSE_ID = EC.CODELIST_ID
+			LEFT JOIN CODELIST CL
+				ON CL.CODELIST_ID = B.EDUCOURSE_ID
+			LEFT JOIN CODEGROUP CG2
+				ON CG2.CODEGROUP_ID = CL.CODEGROUP_ID
+					AND CG2.CATEGORY = 'BS110'
+					AND CG2.USE_YN = 'Y'
+			WHERE M.MULTIMEDIA_ID = a.CONTENT_ID
+			LIMIT 1
+		) MDA ON 1 = 1
+        WHERE USE_YN = 'Y'
+        AND UP_OPEN_YN = 'Y'
+        AND FILE_TYPE IS NOT NULL
+        AND CONTENT_ID = #{contentId}
+    </select>
+
+    <select id="getHtmlContentList" parameterType="String" resultType="hashmap">
+        SELECT
+            A.PERIOD_ID,
+            A.PERIOD_NAME,
+            C.CONTENT_ID,
+            D.SITE_URL,
+            D.SUBJECT
+        FROM PERIOD A
+        JOIN EDUCOURSE_INFO B ON A.BL_CODELIST_ID = B.CODELIST_ID
+        JOIN PERIOD_TOC C ON A.PERIOD_ID = C.PERIOD_ID
+        JOIN MASTER_CONTENT D ON C.CONTENT_ID = D.CONTENT_ID
+        WHERE A.OPEN_YN = 'Y'
+        AND A.USE_YN = 'Y'
+        AND C.CONTENT_ID IS NOT NULL
+        AND D.CONTENT_GUBUN = 'CN030'
+        AND B.TEXTBOOK = #{textbookCd}
+        ORDER BY A.PERIOD_ID, C.TOC_NO
+    </select>
+
+	<select id="getSmartTextbookInfo" resultType="hashmap" parameterType="String">
+		SELECT DVD_BTN_TP,DVD_LINK_URL
+		FROM textbook_dvd_down_info
+		WHERE DVD_BTN_TP IN ('SmartBook','SmartPpt')
+		AND TEXTBOOK_CD = #{textbookCd}
+		ORDER BY DVD_BTN_ORDER_NO
+	</select>
+
+	<select id="getSmartTextbookUrlInfo" parameterType="String" resultType="hashmap">
+        SELECT IF(COUNT(1) > 0, ANY_VALUE(SITE_URL) , '') AS siteUrl
+		FROM MASTER_CONTENT MC
+		WHERE MC.CONTENT_ID = (SELECT SMART_TEXTBOOK_CID FROM CUSTOM_MANAGEMENT CM WHERE CODELIST_ID = #{textbookCd} AND USE_YN = 'Y' LIMIT 1)
+			UNION ALL
+		SELECT IF(COUNT(1) > 0, ANY_VALUE(SITE_URL) , '') AS siteUrl
+		FROM MASTER_CONTENT MC
+		WHERE MC.CONTENT_ID = (SELECT SMART_PPT_CID FROM CUSTOM_MANAGEMENT CM WHERE CODELIST_ID = #{textbookCd} AND USE_YN = 'Y' LIMIT 1)
+			UNION ALL
+		SELECT IF(COUNT(1) > 0, ANY_VALUE(SITE_URL) , '') AS siteUrl
+		FROM MASTER_CONTENT MC
+		WHERE MC.CONTENT_ID = (SELECT SMART_WEB_CID FROM CUSTOM_MANAGEMENT CM WHERE CODELIST_ID = #{textbookCd} AND USE_YN = 'Y' LIMIT 1)
+    </select>
+</mapper>

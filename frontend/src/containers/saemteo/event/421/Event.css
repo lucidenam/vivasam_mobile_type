@@ -1,0 +1,73 @@
+/* Event */
+.event221101{position:relative;background:url(/images/events/2022/event221101/evtBg.png)repeat-y; padding:2.8vw 2vw 8.8vw 3.33vw; background-size:100% auto;}
+.event221101 img {width:100%;vertical-align:top;}
+.event221101 [class^="evtCont"]{position:relative;z-index:1;}
+.event221101 * {font-family:'Noto Sans KR', sans-serif; box-sizing:border-box;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+
+/* EVENT 421 */
+
+/* evtNoti */
+.event221101 .evtCon{z-index:999; position:absolute;top:0;right:0;display:block;width:20.8vw;height:28vw;background:url(/images/events/2022/event220211/corn.png) 0 0 no-repeat;background-size:100%;}
+.event221101 .evtBg {width:100%; padding-right: 1.33vw; background:url(/images/events/2022/event221101/bg_gray.png)no-repeat; background-position: center top; background-size:102% auto; box-shadow:0.66vw 0.66vw 0.66vw rgba(88,88,88,0.3);}
+.event221101 .evtCont01 {position:relative; width:100%; padding-top:206.66vw; background:url(/images/events/2022/event221101/bg_exam.png) 0 0 no-repeat;background-size:100% auto; z-index:99;}
+.event221101 .evtGift ul {display:none;}
+
+
+.event221101 .evtExam {width:100%; padding-top:6.8vw; padding-left:7.46vw; padding-bottom:10.3vw;}
+.event221101 .evtExam .evtQ .evtQ_tit {display:block; margin-bottom:2.13vw;}
+.event221101 .evtExam .evtQ.q1 .evtQ_tit {width:60.26vw; height:4.266vw; background:url(/images/events/2022/event221101/q1_t.png)no-repeat; background-size:100% auto; font-size:0;}
+.event221101 .evtExam .evtQ.q2 .evtQ_tit {width:67.6vw; height:7.46vw; background:url(/images/events/2022/event221101/q2_t.png)no-repeat; background-size:100% auto; font-size:0;}
+.event221101 .evtExam .evtQ.q3 .evtQ_tit {width:70.13vw; height:11.73vw; background:url(/images/events/2022/event221101/q3_t.png)no-repeat; background-size:100% auto; font-size:0;}
+.event221101 .evtExam .evtQ.q4 .evtQ_tit {width:65.33vw; height:7.46vw; background:url(/images/events/2022/event221101/q4_t.png)no-repeat; background-size:100% auto; font-size:0;}
+.event221101 .evtExam .evtQ.q5 .evtQ_tit {width:72.53vw; height:7.6vw; background:url(/images/events/2022/event221101/q5_t.png)no-repeat; background-size:100% auto; font-size:0;}
+.event221101 .evtExam .evtQ.q6 .evtQ_tit {width:70vw; height:16.13vw; background:url(/images/events/2022/event221101/q6_t.png)no-repeat; background-size:100% auto; font-size:0;}
+.event221101 .evtExam .evtQ ul {margin-bottom:9.066vw; padding-left:8.13vw;}
+.event221101 .evtExam .evtQ.q1 ul, .event221101 .evtExam .evtQ.q2 ul {margin-bottom:1.06vw; }
+.event221101 .evtExam .evtQ.q6 ul {margin-bottom:0;}
+.event221101 .evtExam .evtQ ul li input[type="radio"] {display:none;}
+.event221101 .evtExam .evtQ ul li input[type="radio"] + label {position:relative; font-size:3.46vw; line-height:6.66vw; color:#303339; letter-spacing:-0.05em; font-weight:400; }
+.event221101 .evtExam .evtQ ul li input[type="radio"]:checked + label {color:#cf2626; font-weight:600; }
+.event221101 .evtExam .evtQ ul li input[type="radio"]:checked + label:after {content:""; display:block; position:absolute; left:0; top:0; width:4.4vw; height:3.73vw; background:url(/images/events/2022/event221101/evtCheck.png)no-repeat; background-size:100% auto; }
+.event221101 .evtExam .evtQ .btnHint {display:inline-block; width:66.93vw; height:10.26vw; margin-left:6.8vw; margin-bottom:10.66vw; font-size:0;}
+.event221101 .evtExam .evtQ .btnHint.hint1 {background:url(/images/events/2022/event221101/hint1.png)no-repeat; background-size:100% auto; font-size:0;}
+.event221101 .evtExam .evtQ .btnHint.hint2 {background:url(/images/events/2022/event221101/hint2.png)no-repeat; background-size:100% auto;}
+
+.event221101 .pop_hint {display:block; position:absolute; left:50%; top:58%; width:88vw; height:58.26vw; padding-top:24vw; background:url(/images/events/2022/event221101/pop_bg.png)no-repeat; background-size:100% auto; transform: translate(-50%, -50%); box-shadow:1.33vw 1.33vw 0px #2e2e2e;}
+.event221101 .pop_hint .popTit h3{display:none;}
+.event221101 .pop_hint .popTit .popClose {display:inline-block; position:absolute; right:2.26vw; top:2.26vw; width:3.33vw; height:3.33vw; background:url(/images/events/2022/event221101/pop_close.png)no-repeat; background-size:100% auto;}
+.event221101 .pop_hint .popCont ul {display:flex; justify-content:space-between; padding: 0 10.66vw;}
+.event221101 .pop_hint .popCont ul li {width:20vw;}
+.event221101 .pop_hint .popCont ul li a {display:block;}
+.event221101 .pop_hint .popCont ul li a img {width:100%;}
+
+
+.event221101 .btnApply {display:block; width:47.6vw; height:14.13vw; margin:3.73vw auto 0; background:url(/images/events/2022/event221101/btn_apply.png)no-repeat; background-size:100% auto; font-size:0;}
+.event221101 .btnApply span {font-size:0;}
+
+.notice {background:#515151; padding:6.66vw 5.33vw 8vw;}
+.notice span {display:inline-block; padding-bottom:2.6vw; font-size:3.2vw; font-weight:600; color:#bad4cc;}
+.notice ul li {padding-left:3vw; text-indent:-3vw; font-size:2.66vw; line-height:4.66vw; color:#cacaca; letter-spacing:-0.04em;}
+
+/*popup*/
+.applyDtl_top {background-color:#fff9e3;}
+.applyDtl_top h3 {text-align:center!important;}
+.applyDtl_top strong {font-size:4.26vw; font-weight:600; color:#ff8125 !important;}
+.input_wrap .count {display:flex; justify-content:flex-end; margin-top:1.33vw;}
+.input_wrap .count span{font-size:3.2vw; font-weight:400; color:#888;}
+.vivasamter_applyDtl .info_tit.info_textarea {position:relative; padding-left:3.8vw; text-indent:-1.8vw;}
+.vivasamter_applyDtl .info_tit.info_textarea .txt_count {position:absolute; right:5px; bottom: 7px;}
+.input_wrap textarea {width:100%; min-height:45.33vw; padding:4vw; font-size:14px; border:1px solid #eaeaea; border-radius:2.66vw;}
+.input_wrap textarea::placeholder {color:#838a95;}
+.vivasamter_apply .info_tit span {font-size:14px;}
+.vivasamter_apply .currentCount {font-size:14px;}
+.join_chk_list {width:50%;}
+.privacyTxt a {color:#01aeff;}
+.vivasamter_applyDtl .pdside20 + .acco_notice_list.notice_sec {padding-top:0; margin-top:0; border-top:0;}
+.vivasamter_applyDtl .pdside20 + .acco_notice_list.notice_sec .acco_notice_cont {border-top:0;}
+
+
+

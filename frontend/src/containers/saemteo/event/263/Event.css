@@ -1,0 +1,41 @@
+.event191028 {position: relative; font-family: "Nanum Gothic","나눔고딕",NanumGothic,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;}
+.event191028 img {vertical-align: middle; width:100%; line-height:0}
+.event191028 a {display: inline;}
+
+/* btn */
+.event191028 .btn_detail {position: absolute; top:0; left: 0; margin: 208% 0 0 58.54%; width: 35vw; height: 7vw; line-height: 7vw; border-radius: 0.8vw; background: #457cb5;  text-align: center; font-size: 3.2vw; color: #fff;  font-family: "Nanum Gothic_Bold";}
+/* 신청하기 */
+.event191028 .btn_wrap {margin-bottom: 9.2vw; padding: 0 4vw; text-align: center;}
+.event191028 .btn_apply,
+.event191028 .btn_more {width: 100%; height: 13.3vw; border-radius: 0.8vw; background: #4083ed;  font-size: 4.3vw; color: #fff; font-family: "Nanum Gothic_Bold";}
+.event191028 .btn_more {margin-top: 6vw; background: #9fbb2f;}
+
+/* form */
+/* .event190923 .checkbox {position:absolute; left:-3000px; opacity:0}
+.event190923 .checkbox + label {display:inline-block; font-size: 3.2vw; color: #535353;}
+.event190923 .checkbox + label:before {content:""; display:inline-block; -webkit-box-sizing:border-box; box-sizing:border-box; width:3.6vw; height:3.6vw; margin-right: 2.5vw; border:1px solid #bfbfbf; border-radius: 0.26vw; vertical-align: middle;}
+.event190923 .checkbox:checked + label:before {border: none; background: url(../../../../../_css/mobile/images/common/bg_check.png) no-repeat; background-size: cover;}
+.event190923 .checkbox + label span {vertical-align: middle;} */
+
+/* contents */
+.event191028 {width: 100%; letter-spacing: -0.08em; font-size: 3.2vw; color: #333;}
+.event191028 .cont_top {padding: 8vw 4vw 9.2vw;}
+.event191028 .cont_top p {margin-bottom: 4vw; letter-spacing: -0.06em;}
+.event191028 .cont_top p em { font-family: "Nanum Gothic_Bold"; color: #4c81e0;}
+.event191028 .cont_top .noti {position: relative; margin-top: 6vw; padding: 3.5vw 3.5vw 3.5vw 9vw; border: 1px solid #d0def7; background: #f4f7fd; letter-spacing: -0.1em; font-size: 2.7vw; color: #444;}
+.event191028 .cont_top .noti:before {content: ""; display: block; position: absolute; top: 4vw; left: 4vw; width: 3.5vw; height: 3.5vw; background: url(/images/events/2019/event191028/ico_noti.png) no-repeat 0 0; background-size: cover;}
+
+.event191028 .info {padding: 6vw 4vw 8vw;  border-top: 1px solid #b2b2b2; color: #666;}
+.event191028 .info h2 {margin-bottom: 2vw;  font-family: "Nanum Gothic_Bold";}
+.event191028 .info li {padding-left: 2.5vw; text-indent: -2.5vw;}
+
+/* 개인정보 수집 동의 */
+.event191028 .agree_info {margin-bottom: 8vw; padding: 6vw 4vw; background: #f2f2f2;}
+.event191028 .agree_info dt {margin-bottom: 2vw;  font-family: "Nanum Gothic_Bold"; font-size: 3.34vw;}
+.event191028 .agree_info ul li {padding-left: 2.5vw; text-indent: -2.5vw;}
+.event191028 .agree {margin-bottom: 8vw; padding: 0 4vw;}
+.event191028 .agree input {position: absolute; left: -999em;}
+.event191028 .agree input + label {position: relative; padding-left: 9vw; line-height: 4vw;  font-family: "Nanum Gothic_Bold"; font-size: 3.7vw; color: #333;}
+.event191028 .agree input + label:before {content: ""; display: block; position: absolute; left: 0; top: 50%; width: 8vw; height: 8vw; margin-top: -4vw; background: url(/images/events/2019/event191028/ico_check.png) no-repeat 0 0; background-size: cover; border: none;}
+.event191028 .agree input:checked + label:before {background-image: url(/images/events/2019/event191028/ico_check_on.png);}
+.event191028 .agree label {display: block; padding-left: 50px; line-height: 42px;}

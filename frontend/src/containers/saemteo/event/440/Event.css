@@ -1,0 +1,35 @@
+/* Event */
+.event230323{position:relative;background:#fff;}
+.event230323 img{width:100%;vertical-align:top;}
+.event230323 [class^="evtCont"]{position:relative;z-index:1;}
+.event230323 *{font-family:'Noto Sans KR', sans-serif; box-sizing: border-box;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+
+/* EVENT 440 */
+.evtCont02 {padding: 0 4vw 10.4vw;  background: #ffa5c1;}
+.evtCont02 .agreeWrap { width: 100%; padding: 4vw 4.7vw;  background: #ffe9ec; border: 1px solid #e68da9; border-radius: 2.66vw;}
+.evtCont02 .agreeWrap .infoTit {display: inline-block; margin-bottom: 2.66vw; font-size: 3.46vw; font-weight: 600; color: #2a2a2a; line-height: 1; letter-spacing:-0.06em; }
+.evtCont02 .agreeWrap .infoList li {position: relative; padding-left: 1.33vw; font-size: 2.66vw; font-weight: 400; color: #2a2a2a; line-height: 3.86vw; letter-spacing: -0.06em;}
+.evtCont02 .agreeWrap .infoList li:before {content: ""; display: inline-block; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 0.4vw; height: 0.4vw; background: #2a2a2a; border-radius: 50%; }
+.evtCont02 .agreeWrap .infoTxt {margin-top: 1.33vw; font-size: 2.4vw; font-weight: 400; color: #2a2a2a; line-height: 3.6vw; letter-spacing: -0.06em;}
+.evtCont02 .agreeWrap .infoTxt span {font-size: inherit; font-weight: 600; color: inherit;}
+.evtCont02 .agreeCheck {margin-top: 2.66vw; text-align: center;}
+.evtCont02 .agreeCheck input[type="checkbox"] {display: none;}
+.evtCont02 .agreeCheck input[type="checkbox"] + label {position: relative; padding-left: 5.33vw;  background: url(/images/events/2023/event230323/evt_checkbox.png)no-repeat left center; background-size: 3.33vw;}
+.evtCont02 .agreeCheck input[type="checkbox"] + label strong {font-size: 3.2vw; font-weight: 500; color: #2a2a2a; letter-spacing: -0.06em;}
+.evtCont02 .agreeCheck input[type="checkbox"].checkbox + label:before {display: none;}
+.evtCont02 .agreeCheck input[type="checkbox"].checkbox:checked + label:before {content: ""; display: inline-block; position: absolute; left: 0.433vw; top: -0.1vw; width: 3.6vw; height: 3.33vw; background: url(/images/events/2023/event230323/evt_check.png)no-repeat center; background-size: 100% auto;}
+.evtCont02 .btnWrap {margin-top: 6vw; text-align: center;}
+.evtCont02 .btnWrap a {display: inline-block; width: 47.2vw; height: 11.73vw; background: url(/images/events/2023/event230323/btn_apply.png)no-repeat center; background-size: 100% auto;}
+.evtCont02 .btnWrap + .infoTit {margin-top: 2.3vw; font-size: 2.93vw; font-weight: 500; color: #e63293; line-height: 1; letter-spacing: -0.06em; text-align: center; }
+
+.event230323 .evtFooter{padding: 6.66vw 5.73vw 5.73vw; background:#696457;}
+.event230323 .evtFooter strong{font-size: 3.46vw; font-weight: 600; letter-spacing:-0.05em; color:#fff; line-height: 1;}
+.event230323 .evtFooter ul{margin-top: 1.33vw;}
+.event230323 .evtFooter ul li{padding-left: 1.5vw; font-size: 2.93vw; font-weight:300; color:#fff; line-height:1.5; text-indent: -1.5vw;letter-spacing: -0.025em;}
+/* evtNoti */
+
+

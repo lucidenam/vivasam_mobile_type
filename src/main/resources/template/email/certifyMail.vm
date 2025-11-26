@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>비바샘 고객센터</title>
+</head>
+
+<body>
+	<table width="700" cellspacing="0" cellpadding="0" style="margin:0 auto; box-sizing:border-box; font-family:'Noto Sans KR','AppleSDGothic Neo-Regular','Malgun Gothic', '맑은 고딕', 'dotum', '돋움', sans-serif; font-weight:300; letter-spacing: -0.2px;">
+		<tr>
+			<td height="90" style="border-radius:20px; overflow:hidden; vertical-align: top;">
+				<img src="https://www.vivasam.com/resources/images/mail/mail_top.png" alt="비바샘 선생님과 함께 만들어가는 즐거운 수업">
+			</td>
+		</tr>
+
+		<tr>
+			<!-- contents -->
+			<td style="border:2px solid #e0e0e0; border-bottom:0; border-radius:20px 20px 0 0; overflow:hidden;">
+				<table width="100%" cellspacing="0" cellpadding="0">
+					<tr>
+						<td style="padding:29px 35px 60px">
+							<h2 style="padding:0; margin:0; font-size:30px; font-weight:600; color:#393d49; letter-spacing: -0.05em;">
+								<span style="color:#4083ee;">비바샘 공직자 메일 인증</span>
+							</h2>
+							<p style="padding:0; margin:34px 0 0 0; color:#888888; line-height:24px; font-size:14px; font-weight:400;">
+								선생님, 안녕하세요. 비바샘 입니다.<br>
+								메일 인증을 위해 아래의 인증번호를 서비스 화면에 입력해 주세요.
+							</p>
+							<table width="100%" cellspacing="0" cellpadding="0" style="margin:26px 0 0 0; border-collapse: collapse; font-size:14px; line-height:24px; font-weight:400; border:1px solid #e1e1e1;">
+								<colgroup>
+									<col width="150px">
+									<col width="*">
+								</colgroup>
+								<tbody>
+									<tr>
+										<td style="padding:13px 0; border-right:1px solid #e1e1e1; background:#fafafa; text-align:center;color:#393d49;  ">인증번호</td>
+										<td style="padding:13px 0 13px 19px; color:#393d49;">$randomNumber</td>
+									</tr>
+
+								</tbody>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+			<!-- //contents -->
+		<tr>
+			<td style="border:2px solid #e0e0e0; border-bottom:0; border-top:3px solid #606677; background:#f7f7f7; padding:20px 35px;">
+				<ul style="margin:0; padding:0; list-style: none; font-size:12px; color:#606677; font-weight:300; line-height:20px;">
+					<li style="padding:0; margin:0;">- 본 메일은 정보통신망이용촉진 및 정보보호 등에 관한 법률 및 시행규칙을 준수한 발신전용 메일입니다.</li>
+					<li style="padding:0; margin:0;">- 궁금하신 점은 이용 중이신 비바샘 고객센터 또는 대표번호 1544-7714로 문의해 주시기 바랍니다</li>
+				</ul>
+			</td>
+		</tr>
+
+		<tr>
+			<td style="border:2px solid #e0e0e0; border-top:1px solid #e6e6e6; padding:29px 39px 39px; border-radius:0 0 20px 20px;">
+				<table cellpadding="0" cellspacing="0" style="font-size:12px; color:#8e9091; font-weight:300;line-height:1;">
+					<tr>
+						<td height="35" style="vertical-align: top;">
+							<img src="https://www.vivasam.com/resources/images/common/logo_visang.png" alt="비상 로고" width="72" height="25">
+						</td>
+					</tr>
+					<tr>
+						<td height="22" style="vertical-align:top;">
+							<span style="display:inline-block; padding:0 9px 0 0; margin:0 7px 0 0; border-right:1px solid #d1d1d1;">㈜비상교육</span>
+							<span style="display:inline-block; padding:0 9px 0 0; margin:0 7px 0 0; border-right:1px solid #d1d1d1;">대표자명 : 양태회</span>
+							<span style="display:inline-block; padding:0; margin:0;">사업자등록번호 : 211-87-07735</span>
+						</td>
+					</tr>
+					<tr>
+						<td height="22" style="vertical-align:top;">
+							<span style="display:inline-block; padding:0 9px 0 0; margin:0 7px 0 0; border-right:1px solid #d1d1d1;">주소 : 서울특별시 구로구 디지털로33길 48 대륭포스트타워 7차 20층</span>
+						<span style="display:inline-block; padding:0; margin:0;">TEL : 1544-7714(선생님 전용 고객센터)</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span style="display:inline-block; padding:0; margin:0;">COPYRIGHT© (주)비상교육 ALL RIGHTS RESERVED.</span>
+						</td>
+					</tr>
+				</table>
+				
+			</td>
+		</tr>
+	</table>
+
+</body>
+
+</html>

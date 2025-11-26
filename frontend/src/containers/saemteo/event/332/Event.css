@@ -1,0 +1,29 @@
+/* Event */
+.event210222{text-align:center;}
+.event210222 img{width:100%;vertical-align:top;}
+.event210222 [class^="evtCont"]{position:relative;z-index:1;}
+.event210222 span, .event210222 p, .event210222 strong, .event210222 button, .event210222 input, .event210222 label, .event210222 textarea{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="section"]{position:relative;}
+[class^="section"] .imgWrap{display:block;}
+[class^="evtCont"] button{box-sizing:border-box;width:100%;}
+.evtTextarea textarea::-webkit-input-placeholder{color:#aaa;}
+.evtTextarea textarea::-moz-placeholder{color:#aaa;}
+.evtTextarea textarea:-ms-input-placeholder{color:#aaa;}
+.evtTextarea textarea:-moz-placeholder{color:#aaa;}
+/* */
+.evtCont02 .btnWrap{position:absolute;top:152.13vw;width:100%;}
+.evtCont02 .btnWrap .btnApply{display:inline-block;width:92.53vw;height:16.133vw;background:url(/images/events/2021/event210222/btn_apply.png) 0 0 no-repeat;background-size:100% auto;}
+
+/* EventApply */
+.applyDtl_top{padding:12px 15px;background:#2ec896;}
+.applyDtl_top h3{color:#fff;text-align:center;}
+.applyDtl_top h3 strong{font-family:inherit;color:#fbd81a;}
+.input_wrap + .mt10.mb25.c_gray{color:#888;}
+.pointColor{color:#ed1800;}
+.acco_notice_cont{display:block;word-break:keep-all;}
+.policy{color:#222;}
+.acco_notice_cont ul.policy + p.comt{color:#888;}
+.acco_notice_tit.info_tit{display:block;color:#333;}
+.checkbox_circle_tit{display:inline-block;text-align:left;}

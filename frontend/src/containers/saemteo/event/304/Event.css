@@ -1,0 +1,214 @@
+
+.vivasamter {padding-bottom: 50px; }
+
+.event200708 {position: relative; font-family: "Nanum Gothic","나눔고딕",NanumGothic,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;}
+.event200708 img {vertical-align: middle; width:100%; line-height:0}
+.event200708 a {display: inline;}
+
+/* form */
+.event200708 .radio_circle {position:absolute; left:-3000px; opacity:0}
+.event200708 .radio_circle + label .radio {display:inline-block; letter-spacing: -0.2vw; font-family: "Nanum Gothic_Bold"; font-size: 2.8vw; color: #000;}
+.event200708 .radio_circle + label .radio:before {content:""; display:inline-block; -webkit-box-sizing:border-box; box-sizing:border-box; width:3.6vw; height:3.6vw; margin-top: -0.7vw; margin-right: 1.3vw; border:1px solid #bfbfbf;  vertical-align: middle;}
+.event200708 .radio_circle:disabled + label .radio:before {background-color: #bfbfbf;}
+.event200708 .radio_circle:checked + label .radio:before {border: none; background: url(/images/common/bg_check.png) no-repeat; background-size: cover;}
+.event200708 .radio_circle + label .radio {vertical-align: middle;}
+
+/* contents */
+.event200708 {
+    background-color: #008dd5;
+}
+
+.event200708 img {
+    width: 100%;
+}
+
+.event200708 .link-box {
+    position: relative;
+}
+.event200708 .link-box li { position: absolute; }
+.event200708 .link-box li a { width: 16vw; height: 5vw; display: block; }
+.event200708 .link-box li:nth-child(1) { top: 63.5vw; left: 24vw; }
+.event200708 .link-box li:nth-child(2) { top: 63.5vw; right: 24vw; }
+.event200708 .link-box li:nth-child(3) { top: 120vw; left: 24vw; }
+.event200708 .link-box li:nth-child(4) { top: 120vw;  right: 24vw; }
+
+.event200708 .desc-box.type1 {
+    padding: 9.5vw 7vw;
+    text-align: left;
+    background:#eaeaea;
+}
+.event200708 .desc-box.type1 h2 { width: 51vw; display: block; margin: 0 auto 4vw; }
+
+.event200708 .desc-box.type1 .list {
+    margin-bottom: 6vw;
+    box-sizing: border-box;
+    border: 0.8vw solid #efefef;
+    border-radius: 10px;
+}
+
+.event200708 .desc-box.type1 .list > div {
+    width: 100%;
+    border: 1px solid #dcdee0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.event200708 .desc-box.type1 .list ul {
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    text-align: left;
+    padding: 4vw 4vw 1.5vw;
+    box-sizing: border-box;
+}
+.event200708 .desc-box.type1 .list ul + ul {
+    border-top: 1px solid #dcdee0;
+}
+
+.event200708 .desc-box.type1 .list ul::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.event200708 .desc-box.type1 .list ul li {
+    display: inline-block;
+    position: relative;
+    list-style: none;
+    height: 4.3vw;
+    margin-bottom: 2.5vw;
+}
+.event200708 .desc-box.type1 .list ul li .desc {
+    position: relative;
+    height: 4.3vw;
+    width: auto;  vertical-align: top;
+}
+.event200708 .desc-box.type1 .list ul li .desc img { height: 4.3vw; width: auto; vertical-align: top; }
+
+.event200708 .desc-box.type1 .list ul li .desc input[type=checkbox] {
+    display: none;
+}
+
+.event200708 .desc-box.type1 .list ul li .desc input[type=checkbox] + label {
+    display: block;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    background-size: auto 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-repeat: no-repeat;
+}
+.event200708 .desc-box.type1 .list ul li .desc.type1  input + label {              background-image: url("/images/events/2020/event200708/item01.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type1  input:checked + label { background-image: url("/images/events/2020/event200708/item01_hover.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type2  input + label {              background-image: url("/images/events/2020/event200708/item02.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type2  input:checked + label { background-image: url("/images/events/2020/event200708/item02_hover.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type3  input + label {              background-image: url("/images/events/2020/event200708/item03.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type3  input:checked + label { background-image: url("/images/events/2020/event200708/item03_hover.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type4  input + label {              background-image: url("/images/events/2020/event200708/item04.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type4  input:checked + label { background-image: url("/images/events/2020/event200708/item04_hover.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type5  input + label {              background-image: url("/images/events/2020/event200708/item05.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type5  input:checked + label { background-image: url("/images/events/2020/event200708/item05_hover.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type6  input + label {              background-image: url("/images/events/2020/event200708/item06.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type6  input:checked + label { background-image: url("/images/events/2020/event200708/item06_hover.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type7  input + label {              background-image: url("/images/events/2020/event200708/item07.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type7  input:checked + label { background-image: url("/images/events/2020/event200708/item07_hover.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type8  input + label {              background-image: url("/images/events/2020/event200708/item08.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type8  input:checked + label { background-image: url("/images/events/2020/event200708/item08_hover.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type9  input + label {              background-image: url("/images/events/2020/event200708/item09.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type9  input:checked + label { background-image: url("/images/events/2020/event200708/item09_hover.jpg"); }
+
+
+.event200708 .desc-box.type1 .list ul li .desc.type10  input + label {              background-image: url("/images/events/2020/event200708/item10.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type10  input:checked + label { background-image: url("/images/events/2020/event200708/item10_hover.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type11  input + label {              background-image: url("/images/events/2020/event200708/item11.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type11  input:checked + label { background-image: url("/images/events/2020/event200708/item11_hover.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type12  input + label {              background-image: url("/images/events/2020/event200708/item12.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type12  input:checked + label { background-image: url("/images/events/2020/event200708/item12_hover.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type13  input + label {              background-image: url("/images/events/2020/event200708/item13.jpg"); }
+.event200708 .desc-box.type1 .list ul li .desc.type13  input:checked + label { background-image: url("/images/events/2020/event200708/item13_hover.jpg"); }
+
+
+
+.event200708 .desc-box.type1 .list .badge {
+    position: absolute;
+    top: -1vw;
+    left: -1vw;
+    width: 6.3vw;
+    height: 6.3vw;
+}
+
+.event200708 .desc-box.type1 .list .badge img {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+
+.event200708 .desc-box.type1 .list ul li .desc a img {
+    display: block;
+    margin: 0 auto;
+}
+
+.event200708 .desc-box h3 img {
+    width: 46.8vw;
+    display: block; margin: 6vw auto 2.5vw;
+}
+
+.event200708 .desc-box.type1 .input_wrap {
+    border-radius: 2.3vw;
+    background-color: rgb(255, 255, 255);
+    border: 0.7vw solid #657185;
+    padding: 1.7vw;
+    line-height: 1;
+    position: relative;;
+}
+.event200708 .desc-box.type1 .input_wrap textarea {
+    font-size: 3.3vw;
+    height: 27.5vw;
+    padding: 3.6vw;
+    border: 0;
+}
+.event200708 .desc-box.type1 .count_wrap {
+    position: absolute;; right: 0; bottom: 0;
+    padding: 0 4vw 4vw;
+}
+
+.event200708 .desc-box.type1 .btn-wrap {
+    text-align: center;
+    padding: 2.3vw 0 2vw;
+}
+
+
+.event200708 .comment_wrap { padding-top: 4vw; padding-bottom: 4vw;
+    background: #ffffff; box-sizing: border-box;
+}
+.event200708 .comment { position: relative; text-align: center; margin: 0 auto; width: 80vw; }
+.event200708 .comment li { display: inline-block; vertical-align: top; width: 100%; padding: 6.8vw 0; text-align: left; color:#666666; box-sizing: border-box;  letter-spacing: -0.2vw; font-family: 'Noto Sans KR', sans-serif; background:#fff;
+    border-bottom: 1px solid #d0d0d0;
+}
+.event200708 .comment li strong {color:#130c0e; font-size: 3.3vw; font-weight: 600; display: block; padding: 1vw 0 1.5vw; }
+.event200708 .comment li p {font-size: 3.3vw; height: auto; overflow-y: auto; }
+.event200708 .comment > a {position: absolute;top: 50%; left: 3vw;  margin-top: -5vw; width: 6.5vw;height: 10vw;display: block;}
+.event200708 .comment ul + a { left: auto; right: 3vw; }
+
+
+
+
+#eMore { margin: 0 auto; width: 80vw; display: block; }
+
+/* popup */
+.popup.type1 {
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.popup.type1 img {
+    width: 100%;
+}
+
+.applyDtl_top {background:#3bc0f8;  padding: 4.5vw 15px; }
+.applyDtl_top img {width: 31.6vw; display: block; margin: 0 auto; }
+
+.btn_full_on {background:#3bc0f8 !important; }
+
+ul.mb15 li {  padding-left: 1em; text-indent: -1em; }

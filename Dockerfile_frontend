@@ -1,0 +1,6 @@
+FROM containerregistry-private.kr.ncr.ntruss.com/nginx:latest
+COPY frontend/build /usr/share/nginx/html
+COPY conf/nginx.conf /etc/nginx/conf.d/default.conf
+
+RUN mkdir -p /media/vivasam-162 /media/VIVASAM /media/VISANG /iBookSam
+RUN chmod 755 /media/vivasam-162 /media/VIVASAM /media/VISANG /iBookSam

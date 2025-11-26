@@ -1,0 +1,18 @@
+/* EVENT 379 */
+.event383{position:relative;background:#58453e;}
+.event383 img{width:100%;vertical-align:top;}
+.event383 [class^="evtCont"]{position:relative;z-index:1;}
+.event383 *{font-family:'Noto Sans KR', sans-serif;}
+.event383 input[type="checkbox"]{display:none;}
+.event383 .evtCont01{background:#58453e;}
+.event383 .evtCont01 .btnWrap{padding:0 5.33vw;}
+.event383 .evtCont01 .evtBtn{display:block; width:100%; height: 17.33vw; margin-top:4.8vw; background:url('/images/events/2021/383/evtBtn.png') no-repeat center top; background-size:100%;}
+.event383 .evtCont02{margin-top:10.67vw; padding:0 5.33vw ;background:#58453e;}
+.event383 .evtCont02 .evtContWrap{padding-bottom:10.67vw;}
+.event383 .evtCont02 .evtConts02{margin-top:3.73vw;}
+.event383 .evtCont02 .evtConts03{margin-top:5.33vw;}
+.event383 .evtFooter{margin-top:5.33vw; padding:9.33vw 5.33vw 14.67vw; border-top:1px solid #695852;}
+.event383 .evtFooter p{font-size:3.2vw; color:#fff; font-weight:600;} 
+.event383 .evtFooter .info{margin-top:6.13vw;}
+.event383 .evtFooter .info li{padding-left:2.67vw; text-indent:-2.67vw; letter-spacing:-0.04em; font-size:2.93vw; color:#bcbcbc; line-height:4.8vw; font-weight:400;}
+.event383 .evtFooter .info li span{font-size:inherit; color:#eccd89; line-height:inherit; font-weight:inherit;}

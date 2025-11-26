@@ -1,0 +1,31 @@
+/* EVENT 230715 */
+img {display: block; width: 100%;}
+.event230715 * {box-sizing: border-box;}
+.evtCont02 {width: 100%; padding: 0 5.33vw 11.6vw;text-align: center; background: #ffecb9;}
+.evtCont02 .contTit {width: 68.4vw; margin: 0 auto 3.33vw;  text-align: center;}
+.evtCont02 .fruit_list { margin-top: 2.66vw; text-align: center;}
+.evtCont02 .sell {display: inline-block; width: 28.26vw; height: 4.4vw; background:  url(/images/events/2023/event230715/sell.png)no-repeat center; background-size: 100% auto;}
+.evtCont02 .evtFormWrap {display: flex; justify-content: center; flex-wrap: wrap; gap: 0.93vw; width: 100%; padding: 4vw; margin-top: 2.66vw; background: #e1ca89; border-radius: 4vw; }
+.evtCont02 .evtFormWrap [class^='item'] {position: relative; width: 32.5%;}
+.evtCont02 .evtFormWrap [class^='item'] input[type='radio'] {display: none;}
+.evtCont02 .evtFormWrap [class^='item'] input[type='radio'] + label {display: inline-block; position: relative;width: 100%; padding: 4.66vw 4.8vw; text-align: center; background: #fff; border-radius: 4vw;}
+.evtCont02 .evtFormWrap [class^='item'] input[type='radio'] + label:after {content: ""; display: inline-block; position: absolute; left: 1.6vw; top: 1.6vw;  width: 4.93vw; height: 4.93vw; background: url(/images/events/2023/event230715/checkbox.png)no-repeat center top; background-size: 100% auto; border-radius: 50%; }
+.evtCont02 .evtFormWrap [class^='item'] input[type='radio']:checked + label {outline: 3px solid #fe393d;}
+.evtCont02 .evtFormWrap [class^='item'] input[type='radio']:checked + label:after {background-position: center bottom;}
+.evtCont02 .evtFormWrap [class^='item'] input[type='radio'] + label img {width: 16.26vw; }
+.evtCont02 .evtFormWrap [class^='item'] input[type='radio'] + label .sell_num {display: inline-block; padding-left: 3.33vw; margin-top: 3.06vw; font-size: 2.4vw; font-weight: 600; color: #2c2c2c; line-height: 1; letter-spacing: -0.045em; background: url(/images/events/2023/event230715/heart.png)no-repeat left center; background-size: 2.4vw auto;}
+.evtCont02 .btnApply {display: inline-block; width: 56.66vw; height: 14.4vw; margin-top: 4.93vw; background:  url(/images/events/2023/event230715/btnApply.png)no-repeat center; background-size: 100% auto;}
+
+.notice { padding: 6.66vw 7.9vw 14.66vw; background: #525252;}
+.notice strong {display: inline-block; margin-bottom: 2vw;  font-size: 3.46vw; font-weight: 600; color: #fff; line-height: 1; letter-spacing: -0.05em;}
+.notice ul li  {position: relative; padding-left: 3.6vw; font-size: 2.66vw; font-weight: 400; color: #fff; line-height: 1.5; letter-spacing: -0.03em; text-indent: -3.6vw;}
+
+
+/*applyPop*/
+.vivasamter_applyDtl {padding-top: 17px;}
+.applyDtl_cell h3 strong {color: #31764d; letter-spacing: -0.05em;}
+.vivasamter_applyDtl .teacher_name input[type="text"] {height: auto; padding-left: 0; font-weight: 400; color: #838a95; line-height: 1; background: #fff; border: 0;  }
+.vivasamter_applyDtl .email span {display: inline-block; margin-left: 5px; margin-right: 5px;}
+.vivasamter_applyDtl .email input[type=text]:read-only {background: #fff;}
+.vivasamter_applyDtl .input_wrap input[name="personnel"] {width: 88px;}
+

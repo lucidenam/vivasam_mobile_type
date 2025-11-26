@@ -1,0 +1,32 @@
+/* Event */
+.event221201{position:relative;background:#fbf4e2;}
+.event221201 img{width:100%;vertical-align:top;}
+.event221201 [class^="evtCont"]{position:relative;z-index:1;}
+.event221201 *{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="section"]{position:relative;}
+[class^="section"] .imgWrap{display:block;}
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+.evtInput input::-moz-placeholder,
+.evtTextarea textarea::-moz-placeholder{color:#aaa;}
+.evtInput input:-moz-placeholder,
+.evtTextarea textarea:-moz-placeholder{color:#aaa;}
+.evtInput input::-webkit-input-placeholder{color:#aaa;}
+.evtInput input:-ms-input-placeholder{color:#aaa;}
+/* EVENT 423 */
+.event221201 .evtCont01{text-align:center;}
+.event221201 .evtCont02 .btnShareWrap{position:absolute;top:-5.333vw;right:0;display:flex;align-items:center;justify-content:center;width:50.66vw;height:11.33vw;background:#ee7375;border-radius:5.66vw 0 0 5.66vw;}
+.event221201 .evtCont02 .btnShareWrap > [class^="btnShare0"]{width:8vw;height:8vw;margin-left:2vw;}
+.event221201 .evtCont02 .btnShareWrap .btnShare01{background:url(/images/events/2022/event221201/btn_copy.png) 0 0 no-repeat;background-size:100%;}
+.event221201 .evtCont02 .btnShareWrap .btnShare02{background:url(/images/events/2022/event221201/btn_kakao.png) 0 0 no-repeat;background-size:100%;}
+.event221201 .evtCont02 .btnShareWrap p{font-size:3.2vw;font-weight:700;color:#fff;letter-spacing:-0.04em;}
+.event221201 .evtCont05 .btnWrap{position:absolute;bottom:23.73vw;left:0;width:100%;text-align:center;}
+.event221201 .evtCont05 .btnWrap .btn{padding:0 4vw 0 2vw;background:url(/images/events/2022/event221201/ico_arr.png) right 1.5vw center no-repeat #9a9a9a;background-size:1.2vw 1.866vw;border:0;border-radius:2vw;font-size:2.533vw;font-weight:400;color:#fff;line-height:2;letter-spacing:-0.03em;}
+.event221201 .evtCont05 .btnWrap .btn + .btn{margin-left:1.33vw;}
+.event221201 .evtCont06{padding:7.33vw 4.66vw;background:#fff;}
+.event221201 .evtCont06 .subTit{font-size:3.466vw;font-weight:500;color:#323232;}
+.event221201 .evtCont06 ul{margin:3vw 0 0 0;text-align:left;}
+.event221201 .evtCont06 li{position:relative;padding-left:2.66vw;font-size:2.93vw;font-weight:400;color:#5a5a5a;line-height:1.8;letter-spacing:-0.06em;word-break:keep-all;}
+.event221201 .evtCont06 li:before{content:'•';position:absolute;top:0;left:0;display:inline-block;}

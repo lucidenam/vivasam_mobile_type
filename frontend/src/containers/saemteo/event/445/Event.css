@@ -1,0 +1,80 @@
+/* Event */
+.event230424_2{position:relative;background:#d5edd9;}
+.event230424_2 img{width:100%;vertical-align:top;}
+.event230424_2 [class^="evtCont"]{position:relative;z-index:1;}
+.event230424_2 *{font-family:'Noto Sans KR', sans-serif; box-sizing:border-box;}
+/* START */
+
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+
+/* EVENT 432 */
+
+/* evtNoti */
+.event230424_2 .evtTit .tab_conts {display: none; position: relative; width: 100%; height: 50.6vw; overflow: hidden;}
+.event230424_2 .evtTit .tab_conts > div {width: 100%; height: 100%;}
+.event230424_2 .evtTit .tab_conts.on {display: block;}
+.event230424_2 .evtTit .tab_conts .thumb {display: none; position: absolute; left: 0; top: 0; width: 100%;  height: 50.6vw;}
+.event230424_2 .evtTit .tab_conts .thumb.on {display: block;}
+.event230424_2 .evtTit .tab_conts .thumb img {width: 100%; height: 100%;}
+.event230424_2 .evtTit .tab_conts .thumb button {display: inline-block; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 8.53vw; height: 8.53vw; background: url(/images/events/2023/event230424_2/btn_play.png)no-repeat center; background-size: 100% auto; border-radius: 50%; box-shadow: 0.66vw 0.66vw 1.3vw rgba(45, 45, 45, 0.55); }
+
+.event230424_2 .evtCont02 {padding: 0 5.33vw 8vw; background: #4baf7e; }
+.event230424_2 .evtCont02 .tab_menu {display: flex; width: 100%; }
+.event230424_2 .evtCont02 .tab_menu li {flex: 1; height: 11.33vw; background: #525252; border-radius: 4vw 4vw 0 0; overflow: hidden;}
+.event230424_2 .evtCont02 .tab_menu li button {display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;}
+.event230424_2 .evtCont02 .tab_menu li:first-child button span {display: inline-block; width: 19.6vw; height: 4vw; font-size: 0;  background:url(/images/events/2023/event230424_2/tab1Txt.png)no-repeat center bottom; background-size: 100% auto;}
+.event230424_2 .evtCont02 .tab_menu li:last-child button span {display: inline-block; width: 23.73vw; height: 4.26vw; font-size: 0; background:url(/images/events/2023/event230424_2/tab2Txt.png)no-repeat center bottom; background-size: 100% auto;}
+.event230424_2 .evtCont02 .tab_menu li.on { background: #fd3375;  }
+.event230424_2 .evtCont02 .tab_menu li.on button span {background-position: center top;}
+
+.event230424_2 .evtCont02 .tab_conts {background: #fff; display: none;}
+.event230424_2 .evtCont02 .tab_conts.on {display:block;}
+.event230424_2 .evtCont02 .tab_conts:nth-of-type(1) .cont {padding: 5.33vw 11.33vw 6.66vw;}
+.event230424_2 .evtCont02 .tab_conts:nth-of-type(2) .cont {position: relative; padding: 4.26vw 5.33vw 6vw; }
+.event230424_2 .evtCont02 .tab_conts:nth-of-type(2) .cont .evtOpen510 {display: none; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 94%; height: 95%; background: rgba(0, 0, 0, 0.6); z-index: 10;}
+.event230424_2 .evtCont02 .tab_conts:nth-of-type(2) .cont .evtOpen510 div {display: flex; justify-content: center; align-items: center; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 45.33vw; height: 19.86vw; background: #000; border-radius: 5.33vw;}
+.event230424_2 .evtCont02 .tab_conts:nth-of-type(2) .cont .evtOpen510 div p {font-size: 3.33vw; font-weight: 500; line-height: 4.26vw; color: #fff; text-align: center; letter-spacing: -0.045em;}
+.event230424_2 .evtCont02 .tab_conts:nth-of-type(2) .cont.notOpen .evtOpen510 {display: block;}
+.event230424_2 .evtCont02 .tab_conts:nth-of-type(2) .cont .commentWrap .inner {text-align: center;}
+.event230424_2 .evtCont02 .tab_conts:nth-of-type(2) .cont .commentWrap .inner .commentList {display: flex; flex-wrap: wrap; width: 100%;}
+.event230424_2 .evtCont02 .tab_conts:nth-of-type(2) .cont .commentWrap .inner .commentList .listItem {position: relative; width: 50%; height: 40.13vw; margin-bottom: 1.33vw; }
+.event230424_2 .evtCont02 .tab_conts:nth-of-type(2) .cont .commentWrap .inner .commentList .listItem.listStyle1 {padding: 8.66vw 6vw 15vw; background: url(/images/events/2023/event230424_2/commentBg1.png)no-repeat center top; background-size: 37.73vw auto;}
+.event230424_2 .evtCont02 .tab_conts:nth-of-type(2) .cont .commentWrap .inner .commentList .listItem.listStyle2 {padding: 8.66vw 6vw 15vw;  background: url(/images/events/2023/event230424_2/commentBg2.png)no-repeat center top; background-size: 39.4vw auto ;}
+.event230424_2 .evtCont02 .tab_conts:nth-of-type(2) .cont .commentWrap .inner .commentList .listItem.listStyle3 {padding: 8.66vw 6.26vw 15vw; background: url(/images/events/2023/event230424_2/commentBg3.png)no-repeat center top; background-size: 36.4vw auto;}
+.event230424_2 .evtCont02 .tab_conts:nth-of-type(2) .cont .commentWrap .inner .commentList .listItem .comment {height:  100%; overflow: hidden;}
+                                                          .event230424_2 .evtCont02 .tab_conts:nth-of-type(2) .cont .commentWrap .inner .commentList .listItem .comment p {font-size: 2.53vw; font-weight: 400; color: #322e3a; line-height: 3.2vw; letter-spacing:-0.04em;  text-align: left; overflow: hidden; text-overflow: ellipsis; word-break: break-all; display: block; display: -webkit-box; -webkit-line-clamp: 5; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; /* autoprefixer: off */}
+.event230424_2 .evtCont02 .tab_conts:nth-of-type(2) .cont .commentWrap .inner .commentList .listItem .userInfo {position: absolute; left: 17.66vw; top: 26.66vw; font-size: 2.26vw; font-weight: 400; color: #7b7b7b; letter-spacing:-0.04em;}
+.event230424_2 .evtCont02 .tab_conts:nth-of-type(2) .cont .commentWrap .inner .commentList .listItem:nth-last-child(-n+2) {margin-bottom: 0;}
+.event230424_2 .evtCont02 .tab_conts:nth-of-type(2) .cont .commentWrap .inner .btnMore {display: inline-block; width: 77.46vw; height: 7.2vw; margin: 4.4vw 0 0; background: url(/images/events/2023/event230424_2/btnMore.png)no-repeat center top;background-size: 100% auto; }
+.event230424_2 .evtCont02 .tab_conts .info {padding: 6.26vw 8.66vw 7.6vw; text-align: center; background: #fff3d7;}
+
+.event230424_2 .evtCont02 .tab_conts .btnApply {display: inline-block; width: 53.33vw; height: 12vw; margin-top: 5.33vw; border-radius: 6vw; box-shadow: 0 1.73vw 1.06vw rgba(12, 12, 12, 0.22); }
+
+
+.event230424_2 .notice {background:#dcdad3; padding: 4.93vw 7.5vw 8vw;}
+.event230424_2 .notice strong {display: inline-block; margin-bottom: 1.33vw; font-size: 3.46vw; color: #484256; font-weight:600; line-height: 1; letter-spacing:-0.07em;}
+.event230424_2 .notice ul li {position: relative; padding-left: 3.1vw; text-indent: -3.1vw; font-size:2.933vw; font-weight: 400;  color:#484256; line-height: 3.73vw; letter-spacing:-0.067em;}
+
+.applyDtl_top {background: #eaeaea;}
+.applyDtl_top .applyDtl_cell h3 {color: #393d49;}
+.applyDtl_top .applyDtl_cell h3 strong {color: #4083ed;}
+.vivasamter_apply .applySec_top {width: 100%;  background: #ffe6eb; text-align: center;  border: 1px solid #ffc4d2; border-radius: 10px;}
+.vivasamter_apply .applySec_top span {display: inline-block; padding-left: 25px; font-size: 15px; font-weight: 600; color: #007c74; line-height: 46px; letter-spacing: -0.045em; background: url(/images/events/2023/event230424_2/heart.png)no-repeat left top 51%; background-size: 15px auto;}
+.vivasamter_apply .info_tit p {color: #767676;}
+.vivasamter_apply .info_tit .tit_textarea span {font-weight: 400; color: #fd5b76;}
+.vivasamter_apply .ipt_textarea {height: 150px;}
+.vivasamter_apply .useNum {display: none;}
+.vivasamter_apply .useNum.on {display: block;}
+.vivasamter_applyDtl .count_wrap .count {font-size: 12px; color: #888888;}
+.vivasamter_applyDtl .count_wrap .count span {font-size: 12px; color: #fd5b76;}
+.vivasamter_applyDtl .privacyList.list1 li {padding-left: 10px; text-indent: -10px;}
+.vivasamter_applyDtl .privacyList.list1 li:before {display: none;}
+
+
+@media all and (max-width: 390px) {
+    .event230424_2 .evtCont02 .tab_conts:nth-of-type(2) .cont .commentWrap .inner .commentList .listItem .userInfo {left: 16.26vw; transform: scale(0.8);}
+}
+
+

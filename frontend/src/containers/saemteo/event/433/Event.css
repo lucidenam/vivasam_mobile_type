@@ -1,0 +1,100 @@
+/* Event */
+
+.event230228{position:relative;background:#d5edd9;}
+.event230228 img{width:100%;vertical-align:top;}
+.event230228 [class^="evtCont"]{position:relative;z-index:1;}
+.event230228 *{font-family:'Noto Sans KR', sans-serif; box-sizing: border-box;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+
+/* EVENT 432 */
+
+/* evtNoti */
+.event230228 .evtTit {position: relative; }
+.event230228 .evtTit .video_wrap {position: absolute; left: 50%; bottom:10.66vw; transform: translateX(-50%); padding: 0 5.06vw; width: 100%;}
+.event230228 .evtTit .video_wrap .tab_wrap {width: 100%; padding: 0; border: 0;}
+.event230228 .evtTit .video_wrap .tab_wrap ul {display: flex; width: 100%;}
+.event230228 .evtTit .video_wrap .tab_wrap ul li {display:flex; justify-content: center; align-items: center; flex: 1; height: 11.33vw;  background: #979797; }
+.event230228 .evtTit .video_wrap .tab_wrap ul li .video_tit {display: block; font-family: 'GmarketSansBold','sans-serif'; font-size: 3.2vw; color: #525252; line-height: 1.2; letter-spacing: -0.04em; }
+.event230228 .evtTit .video_wrap .tab_wrap ul li .video_txt {font-size: 2.66vw; font-weight: 400; color: #525252; line-height: 1.2; letter-spacing:-0.04em;}
+.event230228 .evtTit .video_wrap .tab_wrap ul li.on {flex: 1;  text-align: center; background: #3d7bed;}
+.event230228 .evtTit .video_wrap .tab_wrap ul li.on .video_tit {color: #ffc75b; text-shadow: 0.266vw 0.266vw 0.566vw rgb(0, 0, 0, 0.45);}
+.event230228 .evtTit .video_wrap .tab_wrap ul li.on .video_txt {color: #fff;}
+.event230228 .evtTit .video_wrap .tab_wrap ul li button {display: inline-block; width: 100%; height: 100%;  padding-top: 1vw; text-align: center;}
+
+.event230228 .evtTit .tab_conts {display: none; position: relative; width: 100%;  height: 50.6vw; overflow: hidden;}
+.event230228 .evtTit .tab_conts > div {width: 100%; height: 100%;}
+.event230228 .evtTit .tab_conts.on {display: block;}
+.event230228 .evtTit .tab_conts .thumb {display: none; position: absolute; left: 0; top: 0; width: 100%; height: 50.6vw;}
+.event230228 .evtTit .tab_conts .thumb.on {display: block;}
+.event230228 .evtTit .tab_conts .thumb img {width: 100%; height: 100%;}
+.event230228 .evtTit .tab_conts .thumb button {display: inline-block; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 8.53vw; height: 8.53vw; background: url(/images/events/2023/event230228/btn_play.png)no-repeat center; background-size: 100% auto; border-radius: 50%; box-shadow: 0.66vw 0.66vw 1.3vw rgba(45, 45, 45, 0.55); }
+.event230228 .evtTit .tab_conts .thumb + div {width:99.9% !important;}
+
+.event230228 .evtTit .tab_conts iframe {width: 100%; height: 100%;}
+
+
+.evtForm {width: 100%; padding: 8.66vw 5.33vw 6.66vw; background: #fff; }
+.evtForm .formTop {width: 100%; padding: 3.73vw 7.06vw; margin-bottom: 1.33vw; background: #509971; border-radius: 2.66vw;}
+.evtForm .formTop p {font-size:4.26vw; font-weight: 400; color: #fff; letter-spacing: -0.08em;}
+.evtForm .formTop p span {font-family: 'GmarketSansBold','sans-serif'; font-size: 4.26vw; color: #ffda47; letter-spacing:-0.08em;}
+.evtForm .formTop p input[type="number"] {display: inline-block; width: 8.26vw; height: 100%; margin: 0 0.93vw; padding: 0;  font-size: 4.26vw; text-align: center; background: #fff; border: 0; border-radius: 1.33vw; }
+.evtForm .formTop p input[type="number"]::-webkit-outer-spin-button,
+.evtForm .formTop p input[type="number"]::-webkit-inner-spin-button {-webkit-appearance: none;margin: 0;}
+.evtForm .formBox {text-align: right;}
+.evtForm .formBox textarea {width: 100%; height: 31.46vw; padding: 3.33vw 4.8vw; font-size: 3.2vw; font-weight: 300; color: #333; letter-spacing: -0.02em; text-align: left; background: #f1f1f1; border: 1px solid #d5d5d5;  border-radius: 2.66vw; }
+.evtForm .formBox textarea::placeholder { color: #838a95; }
+.evtForm .formBox .count {font-size: 3.73vw; font-weight: 400; color: #a1a1a1; letter-spacing: -0.02em;}
+.evtForm .formBox .count .currentCount {font-size: inherit; font-weight: 600; color: #393d49;}
+.evtForm .btnApply {display: block; width: 67.33vw; height: 15.2vw; margin: 1.33vw auto 0; background: url(/images/events/2023/event230228/btn_apply.png)no-repeat  center; background-size: 100% auto;}
+
+.event230228 .evtCont02 { position: relative; background: #fff;}
+.event230228 .evtCont02 .btnLink {display: inline-block; position: absolute; left: 50%; top: 88.46vw; transform: translateX(-50%); width: 69.2vw; height: 12.13vw; background: url(/images/events/2023/event230228/btn_link.png)no-repeat center; background-size: 100% auto;}
+
+
+.event230228 .notice {background:#737373; padding:6.66vw 5.06vw 8.66vw;}
+.event230228 .notice strong {display: inline-block; margin-bottom: 3.2vw; font-size: 4.26vw; color: #fff; font-weight:600; line-height: 1; letter-spacing:-0.05em;}
+.event230228 .notice ul li {position: relative; padding-left: 3.1vw; text-indent: -3.1vw; font-size:2.66vw; font-weight: 400;  color:#fff; line-height: 3.73vw; letter-spacing:-0.05em;}
+
+.event230228 .commentWrap {width: 100%; padding: 8vw 5.06vw 13.33vw; background: #e4dfcd; }
+.event230228 .commentWrap .inner {width: 100%; height: 100%; padding: 2.666vw; background: #d7d7d7; border-radius: 2.66vw; }
+.event230228 .commentWrap .inner .commentList {width: 100%; height: 100%; padding: 5.33vw 5.33vw 6.66vw;  background: #fff; border-radius: 2.66vw;  box-shadow: 0.533vw 0.533vw 0 rgba(39, 39, 39 , 0.15);}
+.event230228 .commentWrap .commentList .listItem {margin-bottom: 4vw;}
+.event230228 .commentWrap .commentList .listItem:last-of-type {margin-bottom: 6vw;}
+.event230228 .commentWrap .commentList .listItem > p {font-size: 3.2vw; font-weight: 300; color: #343434; line-height: 1; letter-spacing: -0.04em;}
+.event230228 .commentWrap .commentList .listItem > p span {display: inline-block; position: relative; margin-bottom: 2.266vw; padding-left: 1.73vw; font-size: inherit; font-weight: inherit; color: #3d7bed; line-height: 1; letter-spacing: inherit;}
+.event230228 .commentWrap .commentList .listItem > p span:after {content: ""; display: inline-block; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 0.53vw; height: 2.4vw; border-radius: 0.13vw; background: #3d7bed; }
+.event230228 .commentWrap .commentList .listItem .comment {padding: 3.06vw 4vw; background: #fff6c6; border-radius: 1.33vw;}
+.event230228 .commentWrap .commentList .listItem .comment p {font-size: 2.4vw; font-weight: 300; color: #525252; line-height: 3.8vw; letter-spacing: -0.04em; word-break: break-all;}
+.event230228 .commentWrap .commentList .btnMore {display: block; width: 65.73vw; height: 12.8vw; margin: 0 auto;  background: url(/images/events/2023/event230228/btn_more.png)no-repeat center; background-size: 100% auto; }
+
+.applyDtl_top { background: #ffde72; }
+.applyDtl_top h3 {text-align:center
+
+	/*popup*/!important;}
+.applyDtl_top h3 strong {margin-bottom: 2vw; font-size:17px; font-weight:600; color: #004372; letter-spacing: -0.05em;}
+.applyDtl_top h3 strong span {font-size:17px; font-weight: 600; color: #4593f1; letter-spacing: inherit;}
+
+.input_wrap .count {display:flex; justify-content:flex-end; margin-top:1.33vw;}
+.input_wrap .count span{font-size:3.2vw; font-weight:400; color:#888;}
+
+.info_tit >label {letter-spacing: -0.04em;}
+.tit_flex {display:flex;}
+.tit_flex label {margin-right:12px; white-space: nowrap;}
+.tit_flex ul {flex: 1;}
+
+
+.vivasamter_applyDtl .info_tit.info_textarea {position:relative; padding-left:3.8vw; text-indent:-1.8vw;}
+.vivasamter_applyDtl .info_tit.info_textarea .txt_count {position:absolute; right:5px; bottom: 7px;}
+.input_wrap textarea {width:100%; min-height:45.33vw; padding:4vw; font-size:14px; border:1px solid #eaeaea; border-radius:2.66vw;}
+.input_wrap textarea::placeholder {color:#838a95;}
+.vivasamter_apply .info_tit span {font-size:14px;}
+.vivasamter_apply .currentCount {font-size:14px;}
+.join_chk_list {width:50%;}
+.privacyTxt a {color:#01aeff;}
+.vivasamter_applyDtl .pdside20 + .acco_notice_list.notice_sec {padding-top:0; margin-top:0; border-top:0;}
+.vivasamter_applyDtl .pdside20 + .acco_notice_list.notice_sec .acco_notice_cont {border-top:0;}
+
+

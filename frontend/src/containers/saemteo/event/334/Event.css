@@ -1,0 +1,55 @@
+/* Event */
+.event210310{position:relative;text-align:center;}
+.event210310 img{width:100%;vertical-align:top;}
+.event210310 [class^="evtCont"]{position:relative;z-index:1;}
+.event210310 span, .event210310 p, .event210310 strong, .event210310 button, .event210310 input, .event210310 label, .event210310 textarea{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="section"]{position:relative;}
+[class^="section"] .imgWrap{display:block;}
+[class^="evtCont"] button{box-sizing:border-box;width:100%;}
+.evtInput input::-webkit-input-placeholder,
+.evtTextarea textarea::-webkit-input-placeholder{color:#aaa;}
+.evtInput input::-moz-placeholder,
+.evtTextarea textarea::-moz-placeholder{color:#aaa;}
+.evtInput input:-ms-input-placeholder,
+.evtTextarea textarea:-ms-input-placeholder{color:#aaa;}
+.evtInput input:-moz-placeholder,
+.evtTextarea textarea:-moz-placeholder{color:#aaa;}
+/* */
+.evtCont02{padding:0 5.333vw;background:#bddf64;}
+.evtCont02 .evtTit h2{width:65.86vw;height:17.2vw;margin:0 auto;background:url(/images/events/2021/event210310/evt_tit.png) 0 0 no-repeat;background-size:100%;}
+.evtCont02 .evtInput input,
+.evtCont02 .evtTextarea textarea{background:#fff;border:0.266vw solid #b9b9b9;border-radius:1.6vw;}
+.evtCont02 .evtTextarea{margin-top:1.333vw;font-size:0;line-height:1;}
+.evtCont02 .evtTextarea textarea{resize:none;height:49.6vw;}
+.evtCont02 .btnWrap{width:63.2vw;margin:5.333vw auto 0;}
+.evtCont02 .evtInfoTxt{width:65.866vw;height:20.8vw;margin:0 auto;padding:6.266vw 0 9.066vw;}
+.evtCont03{padding:7.6vw 5.333vw 5.6vw;background:#71863c;text-align:left;}
+.evtCont03 h2{font-size:3.733vw;font-weight:700;color:#ffd630;}
+.evtCont03 ul{margin-top:2.733vw;}
+.evtCont03 li{position:relative;padding-left:2.66vw;font-size:3.2vw;font-weight:300;color:#fff;line-height:1.75;letter-spacing:-0.2vw;}
+.evtCont03 li:before{content:'-';position:absolute;top:0;left:0;display:inline-block;color:#fff;vertical-align:middle;}
+.evtCont04 .evtListWrap .evtList{padding:0 5.333vw;}
+.evtCont04 .evtList .listItem{padding:5.333vw 0;text-align:left;}
+.evtCont04 .evtList .listItem strong{font-size:3.2vw;font-weight:700;color:#000;line-height:1;}
+.evtCont04 .evtList .listItem .listTit{margin-top:2.166vw;font-size:4vw;font-weight:700;color:#fd8300;line-height:1;}
+.evtCont04 .evtList .listItem .txt{margin-top:4vw;font-size:3.2vw;font-weight:300;color:#333;}
+.evtCont04 .evtList .listItem + .listItem{border-top:0.266vw solid #f1f1f1;}
+.evtCont04 .evtListWrap .btnMore{height:12vw;background:#424242;font-size:3.866vw;color:#fff;}
+
+
+/* 이벤트 시작 배너 */
+.bannerInfo{position:absolute;top:60.66vw;right:6.933vw;width:24.66vw;height:26.8vw;z-index:1;}
+
+/* EventApply */
+.applyDtl_top{padding:12px 15px;background:#672ce9;}
+.applyDtl_top h3{color:#fff;text-align:center;}
+.applyDtl_top h3 strong{font-family:inherit;color:#fbd81a;}
+.input_wrap + .mt10.mb25.c_gray{color:#888;}
+.pointColor{color:#ed1800;}
+.acco_notice_cont{display:block;word-break:keep-all;}
+.policy{color:#222;}
+.acco_notice_cont ul.policy + p.comt{color:#888;}
+.acco_notice_tit.info_tit{display:block;color:#333;}
+.checkbox_circle_tit{display:inline-block;text-align:left;}

@@ -1,0 +1,70 @@
+/* EVENT 422 */
+.event240520{position:relative;}
+.event240520 img{width:100%;vertical-align:top;}
+.event240520 [class^="evtCont"]{position:relative;z-index:1;}
+.event240520 [class^="evtCont"] *{box-sizing:border-box;}
+.event240520 *{font-family:'Noto Sans KR', sans-serif;}
+.event240520 input[type="checkbox"]{display:none;}
+
+.event240520 .evtCont02{position: relative; padding:14.667vw 4.133vw 8.933vw; background:#f6fbff;}
+.evtCont02 .tabMenu{position:absolute; left:0; right:0; top:-11.867vw; display:flex; gap:0.533vw; z-index:1;}
+.evtCont02 .tabMenu li{flex:1;}
+.evtCont02 .tabMenu li button{display:block; width:100%; height:11.867vw; background-repeat:no-repeat; background-position:center top; background-size:100% auto;}
+.evtCont02 .tabMenu li.on button{background-position-y:bottom;}
+.evtCont02 .tabMenu li:nth-child(1) button{background-image:url('/images/events/2024/event240520/tab01.png');}
+.evtCont02 .tabMenu li:nth-child(2) button{background-image:url('/images/events/2024/event240520/tab02.png');}
+.evtContItem{display:none;}
+.evtContItem.on{display:block;}
+.item_list_wrap{}
+.item_list_wrap .item_box{display:flex; gap:3.733vw; align-items:center;}
+.item_list_wrap .item_box+.item_box{margin-top:16vw;}
+.item_list_wrap .item_box img{max-width:100%;}
+.item_list_wrap .item_box .thumb{position:relative; width:31.2vw; border:1.6vw solid #006be4; border-radius:0.533vw;}
+.item_list_wrap .item_box .thumb:before{content:''; position:absolute; left:50%; top:-8.533vw; transform:translateX(-50%); width:28vw; height:6vw; background-repeat:no-repeat; background-position:center; background-size:contain;}
+.item_list_wrap .item_box .thumb:after{content:''; position:absolute; left:50%; bottom:-4.667vw; transform:translateX(-50%); width:8.267vw; height:3.067vw; background-repeat:no-repeat; background-position:center; background-size:contain;}
+.item_list_wrap .item_box .imgs{position:relative; display:flex; gap:6px; flex:1 0 0;}
+.item_list_wrap .item_box .imgs p{position:absolute; left:0; right:0; top:-9.333vw; font-size:2.667vw; color:#666; font-weight:400; line-height:3.467vw; letter-spacing:-0.045em;}
+.item_list_wrap .item_box .imgs p span{font-size:inherit; color:inherit; font-weight:500;}
+.item_list_wrap .item_box .imgs .img{flex:1;}
+.item_list_wrap .item_box .imgs .img .btnView{position:relative; display:block; border:1px solid #e7e7e7;}
+.item_list_wrap .item_box .imgs .img .btnView:after{content:''; position:absolute; left:0.933vw; bottom:0.933vw; width:7.2vw; height:7.2vw; background:url('/images/events/2024/event240520/ico_view.png') no-repeat center / contain; z-index:1;}
+
+.item_list_wrap .item_box.first .thumb{border-color:#006be8;}
+.item_list_wrap .item_box.first .thumb:before{background-image:url('/images/events/2024/event240520/label1.png');}
+.item_list_wrap .item_box.first .thumb:after{background-image:url('/images/events/2024/event240520/obj1.png');}
+.item_list_wrap .item_box.second .thumb{border-color:#b017d9;}
+.item_list_wrap .item_box.second .thumb:before{background-image:url('/images/events/2024/event240520/label2.png');}
+.item_list_wrap .item_box.second .thumb:after{background-image:url('/images/events/2024/event240520/obj2.png');}
+.item_list_wrap .item_box.last .thumb{border-color:#ce1555;}
+.item_list_wrap .item_box.last .thumb:before{background-image:url('/images/events/2024/event240520/label3.png');}
+
+.evtContItem .btnApply{margin:8vw auto 0; display:block; width:70.267vw; height:14.933vw; background:url('/images/events/2024/event240520/btn_apply.png') no-repeat center / contain;}
+.evtContItem2 .btnApply{background-image:url('/images/events/2024/event240520/btn_apply2.png');}
+
+.notice { padding:8vw 4vw; background: #64656d;}
+.notice strong {padding-left:4.667vw; display:block; margin-bottom: 2.13vw; font-size:3.2vw; color:#fff; font-weight:600; line-height:3.333vw; background:url('/images/events/2024/event240520/ico_alert.png') no-repeat left center / auto 100%;}
+.notice ul li{position: relative; padding-left:2.133vw; font-size:2vw; color:#fff; font-weight:300; line-height:1.4; opacity:.8; letter-spacing:-0.045em;}
+.notice ul li span{font-size:inherit; font-weight:500;}
+.notice ul li:after {content: ""; display: inline-block; position: absolute; left: 0; top: 1.4vw; width: 0.53vw; height: 0.53vw; background: #fff; border-radius: 50%;}
+
+.previewPopup{position:fixed; left:0; right:0; top:0; bottom:0; display:flex; align-items:center; justify-content:center; flex-wrap:wrap; background:rgba(20,26,31,.8); overflow-y:auto; z-index:1001;}
+.previewPopup .previewPopWrap{position:relative; padding:7.6vw; width:82.133vw; border:0.533vw solid #cbcbcb; background:#f4f4f4; border-radius:2.667vw; box-sizing:border-box;}
+.previewPopup .btnPreviewClose{position:absolute; right:2.667vw; top:2.667vw; width:3.867vw; height:3.733vw; background:url('/images/events/2024/event240520/ico_pop_close.png') no-repeat center / contain;}
+.previewPopup img{width:100%;}
+
+/*신청하기팝업*/
+.event240520 .applyDtl_top h3{color:#393d49;}
+.event240520 .info_tit label{font-size:14px;font-weight:600;color:#393d49;}
+.event240520 .vivasamter_applyDtl .info_tit > .join_ipt_chk{display:inline-block;}
+.event240520 .vivasamter_applyDtl .info_tit > .join_ipt_chk .join_chk_list.half{margin:0 0 0 20px;float:none;width:auto;display:inline-block;}
+.event240520 .join_chk_list input[type="radio"].checkbox_circle + label{font-size:14px;font-weight:400;color:#464a55;}
+.event240520 .join_chk_list input[type="radio"].checkbox_circle:checked + label{font-size:14px;font-weight:400;}
+.event240520 .vivasamter_applyDtl .input_wrap.school .input_sm{width:calc(100% - 130px);}
+.event240520 .vivasamter_applyDtl .input_wrap.school .input_in_btn.btn_gray{margin-left:5px;margin-top:-24px;right:0;width:125px;height:40px;font-size:14px;font-weight:600;vertical-align: top;}
+.event240520 .bulTxt{padding-left:25px;margin-top:5px;text-indent:-10px;}
+.event240520 .vivasamter_applyDtl .privacyList{margin-top:10px;}
+.event240520 .vivasamter_applyDtl .privacyList li{font-weight:400;}
+.event240520 .vivasamter_applyDtl .privacyList li:before{left:5px;}
+.event240520 .vivasamter_applyDtl .acco_notice_cont .privacyTxt{font-weight:400;}
+.event240520 .infoTxtWrap{margin-top:7px; padding:0 15px;}
+.event240520 .inputInfoTxt{font-size:12px; color:#888888; padding-left:10px; text-indent:-10px;}

@@ -1,0 +1,33 @@
+/* Event */
+.event250407{position:relative;}
+.event250407 img{width:100%;vertical-align:top;}
+.event250407 [class^="evtCont"]{position:relative;z-index:1;}
+.event250407 *{font-family:'Noto Sans KR', sans-serif; box-sizing:border-box;}
+/* START */
+
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+
+/* EVENT 528 */
+.evtCont01 {position:relative;}
+.evtCont01 .btnReview {position:absolute; left:32.23vw; bottom:65.6vw; width:27.1vw; height:4.2vw;}
+.evtCont01 .btnApply {position:absolute; left:4.1vw; bottom:9vw; width:91.1vw; height:15.5vw;}
+
+.commentWrap {padding:6vw 5vw 5vw; background:#ffccd1;}
+.commentWrap .inner{margin-top:2.5vw;}
+.commentWrap .inner .listItem {width:100%; padding:4vw 3vw; margin-bottom:2vw; background:#fff; border:1px solid #000; border-radius:3vw;}
+.commentWrap .inner .listItem:last-child {margin-bottom:0;}
+.commentWrap .inner .listItem .teacher_id {margin-bottom:2.5vw; font-size:2.6vw; font-family:'Pretendard','Noto Sans KR','sans-serif'; font-weight:700; color:#cb3679; line-height:1; letter-spacing:-0.045em; }
+.commentWrap .inner .listItem p {font-size:2.8vw; font-family:'Pretendard','Noto Sans KR','sans-serif'; font-weight:400; color:#444; letter-spacing:-0.05em; line-height:1.5; word-break:break-all;}
+.commentWrap .inner .btnMore {margin:4vw auto 0; display:block; width:28.5vw; height:11.3vw; background:url('/images/events/2025/event250407/btn_more.png') no-repeat center / contain;}
+
+.applyDtl_top h3 {font-size:17px; font-weight:600; color:#393d49; letter-spacing:-0.05em; line-height:1.3;}
+.applyDtl_top h3 span {font-size:17px; font-weight:600;color:#ff8125; letter-spacing:-0.05em;}
+.input_wrap.multi_wrap.ipt_grade > .input_wrap {flex:unset; margin-right:14px;}
+.ipt_grade .input_wrap .input_sm {width:100px;}
+.ipt_person .input_wrap .input_sm {width:100px; }
+
+
+
+

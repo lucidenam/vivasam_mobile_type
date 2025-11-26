@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.myInfo.mapper.AdminMemberMapper">
+	<select id="selectAdmMemberCnt" parameterType="string" resultType="int">
+		/* AdminMemberMapper.selectAdmMemberCnt */
+		SELECT
+			COUNT(1)
+		FROM adm_auth_member_info
+		WHERE ADM_ID = #{memberId}
+		  AND CLIENT_MEMBER_YN = 'Y'
+	</select>
+	<!-- 비밀번호를 SHA2_512 로 저장 -->
+	<update id="updateAdmMemberPwdSha2" parameterType="hashmap">
+		/* AdminMemberMapper.updateAdmMemberPwdSha2 */
+		UPDATE adm_auth_member_info SET
+			PASSWORD2 = fnSaltSHA512(#{newPwd})
+		  , PWD_LAST_UPDATE_DTTM = CURRENT_TIMESTAMP()
+		  , LAST_LOGIN_DTTM = CURRENT_TIMESTAMP()
+		WHERE ADM_ID = #{memberId}
+		  AND CLIENT_MEMBER_YN = 'Y'
+	</update>
+
+	<insert id="insertAdmLog" parameterType="edu.visang.vivasam.myInfo.model.AdminLogParameter">
+		/* AdminMemberMapper.insertAdmLog */
+		INSERT ADM_LOG
+		(
+			IDX
+			, MEMBER_ID
+			, IP_ADDRESS
+			, REG_DATE
+			, ACTION
+			, TARGET
+			, LOG_STATE
+		)
+		VALUES (
+			(select IDX  from (SELECT MAX(IDX) + 1 as IDX FROM ADM_LOG) as I)
+			, LOWER(#{memberId})
+			, #{ipAddress}
+			, CURRENT_TIMESTAMP()
+			, #{action}
+			, LOWER(#{target})
+			, #{logState}
+		)
+	</insert>
+</mapper>
+
+
+

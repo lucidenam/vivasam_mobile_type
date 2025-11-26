@@ -1,0 +1,11 @@
+.event200326 {position: relative; font-family: "Nanum Gothic","나눔고딕",NanumGothic,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;}
+.event200326 img {vertical-align: middle; width:100%; line-height:0}
+.event200326 a {display: inline;}
+
+/* contents */
+.event200326 .btn_wrap {position: absolute; top: 71vw; left: 0; width: 100%; text-align: center;}
+.event200326 .btn_wrap button {width: 36vw;}
+.event200326 .cont2 {padding: 5.9375vw; background: #8781a3;}
+.event200326 .cont2 li {position: relative; padding-left: 3.125vw; margin-bottom: 1.5vw; font-size: 3.125vw; color: #fff;}
+.event200326 .cont2 li strong {color: #fff49f;}
+.event200326 .cont2 li:before {content: ""; display: block; position: absolute; left: 0; top: 1.6vw; width: 0.9vw; height: 0.9vw; background: #fff; border-radius: 0.2vw;}

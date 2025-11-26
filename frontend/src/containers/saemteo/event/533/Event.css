@@ -1,0 +1,90 @@
+/* Event */
+.event241209{position:relative;}
+.event241209 img{width:100%;vertical-align:top;}
+.event241209 [class^="evtCont"]{position:relative;z-index:1;}
+.event241209 *{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+
+/* EVENT 533 */
+
+.event241209 .evtCont02 {position:relative;padding: 17.05vw 0;background: rgb(127,31,244);background: linear-gradient(180deg, rgba(127,31,244,1) 41%, rgba(88,7,203,1) 100%);}
+.event241209 .evtCont02:before{content:'';position:absolute;left:0;top:-7.47vw;width:100%;height:7.476vw;background:url('/images/events/2024/event241209_2/img2_cloud.png') no-repeat center top / auto 7.476vw;}
+
+.event241209 .contBox{margin:5.841vw 0 0;}
+.event241209 .contBox .right_wrap{position:relative;}
+.event241209 .contBox .right_wrap .btn_landing{position:absolute;left:15.42vw;top:32.126vw;display:block;width:39.719vw;}
+.event241209 .evtLabel{margin-top:14.018vw;}
+.event241209 .btnApply{margin:5.556vw auto 0; display:block; width:100%;}
+
+.evtCont03{padding:30.373vw 7.009vw 32.710vw;background: linear-gradient(180deg, rgba(244,227,255,1) 0%, rgba(205,191,255,1) 100%);}
+
+.evtCont03 .tab{display:flex;justify-content:flex-start;border-bottom:1px solid #742ACF;height:14.018vw;}
+.evtCont03 .tab li{display:inline-block;width:37.383vw;height:14.018vw;background:rgba(255,255,255,0.7);border-radius:4.672vw 4.672vw 0 0;box-shadow:0 0.934vw 1.401vw rgba(116, 42, 207, 0.22);}
+.evtCont03 .tab li a{display:block;text-align:center;font-size:5.607vw;font-weight:600;line-height:14.018vw;}
+.evtCont03 .tab li.on{background: rgb(125,0,197);background: linear-gradient(180deg, rgba(125,0,197,1) 0%, rgba(113,0,197,1) 100%);}
+.evtCont03 .tab li.on a{color:#fff;}
+.evtCont03 .tab_conts p{margin-top:7vw;text-align:center;font-size:4.205vw;font-weight:500;color:#2B2E37;line-height:1.8;letter-spacing:-0.04em;}
+.evtCont03 .tab_conts p span{font-size:7.476vw;font-weight:600;color:#742ACF;}
+
+.tagList{margin-top:9.34vw;display:flex;flex-wrap:wrap;gap:1.86vw;}
+.tagList li{background:rgba(255,255,255,0.7);border-radius:1.86vw;min-width:17.289vw;height:11.214vw;}
+.tagList li a{padding:0 4.672vw;display:block;width:100%;text-align:center;line-height: 11.214vw;font-size:4.205vw;color:#000;}
+.tagList li.on{background: rgb(255,224,100);
+    background: linear-gradient(180deg, rgba(255,224,100,1) 0%, rgba(252,255,158,1) 100%);}
+.tagList li.on a{font-weight:600;}
+
+
+
+.event241209 .commentWrap {margin-top:9.259vw; width:100%;}
+.event241209 .commentWrap .commentList {display: flex; flex-wrap: wrap; gap:7.476vw 0; position: relative; width: 100%; border: 0;}
+.event241209 .commentWrap .listItem{width:100%;position:relative; padding:3.703vw 0; border-radius:5.607vw;min-height: 70.093vw;background: #fff;box-shadow:0 4px 4px rgba(86, 46, 142, 0.25);}
+.event241209 .commentWrap .listItem:active{box-shadow:0 19px 10px rgba(86, 46, 142, 0.21);}
+.event241209 .commentWrap .listItem.nodata {display: none}
+
+.event241209 .commentWrap .listItem .name{margin-bottom:2.315vw; display:block; font-size:3.148vw; color:#222; font-weight:600; line-height:1;}
+.event241209 .commentWrap .listItem .txt{padding-right:2.778vw; max-height:4.5em; font-size:3.148vw; font-weight:300; line-height:1.5; overflow-y:auto;}
+.event241209 .commentWrap .listItem .txt p{font:inherit; color:#333;}
+.event241209 .commentWrap .listItem .comment_inner{ display: flex; flex-direction: column; height: 100%; padding: 0;}
+.event241209 .commentWrap .listItem .comment_inner .school_id{margin:0 7.009vw;height:14.018vw;border-radius:7.009vw;background:rgba(176, 39, 255, 0.1);text-align:center;}
+.event241209 .commentWrap .listItem .comment_inner .school_id p{margin-top:0;font-size:5.607vw;line-height:14.018vw;font-weight:600;color:#2B2E37;}
+.event241209 .commentWrap .listItem .comment_inner .school_id p span{font:inherit;color:#742ACF;}
+.event241209 .commentWrap .listItem .comment_inner .teacher_id {display:block;padding:0 7.009vw;margin:1.168vw 0 3.971vw; font-size: 3.271vw; color: #A4A5A9; line-height: 1.8; letter-spacing: -0.045em;text-align:center; }
+.event241209 .commentWrap .listItem .comment_inner .comment {height: 35vw; padding:0 7.009vw;  overflow-x: hidden; overflow-y: auto;}
+.event241209 .commentWrap .listItem .comment_inner .comment p {margin-top:0;padding: 1.401vw 0 0 0; font-size: 3.738vw; font-weight: 400; color: #2B2E37; line-height: 1.8; letter-spacing: -0.045em;}
+.event241209 .commentWrap .listItem .info .btnBox {display: none;}
+
+
+
+.event241209 .commentWrap .btnMore {margin:9.345vw auto 0; display:block; width:40.654vw;}
+
+.event241209 .evtNotice {padding:16.355vw 7.009vw 19.859vw; background:#765AD7;}
+.event241209 .evtNotice strong {font-size:4.20vw; color:#fff; font-weight:600; line-height:1;}
+.event241209 .evtNotice ul{margin-top:7vw;}
+.event241209 .evtNotice ul li {position:relative;padding-left:5vw; font-size:3.27vw; color:#fff; font-weight:400; line-height:1.8;text-indent:-0.04em;}
+.event241209 .evtNotice ul li:before{content:'';position:absolute;left:2vw;top:3.037vw;display:inline-block;width:4px;height:4px;background:#fff;border-radius:2px;}
+
+/*popup*/
+.applyDtl_top { background: #fff9e3; }
+.applyDtl_top h3 {text-align:center!important;}
+.applyDtl_top strong {font-size:4.26vw; font-weight:600; color: #ff8125;}
+.input_wrap .count {display:flex; justify-content:flex-end; margin-top:1.33vw;}
+.input_wrap .count span{font-size:3.2vw; font-weight:400; color:#888;}
+.vivasamter_applyDtl .info_tit.info_textarea {position:relative; padding-left:3.8vw; text-indent:-1.8vw;}
+.vivasamter_applyDtl .info_tit.info_textarea .txt_count {position:absolute; right:5px; bottom: 7px;}
+.input_wrap textarea {width:100%; min-height:45.33vw; padding:4vw; font-size:14px; border:1px solid #eaeaea; border-radius:2.66vw;}
+.input_wrap textarea::placeholder {color:#838a95;}
+.input_wrap textarea:disabled{background:#f7f7f7;color:#999}
+.vivasamter_apply .info_tit span {font-size:14px;}
+.vivasamter_apply .currentCount {font-size:14px;}
+.join_chk_list {width:50%;}
+.privacyTxt a {color:#01aeff;}
+.vivasamter_applyDtl .pdside20 + .acco_notice_list.notice_sec {padding-top:0; margin-top:0; border-top:0;}
+.vivasamter_applyDtl .pdside20 + .acco_notice_list.notice_sec .acco_notice_cont {border-top:0;}
+
+
+
+.join_chk_list {width: 33%;
+}

@@ -1,0 +1,68 @@
+/* Event */
+.event220106{position:relative;background:#fff;}
+.event220106 img{width:100%;vertical-align:top;}
+.event220106 [class^="evtCont"]{position:relative;z-index:1;}
+.event220106 *{box-sizing:border-box;font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+/* EVENT 386 */
+/* evtNoti */
+.event220106 .evtCont01{padding:26.66vw 0 0;background:url(/images/events/2022/event220106/bg.png) 0 136vw no-repeat #84acff;background-size:100%;text-align:center;}
+.event220106 .evtCont01 .evtCon{position:absolute;top:0;left:50%;display:block;width:80.8vw;height:19.6vw;background:url(/images/events/2022/event220106/evt_con.png) 0 0 no-repeat;background-size:100%;transform:translateX(-50%);}
+.event220106 .evtCont01 h1{width:76.66vw;margin:0 auto;}
+.event220106 .evtCont01 .evtNoti{margin-top:6vw;}
+.event220106 .evtCont01 .evtNoti > .txt{font-size:3.2vw;font-weight:500;color:#131313;line-height:1.45;letter-spacing:-0.03em;}
+.event220106 .evtCont01 .evtNoti > .txt + .txt{margin-top:3%;}
+.event220106 .evtPeriod{margin:6.66vw 13vw 0;text-align:left;}
+.event220106 .evtPeriod li + li{margin-top:1.866vw;}
+.event220106 .evtPeriod .tit,
+.event220106 .evtPeriod .txt{display:inline-block;font-size:3.066vw;font-weight:600;color:#fff;line-height:1.48;vertical-align:top;letter-spacing:-0.01em;}
+.event220106 .evtPeriod .tit{width:19.46vw;height:5.866vw;padding:1.3vw 0;background:#1968ec;border-radius:2.933vw;font-weight:500;text-align:center;line-height:1;}
+.event220106 .evtPeriod .txt{margin-left:1.866vw;font-size:3.733vw;color:#090041;}
+.event220106 .evtGift{position:relative;margin:56vw 5.33vw 0;padding:0 5.4vw;background:#fff;border:3px solid #eee;border-radius:3.59vw;}
+.event220106 .evtGift .tit{position:absolute;top:-4vw;left:50%;width:25.33vw;height:7.199vw;background:#fff;border:3px solid #eee;border-radius:3.59vw;font-size:3.733vw;font-weight:600;color:#000;letter-spacing:-0.045em;transform:translateX(-50%);z-index:1;}
+.event220106 .evtGift li{position:relative;display:flex;flex-direction:column;justify-content:center;height:28vw;padding-left:32vw;text-align:left;}
+.event220106 .evtGift li:nth-child(1){background:url(/images/events/2022/event220106/bg_gift01.png) 0 50% no-repeat;background-size:31.86vw 28.13vw;}
+.event220106 .evtGift li:nth-child(2){background:url(/images/events/2022/event220106/bg_gift02.png) 0 50% no-repeat;background-size:31.86vw 28.13vw;}
+.event220106 .evtGift li:nth-child(3){background:url(/images/events/2022/event220106/bg_gift03.png) 0 50% no-repeat;background-size:31.86vw 28.13vw;}
+.event220106 .evtGift li + li:before{content:'';position:absolute;top:0;left:0;display:inline-block;width:100%;height:2px;background:#eee;}
+.event220106 .evtGift li .giftTit{font-size:3.466vw;font-weight:600;color:#f64341;}
+.event220106 .evtGift li .giftTit span{font:inherit;font-weight:500;color:#4482f3;}
+.event220106 .evtGift li .giftTit + p{font-size:2.933vw;font-weight:500;color:#111;letter-spacing:-0.05em;}
+/* evtFormWrap */
+.event220106 .evtCont02{padding:6.66vw 5.333vw 12vw;background:#fff;}
+.event220106 .evtFormWrap{position:relative;}
+.event220106 .evtFormWrap .formItem{width:89.33vw;height:93.33vw;padding-top:21.6vw;background:url(/images/events/2022/event220106/bg_form.png) 0 0 no-repeat;background-size:100%;}
+.event220106 .evtFormWrap .formItem .formTit{height:19.40vw;background:url(/images/events/2022/event220106/form_tit.png) 50% 0 no-repeat;background-size:100%;}
+.event220106 .evtFormWrap .formItem .square{position:absolute;top:30.93vw;left:14.39vw;display:inline-block;width:23.73vw;height:9.33vw;background:#fff;border:5px solid #cdcdcd;border-radius:1.066vw;}
+.event220106 .evtFormWrap .formItem .square input[type="text"]{width:100%;height:100%;padding:0;border:0;border-radius:0;font-size:3.733vw;font-weight:600;color:#111;text-align:center;}
+.event220106 .evtFormWrap .formItem .evtTextareaWrap{position:relative;margin:5vw 4.266vw 0;line-height:1;}
+.event220106 .evtFormWrap .formItem .evtTextareaWrap textarea{resize:none;outline:none;width:100%;height:26.66vw;padding:3.2vw;border:0;border:2px solid #dedede;border-radius:12px;font-size:3.2vw;color:#333;line-height:1.125;letter-spacing:-0.04em;}
+.event220106 .evtFormWrap .formItem .evtTextareaWrap textarea::placeholder{color:#969696;}
+.event220106 .evtFormWrap .formItem .evtTextareaWrap .count{position:absolute;bottom:-5vw;right:1.33vw;font-size:3.2vw;font-weight:400;color:#969696;letter-spacing:-0.025em;}
+.event220106 .evtFormWrap .formItem .evtTextareaWrap .count span{font:inherit;color:#272727;}
+.event220106 .evtFormWrap .formTip{padding:5.33vw 6.66vw 0;}
+.event220106 .evtFormWrap .formTip > strong{position:relative;display:inline-block;font-size:3.2vw;font-weight:600;color:#272727;z-index:1;letter-spacing:-0.025em;}
+.event220106 .evtFormWrap .formTip ul{margin-top:3.2vw;text-align:left;}
+.event220106 .evtFormWrap .formTip ul li{font-size:2.93vw;font-weight:400;color:#6d6d6d;line-height:1.9;letter-spacing:-0.05em;}
+.event220106 .evtFormWrap .btnWrap{margin-top:9vw;text-align:center;}
+.event220106 .evtFormWrap .btnApply{display:inline-block;width:53.33vw;height:13.33vw;padding-right:5.2vw;background:url(/images/events/2022/event220106/ico_arr.png) right 16.26vw center no-repeat #090041;background-size:3.866vw 3.866vw;border-radius:2.4vw;font-size:4.533vw;font-weight:600;color:#fff;letter-spacing:-0.05em;}
+/* listWrap */
+.event220106 .evtCont03{background:#e3f3fb;}
+.event220106 .evtCont03 .evtList{padding:0 5.33vw;}
+.event220106 .evtCont03 .evtList .listItem:first-child{padding-top:12vw;}
+.event220106 .evtCont03 .evtList .listItem:last-child{padding-bottom:8vw;}
+.event220106 .evtCont03 .evtList .listItem .listTit{padding:5.13vw 5.33vw 0 5.33vw;background:#fff;border-radius:2.4vw 2.4vw 0 0;}
+.event220106 .evtCont03 .evtList .listItem .listTit > span{display:inline-block;vertical-align:middle;line-height:1;}
+.event220106 .evtCont03 .evtList .listItem .listTit .square{font-size:4vw;font-weight:600;color:#ff687d;}
+.event220106 .evtCont03 .evtList .listItem .listTit .square:after{content:'福';}
+.event220106 .evtCont03 .evtList .listItem:nth-child(2n) .listTit .square{color:#558cff;}
+.event220106 .evtCont03 .evtList .listItem .user{margin-left:2.66vw;font-size:3.2vw;font-weight:400;color:#333;line-height:1;}
+.event220106 .evtCont03 .evtList .listItem .listTxt{padding:6.13vw 5.33vw 13.66vw 5.33vw;background-image:url(/images/events/2022/event220106/bg_item01.png);background-position:104% 110%;background-repeat:no-repeat;background-size:20.8vw 21.2vw;background-color:#fff;border-radius:0 0 2.4vw 2.4vw;font-size:3.2vw;font-weight:400;color:#333;line-height:1.75;letter-spacing:-0.025em;}
+.event220106 .evtCont03 .evtList .listItem:nth-child(2n) .listTxt{background-image:url(/images/events/2022/event220106/bg_item02.png);background-size:20.8vw 21.2vw;}
+.event220106 .evtCont03 .evtList .listItem + .listItem{margin-top:4vw;}
+.event220106 .evtCont03 .btnMore{display:block;width:100%;height:12vw;background:#424242;font-size:3.733vw;font-weight:400;color:#fff;}
+/* EventApply */
+.applyDtl_top{padding:12px 15px;}

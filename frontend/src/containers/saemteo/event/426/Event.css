@@ -1,0 +1,50 @@
+/* Event */
+.event230112{position:relative;background:#fbf4e2;}
+.event230112 img{width:100%;vertical-align:top;}
+.event230112 [class^="evtCont"]{position:relative;z-index:1;}
+.event230112 *{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="section"]{position:relative;}
+[class^="section"] .imgWrap{display:block;}
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+.evtInput input::-moz-placeholder,
+.evtTextarea textarea::-moz-placeholder{color:#aaa;}
+.evtInput input:-moz-placeholder,
+.evtTextarea textarea:-moz-placeholder{color:#aaa;}
+.evtInput input::-webkit-input-placeholder{color:#aaa;}
+.evtInput input:-ms-input-placeholder{color:#aaa;}
+.evtCon{position:absolute;top:0;right:0;display:block;width:20.8vw;height:28vw;background:url(/images/events/common/corn.png) 0 0 no-repeat;background-size:100% auto; z-index:100;}
+
+/* EVENT 426 */
+.evtCont02 {margin-top: -0.3vw;}
+.event230112 .notice{padding:5.33vw 6.66vw 10.66vw;background:#ece8dc;}
+.event230112 .notice .subTit{font-size:3.46vw;font-weight:600;color:#323232; }
+.event230112 .notice ul{margin:2.66vw 0 0 0;text-align:left;}
+.event230112 .notice li{position:relative; padding-left: 3.2vw; font-size:2.66vw;font-weight:400;color:#162e41;line-height:1.8;letter-spacing:-0.06em;word-break:keep-all; text-indent: -3.2vw;}
+
+
+/*
+	반응형 사이즈 (750기준)
+
+	- 12px - 1.6vw;
+	- 14px - 1.86vw;
+	- 15px - 2vw;
+	- 16px - 2.13vw;
+	- 17px - 2.26vw;
+	- 18px - 2.4vw;
+
+	- 20px - 2.66vw;   - 80px - 10.66vw;
+	- 22px - 2.93vw;   - 90px - 12vw;
+	- 24px - 3.2vw;    - 100px - 13.33vw;
+	- 26px - 3.46vw;
+	- 28px - 3.73vw;
+	- 30px - 4vw;
+	- 35px - 4.66vw;
+	- 40px - 5.33vw;
+	- 50px - 6.66vw;
+	- 60px - 8vw;
+	- 70px - 9.33vw;
+
+*/

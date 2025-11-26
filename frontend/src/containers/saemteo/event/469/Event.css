@@ -1,0 +1,61 @@
+/* Event */
+.event231004{position:relative;background:#fff;}
+.event231004 img{width:100%;vertical-align:top;}
+.event231004 [class^="evtCont"]{position:relative;z-index:1;}
+.event231004 *{font-family:'Noto Sans KR', sans-serif; box-sizing: border-box;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+
+/* evtNoti */
+.event231004 {background: #304e5e;}
+.event231004 .evtCont1 {width: 100%; height: 176.13vw; padding-left: 3.33vw; background: url(/images/events/2023/event231004/evtBg.png)no-repeat center;}
+.event231004 .evtCont2 { padding: 0 5.33vw 6.66vw; margin-top: -58.66vw; }
+.event231004 .evtCont2 .cont {position: relative; width: 100%; padding: 3.46vw 5.33vw 4.66vw; margin-bottom: 8.66vw; text-align: center; border: 0.133vw solid #2c2c2c; border-radius: 2vw; }
+.event231004 .evtCont2 .cont1 {background: #fff9e4; }
+.event231004 .evtCont2 .cont1:after {content: ""; display: inline-block; position: absolute; left: 50%; bottom: 1.6vw; transform: translateX(-50%); width: 100vw; height: 8.4vw;  background: url(/images/events/2023/event231004/evtShadow.png)no-repeat center; background-size: 100% auto;}
+.event231004 .evtCont2 .cont2 {padding-top: 9.73vw; margin-bottom: 0;  background: #f0f8ea; box-shadow: 0.53vw 0.53vw 0 rgba(44, 44, 44, 1);}
+.event231004 .evtCont2 .cont .evtBadge {position: absolute; left: 50%; top: -4vw; transform: translateX(-50%); width: 54vw; }
+.event231004 .evtCont2 .cont2 .contInner {padding-bottom: 0;}
+.event231004 .evtCont2 .cont .btnApply {display: inline-block; width: 37.6vw; height: 9.86vw; margin-top: 2.66vw; background:url(/images/events/2023/event231004/btnApply.png)no-repeat center; background-size: 100%  auto;}
+
+.event231004 .notice {padding: 6vw 10.66vw 10.66vw; background: #2c2c2c;}
+.event231004 .notice strong {display: inline-block; margin-bottom: 2.66vw; font-size: 3.46vw; font-weight: 500; color: #ffffff; letter-spacing: -0.06em;}
+.event231004 .notice ul li {position: relative; padding-left: 1.6vw; font-size: 2.26vw; font-weight: 300; color: #cfcfd3; line-height: 1.5; letter-spacing: -0.035em; }
+.event231004 .notice ul li:after {content: ""; display: inline-block; position: absolute; left: 0; top: 1.5vw; width: 0.533vw; height: 0.533vw; background: #bfbfc2; border-radius: 50%;}
+
+
+
+/*applyPop*/
+.vivasamter_applyDtl {padding-top: 17px;}
+.applyDtl_top {background: #ffd563; border-bottom: 1px solid #d0d0d0;}
+.applyDtl_cell h3 strong {color: #ff4e25; letter-spacing: -0.05em;}
+.vivasamter_applyDtl .input_wrap.school_wrap.style2 .input_school + button {width: 125px; padding: 0; text-align: center; background: #abadb5;}
+.vivasamter_applyDtl .input_wrap.school_wrap.style2 .input_school + button:before {display: none;}
+.vivasamter_applyDtl .input_wrap input[name="personnel"] {width: 88px   ;}
+.vivasamter_applyDtl .ipt_textarea {height: 150px;}
+.vivasamter_applyDtl .count_wrap .count span span {font-size: 12px; font-weight: 500; color: #fd5b76;}
+.vivasamter_applyDtl .input_wrap.receiveGradeClass {display: flex; align-items: center; gap: 5px; }
+.vivasamter_applyDtl .input_wrap.receiveGradeClass input[type="number"] {display: inline-block; flex: 1;}
+.vivasamter_apply .vivasamter_applyDtl .acco_notice_list + .acco_notice_list.acco_notice_list_last {padding-bottom: 0; border-bottom: 0; }
+.vivasamter_apply .vivasamter_applyDtl .acco_notice_list + .acco_notice_list.acco_notice_list_last .acco_notice_cont {padding-bottom: 0; border-bottom: 0;}
+.vivasamter_applyDtl .input_wrap.person_wrap {position: relative;}
+.vivasamter_applyDtl .input_wrap.person_wrap span {display: inline-block; position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 14px; font-weight: 400; color: #464a55; letter-spacing: -0.04em;}
+.vivasamter_applyDtl .select_wrap { display: flex; align-items: center;}
+.vivasamter_applyDtl .select_wrap .selectbox {width: 167px; margin-top: 0}
+.vivasamter_applyDtl .date_btn_wrap {font-size: 0; letter-spacing: 0; word-spacing: 0;}
+.vivasamter_applyDtl .date_btn_wrap button {display: inline-block; width: 38px; height: 38px; margin-left: 5px}
+.vivasamter_applyDtl .date_btn_wrap button img {width: 100%; height: 100%;}
+
+
+
+
+
+
+
+
+
+
+
+

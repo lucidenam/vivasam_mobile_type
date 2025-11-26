@@ -1,0 +1,30 @@
+/* EVENT 230823 */
+img {width: 100%;}
+
+.event230823 {background: #ffecbd url(/images/events/2023/event230823/evtBg.png) 0 0 no-repeat; background-size: 100% auto; }
+.evtCont01 {padding: 7.33vw 8.66vw;}
+.evtCont01 h1 img {width: 81.86vw;}
+
+.evtCont02 {padding: 0 4vw;}
+.evtCont02 .cont {position: relative; width: 100%; border: 1px solid #e4cc8d; border-radius: 4vw; overflow: hidden; z-index: 10;}
+.evtCont02 .contTit {display: flex; justify-content: center; align-items: center; height: 11.73vw; background: #3864f3;}
+.evtCont02 .contTit img {width: 35.73vw;}
+.evtCont02 .contMain {padding: 4.26vw 4vw 3.33vw; background: #fff;}
+.evtCont02 .contMain .useInfo {margin-bottom: 5.73vw;}
+.evtCont02 .contMain .useInfo img {width: 77.06vw; margin-left: 3.2vw;}
+.evtCont02 .contMain .setLIst li {position: relative; margin-bottom: 3.33vw;}
+.evtCont02 .contMain .setLIst li .view {display: inline-block; position: absolute; right: 2.66vw; bottom: 2.66vw; width: 8.66vw; height: 8.66vw;  background:  url(/images/events/2023/event230823/view.png) 0 0 no-repeat; background-size: 100% auto;}
+.evtCont02 .contMain .btnApply {margin-top: 4.66vw;}
+.evtCont02 .contMain .noti {margin-left: 5.6vw;}
+.evtCont02 .contMain .noti li {position: relative; padding-left: 2.26vw; font-size: 2.93vw; font-weight: 400; color: #767678; letter-spacing: -0.045em;}
+.evtCont02 .contMain .noti li:after {content: ""; display: inline-block; position: absolute; left: 0; top: 1.8vw; width: 0.4vw; height: 0.4vw; background: #767678; border-radius: 50%; }
+
+.notice {padding: 22.66vw 8vw 6vw; margin-top: -17.06vw; background: #68a674;}
+.notice strong {display: inline-block; margin-bottom: 2.66vw; font-size: 3.73vw; font-weight: 600; color: #fff; line-height: 1; letter-spacing: -0.06em;}
+.notice ul li {position: relative; padding-left: 2vw; font-family: "Noto Sans KR", sans-serif; font-size: 3.2vw; font-weight: 300; color: #fff; line-height: 1.5; letter-spacing: -0.045em;}
+.notice ul li:after {content: ""; display: inline-block; position: absolute; left: 0; top: 2vw; width: 0.8vw; height: 0.8vw; background: #fff; border-radius: 50%; }
+
+.applyDtl_top {background: #ffecbd;}
+.applyDtl_top h3 strong {color: #3864f3;}
+
+

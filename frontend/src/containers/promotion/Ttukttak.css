@@ -1,0 +1,30 @@
+/* 뚝딱 홍보페이지 */
+/* animation */
+.ttIntroWrap .ani{opacity:0;}
+.ttIntroWrap .ani.animate{animation:aniUp .7s linear 1 both;}
+@keyframes aniUp {
+    0%{opacity:0;transform:translateY(60px);}
+    100%{opacity:1;transform:translateY(0);}
+}
+
+/* START */
+/* common */
+.ttIntroWrap{padding-bottom:50px;}
+.ttIntroWrap [class^="section"]{position:relative;z-index:1;}
+.ttIntroWrap img{width:100%;max-width:100%;vertical-align:top;}
+.ttIntroWrap .btnWrap{position:absolute;left:0;width:100%;text-align:center;}
+.ttIntroWrap .btnWrap > *{display:inline-block;}
+.ttIntroWrap .btnWrap .btnPoint{width:61.94vw;height:14.72vw;}
+.ttIntroWrap .listItem{position:relative;}
+/* nav */
+.ttIntroWrap .navWrap{position:sticky;top:55px;left:0;background:#fff;z-index:2;}
+.ttIntroWrap .navWrap .nav{position:relative;display:flex;gap:0 1px;}
+.ttIntroWrap .navWrap .nav li{flex:1;}
+.ttIntroWrap .navWrap .nav .linkCtrl{display:flex;justify-content:center;align-items:center;width:100%;height:14.72vw;background:#153a97; font-family:'Noto Sans KR', sans-serif;font-size:3.7vw;color:#a1acd9;line-height:1.25;letter-spacing:-0.03em;}
+.ttIntroWrap .navWrap .nav li.on .linkCtrl{background:#003eda;font-weight:700;color:#151749;}
+/* section */
+.ttIntroWrap .section1 .btnWrap{bottom:8.79vw;}
+.ttIntroWrap .section3 .btnWrap{top:52.8vw;}
+.ttIntroWrap .section3 .btn{width:53.05vw;height:12.13vw;padding:0;border:0;}
+.ttIntroWrap .section4:after{content:'';display:inline-block;position:absolute;right:10vw;bottom:40.25vw;width:39.53vw;height:35.09vw;background:url(/images/saemteo/ttukttak/obj_viversam.png) 0 0 no-repeat;background-size:100%;}
+.ttIntroWrap .section4 .btnWrap{bottom:6.94vw;}

@@ -1,0 +1,47 @@
+/* Event */
+.event201210{text-align:center;}
+.event201210 img{width:100%;vertical-align:top;}
+.event201210 > [class^="evt"]{position:relative;z-index:1;}
+[class^="event"] .blind{overflow:hidden;position:absolute;top:auto;left:auto;width:1vw;height:1vw;margin:-1vw;font-size:1vw;line-height:1;clip:rect(0,0,0,0);}
+/* START */
+[class^="evtCont"] button{box-sizing:border-box;width:100%;}
+[class^="evtCont"] .imgWrap{display:block;}
+/*  */
+/* .event201210.popOn{overflow:hidden;} */
+.event201210 .evtCont03 ul{position:absolute;top:16.8%;left:0;box-sizing:border-box;width:100%;height:47.4%;padding:0 7.5%;}
+.event201210 .evtCont03 ul li{width:100%;height:25%;text-align:right;}
+.event201210 .evtCont03 ul li [class^="btnCourse"]{width:10.1%;height:73.6%;margin:1.8%;background:url(/images/events/2020/event201210/btn_course.png) 0 0 no-repeat;background-size:100%;}
+.event201210 .evtCont04 .btnWrap{position:absolute;top:74.2%;left:0;width:100%;}
+.event201210 .evtCont04 .btnWrap button{width:62.3%;}
+/* EVTPOP */
+.event201210 > [class^="evtPop"]{position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;z-index:1000;}
+.event201210 .evtPopHeader{height:13vw;padding:0 4.3vw;background:#008688;}
+.event201210 .evtPopHeader h2{font-family:'Nanum Gothic_Bold';font-size:4.5vw;color:#fff;text-align:left;line-height:13vw;}
+.event201210 .evtPopClose{position:absolute;top:3.73vw;right:4vw;display:inline-block;width:5.46vw;height:5.46vw;background:url(/images/events/2020/event201118/btn_pop_close.png) 0 0 no-repeat;background-size:100%;}
+.event201210 .evtPopHeader + .evtPopCont{overflow-y:auto;height:calc(100% - 13vw);}
+.event201210 .evtPopCont .courseBox{margin:2.93vw 2.4vw;padding:5.3vw 3.2vw;background:#fffeeb;border:0.1vw solid #ebe8a9;text-align:left;}
+.event201210 .evtPopCont .courseBox .txtBold{display:inline-block;font-family:'Nanum Gothic_Bold';font-size:3.2vw;}
+.event201210 .evtPopCont .courseBox li > strong{display:block;}
+.event201210 .evtPopCont .courseBox li > div{margin-left:5.8vw;font-size:3.2vw;letter-spacing:-0.2vw;}
+.event201210 .evtPopCont .courseBox li > div > *{display:inline-block;line-height:1.4;vertical-align:top;}
+.event201210 .evtPopCont .courseBox li > div .txtBold{width:11vw;}
+.event201210 .evtPopCont .courseBox li > div .txtPush{width:calc(100% - 11vw);}
+/* EventApply */
+.applyDtl_top{background:#ecf2fd;padding:5.3vw 4vw 4.5vw;}
+.applyDtl_top h3 + p{margin-top:1vw;color:#000;word-break:keep-all;}
+.input_wrap + .mt10.mb25.c_gray{font-weight:600;color:#333;}
+.acco_notice_cont{display:block;word-break:keep-all;}
+.policy{color:#222;}
+.policy strong{font-family:'Nanum Gothic_Bold';}
+.acco_notice_cont ul.policy + p.comt{color:#888;}
+.acco_notice_tit.info_tit{display:block;color:#333;}
+.checkbox_circle_rel + label{margin-left:30px;}
+.checkbox_circle_tit{display:inline-block;font-family:'Nanum Gothic_Bold';text-align:left;}
+/* EventApply > table: 기존 신청하기 폼 스타일에 맞춰 px로 작업 */
+.vivasamter_apply .tblWrap table{border:1px solid #bfbfbf;}
+.vivasamter_apply .tblWrap thead th{height:25px;background:#353535;font-size:11px;color:#fff;}
+.vivasamter_apply .tblWrap tr:nth-child(even) td{background:#f5f5f5;}
+.vivasamter_apply .tblWrap td{padding:4px;font-size:11px;color:#333;text-align:center;letter-spacing:-1px;}
+.vivasamter_apply .tblWrap td.ta_l em{color:#ff5555;}
+.vivasamter_apply .tblWrap .checkbox_circle_rel + label:before{top:0;left:50%;margin-right:0;transform:translateX(-50%);}
+.vivasamter_apply .tblWrap table + span{display:inline-block;margin-top:5px;font-size:13px;color:#333;}

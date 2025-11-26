@@ -1,0 +1,31 @@
+/* EVENT 515 */
+.event240807{position:relative;}
+.event240807 img{width:100%;vertical-align:top;}
+.event240807 [class^="evtCont"]{position:relative;z-index:1;}
+.event240807 *{font-family:'Noto Sans KR', sans-serif;}
+.event240807 input[type="checkbox"]{display:none;}
+.evtCont02 h1 {margin-top:-8.659vw;}
+.btnEng{position:absolute; left:23.902vw; top:169.878vw; width:53.135vw; height:12.317vw;}
+.btnMath{position:absolute; left:23.902vw; top:304.634vw; width:53.135vw; height:12.317vw;}
+.btnGame{position:absolute; left:23.902vw; bottom:49.488vw; width:53.135vw; height:12.317vw;}
+.event240807 .evtCont02 .btnApply{position:absolute;bottom:14.634vw;left:6.341vw;margin:11.341vw auto 0; display: block; width:87.439vw; height:12.439vw;}
+.btnApply{background:url('/images/events/2024/event240807/btn_review.png')no-repeat center / 100% auto;}
+
+/*신청하기팝업*/
+.event240807 .applyDtl_top{background:#ffe785;}
+.event240807 .applyDtl_top h3{font-size:17px; text-align:left;}
+.event240807 .applyDtl_top h3 strong{color:#222;}
+.event240807 .info_tit label{font-size:14px;font-weight:600;color:#393d49;}
+.event240807 .vivasamter_applyDtl .info_tit > .join_ipt_chk{display:inline-block;}
+.event240807 .vivasamter_applyDtl .info_tit > .join_ipt_chk .join_chk_list.half{margin:0 0 0 20px;float:none;width:auto;display:inline-block;}
+.event240807 .join_chk_list input[type="radio"].checkbox_circle + label{font-size:14px;font-weight:400;color:#464a55;}
+.event240807 .join_chk_list input[type="radio"].checkbox_circle:checked + label{font-size:14px;font-weight:400;}
+.event240807 .vivasamter_applyDtl .input_wrap.school .input_sm{width:calc(100% - 130px);}
+.event240807 .vivasamter_applyDtl .input_wrap.school .input_in_btn.btn_gray{margin-left:5px;margin-top:-24px;right:0;width:125px;height:48px;font-size:14px;font-weight:600;vertical-align: top;}
+.event240807 .bulTxt{padding-left:25px;margin-top:5px;text-indent:-10px;}
+.event240807 .vivasamter_applyDtl .privacyList li{padding-left:7px;font-weight:400;}
+.event240807 .vivasamter_applyDtl .privacyList li:before{left:0;}
+.event240807 .vivasamter_applyDtl .acco_notice_cont .privacyTxt{font-weight:400;}
+.event240807 .infoTxtWrap{margin-top:7px; padding:0 15px;}
+.event240807 .inputInfoTxt{font-size:12px; color:#888888; padding-left:10px; text-indent:-10px;}
+.event240807 .evtItemWRap img{width:100%;}

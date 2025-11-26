@@ -1,0 +1,68 @@
+/* Event */
+.event210407{position:relative;}
+.event210407 img{width:100%;vertical-align:top;}
+.event210407 [class^="evtCont"]{position:relative;z-index:1;}
+.event210407 [class^="evtCont"] .inner{padding:0 5.33vw;}
+.event210407 span, .event210407 p, .event210407 li, .event210407 strong, .event210407 button, .event210407 input, .event210407 label, .event210407 textarea{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+.event210407 .evtCont02{background:#feeae3;}
+.event210407 .evtCont02 .inner{padding-bottom:6vw;}
+.caseBookWrap{overflow:hidden;position:relative;box-sizing:border-box;padding:6.66vw 3.733vw;background:#fff;border-radius:3.73vw;}
+.caseBookWrap .desList{margin:0 3.733vw;}
+.caseBookWrap .desList li{position:relative;padding-left:4.133vw;font-size:3.2vw;color:#494949;line-height:1.6;letter-spacing:-0.04em;}
+.caseBookWrap .desList li:before{content:'';position:absolute;top:1vw;left:0;display:inline-block;width:2.4vw;height:2.66vw;background:url(/images/events/2021/event210407/bul_chk.png) 0 0 no-repeat;background-size:100%;}
+/* 이벤트 체크박스 공통 */
+.caseBookWrap input[type="checkbox"]{overflow:hidden;position:absolute;top:-1px;left:-1px;width:1px;height:1px;margin:0;}
+.caseBookWrap input[type="checkbox"] + label{display:block;width:100%;height:100%;text-align:left;cursor:pointer;}
+/**/
+.chkAllWrap{overflow:hidden;position:relative;margin-top:6.133vw;}
+.chkAllWrap input[type="checkbox"] + label{display:inline-block;font-size:3.59vw;font-weight:700;color:#292929;letter-spacing:-0.055em;}
+.chkAllWrap input[type="checkbox"] + label:before{content:'';display:inline-block;box-sizing:border-box;width:5.6vw;height:5.6vw;margin:0 2.4vw 0 0;background:#f0f0f0;border:0.533vw solid #d4d4d4;border-radius:2.8vw;vertical-align:top;}
+.chkAllWrap input[type="checkbox"]:checked + label:after{content:'';position:absolute;top:50%;left:1.4vw;display:inline-block;width:2.933vw;height:2.933vw;background:#fb4f7f;border-radius:1.46vw;transform:translateY(-50%);}
+.caseBookList{display:flex;flex-wrap:wrap;justify-content:space-between;}
+.caseBookList li{overflow:hidden;position:relative;flex:0 23.73vw;margin-top:4vw;background-image:url(/images/events/2021/event210407/bg_casebook01.png);background-position:0 0;background-repeat:no-repeat;background-size:100% auto;}
+.caseBookList li:nth-child(2){background-image:url(/images/events/2021/event210407/bg_casebook02.png);}
+.caseBookList li:nth-child(3){background-image:url(/images/events/2021/event210407/bg_casebook03.png);}
+.caseBookList li input[type="checkbox"] + label{padding-top:32.8vw;font-size:3.466vw;font-weight:700;color:#292929;text-align:center;line-height:1;letter-spacing:-0.05em;}
+/* 이벤트 체크박스 활성화 */
+.caseBookList li input[type="checkbox"]:checked + label:before{content:'';position:absolute;top:9.86vw;left:6.66vw;display:inline-block;box-sizing:border-box;width:10.26vw;height:10.26vw;background-image:url(/images/events/2021/event210407/icon_chk.png);background-position:0 0;background-repeat:no-repeat;background-size:30.78vw;}
+.caseBookList li:nth-child(2) input[type="checkbox"]:checked + label:before{background-position:-10.26vw 0;}
+.caseBookList li:nth-child(3) input[type="checkbox"]:checked + label:before{background-position:-20.52vw 0}
+.caseBookList li input[type="checkbox"]:checked + label:after{content:'';position:absolute;top:0;left:0;box-sizing:border-box;display:inline-block;width:100%;height:29.7vw;border:0.8vw solid #ff3442;}
+.caseBookList li:nth-child(2) input[type="checkbox"]:checked + label:after{border:0.8vw solid #128e06;}
+.caseBookList li:nth-child(3) input[type="checkbox"]:checked + label:after{border:0.8vw solid #2540b7;}
+/* 이벤트 체크박스 비활성화 */
+.caseBookList li input[type="checkbox"]:disabled + label{cursor:default;}
+.caseBookList li input[type="checkbox"]:disabled + label:before{content:'';position:absolute;top:0;left:0;display:inline-block;box-sizing:border-box;width:100%;height:29.8vw;background-image:url(/images/events/2021/event210407/chk_done_casebook01.png);background-position:0 0;background-repeat:no-repeat;background-color:#fff9f0;background-size:100% auto;}
+.caseBookList li:nth-child(2) input[type="checkbox"]:disabled + label:before{background-image:url(/images/events/2021/event210407/chk_done_casebook02.png);}
+.caseBookList li:nth-child(3) input[type="checkbox"]:disabled + label:before{background-image:url(/images/events/2021/event210407/chk_done_casebook03.png);}
+.caseBookList li input[type="checkbox"]:disabled + label:after{content:'신청마감';position:absolute;top:-3.46vw;right:-1.6vw;left:auto;display:inline-block;box-sizing:border-box;width:10.8vw;height:10.8vw;padding:2vw 1.4vw;background:#404040;border-radius:5.4vw;font-size:3.2vw;font-weight:500;color:#fff;line-height:1.1}
+.caseBookList li input[type="checkbox"]:checked:disabled + label:before{background-position:0 0;}
+.caseBookList li input[type="checkbox"]:checked:disabled + label:after{border:0;}
+/**/
+.event210407 .evtCont02 .btnWrap{margin-top:6vw;text-align:center;}
+.event210407 .evtCont02 .btnWrap .btnApply{display:inline-block;width:41.6vw;}
+.caseBookInfo{position:relative;margin-top:5.33vw;background:#c5e3e9;border-radius:3.73vw;line-height:1;}
+.caseBookInfo .txtInfo{height:18.93vw;background:url(/images/events/2021/event210407/info_txt.png) 4.39vw 4.13vw no-repeat;background-size:78vw auto;}
+.caseBookInfo .btnLink01{display:inline-block;width:20vw;height:6vw;margin: 0 0 3.59vw 18.26vw;background:url(/images/events/2021/event210407/btn_link.png);background-size:100%;}
+.caseBookInfo .btnLink01 img{vertical-align:bottom;}
+.evtCont03{padding:5.86vw 7.4vw;background:#54525e;}
+.evtCont03 h2{margin-bottom:3vw;font-size:4vw;font-weight:700;color:#f7efec;letter-spacing:-0.05em;}
+.evtCont03 li{position:relative;padding-left:4.26vw;font-size:3.2vw;color:#e8e8e7;vertical-align:top;line-height:1.6;letter-spacing:-0.03em;}
+.evtCont03 li:before{position:absolute;top:0;left:0;display:inline-block;vertical-align:top;line-height:1.4;}
+.evtCont03 li:nth-child(1):before{content:'①';}
+.evtCont03 li:nth-child(2):before{content:'②';}
+.evtCont03 li:nth-child(3):before{content:'③';}
+.evtCont03 li strong{color:#fff36b;}
+
+/* EventApply */
+.applyDtl_top{background:#3d3bb6;padding:4.5vw 15px;}
+.applyDtl_top h3{color:#fff;}
+.applyDtl_top h3 strong{font-family:inherit;color:#ffe2c8;}
+.input_wrap + .mt10.mb25.c_gray{color:#888;}
+.acco_notice_cont{display:block;word-break:keep-all;}
+.policy{color:#222;}
+.acco_notice_list + .acco_notice_list{margin-top:25px;}
+.acco_notice_cont ul.policy + p.comt{color:#888;}
+.comt .btnLink02{color:#508ae8;}
+.acco_notice_tit.info_tit{display:block;color:#333;}

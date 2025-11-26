@@ -1,0 +1,59 @@
+.event191205 {position: relative; font-family:"Nanum Gothic", "sans-serif";}
+.event191205 img {vertical-align: middle; width:100%; line-height:0}
+.event191205 a {display: inline;}
+
+/* btn */
+.event191205 .btn_detail {position: absolute; top:0; left: 0; margin: 208% 0 0 58.54%; width: 35vw; height: 7vw; line-height: 7vw; border-radius: 0.8vw; background: #457cb5;  text-align: center; font-size: 3.2vw; color: #fff; font-weight: 700;}
+/* 신청하기 */
+.event191205 .btn_wrap {text-align: center;}
+.event191205 .btn_apply,
+.event191205 .btn_more {width: 100%; height: 13vw; border-radius: 6.5vw; background: #e3596f;  font-size: 3.6vw; color: #fff; font-family: "Nanum Gothic_Bold";}
+.event191205 .btn_more {margin-top: 6vw; background: #9fbb2f;}
+
+/* form */
+.event191205 .checkbox {position:absolute; left:-3000px; opacity:0}
+.event191205 .checkbox + label {display:inline-block; font-size: 3.2vw; color: #535353;}
+.event191205 .checkbox + label:before {content:""; display:inline-block; -webkit-box-sizing:border-box; box-sizing:border-box; width:3.6vw; height:3.6vw; margin-right: 2.5vw; border:1px solid #bfbfbf; border-radius: 0.26vw; vertical-align: middle;}
+.event191205 .checkbox:checked + label:before {border: none; background: url(/images/common/bg_check.png) no-repeat; background-size: cover;}
+.event191205 .checkbox + label span {vertical-align: middle;}
+
+/* contents */
+.event191205 {padding-bottom: 6vw; background: #fbf1e9;}
+.event191205 .cont_wrap {padding: 0 5.6vw; font-size: 3.2vw;}
+.event191205 .cont_wrap .tit {position: relative; margin-bottom: 3.2vw; padding-left: 3.2vw; line-height: 3.2vw; font-family: "Nanum Gothic_Bold"; font-size: 3.2vw; color: #000;}
+.event191205 .cont_wrap .tit:before {content: ""; position: absolute; left: 0; top: 0; width: 0.94vw; height: 3.2vw; background: #000; border-radius: 0.47vw;}
+.event191205 .cont_wrap .tit span {display: block; margin-top: 1.5vw; font-family: "Nanum Gothic"; font-size: 2.67vw;}
+
+/* 개인정보 수집 동의 */
+.event191205 .cont {margin-bottom: 5.6vw; padding: 0 6.4vw 6.4vw; background: #fff;}
+.event191205 .book_preview:after {content: ""; display: block; clear: both;}
+.event191205 .book_preview li {float: left; width: 50%; text-align: center;}
+.event191205 .book_preview li:nth-child(3),
+.event191205 .book_preview li:nth-child(4) {margin-top: 5.4vw;}
+.event191205 .book_preview li a {display: inline-block; width: 28vw;}
+.event191205 .book_preview li a img {border: 1px solid #dcdcdc;}
+.event191205 .book_preview li a span {display: block; margin-top: 2vw; font-size: 2.67vw; color: #000;}
+
+.event191205 .cont2 {margin-bottom: 5.4vw; padding: 5.4vw 6.4vw 6.4vw; background: #fff;}
+.event191205 .tit_sel_book {width: 27.067vw; margin-left: -2.6vw;}
+.event191205 .sel_book {margin: 4.4vw 0 10vw;}
+.event191205 .sel_book dt {position: relative; display: inline-block; padding-right: 1vw; background: #fff; font-family: "Nanum Gothic_Bold"; font-size: 3.2vw; color: #dd6175; z-index: 2;}
+.event191205 .sel_book dd {margin-top: -2vw; border-top: 1px solid #cfcfcf;}
+.event191205 .sel_book ul {margin: 1vw 0 4vw;}
+.event191205 .sel_book ul:after {content: ""; display: block; clear: both;}
+.event191205 .sel_book li {float: left; margin-right: 6vw; padding: 2.4vw 0 0;}
+.event191205 .sel_book li:last-child {margin-right: 0;}
+.event191205 .sel_book input {position:absolute; left:-3000px; opacity:0}
+.event191205 .sel_book label {position: relative; line-height: 1.2; letter-spacing: -0.4vw; font-size: 2.8vw; color: #010101;}
+.event191205 .sel_book label:before {content:""; display:inline-block; width:2.4vw; height:2.4vw; margin-right:1.6vw; border:0.4vw solid #bfbfbf; border-radius:50%; vertical-align: middle;}
+.event191205 .sel_book input:checked + label:after {content:""; position: absolute; left: -0.1vw; top: -1vw; width: 4.4vw; height: 3.4vw; background: url(/images/events/2019/event191205/ico_check.png) no-repeat 0 0; background-size: cover;}
+
+.event191205 .cont2 textarea {box-sizing: border-box; width: 100%; height: 22vw; margin-bottom: 5.4vw; padding: 1.8vw 2.6vw; border: 1px solid #4b4b4b; font-size: 2.8vw;}
+
+.event191205 .agree_info {margin-bottom: 4vw; padding: 4.5vw 4vw; background: #f4f4f4;}
+.event191205 .agree_info dt {margin-bottom: 3vw; font-family: "Nanum Gothic_Bold"; font-size: 3.2vw; color: #222222;}
+.event191205 .agree_info ul li {text-indent: -2.67vw; padding-left: 2.67vw; line-height: 1.8; letter-spacing: -0.06vw; font-size: 2.67vw; color: #888;}
+.event191205 .agree {position: relative; margin: 2vw 0 0; padding-left: 5.5vw; text-align: left;}
+.event191205 .agree .checkbox + label span {letter-spacing: -0.06vw; font-size:2.8vw; color: #222222;}
+.event191205 .agree .checkbox + label span a {font-family: "Nanum Gothic_Bold"; font-size:2.8vw; color: #222222;}
+.event191205 .agree .checkbox + label:before {position: absolute;top:0.9vw;left:0; font-size: 3.2vw; color: #535353;}

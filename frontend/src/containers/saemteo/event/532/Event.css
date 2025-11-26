@@ -1,0 +1,32 @@
+/* Event */
+.event241209{position:relative;background:#ffddee;}
+.event241209 img{width:100%;vertical-align:top;}
+.event241209 [class^="evtCont"]{position:relative;z-index:1;}
+.event241209 *{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="section"]{position:relative;}
+[class^="section"] .imgWrap{display:block;}
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+.evtInput input::-moz-placeholder,
+.evtTextarea textarea::-moz-placeholder{color:#aaa;}
+.evtInput input:-moz-placeholder,
+.evtTextarea textarea:-moz-placeholder{color:#aaa;}
+.evtInput input::-webkit-input-placeholder{color:#aaa;}
+.evtInput input:-ms-input-placeholder{color:#aaa;}
+/* EVENT 480 */
+.btnShare {position: absolute; left:52.853vw; bottom:14.946vw; width:18.207vw; height:3.804vw;}
+.btnShare2{position:sticky; top:calc(55px + 4.076vw); right:0; z-index:10; }
+.btnShare2 button{position:absolute; top:-2.446vw; right:7.337vw; width:17.799vw; height:18.342vw; background:url('/images/events/2024/event241209/btn_share.png')no-repeat center / 100% auto;}
+.evtCont03 .btnWrap {position: absolute; left:34.647vw; bottom:29.62vw; display: flex; gap:1.359vw;}
+.evtCont03 .btnWrap a{display: inline-block; width:23.098vw; height:3.804vw;}
+.evtCont03 .btnWrap a.mid{width:24.864vw;}
+
+.evt_notice {padding:6.522vw 5.978vw 6.522vw; background: #333;}
+.evt_notice *{font-family:'Pretendard', 'Noto Sans KR', 'sans-serif';}
+.evt_notice strong {display: inline-block; margin-bottom: 2.44vw; font-size:3.533vw; font-weight: 500; color: #fff; line-height: 1; letter-spacing: -0.045em;}
+.evt_notice ul li {position: relative; padding-left: 1.90vw; font-size:2.174vw; font-weight: 400; color: #fff; line-height: 1.75; letter-spacing: -0.025em; word-break:keep-all;}
+.evt_notice ul li:before {content: ""; display: inline-block; position: absolute; left: 0; top: 1.55vw; width:0.543vw; height:0.543vw; background: #c9c9c9; border-radius: 50%; }
+
+

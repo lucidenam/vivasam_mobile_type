@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.common.mapper.NoticeMapper">
+	<resultMap id="noticeResult" type="hashmap">
+		<result column="noticeId" property="noticeId"/>
+		<result column="title" property="title"/>
+		<result column="regDttm" javaType="string" property="regDttm"/>
+		<result column="noticeNm" property="noticeNm"/>
+		<result column="schLvlNm"  property="schLvlNm"/>
+		<result column="fixYn"  property="fixYn"/>
+		<result column="openDttm" javaType="string" property="openDttm"/>
+	</resultMap>
+
+	<select id="noticeList" parameterType="String" resultMap="noticeResult">
+        SELECT
+            NI.NOTICE_ID as noticeId
+            ,NI.TITLE as title
+            ,DATE_FORMAT(NI.REG_DTTM, '%Y-%m-%d') as regDttm
+            ,VC.NAME AS noticeNm
+			,CL.CODE_NAME AS schLvlNm
+			,NI.fixYn AS fixYn
+			, CASE
+				WHEN NI.REG_DTTM <![CDATA[ > ]]> DATE_ADD(CURRENT_TIMESTAMP,INTERVAL -7 DAY)
+					THEN 'Y'
+				ELSE 'N'
+			END AS isNew
+			,DATE_FORMAT(NI.OPEN_DTTM, '%Y-%m-%d') as openDttm
+        FROM NOTICE_INFO AS NI
+        LEFT OUTER JOIN VS_CODE AS VC ON (NI.NOTICE_CD=VC.CODE)
+        LEFT OUTER JOIN CODELIST AS CL ON (NI.SCH_LVL_CD = CL.CODELIST_ID
+        	AND CL.CODEGROUP_ID = '101' AND CL.USE_YN = 'Y' )
+        WHERE NI.NOTICE_CD NOT IN ('NT004')
+        AND NI.OPEN_YN = 'Y'
+        AND NI.OPEN_DTTM <![CDATA[ < ]]> CURRENT_TIMESTAMP
+        AND VC.CODE != 'NT012'
+        AND NI.SCH_LVL_CD != 'ES'
+        ORDER BY  NI.FIXYN DESC,NI.OPEN_DTTM DESC
+        LIMIT 5
+    </select>
+
+
+</mapper>

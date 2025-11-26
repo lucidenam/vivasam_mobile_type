@@ -1,0 +1,17 @@
+/*비버샘 소개 */
+html {scroll-behavior: smooth;}
+.viversamWrap {}
+.viversamWrap img {max-width: 100%; width: 100%;}
+.viversamWrap .downBtn {position: fixed; bottom: 65px; right: 10px; background: url("/images/saemteo/viversam/downBtn.png") no-repeat center center; display: inline-block; width: 40px; height: 40px; background-size: 40px 40px; z-index: 100;}
+.viversamWrap .viversam_full .viversam_cont01 {background-color: #fff;}
+.viversamWrap .viversam_full .viversam_cont02 {background-color: #ffd494;}
+.viversamWrap .viversam_full .viversam_cont03 {background-color: #d2edc9;}
+.viversamWrap .viversam_full .viversam_cont04 {background-color: #64d29c;}
+.viversamWrap .viversam_full .viversam_cont05 {background-color: #dffbff;} 
+
+.viversamWrap .viversam_full .viversam_cont04 .contwrap {padding: 11vw; padding-bottom: 5vw;}
+.viversamWrap .viversam_full .viversam_cont04 .slide_list .slick-track {transition-timing-function: linear; transition: 0s;}
+.viversamWrap .viversam_full .viversam_cont04 .slide_list .slick-track img {margin: 0 1.219vw; width: 15vw; height: 15vw;}
+.viversamWrap .viversam_full .viversam_cont04 .viverbtnWrap {padding: 5vw 11vw;}
+.viversamWrap .viversam_full .viversam_cont04 .viverbtnWrap .copyimg {width: 25vw; margin: 0 auto; text-align: center;}
+.viversamWrap .viversam_full .viversam_cont04 .viverbtnWrap .viverdown {background: url("/images/saemteo/viversam/viversam_down.png") no-repeat center center; display: block; width: 46.8292vw; height: 10.4878vw; background-size: contain; margin: 0 auto; margin-bottom: 3.6585vw;}

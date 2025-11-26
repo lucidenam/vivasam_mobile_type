@@ -1,0 +1,40 @@
+.event190218 {position: relative;font-family: "Nanum Gothic","�굹�닎怨좊뵓",NanumGothic,"�룍��",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;
+    background: url(https://www.vivasam.com/images/event/2019/m/event190218/bg.jpg) 0 0 repeat-y; background-size: contain;
+}
+.event190218 img {vertical-align: middle; width:100%;}
+.event190218 .cont01,
+.event190218 .cont02,
+.event190218 .cont03,
+.event190218 .cont04 {position: relative;}
+.event190218 p {line-height:0}
+.event190218 .cont01 .btn_wrap {position: absolute; top:80%; left:0; width:100%; padding:0 32%; text-align: center; box-sizing: border-box}
+.event190218 .cont01 .btn_join {position: absolute; top:41.7%; left:9.8%; width:20%; box-sizing: border-box}
+.event190218 .cont02 .theme {}
+.event190218 .cont02 .theme ul {margin:0; padding:0 6% 6% 6%; box-sizing: border-box; text-align: center; }
+.event190218 .cont02 .theme li {display:inline-block;margin:0 1% 2% 1%;text-align: center; vertical-align: top}
+.event190218 .cont02 .theme li label {display:block;width:100px; height:113px;  background-size: contain; background-repeat: no-repeat; background-position: 0 0; text-indent: -10000px; line-height:0}
+.event190218 .cont02 .theme li input {position:absolute;width:0;height: 0;margin: 0;opacity: 0;}
+.event190218 .cont02 .theme li.theme1 label {background-image: url(https://www.vivasam.com/images/event/2019/m/event190218/theme1.png);}
+.event190218 .cont02 .theme li.theme1 input:checked + label {background-image: url(https://www.vivasam.com/images/event/2019/m/event190218/theme1_on.png);}
+.event190218 .cont02 .theme li.theme2 label {background-image: url(https://www.vivasam.com/images/event/2019/m/event190218/theme2.png);}
+.event190218 .cont02 .theme li.theme2 input:checked + label {background-image: url(https://www.vivasam.com/images/event/2019/m/event190218/theme2_on.png);}
+.event190218 .cont02 .theme li.theme3 label {background-image: url(https://www.vivasam.com/images/event/2019/m/event190218/theme3.png);}
+.event190218 .cont02 .theme li.theme3 input:checked + label {background-image: url(https://www.vivasam.com/images/event/2019/m/event190218/theme3_on.png);}
+.event190218 .cont02 .theme li.theme4 label {background-image: url(https://www.vivasam.com/images/event/2019/m/event190218/theme4.png);}
+.event190218 .cont02 .theme li.theme4 input:checked + label {background-image: url(https://www.vivasam.com/images/event/2019/m/event190218/theme4_on.png);}
+.event190218 .cont02 .theme li.theme5 label {background-image: url(https://www.vivasam.com/images/event/2019/m/event190218/theme5.png);}
+.event190218 .cont02 .theme li.theme5 input:checked + label {background-image: url(https://www.vivasam.com/images/event/2019/m/event190218/theme5_on.png);}
+.event190218 .cont02 .theme li.theme6 label {background-image: url(https://www.vivasam.com/images/event/2019/m/event190218/theme6.png);}
+.event190218 .cont02 .theme li.theme6 input:checked + label {background-image: url(https://www.vivasam.com/images/event/2019/m/event190218/theme6_on.png);}
+.event190218 .cont02 .theme li.theme7 label {background-image: url(https://www.vivasam.com/images/event/2019/m/event190218/theme7.png);}
+.event190218 .cont02 .theme li.theme7 input:checked + label {background-image: url(https://www.vivasam.com/images/event/2019/m/event190218/theme7_on.png);}
+.event190218 .cont02 .theme li.theme8 label {background-image: url(https://www.vivasam.com/images/event/2019/m/event190218/theme8.png);}
+.event190218 .cont02 .theme li.theme8 input:checked + label {background-image: url(https://www.vivasam.com/images/event/2019/m/event190218/theme8_on.png);}
+
+
+.event190218 .agree_check {margin-top:10px;text-align:center;}
+.event190218 .agree_check label {color:#777777}
+.event190218 .agree_check label:before {vertical-align: middle}
+.event190218 .cont03 .btn_wrap {padding:5% 32%;text-align: center; box-sizing: border-box}
+.event190218 .cont04 .btn_wrap {padding:5% 24%;text-align: center; box-sizing: border-box}
+.event190218 .cont04 {padding-bottom:20px;background: url(https://www.vivasam.com/images/event/2019/m/event190218/img5.jpg) 50% 100% no-repeat; background-size: contain;}

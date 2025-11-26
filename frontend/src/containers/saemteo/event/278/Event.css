@@ -1,0 +1,50 @@
+.event200210 {position: relative; font-family:"Nanum Gothic", "sans-serif";}
+.event200210 img {vertical-align: middle; width:100%; line-height:0}
+.event200210 a {display: inline;}
+
+.event200210 .cont {position: relative; background-size:contain; background-repeat: no-repeat; background-position: 0 0;box-sizing: border-box}
+.event200210 .cont.type1 {height: 131.067vw;padding: 61.333vw 10.933vw 0 17.600vw;}
+.event200210 .cont.type2 {height: 137.333vw;padding: 67.733vw 17.600vw 0 10.933vw;background-image: url(/images/events/2020/event200210/img2_off.jpg);}
+.event200210 .cont.type3 {height: 135.067vw;padding: 65.867vw 10.933vw 0 17.600vw;background-image: url(/images/events/2020/event200210/img3_off.jpg);}
+.event200210 .cont.type4 {height: 145.467vw;padding: 72.133vw 17.600vw 0 10.933vw;background-image: url(/images/events/2020/event200210/img4_off.jpg);}
+/* 2월 10일 오픈 */
+.event200210.opendate0210 .cont.type1 {background-image: url(/images/events/2020/event200210/img_on.jpg);}
+.event200210.opendate0210 .cont.type2 {background-image: url(/images/events/2020/event200210/img2_off.jpg);}
+.event200210.opendate0210 .cont.type3 {background-image: url(/images/events/2020/event200210/img3_off.jpg);}
+.event200210.opendate0210 .cont.type4 {background-image: url(/images/events/2020/event200210/img4_off.jpg);}
+/* 2월 17일 오픈 */
+.event200210.opendate0217 .cont.type1 {background-image: url(/images/events/2020/event200210/img_on.jpg);}
+.event200210.opendate0217 .cont.type2 {background-image: url(/images/events/2020/event200210/img2_on.jpg);}
+.event200210.opendate0217 .cont.type3 {background-image: url(/images/events/2020/event200210/img3_off2.jpg);}
+.event200210.opendate0217 .cont.type4 {background-image: url(/images/events/2020/event200210/img4_off.jpg);}
+/* 2월 24일 오픈 */
+.event200210.opendate0224 .cont.type1 {background-image: url(/images/events/2020/event200210/img_on.jpg);}
+.event200210.opendate0224 .cont.type2 {background-image: url(/images/events/2020/event200210/img2_on.jpg);}
+.event200210.opendate0224 .cont.type3 {background-image: url(/images/events/2020/event200210/img3_on2.jpg);}
+.event200210.opendate0224 .cont.type4 {background-image: url(/images/events/2020/event200210/img4_off2.jpg);}
+/* 3월 2일 오픈 */
+.event200210.opendate0302 .cont.type1 {background-image: url(/images/events/2020/event200210/img_on.jpg);}
+.event200210.opendate0302 .cont.type2 {background-image: url(/images/events/2020/event200210/img2_on.jpg);}
+.event200210.opendate0302 .cont.type3 {background-image: url(/images/events/2020/event200210/img3_on.jpg);}
+.event200210.opendate0302 .cont.type4 {background-image: url(/images/events/2020/event200210/img4_on.jpg);}
+
+.event200210 .cont .list {position: relative;}
+.event200210 .cont .list .btn_more {position: absolute;top:-6vw;right:0; font-size: 2.667vw; color: #575757; text-decoration: none;}
+.event200210 .cont .list > ul {border-top:0.267vw #575757 solid}
+.event200210 .cont .list > ul > li {padding: 2.667vw 0;border-bottom:0.133vw #c7c3b8 solid; font-size: 3.200vw;}
+.event200210 .cont .list > ul > li:after {content: ""; display: block; clear: both;}
+.event200210 .cont .list > ul > li .id {float:left; width: 30%; font-weight: 700; color: #333;}
+.event200210 .cont .list > ul > li p {float: left; width: 70%; color: #666; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+.event200210 .cont .list > ul > li.nodata {height: 37.333vw;padding:0;text-align: center; font-size: 3.333vw; font-weight: 700; line-height: 37.333vw; vertical-align: middle;}
+.event200210 .cont .list > ul > li.nodata span {display: inline-block; line-height: 1.3em; vertical-align: middle;}
+.event200210 .cont.type1 .list > ul > li.nodata strong {color: #f95e78;}
+.event200210 .cont.type2 .list > ul > li.nodata strong {color: #ff8f0a;}
+.event200210 .cont.type3 .list > ul > li.nodata strong {color: #00a14f;}
+.event200210 .cont.type4 .list > ul > li.nodata strong {color: #404b98;}
+.event200210 .cont .list .btns {width: 100%;margin-top: 4vw;text-align: center; }
+.event200210 .cont .list .btns img {width: auto;height: 5.067vw;}
+.event200210 .cont .list .btns button {width: 100%;height: 12vw;border-radius:1.333vw;}
+.event200210 .cont.type1 .list .btns button {background-color: #f94d68;}
+.event200210 .cont.type2 .list .btns button {background-color: #ff8f0a;}
+.event200210 .cont.type3 .list .btns button {background-color: #00993d;}
+.event200210 .cont.type4 .list .btns button {background-color: #404b98;}

@@ -1,0 +1,91 @@
+/* 비바클래스 홍보페이지 */
+/* common */
+.vivaIntroWrap.vivaIntro2025{padding-bottom:106px;}
+.vivaIntroWrap.vivaIntro2025 *{font-family:"GmarketSansMedium", "Noto Sans KR", sans-serif; box-sizing:border-box;}
+.vivaIntroWrap.vivaIntro2025 img{width:100%;max-width:100%;}
+
+.vivaIntroWrap.vivaIntro2025 .ankerWrap{position:sticky; top:56px; left:0; right:0; background:#3ff4ff; z-index:10;}
+.vivaIntroWrap.vivaIntro2025 .ankerWrap .ankerList{display:flex; gap:1.6vw; overflow-x:auto;}
+.vivaIntroWrap.vivaIntro2025 .ankerWrap .ankerList li{flex:none;}
+.vivaIntroWrap.vivaIntro2025 .ankerWrap .ankerList li button{position:relative; display:block; padding:2.133vw 1.6vw;}
+.vivaIntroWrap.vivaIntro2025 .ankerWrap .ankerList li button:after{content:''; position:absolute; right:0; top:2.133vw; bottom:2.133vw; width:0.267vw; background:#29D8E2;}
+.vivaIntroWrap.vivaIntro2025 .ankerWrap .ankerList li button span{position:relative; padding:2.133vw 4.267vw; display:flex; align-items:center; justify-content:center; width:100%; height:100%; font-size:3.733vw; color:#0D6A6F; line-height:1.2; text-align:center; letter-spacing:-.02em; border-radius:1.067vw;}
+.vivaIntroWrap.vivaIntro2025 .ankerWrap .ankerList li.on button span{color:#fff; background:#014290;}
+.vivaIntroWrap.vivaIntro2025 .ankerWrap .ankerList li.on button span:after{content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); width:3.2vw; height:2.133vw; background:url('/images/saemteo/vivaintro/2025/anker_obj.png') no-repeat center / 100% auto;}
+
+.vivaIntroWrap.vivaIntro2025 [class^="section"]{position:relative;margin:0;padding:12.8vw 4.267vw;z-index:1; background:#ddf3ff; border:none;}
+.vivaIntroWrap.vivaIntro2025 [class^="section"]:nth-child(even){background:#fff;}
+.vivaIntroWrap.vivaIntro2025 .page-tit{font-size:7.467vw; color:#000; font-family:"GmarketSansBold", "Noto Sans KR", sans-serif; line-height:1.2; letter-spacing:-.05em; text-align:center;}
+.vivaIntroWrap.vivaIntro2025 .page-disc{margin-top:4.267vw; font-size:4.267vw; color:#000; line-height:1.4; letter-spacing:-.05em; text-align:center;}
+.vivaIntroWrap.vivaIntro2025 .page-disc strong{font:inherit; color:#49B3FF; font-family:"GmarketSansBold", "Noto Sans KR", sans-serif;}
+.vivaIntroWrap.vivaIntro2025 .page-disc+.page-disc{margin-top:2.133vw;}
+
+.vivaIntroWrap.vivaIntro2025 .section1 .badge{margin-top:4.267vw; display:block; width:20.533vw; height:10.667vw; font-size:4.267vw; color:#fff; line-height:11.2vw; font-family:"GmarketSansBold", "Noto Sans KR", sans-serif; text-align:center; border-radius:5.333vw; background:#127CFD; letter-spacing:-0.05em;}
+.vivaIntroWrap.vivaIntro2025 .section1 .badge.ty2{background:#F45D02;}
+.vivaIntroWrap.vivaIntro2025 .section1 h4{margin-top:3.733vw; font-size:6.4vw; font-family:"GmarketSansBold", "Noto Sans KR", sans-serif; color:#373535; line-height:1; letter-spacing:-0.05em;}
+.vivaIntroWrap.vivaIntro2025 .section1 p{margin-top:3.2vw; font-size:4.267vw; color:#343233; font-family:"Pretendard", "Noto Sans KR", sans-serif; font-weight:700; line-height:1.4;}
+.vivaIntroWrap.vivaIntro2025 .section1 p.t{position:relative; padding-left:2.667vw; font-size:3.733vw; color:#8B8B8B; font-weight:500;}
+.vivaIntroWrap.vivaIntro2025 .section1 p.t:before{content:'*'; position:absolute; left:0; top:0;}
+.vivaIntroWrap.vivaIntro2025 .thumb{position:relative;}
+.vivaIntroWrap.vivaIntro2025 .thumb .rect{position:absolute; border:3px solid #F16005; border-radius:2px;}
+.vivaIntroWrap.vivaIntro2025 .thumb .rect.ty2{border-radius:7px;}
+.vivaIntroWrap.vivaIntro2025 .thumb .rect.pos1{left:0.267vw; top:2.933vw; width:11.467vw; height:16.533vw;}
+.vivaIntroWrap.vivaIntro2025 .thumb .rect.pos2{right:0; top:1.867vw; width:15.467vw; height:3.733vw;}
+.vivaIntroWrap.vivaIntro2025 .thumb .rect.pos3{right:0; top:0; width:10.133vw; height:2.933vw;}
+.vivaIntroWrap.vivaIntro2025 .thumb .rect.pos4{left:50%; transform:translateX(-50%); bottom:13.6vw; width:14.4vw; height:4.533vw;}
+.vivaIntroWrap.vivaIntro2025 .thumb .rect.pos5{right:0.356vw; bottom:4.444vw; width:5.956vw; height:32.978vw;}
+.vivaIntroWrap.vivaIntro2025 .thumb .rect.pos6{right:7.733vw; bottom:6.4vw; width:6.667vw; height:10.667vw;}
+
+.vivaIntroWrap.vivaIntro2025 .slick-slider,
+.vivaIntroWrap.vivaIntro2025 .swiper{margin-top:6.4vw; overflow:hidden;}
+.vivaIntroWrap.vivaIntro2025 .arrSwiper{position:relative;}
+.vivaIntroWrap.vivaIntro2025 .arrSwiper .slick-arrow,
+.vivaIntroWrap.vivaIntro2025 .arrSwiper .swiper-btn{position:absolute; top:50%; transform:translateY(-50%); width:8.533vw; height:8.533vw; background:url('/images/saemteo/vivaintro/2025/swiper-btn.png') no-repeat center bottom / 100% auto; z-index:1;}
+.vivaIntroWrap.vivaIntro2025 .arrSwiper .slick-arrow.slick-prev,
+.vivaIntroWrap.vivaIntro2025 .arrSwiper .swiper-btn.prev{left:1.867vw;}
+.vivaIntroWrap.vivaIntro2025 .arrSwiper .slick-arrow.slick-next,
+.vivaIntroWrap.vivaIntro2025 .arrSwiper .swiper-btn.next{right:1.867vw; transform:translateY(-50%) rotate(180deg);}
+
+.vivaIntroWrap.vivaIntro2025 .section1 .arrSwiper .swiper-btn{top:25%; transform:unset;}
+.vivaIntroWrap.vivaIntro2025 .section1 .arrSwiper .swiper-btn.next{transform:rotate(180deg);}
+
+.vivaIntroWrap.vivaIntro2025 .fadeSwiper .slick-slide{z-index:0;}
+.vivaIntroWrap.vivaIntro2025 .fadeSwiper .slick-active{z-index:1;}
+
+.vivaIntroWrap.vivaIntro2025 .section6{display:block;}
+.vivaIntroWrap.vivaIntro2025 .coming-soon-tit{margin-bottom:4.267vw; text-align:center;}
+.vivaIntroWrap.vivaIntro2025 .coming-soon-tit .badge{margin:0 auto; height:14.667vw; background:url('/images/saemteo/vivaintro/2025/coming_soon.png') no-repeat center / auto 100%;}
+.vivaIntroWrap.vivaIntro2025 .coming-soon-tit p{margin-top:5.333vw; font-size:5.867vw; color:#646464; line-height:1.4; letter-spacing:-.05em;}
+.vivaIntroWrap.vivaIntro2025 .img-list{margin-top:6.4vw;}
+.vivaIntroWrap.vivaIntro2025 .img-list li+li{margin-top:3.2vw;}
+.vivaIntroWrap.vivaIntro2025 .section6 h5{margin-top:6.4vw; font-size:7.467vw; color:#F45D02; font-family:"GmarketSansBold", "Noto Sans KR", sans-serif; line-height:1.2; letter-spacing:-.05em; text-align:center;}
+.vivaIntroWrap.vivaIntro2025 .btn_vivaclass{margin:2.133vw auto 0; display:block; width:76.8vw; height:18.044vw; background:url('/images/saemteo/vivaintro/2025/btn_vivaclass.png') no-repeat center / auto 100%;}
+
+.vivaIntroWrap .imgDetailPop{position:fixed; left:0; right:0; top:0; bottom:0; background: rgba(0, 0, 0, .9); z-index:9999;}
+.vivaIntroWrap .imgDetailPop .detail-pop-header{position:absolute; left:0; right:0; top:0; z-index:10;}
+.vivaIntroWrap .imgDetailPop .detail-pop-header .detail-pop-close{position:absolute; top:1.667vw; right:1.667vw; width:11.204vw; height:11.204vw; background:url('/images/saemteo/vivaintro/2025/btn_close.png') no-repeat center / contain;}
+.vivaIntroWrap .imgDetailPop .detail-pop-content{position:relative; width:100%; height:100%;}
+.vivaIntroWrap .imgDetailPop .detail-pop-content .detailSwiper{margin:0; width:100%; height:100%; display:flex; align-items:center; touch-action: auto;}
+.vivaIntroWrap .imgDetailPop .detail-pop-content .detailSwiper .slick-list{width:100%;}
+.vivaIntroWrap .imgDetailPop .detail-pop-content .thumb{padding:0 2.222vw;}
+.vivaIntroWrap .imgDetailPop .detail-pop-content img{max-width:100%;}
+.vivaIntroWrap .imgDetailPop .detail-pop-footer{position:absolute; left:0; right:0; bottom:0; height:14.444vw; width:100%; background:#202020; display:flex; justify-content:space-between; align-items:center;}
+.vivaIntroWrap .imgDetailPop .slick-arrow{top:unset; bottom:1.62vw; transform:unset; flex:none; width:11.204vw; height:11.204vw; opacity:1; font-size:0; z-index:2;}
+.vivaIntroWrap .imgDetailPop .slick-arrow.slick-prev{left:0; background:url('/images/saemteo/vivaintro/2025/btn_left.png') no-repeat center / contain;}
+.vivaIntroWrap .imgDetailPop .slick-arrow.slick-next{right:0; background:url('/images/saemteo/vivaintro/2025/btn_right.png') no-repeat center / contain;}
+.vivaIntroWrap .imgDetailPop .slick-dots{bottom:0; height:auto; font-size:4.444vw; font-weight:700; color:#fff; line-height:14.444vw; text-align:center; z-index:1;}
+.vivaIntroWrap .imgDetailPop .slick-dots span{font:inherit; color:inherit;}
+.vivaIntroWrap .imgDetailPop .slick-dots .cur{font:inherit; color:#81A9FF;}
+
+
+/* animation */
+.vivaIntroWrap.vivaIntro2025 .ani{opacity:0;}
+.vivaIntroWrap.vivaIntro2025 .ani.animate{animation:aniUp .7s linear 1 both;}
+@keyframes aniUp {
+  0%{opacity:0;transform:translateY(60px);}
+  100%{opacity:1;transform:translateY(0);}
+}
+.vivaIntroWrap.vivaIntro2025 .aniBling{animation:bling 1s infinite alternate;}
+@keyframes bling{
+  100%{opacity:0;}
+}

@@ -1,0 +1,29 @@
+/* 오늘 뭐하지 시즌3 */
+.evtWrap.evtSeason3{background:#6cdcab;padding-bottom:50px;}
+.evtWrap.evtSeason3 div, .evtWrap.evtSeason3 ul, .evtWrap.evtSeason3 li, .evtWrap.evtSeason3 p, .evtWrap.evtSeason3 span, .evtWrap.evtSeason3 strong, .evtWrap.evtSeason3 button, .evtWrap.evtSeason3 a{font-family:'Noto Sans KR', sans-serif;} 
+.evtSeason3 .evt{position:relative;}
+.evtSeason3 .evt img{width:100%;vertical-align:top;}
+.evtSeason3 .evtTopWrap{position:relative;}
+.evtSeason3 .btnShareWrap{position:absolute;top:44.53vw;left:0;box-sizing:border-box;width:100%;margin:0 auto;padding:2vw 10vw;}
+.evtSeason3 .btnShareWrap p{float:left;font-size:3.333vw;font-weight:700;color:#373e3f;line-height:2.8;letter-spacing:-0.04em;}
+.evtSeason3 .btnShareWrap .btnShare{float:right;}
+.evtSeason3 .btnShareWrap .btnShare > [class^="btn"]{width:8.66vw;height:8.66vw;}
+.evtSeason3 .btnShareWrap [class^="btn"] img{width:100%;}
+.evtSeason3 .btnShareWrap [class^="btn"] + [class^="btn"]{margin-left:1.4vw;}
+.evtSeason3 .evtInfo{margin:0 2.55vw;padding:6vw 2vw 6vw 5.33vw;background:#fff;border-bottom:0.8vw solid #58ce9a;border-radius:3.733vw;}
+.evtSeason3 .evtInfo .infoItem{overflow:hidden;}
+.evtSeason3 .evtInfo .infoItem > *{float:left;}
+.evtSeason3 .evtInfo .infoItem .tit{display:inline-block;box-sizing:border-box;width:23.73vw;height:6.66vw;padding:0 3vw;font-size:3.2vw;font-weight:500;background:#00b0a3;border-radius:3.33vw;color:#fff;line-height:2;letter-spacing:-0.06em;}
+.evtSeason3 .evtInfo .infoItem .tit + p{display:inline-block;box-sizing:border-box;margin-left:1.6vw;font-size:3.2vw;color:#39454c;line-height:2;letter-spacing:-0.06em;}
+.evtSeason3 .evtInfo .infoItem:first-child .tit{background:#ff6673;}
+.evtSeason3 .evtInfo .infoItem:first-child .tit + p{font-weight:700;color:#ff6673;}
+.evtSeason3 .evtInfo .infoItem + .infoItem{margin-top:1.33vw;}
+.evtSeason3 .evtListWrap{margin:10.13vw 0 12vw;font-size:0;text-align:center;}
+.evtSeason3 .evtListWrap li{display:inline-block;box-sizing:border-box;width:37.86vw;height:25.06vw;margin-bottom:6.8vw;padding:2.2vw 0;background:url(/images/contents/today/season3/bg_book.png);background-size:100%;font-size:3.733vw;font-weight:500;color:#34373a;line-height:1.1;vertical-align:top;letter-spacing:-0.06em;}
+.evtSeason3 .evtListWrap li:nth-child(even){margin-left:4.933vw;}
+.evtSeason3 .evtListWrap .listInfoTxt{font-size:3.2vw;color:#fff;line-height:1.4;}
+.evtSeason3 .evtNotiWrap{padding:8vw 4.933vw;background:#51535e;}
+.evtSeason3 .evtNotiWrap h2{margin-bottom:4.933vw;font-size:4vw;font-weight:700;color:#e0e0e0;}
+.evtSeason3 .evtNotiWrap li{position:relative;padding-left:2.4vw;font-size:2.933vw;color:#e8e8e7;letter-spacing:-0.025em;}
+.evtSeason3 .evtNotiWrap li strong{color:#fff36b;}
+.evtSeason3 .evtNotiWrap li:before{content:'';position:absolute;top:1.8vw;left:0;display:inline-block;width:0.8vw;height:0.8vw;background:#e8e8e7;border-radius:100%;}

@@ -1,0 +1,40 @@
+.event200601 {position: relative; font-family: "Nanum Gothic","나눔고딕",NanumGothic,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;}
+.event200601 img {vertical-align: middle; width:100%; line-height:0}
+.event200601 a {display: inline;}
+
+/* contents */
+.event200601 .cont {position: relative;}
+.event200601 .btn_apply {
+    position: absolute;
+    top: 161.8vw;
+    right: 10.5vw;
+    width: 78.7vw;
+    display: block;
+    height: 12vw;
+    opacity: 0;
+}
+
+
+.vivasamter .applyDtl_top { padding: 4.5vw 0; text-align: center;  background: #ffe29e; }
+.vivasamter .applyDtl_top h3 {color: #393d49; }
+.vivasamter .applyDtl_top h3 em { font-weight: bold; color: #f45a57; }
+
+button.input_in_btn {background: #508ae8; height: 40px; margin-top: -20px; right: 0;  width: 26.9vw; }
+input[type=text].input_sm.school_name { width: calc(100% - 28.3vw); }
+.school_address[value=""] { width: calc(100% - 28.3vw); }
+
+.join_ipt_chk { position: absolute; right: 0; text-align: right; top: -32px; }
+.join_ipt_chk li { float: none; display: inline-block; width: auto; }
+.join_ipt_chk li + li {margin-left: 1em; }
+
+.quantity_wrap label { color: #f85f4f; width: calc(100% - 28.3vw); line-height: 40px; display: inline-block; font-size: 15px; font-family: "Nanum Gothic_Bold", 'Nanum Gothic'}
+.quantity_wrap label  + .selectbox {width:26.7vw; float: right; }
+label[for="ipt_quantity"] {padding-bottom: 5px; border-bottom: 1px solid #e8e8e8; }
+.quantity_wrap  li { color: #9d9d9d; font-size: 12px; }
+
+.acco_notice_tit { color: #333; display: block; }
+.acco_notice_cont { display: block; }
+
+.policy { color: #222222; }
+
+.acco_notice_cont ul.policy + p.comt { color: #888888}

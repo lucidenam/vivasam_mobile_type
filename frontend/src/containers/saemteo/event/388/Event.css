@@ -1,0 +1,106 @@
+/* Event */
+.event220211{position:relative;background:#fff;}
+.event220211 img{width:100%;vertical-align:top;}
+.event220211 [class^="evtCont"]{position:relative;z-index:1;}
+.event220211 *{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+/* EVENT 388 */
+* {box-sizing:border-box;}
+/* evtNoti */
+
+.event220211 .evtCon{z-index:2; position:absolute;top:0;right:0;display:block;width:20.8vw;height:28vw;background:url(/images/events/2022/event220211/corn.png) 0 0 no-repeat;background-size:100%;}
+.event220211 .evtCont01 {background-color:#ffcbbd; width:100vw; height:149.33vw; position:relative; padding-top:16.84vw;}
+.event220211 .evtCont01:after {content:""; display:block; position:absolute; left:7.33vw; top:9.2vw; width:88.8vw; height:142.53vw; background:url(/images/events/2022/event220211/evt_top_bg.png)no-repeat;background-size:100%;}
+.event220211 .evtCont01 .cont1_top .evt_top {width:54.66vw; height:9.86vw; margin:0 auto; display:block; text-align:center; font-size:0 !important; background:url(/images/events/2022/event220211/evt_top.png)no-repeat; background-size:100%; margin-bottom:8.66vw;}
+.event220211 .evtCont01 .cont1_top h1 {width:77.6vw; height:27.6vw; font-size:0 !important; background:url(/images/events/2022/event220211/evt_tit.png)no-repeat; background-size:100%; margin:0 auto; margin-bottom:6.66%;}
+.event220211 .evtCont01 .cont1_top p.txt {font-size:3.34vw; font-weight:600; line-height:5.6vw; text-align:center; margin-bottom:6.66vw;}
+.event220211 .evtPeriod {padding-left:13.33vw; }
+.event220211 .evtPeriod li + li{margin-top:1.866vw;}
+.event220211 .evtPeriod .tit{width:20.26vw;height:6.13vw; box-sizing: border-box; padding:1.3vw 0; display:inline-block; color:#fff; font-weight:600; background:#ff783b;border-radius:2.933vw; font-size:3.2vw; font-weight:500;text-align:center;line-height:1;}
+.event220211 .evtPeriod .txt{margin-left:1.866vw;font-size:4.4vw;color:#090041; font-weight:600;}
+.event220211 .evtBg {width:100vw; background-color:#f9f5ed; padding: 0 2.6vw; padding-top:6vw; padding-bottom:9.33vw; box-sizing:border-box;}
+.event220211 .evtBg .evtCont02 {width:100%; height:265vw; background:url(/images/events/2022/event220211/con2_bg.png)no-repeat; background-size:100%; padding:5.33vw; padding-top:26.66vw; margin-bottom: 6.66vw; box-sizing:border-box;}
+.event220211 .evtBg .evtCont02 .visangTeacher {font-size:0; box-sizing:border-box;}
+.event220211 .evtBg .evtCont02 .visangTeacher h2 {width:79.46vw; height:12.8vw; margin:0 auto; background:url(/images/events/2022/event220211/con2_tit.png)no-repeat; background-size:100%; font-size:0; margin-bottom:4.66vw;}
+.event220211 .evtBg .evtCont02 .visangTeacher .txt {width:73.2vw; height:8.8vw; margin:0 auto; background:url(/images/events/2022/event220211/con2_txt.png)no-repeat; background-size:100%; font-size:0; margin-bottom: 7.33vw;}
+.event220211 .evtBg .evtCont02 .visangTeacher .cont02List {width:100%;display:flex; flex-wrap:wrap; justify-content:space-between; margin-bottom:9.33vw;}
+.event220211 .evtBg .evtCont02 .visangTeacher .cont02List li {width:40.26vw; height:49.6vw; margin-bottom:2.26vw;}
+.event220211 .evtBg .evtCont02 .visangTeacher .cont02List li h3 {font-size:0;}
+.event220211 .evtBg .evtCont02 .visangTeacher .cont02List li p {font-size:0;}
+.event220211 .evtBg .evtCont02 .visangTeacher .cont02List li:nth-child(1) {background:url(/images/events/2022/event220211/con2_list1.png)no-repeat; background-size:100%;}
+.event220211 .evtBg .evtCont02 .visangTeacher .cont02List li:nth-child(2) {background:url(/images/events/2022/event220211/con2_list2.png)no-repeat; background-size:100%;}
+.event220211 .evtBg .evtCont02 .visangTeacher .cont02List li:nth-child(3) {background:url(/images/events/2022/event220211/con2_list3.png)no-repeat; background-size:100%;}
+.event220211 .evtBg .evtCont02 .visangTeacher .cont02List li:nth-child(4) {background:url(/images/events/2022/event220211/con2_list4.png)no-repeat; background-size:100%;}
+
+.event220211 #evtCreate{ margin-top:6.67vw; margin-bottom:8vw;}
+.event220211 #evtCreate input[type="checkbox"]{display:none;}
+.event220211 #evtCreate input[type="checkbox"] + label{position:relative; display:inline-block; padding-left:6.93vw; font-size:3.73vw; color:#2f2f2f; font-weight:600; line-height:4.53vw; letter-spacing: -0.25vw; margin-bottom:4vw;}
+.event220211 #evtCreate input[type="checkbox"] + label:before{content:''; position:absolute; top:0; left:0; width:4.53vw; height:4.53vw; background:url(/images/events/2022/event220125/check_box.png) 0 0 no-repeat; background-size: 100% auto;}
+.event220211 #evtCreate input[type="checkbox"]:checked + label:before{background-image:url(/images/events/2022/event220125/check_box_on.png); }
+.event220211 #evtCreate .createWord input {height:12vw !important; border:0.533vw solid #b9b9b9; background-color:#f1f1f1; text-align:center; line-height:12vw; border-radius:1.6vw; font-size:3.733vw; color:#000; font-weight:600;}
+.event220211 #evtCreate .createWord input.on {border:0.533vw  solid #fbc54d; background-color:#fff6b4;}
+
+.comentList {width:100%; box-sizing:border-box;}
+.comentList .listItemWrap {width:100%; padding: 0 2vw; position:relative; margin-bottom:6vw;}
+.comentList ul {display:flex; }
+.comentList ul li {display:flex; flex-wrap:wrap; justify-content:space-between;}
+.comentList ul li .listItem {width:38.93vw; height:18.13vw; box-sizing:border-box; margin-bottom:2.66vw; background:url(/images/events/2022/event220211/con3_list_bg.png)no-repeat; background-size:100%; padding-top:4.26vw;}
+.comentList ul li .listItem:nth-child(3), .comentList ul li .listItem:nth-child(4) {margin-bottom:0;}
+.comentList ul li .listItem .user { font-size:3.06vw; text-align:center; display:block; font-weight:300;}
+.comentList ul li .listItem p {font-size:3.2vw; text-align:center; color:#ff783b; font-weight:500;}
+.comentList .listItemWrap .pagePrev {width:2.66vw; height:4.26vw; position:absolute; left:-2.66vw; top:50%; transform:translateY(-50%); display:inline-block; font-size:0; background:url(/images/events/2022/event220211/evt_arr_left.png)no-repeat; background-size:100%;}
+.comentList .listItemWrap .pageNext {width:2.66vw; height:4.26vw; position:absolute; right:-2.66vw; top:50%; transform:translateY(-50%);display:inline-block; font-size:0; background:url(/images/events/2022/event220211/evt_arr_right.png)no-repeat; background-size:100%;}
+
+.comentList .pagerWrap {width:100%; display:flex; justify-content:center; align-items: center;}
+.comentList .pagerWrap button {font-size:0;}
+.comentList .pagerWrap .prevAll {display:inline-block; margin: 0 1.33vw; width:3.066vw; height:2.4vw; background:url(/images/events/2022/event220211/evt_arr2_left.png)no-repeat; background-size:100%;}
+.comentList .pagerWrap .prev {display:inline-block; margin: 0 1.33vw; width:1.46vw; height:2.4vw; background:url(/images/events/2022/event220211/evt_arr2_left2.png)no-repeat; background-size:100%;}
+.comentList .pagerWrap .next {display:inline-block; margin: 0 1.33vw; width:1.46vw; height:2.4vw; background:url(/images/events/2022/event220211/evt_arr2_right2.png)no-repeat; background-size:100%;}
+.comentList .pagerWrap .nextAll {display:inline-block; margin: 0 1.33vw; width:3.066vw; height:2.4vw; background:url(/images/events/2022/event220211/evt_arr2_right.png)no-repeat; background-size:100%;}
+.comentList .pagerWrap ul li button{ display:inline-block; width:6.93vw; height:6.93vw; line-height:6.93vw; text-align:center; border:0.265vw solid #ececec; border-radius:50%; margin: 0 2.13vw; color:#abab; font-size:3.2vw;}
+.comentList .pagerWrap ul li button.on{color:#fff !important; font-weight:600; background-color: #ff984d; border:0; color:#000;}
+
+.event220211 .evtBg .evtCont03 {width:100%; height:198.93vw; background:url(/images/events/2022/event220211/con4_bg.png)no-repeat; background-size:100%; padding:5.33vw; padding-top:18.66vw; margin-bottom: 9.33vw;}
+.event220211 .evtBg .evtCont03 .visangClass {font-size:0;}
+.event220211 .evtBg .evtCont03 .visangClass h2 {width:62.66vw; height:20.26vw; margin:0 auto; background:url(/images/events/2022/event220211/con3_tit.png)no-repeat; background-size:100%; font-size:0; margin-bottom:4.66vw;}
+.event220211 .evtBg .evtCont03 .visangClass .txt { font-size:3.46vw; margin-bottom:8vw; font-weight:400; letter-spacing:-0.05em;}
+.event220211 .evtBg .evtCont03 .visangClass .txt .color1 {color: #f36c6b; font-size:3.46vw;}
+.event220211 .evtBg .evtCont03 .visangClass .cont03List {width:100%; display:flex; justify-content:space-between; flex-wrap:wrap; margin-bottom:5.33vw;}
+.event220211 .evtBg .evtCont03 .visangClass .cont03List li { width:40.26vw; height:52vw; margin-bottom:2.66vw}
+.event220211 .evtBg .evtCont03 .visangClass .cont03List li:nth-child(3), .event220211 .evtBg .evtCont03 .visangClass .cont03List li:nth-child(4) {margin-bottom:0 !important;}
+.event220211 .evtBg .evtCont03 .visangClass .cont03List li p {font-size:0;}
+.event220211 .evtBg .evtCont03 .visangClass .cont03List li:nth-child(1) {background:url(/images/events/2022/event220211/con4_list1.png)no-repeat; background-size:100%;}
+.event220211 .evtBg .evtCont03 .visangClass .cont03List li:nth-child(2) {background:url(/images/events/2022/event220211/con4_list2.png)no-repeat; background-size:100%;}
+.event220211 .evtBg .evtCont03 .visangClass .cont03List li:nth-child(3) {background:url(/images/events/2022/event220211/con4_list3.png)no-repeat; background-size:100%;}
+.event220211 .evtBg .evtCont03 .visangClass .cont03List li:nth-child(4) {background:url(/images/events/2022/event220211/con4_list4.png)no-repeat; background-size:100%;}
+.event220211 .evtBg .evtCont03 .visangClass .evtMask {}
+
+.event220211 .evtBg .evtCont03 .visangClass .evtMask input[type="checkbox"]{display:none;}
+.event220211 .evtBg .evtCont03 .visangClass .evtMask input[type="checkbox"] + label{width:82.93vw; height:16vw; border-radius:1.6vw; border:0.53vw solid #b9b9b9; line-height:16vw; text-align:center;  background-color: #f1f1f1;  position:relative; display:flex; justify-content:center; align-items:center; font-size:3.73vw; color:#2f2f2f; font-weight:600; letter-spacing: -0.35vw;}
+.event220211 .evtBg .evtCont03 .visangClass .evtMask input[type="checkbox"] + label span{display:inline-block; padding-left:6.13vw; font-size:3.73vw; font-weight:600; background:url(/images/events/2022/event220125/check_box.png) 0 0 no-repeat; background-position:left center; background-size: 4.53vw auto}
+.event220211 .evtBg .evtCont03 .visangClass .evtMask input[type="checkbox"]:checked + label {border-color:#fbc54d; background-color:#fff6b4;}
+.event220211 .evtBg .evtCont03 .visangClass .evtMask input[type="checkbox"]:checked + label span {background-image:url(/images/events/2022/event220125/check_box_on.png); color:#000;}
+
+.event220211 .evtBg .evtBtn{ width: 88vw; height:14.66vw; display:flex; justify-content:center; align-items:center; margin: 0 auto; border-radius:4vw; background-color:#000; font-size: 5.33vw;}
+.event220211 .evtBg .evtBtn span {font-size:5.33vw; font-weight:600; color:#fff; padding-right:4.53vw; background:url(/images/events/2022/event220211/evt_btn_arr.png)no-repeat; background-size:auto 3.73vw; background-position:right center;  }
+.event220211 .notice {padding:8vw 4vw; background-color:#858585; color:#fff; font-weight:500;}
+.event220211 .notice span.noticeTit  {display:inline-block; font-size:4vw; margin-bottom:2.66vw; font-weight:500;}
+.event220211 .notice ul li {color:#fff; font-weight:300; font-size:3.2vw;  padding-left:3.2vw; text-indent:-1.6vw; line-height:4.8vw;}
+.event220211 .notice ul li span.list_num {display:inline-block; margin-right:0.266vw;}
+
+/*popup*/
+.applyDtl_top h3 {text-align:center!important;}
+.applyDtl_top strong {font-size:4.53vw; font-weight:600; color:#393d49 !important;}
+.applyDtl_top strong span { display:inline-block; text-align:center; font-size:4.53vw; font-weight:600; color:#4083ed;}
+.input_wrap .count {display:flex; justify-content:flex-end; margin-top:1.33vw;}
+.input_wrap .count span{font-size:3.2vw; font-weight:400; color:#888;}
+
+
+
+
+
+
+

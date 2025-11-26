@@ -1,0 +1,100 @@
+
+.vivasamter {padding-bottom: 50px; }
+
+.event200910 {position: relative; font-family: "Nanum Gothic","?Çò?àîÍ≥†Îîï",NanumGothic,"?èã???",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;}
+.event200910 img {vertical-align: middle; width:100%; line-height:0}
+.event200910 a {display: inline;}
+
+.event200910 .btn-wrap { margin-top: 4vw; }
+
+/* ?†ÑÏ≤¥ÏÑ†?Éù */
+.all {display:inline-block;float:right;margin-top:3vw;}
+.all input[type=checkbox] { display:none; }
+.all input[type=checkbox] + label {display: inline-block;cursor: pointer;width:130px;text-indent:-999999px;height:40px; background: url('/images/events/2020/event200910/allcheck_off.png') no-repeat;background-size:100%;}
+.all input[type=checkbox]:checked + label {  background: url('/images/events/2020/event200910/allcheck_on.png') no-repeat;background-size:100%; }
+
+/* Í≥ºÎ™©?Ñ†?Éù */
+.section2 {background: #ffeb92;padding: 7vw 7vw 5vw;position: relative;}
+.section2 > img {width:48%;display:inline-block;margin-bottom:20px;}
+.section2 .contents {position:relative;display:inline-block;}
+.section2 .contents ul {position:absolute;top:27vw;left:34vw;}
+.section2 .contentsArt .artUl {left:59vw;}
+.section2 .contentsArt ul {top:27vw}
+.section2 .contentsSk ul{top:33vw;}
+.section2 .contents img {display:inline-block;float:left;margin:2px;}
+
+/* Í≥ºÎ™©?Ñ†?Éù - Ï≤¥ÌÅ¨Î∞ïÏä§ ?ù¥ÎØ∏Ï?? */
+.section2 .contents input[type=checkbox] { display:none; }
+.section2 .contents input[type=checkbox] + label {display: inline-block;cursor: pointer;line-height:25px;font-size:3.5vw;padding-left:20px; 
+    background: url("/images/events/2020/event200910/redio_off.png") no-repeat;
+    background-position-y: 5px;
+    background-size:15px;
+}
+
+.section2 .contents .list01 input[type=checkbox]:checked + label { background: url('/images/events/2020/event200910/mu_on.png') no-repeat; }
+.section2 .contents .list02 input[type=checkbox]:checked + label { background: url('/images/events/2020/event200910/art_on.png') no-repeat; }
+.section2 .contents .list03 input[type=checkbox]:checked + label { background: url('/images/events/2020/event200910/ph_on.png') no-repeat; }
+.section2 .contents .list04 input[type=checkbox]:checked + label { background: url('/images/events/2020/event200910/sk_on.png') no-repeat; }
+.section2 .contents input[type=checkbox]:checked + label {
+    background-position-y: 5px !important;
+    background-size:15px !important;
+    font-weight:700;
+}
+.section2 .contents .deadline input[type=checkbox] + label {
+    background: url("/images/events/2020/event200910/deadline.png") no-repeat;
+    color:#a2a2a2;
+    pointer-events: none; 
+    background-position-y: 5px !important;
+    background-size:15px !important;
+}
+
+
+.preview {position: absolute;width: 25% !important;left: 33vw;top: 15vw;}
+
+
+/* popup */
+.popup.type1 {text-align: center;max-width: 1000px;margin: 0 auto;}
+.popup.type1 img {width: 100%;}
+.vivasamter .applyDtl_top { padding: 4.5vw 0; text-align: center;  background: #fee882; }
+.vivasamter .applyDtl_top h3 {color: #866143; font-weight: bold; }
+.vivasamter .applyDtl_top h3 em { color: #ffffff; font-weight: bold; }
+button.input_in_btn {background: #4083ed; height: 40px; margin-top: -20px; right: 0;  width: 26.9vw; }
+/*input[type=text].input_sm.school_name { width: calc(100% - 28.3vw); }*/
+.school_address[value=""] { width: calc(100% - 28.3vw); }
+.join_ipt_chk { position: absolute; right: 0; text-align: right; top: -32px;  width: 100%; }
+.join_ipt_chk li { float: none; display: inline-block; width: auto; }
+.join_ipt_chk li + li {margin-left: 1em; }
+.choice_book { overflow: hidden;}
+.choice_book li {display: inline-block; width: 48.8%; }
+.choice_book li + li { float: right; }
+.choice_book label {line-height: 40px; padding: 0 2.8vw;
+    display: block;
+    box-sizing: border-box;
+    background-color: rgb(255, 255, 255);
+    border: 1px rgb(188, 188, 188) solid;
+    border-radius: 12px;
+    height: 40px; }
+.choice_book label:before { vertical-align: middle; }
+.choice_book .checkbox_circle[disabled] + label {background:#f3f3f3; color:#888888; }
+.choice_book .checkbox_circle[disabled] + label:before {
+    border: 1px rgb(188, 188, 188) solid;
+    border-radius: 50%;
+    background: rgb(232, 232, 232);
+}
+.input_wrap .txt li { color:#888; font-size: 12px; }
+.acco_notice_tit { color: #333; display: block; }
+.acco_notice_cont { display: block; }
+.policy { color: #222222; }
+.acco_notice_cont ul.policy + p.comt { color: #888888}
+.input_wrap input[type="number"] { width: 30%; padding-right: 5vw; }
+.input_wrap input[type="number"] + span {color:#ff6755; position: relative; }
+.input_wrap input[type="number"] + span i {     color: #888888;
+    position: absolute;
+    left: -2em;
+    font-style: normal;
+    transform: translateY(-50%);
+    top: 50%;}
+
+    
+.checkbox_circle_rel + label {min-height:30px;}
+.sub_text {margin-bottom:30px;}

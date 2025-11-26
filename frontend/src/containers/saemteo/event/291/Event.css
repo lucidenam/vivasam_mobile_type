@@ -1,0 +1,153 @@
+.event200423 {position: relative; font-family: "Nanum Gothic","나눔고딕",NanumGothic,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;}
+.event200423 img {vertical-align: middle; width:100%; line-height:0}
+.event200423 a {display: inline;}
+
+/* form */
+.event200423 .radio_circle {position:absolute; left:-3000px; opacity:0}
+.event200423 .radio_circle + label .radio {display:inline-block; letter-spacing: -0.2vw; font-family: "Nanum Gothic_Bold"; font-size: 2.8vw; color: #000;}
+.event200423 .radio_circle + label .radio:before {content:""; display:inline-block; -webkit-box-sizing:border-box; box-sizing:border-box; width:3.6vw; height:3.6vw; margin-top: -0.7vw; margin-right: 1.3vw; border:1px solid #bfbfbf;  vertical-align: middle;}
+.event200423 .radio_circle:disabled + label .radio:before {background-color: #bfbfbf;}
+.event200423 .radio_circle:checked + label .radio:before {border: none; background: url(/images/common/bg_check.png) no-repeat; background-size: cover;}
+.event200423 .radio_circle + label .radio {vertical-align: middle;}
+
+/* contents */
+.event200423 {
+    background-color: #008dd5;
+}
+
+.event200423 img {
+    width: 100%;
+}
+
+.event200423 .desc-box.type1 {
+    padding: 0 5vw;
+    text-align: left;
+}
+
+.event200423 .desc-box.type1 .list {
+
+    background-color: #fff;
+
+    border-radius: 10px;
+
+    width: 100%;
+
+    padding: 6% 4%;
+
+    box-sizing: border-box;
+}
+
+.event200423 .desc-box.type1 .list ul {
+    width: 100%;
+    padding-top: 6%;
+}
+
+.event200423 .desc-box.type1 .list ul::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.event200423 .desc-box.type1 .list ul li {
+    float: left;
+    margin-right: 6vw;
+    width: calc(50% - 3vw);
+    list-style: none;
+}
+
+.event200423 .desc-box.type1 .list ul li:nth-child(n+3) {
+    margin-top: 2vh;
+}
+
+.event200423 .desc-box.type1 .list ul li:nth-child(even) {
+    margin-right: 0;
+    display: block;
+}
+
+.event200423 .desc-box.type1 .list ul li .desc {
+    position: relative;
+}
+
+.event200423 .desc-box.type1 .list ul li .desc input[type=checkbox] {
+    display: none;
+}
+
+.event200423 .desc-box.type1 .list ul li .desc input[type=checkbox] + label {
+    display: block;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    background-size: contain;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-repeat: no-repeat;
+}
+
+.event200423 .desc-box.type1 .list ul li .desc.type1 input[type=checkbox] + label {
+    background-image: url("/images/events/2020/event200423/item01_m.png");
+}
+
+.event200423 .desc-box.type1 .list ul li .desc.type1 input[type=checkbox]:checked + label {
+    background-image: url("/images/events/2020/event200423/item01_m_hover.png");
+}
+
+.event200423 .desc-box.type1 .list ul li .desc.type2 input[type=checkbox] + label {
+    background-image: url("/images/events/2020/event200423/item02_m.png");
+}
+
+.event200423 .desc-box.type1 .list ul li .desc.type2 input[type=checkbox]:checked + label {
+    background-image: url("/images/events/2020/event200423/item02_m_hover.png");
+}
+
+.event200423 .desc-box.type1 .list ul li .desc.type3 input[type=checkbox] + label {
+    background-image: url("/images/events/2020/event200423/item03_m.png");
+}
+
+.event200423 .desc-box.type1 .list ul li .desc.type3 input[type=checkbox]:checked + label {
+    background-image: url("/images/events/2020/event200423/item03_m_hover.png");
+}
+
+.event200423 .desc-box.type1 .list ul li .desc.type4 input[type=checkbox] + label {
+    background-image: url("/images/events/2020/event200423/item04_m.png");
+}
+
+.event200423 .desc-box.type1 .list ul li .desc.type4 input[type=checkbox]:checked + label {
+    background-image: url("/images/events/2020/event200423/item04_m_hover.png");
+}
+
+.event200423 .desc-box.type1 .list ul li .desc .badge {
+    position: absolute;
+    top: -4%;
+    right: 0;
+    width: 14vw;
+    height: 14vw;
+}
+
+.event200423 .desc-box.type1 .list ul li .desc .badge img {
+    width: 100%;
+}
+
+
+.event200423 .desc-box.type1 .list ul li .desc a img {
+    display: block;
+    margin: 0 auto;
+}
+
+
+.event200423 .desc-box.type1 .btn-wrap {
+    text-align: center;
+    padding: 5% 0;
+}
+
+
+/* popup */
+.popup.type1 {
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.popup.type1 img {
+    width: 100%;
+}

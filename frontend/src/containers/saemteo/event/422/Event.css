@@ -1,0 +1,38 @@
+/* EVENT 422 */
+.event422{position:relative;}
+.event422 img{width:100%;vertical-align:top;}
+.event422 [class^="evtCont"]{position:relative;z-index:1;}
+.event422 *{font-family:'Noto Sans KR', sans-serif;}
+.event422 input[type="checkbox"]{display:none;}
+
+.event422 .evtCont02{padding:0 6.667vw 29.333vw;background:#628a67;}
+.event422 .evtCont02 .btnView1{position:absolute; left:64%; top:35.73vw; width:12.53vw; height:12.53vw;}
+.event422 .evtCont02 .btnView2{position:absolute; left:64%; top:121.33vw; width:12.53vw; height:12.53vw;}
+.event422 .evtCont02 .btnApply{position:absolute; left:50%; bottom:9.333vw; transform:translateX(-50%); width:86.667vw; height:16vw; background:url('/images/events/2022/event221121/btn_apply.png') no-repeat center center; background-size:100% 100%;}
+
+
+
+.event422 .evtCont03{padding:9.33vw 6.667vw 10.667vw; background:#445e44;}
+.event422 .evtCont03 p{font-size:4.267vw; color:#fff; line-height:1; font-weight:600;}
+.event422 .evtCont03 ul{margin-top:2.933vw;}
+.event422 .evtCont03 ul li{padding-left:2.933vw; text-indent: -2.933vw; font-size:3.2vw; color:#c9c9c9; line-height:5.33vw; font-weight:400; letter-spacing:-0.055em;}
+
+
+
+/*신청하기팝업*/
+.event422 .applyDtl_top{background:#fff9e3; border-top:1px solid #d0d0d0; border-bottom:1px solid #d0d0d0}
+.event422 .applyDtl_top h3{text-align:center; font-size:17px;}
+.event422 .info_tit label{font-size:14px;font-weight:600;color:#393d49;}
+.event422 .vivasamter_applyDtl .info_tit > .join_ipt_chk{display:inline-block;}
+.event422 .vivasamter_applyDtl .info_tit > .join_ipt_chk .join_chk_list.half{margin:0 0 0 20px;float:none;width:auto;display:inline-block;}
+.event422 .join_chk_list input[type="radio"].checkbox_circle + label{font-size:14px;font-weight:400;color:#464a55;}
+.event422 .join_chk_list input[type="radio"].checkbox_circle:checked + label{font-size:14px;font-weight:400;}
+.event422 .vivasamter_applyDtl .input_wrap.school .input_sm{width:calc(100% - 130px);}
+.event422 .vivasamter_applyDtl .input_wrap.school .input_in_btn.btn_gray{margin-left:5px;margin-top:-24px;right:0;width:125px;height:48px;font-size:14px;font-weight:600;vertical-align: top;}
+.event422 .bulTxt{padding-left:25px;margin-top:5px;text-indent:-10px;}
+.event422 .vivasamter_applyDtl .privacyList li{font-weight:400;}
+.event422 .vivasamter_applyDtl .privacyList li:before{left:5px;}
+.event422 .vivasamter_applyDtl .acco_notice_cont .privacyTxt{font-weight:400;}
+.event422 .infoTxtWrap{margin-top:7px; padding:0 15px;}
+.event422 .inputInfoTxt{font-size:12px; color:#888888; padding-left:10px; text-indent:-10px;}
+.event422 .evtItemWRap img{width:100%;}

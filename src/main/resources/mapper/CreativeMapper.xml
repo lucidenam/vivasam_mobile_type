@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.creative.mapper.CreativeMapper">
+	<select id="getClassDataCalendar" parameterType="edu.visang.vivasam.creative.model.CreativeParam"
+	        resultType="edu.visang.vivasam.creative.model.CreativeResult">
+		WITH RECURSIVE T_TEMP_DATES AS (
+		/*
+		UNION 기준 위 쿼리
+		- 특정 날짜의 첫 주의 일요일을 가지고 온다.
+		UNION 기준 아래 쿼리
+		- 윗 부분 날짜(+1)부터 특정 날짜의 달의 마지막 날 일을 가지고 온다.
+		*/
+			SELECT DATE_ADD(LAST_DAY(CONCAT(#{year},#{month},'01') - INTERVAL 1 MONTH) + INTERVAL 1 DAY,
+			INTERVAL -(WEEKDAY(LAST_DAY(CONCAT(#{year},#{month},'01') - INTERVAL 1 MONTH) + INTERVAL 1 DAY + 1)) DAY) AS NUM
+			UNION
+			SELECT DATE_ADD(T_TEMP_DATES.NUM, INTERVAL 1 DAY)
+			FROM T_TEMP_DATES
+			WHERE DATE_ADD(T_TEMP_DATES.NUM, INTERVAL 1 DAY) <![CDATA[ <= ]]> LAST_DAY(CONVERT(CONCAT(#{year},#{month},'01'),DATE))
+		)
+		SELECT
+			DAY(calTbl.NUM) AS `day`,
+			CASE MONTH(calTbl.NUM)
+				WHEN #{month}
+					THEN 'Y'
+				ELSE 'N'
+			END AS showYn,
+			CASE
+				WHEN C.ISSUE_DD IS NULL
+					THEN 'N'
+				ELSE 'Y'
+			END AS dataYn
+		FROM T_TEMP_DATES AS calTbl
+		LEFT JOIN (
+			SELECT ISSUE_DD
+			FROM ISSUE_CONTENTS_GROUP
+			WHERE ISSUE_MM = #{month}
+			AND USE_YN = 'Y'
+			GROUP BY ISSUE_DD
+		) AS C
+		ON C.ISSUE_DD = DAY(calTbl.NUM)
+	</select>
+
+	<select id="getClassData" parameterType="edu.visang.vivasam.creative.model.CreativeParam"
+	        resultType="edu.visang.vivasam.creative.model.CreativeResult">
+		SELECT *
+		FROM (
+			     SELECT
+			     	#{month} AS `month`,
+					IFNULL(
+						CONCAT(
+							#{month},
+							'.',
+							CASE
+								WHEN CHAR_LENGTH(ISSUE_DD) = 1
+									THEN CONCAT('0',ISSUE_DD)
+								ELSE ISSUE_DD
+							END )
+						, ''
+					) AS refCode,
+				    ISSUE_DATA AS `name`,
+				    CASE WHEN REG_DTTM >= DATE_FORMAT(DATE_ADD(CURRENT_TIMESTAMP, INTERVAL -14 DAY),'%Y-%m-%d') THEN 'Y' ELSE 'N' END newYn,
+				    DESCRIPTION  AS `desc`,
+				    ISSUE_DD AS `day`,
+				    ISSUE_ID AS issueId
+			     FROM ISSUE_CONTENTS_GROUP
+			     WHERE ISSUE_MM = #{month}
+				   AND USE_YN = 'Y'
+		     ) AS A
+		WHERE refCode = CONCAT(#{month},'.',(CASE WHEN LENGTH(#{day}) = 1 THEN CONCAT('0',#{day}) ELSE #{day} END))
+		ORDER BY refCode, `name`
+	</select>
+
+	<select id="getClassDataByRelation" parameterType="edu.visang.vivasam.creative.model.CreativeParam"
+	        resultType="edu.visang.vivasam.creative.model.CreativeResult">
+		SELECT
+			ATYPE AS areaType,
+		    IFNULL(SUBTITLE,'') AS clazz,
+		    CASE
+		    	WHEN IFNULL(IDATE,'') = ''
+			    	THEN ISSUE_DATA
+			    ELSE CONCAT('[',IDATE,'] ',ISSUE_DATA)
+			END AS title,
+		    MAX(E.CONTENT_ID) AS contentId,
+		    E.CONTENT_GUBUN AS contentGubun,
+		    IFNULL(E.FILE_TYPE,'') AS fileType,
+		    CASE
+		    	WHEN E.FILE_TYPE='FT205'
+		    		THEN
+						CONCAT(
+							LEFT(E.SUBJECT,30),
+							CASE
+								WHEN CHAR_LENGTH(SUBJECT) > 30
+									THEN '...'
+								ELSE ''
+							END
+						)
+				ELSE
+					CONCAT(
+						LEFT(E.SUBJECT,18),
+						CASE
+							WHEN CHAR_LENGTH(SUBJECT) > 18
+								THEN '...'
+							ELSE ''
+						END
+					)
+			END AS subject,
+			CONCAT(
+				CASE
+					WHEN E.FILE_CDN_YN ='Y'
+						THEN 'https://dn.vivasam.com'
+					ELSE 'https://www.vivasam.com'
+				END,
+				E.FILE_PATH
+			) AS filePath,
+			E.SAVE_FILE_NAME AS fileName,
+			CONCAT(
+				CASE
+					WHEN E.FILE_CDN_YN ='Y'
+						THEN 'https://dn.vivasam.com'
+					ELSE 'https://www.vivasam.com'
+				END,
+				E.THUMBNAIL_PATH
+			) as thumbnail,
+			CONCAT(
+				CASE
+					WHEN E.FILE_CDN_YN ='Y'
+						THEN 'https://dn.vivasam.com'
+					ELSE 'https://www.vivasam.com'
+				END,
+				E.THUMBNAIL_PATH_L
+			) AS thumbnailL,
+			E.FILE_CDN_YN as fileCdnYn,
+			CASE WHEN REG_DTTM > CURRENT_TIMESTAMP- 60 THEN 'Y' ELSE 'N' END AS newIcon,
+			E.DOWN_YN AS downYn,
+			E.TN_YN AS tnYn,
+			D.ISSUE_ID AS issueId
+		FROM (
+			SELECT
+				B.CONTENT_ID AS ID,
+				B.CONTENT_GUBUN AS GUBUN,
+				B.CODELIST_ID AS EDU,
+				B.AREA_TYPE AS ATYPE,
+				CONCAT(LAB_SCHOOL_LVL,' > ',LAB_COURSE) AS SUBTITLE,
+				ISSUE_DATA AS ISSUE_DATA,
+				DESCRIPTION,
+				CONCAT(
+					ISSUE_MM,
+					'.',
+					CASE
+						WHEN CHAR_LENGTH(ISSUE_DD) = 1
+							THEN CONCAT('0',ISSUE_DD)
+						ELSE ISSUE_DD
+					END
+				) AS IDATE,
+				THEMETITLE AS THEMETITLE,
+				THEMELINK AS THEMELINK,
+				ISSUE_ID AS ISSUE_ID
+			FROM ISSUE_CONTENTS_GROUP AS A
+			JOIN ISSUE_CONTENTS AS B ON A.ISSUE_ID = B.REF_ISSUE_ID
+			JOIN EDUCOURSE_INFO AS C ON B.CODELIST_ID = C.CODELIST_ID
+			WHERE A.ISSUE_MM = ${month}
+			AND A.ISSUE_DD = ${day}
+		) AS D
+		LEFT JOIN MASTER_CONTENT AS E ON D.ID = E.CONTENT_ID
+			AND D.GUBUN = E.CONTENT_GUBUN
+		LEFT JOIN MASTER_CONTENT_EDUCOURSE AS F ON D.ID =  F.CONTENT_ID
+			AND D.GUBUN = F.CONTENT_GUBUN
+			AND D.EDU = F.EDUCOURSE_ID
+		GROUP BY ATYPE,SUBTITLE,IDATE,ISSUE_DATA,THEMETITLE,THEMELINK,E.CONTENT_ID,E.CONTENT_GUBUN,E.FILE_TYPE,E.SUBJECT,SUBJECT
+				 ,E.FILE_CDN_YN,E.SAVE_FILE_NAME,E.THUMBNAIL_PATH,E.THUMBNAIL_PATH_L,E.DOWN_YN,E.TN_YN,E.FILE_PATH,REG_DTTM,D.ISSUE_ID
+		ORDER BY REG_DTTM asc
+	</select>
+
+	<select id="getAllClassData" parameterType="edu.visang.vivasam.creative.model.CreativeParam"
+	        resultType="edu.visang.vivasam.creative.model.CreativeResult">
+		/* [계기 수업 자료 전체 보기] CreativeMapper.getAllClassData */
+		SELECT *,
+		       IFNULL(LAG(refCode) OVER(ORDER BY refCode ),refCode) AS prevId
+		FROM (
+			     SELECT #{month} AS `month`,
+			            ISSUE_ID AS issueId,
+			            IFNULL(
+			            	CONCAT(
+			            		#{month},
+			            		'.',
+			            		CASE
+			            			WHEN CHAR_LENGTH(ISSUE_DD) = 1
+				                    	THEN CONCAT('0',ISSUE_DD)
+			                        ELSE ISSUE_DD
+			                    END )
+			                , ''
+			            ) AS refCode,
+			            ISSUE_DATA AS `name`,
+			            CASE WHEN REG_DTTM >= DATE_FORMAT(DATE_ADD(CURRENT_TIMESTAMP, INTERVAL -14 DAY),'%Y-%m-%d') THEN 'Y' ELSE 'N' END newYn,
+			            ISSUE_DD AS ISSUE_DD,
+			            CONCAT(ISSUE_YYYY,'-',ISSUE_MM,'-',ISSUE_DD) AS issueDate
+			     FROM ISSUE_CONTENTS_GROUP
+			     WHERE ISSUE_MM = #{month}
+				   AND USE_YN = 'Y'
+		     ) AS A
+		ORDER BY refCode , NAME
+	</select>
+</mapper>

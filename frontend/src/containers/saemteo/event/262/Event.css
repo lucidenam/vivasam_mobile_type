@@ -1,0 +1,47 @@
+.event190923 {position: relative; font-family: "Nanum Gothic","나눔고딕",NanumGothic,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;}
+.event190923 img {vertical-align: middle; width:100%; line-height:0}
+.event190923 a {display: inline;}
+
+/* btn */
+.event190923 .btn_detail {position: absolute; top:0; left: 0; margin: 208% 0 0 58.54%; width: 35vw; height: 7vw; line-height: 7vw; border-radius: 0.8vw; background: #457cb5;  text-align: center; font-size: 3.2vw; color: #fff; font-weight: 700;}
+/* 신청하기 */
+.event190923 .btn_wrap {text-align: center;}
+.event190923 .btn_apply,
+.event190923 .btn_more {width: 100%; height: 13.3vw; border-radius: 0.8vw; background: #d45843;  font-size: 3.6vw; color: #fff; font-family: "Nanum Gothic_Bold";}
+.event190923 .btn_more {margin-top: 6vw; background: #9fbb2f;}
+
+/* form */
+.event190923 .checkbox {position:absolute; left:-3000px; opacity:0}
+.event190923 .checkbox + label {display:inline-block; font-size: 3.2vw; color: #535353;}
+.event190923 .checkbox + label:before {content:""; display:inline-block; -webkit-box-sizing:border-box; box-sizing:border-box; width:3.6vw; height:3.6vw; margin-right: 2.5vw; border:1px solid #bfbfbf; border-radius: 0.26vw; vertical-align: middle;}
+.event190923 .checkbox:checked + label:before {border: none; background: url(/images/common/bg_check.png) no-repeat; background-size: cover;}
+.event190923 .checkbox + label span {vertical-align: middle;}
+
+/* contents */
+.event190923 {padding-bottom: 6vw; background: url(/images/events/2019/event190923/bg_pt.jpg) repeat 0 0; background-size: 100% auto;}
+.event190923 .cont_wrap {margin: 0 4.8vw; font-size: 3.2vw;}
+
+/* 개인정보 수집 동의 */
+.event190923 .cont .inner {margin-bottom: 6.5vw; padding: 9.6vw 3.5vw 6.5vw; background: #fff;}
+.event190923 .stamp_select:after {content: ""; display: block; clear: both;}
+.event190923 .stamp_select li {float: left; width: 39vw; padding-bottom: 5.4vw; text-align: center;}
+.event190923 .stamp_select li:nth-child(even) {float: right;}
+.event190923 .stamp_select li label {display: block; position: relative; padding-top: 22.5vw;}
+.event190923 .stamp_select li label img {position: absolute; top: 0; left: 0; width: 100%;}
+.event190923 .agree_info {padding: 4vw 0; border-top: 1px #707070 solid; border-bottom:1px #707070 solid;}
+.event190923 .agree_info dt {margin-bottom: 3vw; font-family: "Nanum Gothic_Bold"; font-size: 3.34vw; color: #222222;}
+.event190923 .agree_info ul li {text-indent: -2.67vw; padding-left: 3.67vw; line-height: 1.8; letter-spacing: -0.06vw; font-size: 2.67vw; color: #888;}
+.event190923 .agree {position: relative;margin: 3.34vw 0 0; padding-left: 5.5vw; text-align: left;}
+.event190923 .agree .checkbox + label span {letter-spacing: -0.06vw; font-family: "Nanum Gothic_Bold"; font-size:2.8vw; color: #222222;}
+.event190923 .agree .checkbox + label:before {position: absolute;top:0.9vw;left:0; font-size: 3.2vw; color: #535353;}
+
+/* 사연리스트 */
+.event190923 .cont2 {margin-top: 9.3vw;}
+.event190923 .story_list {position:relative;}
+.event190923 .story_list ul {background: #fff; padding: 0 6.667vw;}
+.event190923 .story_list li {padding: 4vw 0; border-top: 1px solid #ebebeb; line-height: 1.5; font-size: 3.2vw; color: #333;}
+.event190923 .story_list li:first-child {border-top:none}
+.event190923 .story_list li dt {background: url(/images/events/2019/event190923/ico_stamp.png) no-repeat; background-size: contain; padding-left: 6vw;margin-bottom: 2vw; font-weight: 700;}
+.event190923 .story_list li dd {color: #555;}
+.event190923 .story_list li dd.uid {text-align: right; font-size: 2.8vw; margin-top: 2vw;}
+.event190923 .story_list li dd.uid span { color: #999;}

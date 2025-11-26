@@ -1,0 +1,49 @@
+/* 오늘 뭐하지 음미체실 */
+.evtWrap.evtMaap{padding-bottom:50px;background:#fff;}
+.evtWrap.evtMaap div, .evtWrap.evtMaap ul, .evtWrap.evtMaap li, .evtWrap.evtMaap p, .evtWrap.evtMaap span, .evtWrap.evtMaap strong, .evtWrap.evtMaap button, .evtWrap.evtMaap a{font-family:'Noto Sans KR', sans-serif;} 
+.evtMaap .evt{position:relative;margin-bottom:50px;background:#fff;}
+.evtMaap .evt img{vertical-align:top;}
+.evtMaap .evtTopWrap{padding:8vw 4vw;}
+.evtMaap .evtTopWrap p{font-size:3.733vw;color:#333;}
+.evtMaap .evtTopWrap p strong{font-weight:700;}
+.evtMaap .btnShareWrap{box-sizing:border-box;width:87.2vw;height:13.86vw;margin:6.66vw auto 0;padding:2.36vw 5.66vw;border-radius:6.93vw;border:0.26vw solid #ddd;}
+.evtMaap .btnShareWrap p{float:left;font-weight:700;text-align:center;line-height:1.2;letter-spacing:-0.04em;;}
+.evtMaap .btnShareWrap .btnShare{float:right;}
+.evtMaap .btnShareWrap .btnShare > [class^="btn"]{width:8.66vw;height:8.66vw;}
+.evtMaap .btnShareWrap [class^="btn"] img{width:100%;}
+.evtMaap .btnShareWrap [class^="btn"] + [class^="btn"]{margin-left:1.4vw;}
+/* 이벤트 탭 */
+.evtMaap .evtTabWrap .btnTabWrap{display:flex;}
+.evtMaap .evtTabWrap .btnTabWrap .btnTab{flex:1;height:12vw;background:#b9b9b9;border-radius:1.86vw 1.86vw 0 0;font-size:4.533vw;color:#fefefe;}
+.evtMaap .evtTabWrap .btnTabWrap .btnTab:nth-child(1).on{background:#00af9d;}
+.evtMaap .evtTabWrap .btnTabWrap .btnTab:nth-child(2).on{background:#68529f;}
+.evtMaap .evtTabWrap .btnTabWrap .btnTab:nth-child(3).on{background:#308ece;}
+.evtMaap .evtTabWrap .btnTabWrap .btnTab:nth-child(4).on{background:#f15d59;}
+.evtMaap .evtTabWrap .btnTabWrap .btnTab + .btnTab{border-left:0.26vw solid #fff;}
+.evtMaap .evtTabWrap .tabContWrap{padding:8.533vw 3.733vw;background:#f9f4ed;}
+.evtMaap .evtTabWrap .tabContWrap .infoList{padding-left:5.066vw;}
+.evtMaap .evtTabWrap .tabContWrap .infoList li{list-style:disc;font-size:3.733vw;color:#333;line-height:1.7;letter-spacing:-0.04em;word-break:keep-all;}
+.evtMaap .evtTabWrap .tabContWrap .infoList li strong{font-weight:700;}
+.evtMaap .evtTabWrap .tabContWrap .gradeTit{display:block;font-size:6.13vw;font-weight:700;text-align:center;line-height:1;letter-spacing:-0.025em;}
+.evtMaap .evtTabWrap .tabContWrap .tabCont01 .gradeTit{color:#00af9d;}
+.evtMaap .evtTabWrap .tabContWrap .tabCont02 .gradeTit{color:#68529f;}
+.evtMaap .evtTabWrap .tabContWrap .tabCont03 .gradeTit{color:#308ece;}
+.evtMaap .evtTabWrap .tabContWrap .tabCont04 .gradeTit{color:#f15d59;}
+.evtMaap .evtTabWrap .tabContWrap .gradeWrap{margin-top:12vw;}
+.evtMaap .evtTabWrap .tabContWrap .gradeItem + .gradeItem{margin-top:10.26vw;}
+.evtMaap .evtTabWrap .tabContWrap .gradeTit:before{box-sizing:border-box;display:block;height:9.33vw;font-size:3.733vw;color:#333;line-height:2.4;}
+.evtMaap .evtTabWrap .tabContWrap .tabCont01 .gradeTit:before{content:'룰루랄라~';background:url(/images/contents/today/maap/icon_subtit01.png) 23.86vw 50% no-repeat;background-size:12.8vw 6.533vw;}
+.evtMaap .evtTabWrap .tabContWrap .tabCont02 .gradeTit:before{content:'알록달록~';background:url(/images/contents/today/maap/icon_subtit02.png) 27.73vw 50% no-repeat;background-size:9.6vw 9.33vw;}
+.evtMaap .evtTabWrap .tabContWrap .tabCont03 .gradeTit:before{content:'폴짝폴짝~';background:url(/images/contents/today/maap/icon_subtit03.png) 28.79vw 50% no-repeat;background-size:8.13vw 8.26vw;}
+.evtMaap .evtTabWrap .tabContWrap .tabCont04 .gradeTit:before{content:'알쏭달쏭~';background:url(/images/contents/today/maap/icon_subtit04.png) 28.79vw 50% no-repeat;background-size:8.66vw 8.4vw;}
+.evtMaap .evtTabWrap .tabContWrap .gradeCont{box-sizing:border-box;margin-top:4.933vw;padding:8.133vw 4.26vw 8.26vw 4.26vw;border-radius:3.733vw;}
+.evtMaap .evtTabWrap .tabContWrap .tabCont01 .gradeCont{background:#feedbe;border:0.26vw solid #f5dc9a;}
+.evtMaap .evtTabWrap .tabContWrap .tabCont02 .gradeCont{background:#e4e0f4;border:0.26vw solid #bfb3eb;}
+.evtMaap .evtTabWrap .tabContWrap .tabCont03 .gradeCont{background:#c9e6f9;border:0.26vw solid #9bcef1;}
+.evtMaap .evtTabWrap .tabContWrap .tabCont04 .gradeCont{background:#fadee1;border:0.26vw solid #f8cdd2;}
+.evtMaap .evtTabWrap .tabContWrap .gradeCont img{width:100%;}
+.evtMaap .evtTabWrap .tabContWrap .btnWrap{margin-top:2.8vw;text-align:center;}
+.evtMaap .evtTabWrap .tabContWrap .btnWrap > *{display:inline-block;width:24vw;height:10.66vw;background:#fff;border-radius:1.33vw;font-size:3.2vw;font-weight:700;}
+.evtMaap .evtTabWrap .tabContWrap .btnWrap > * + *{margin-left:1.33vw;}
+.evtMaap .evtTabWrap .tabContWrap .btnEbook{border:0.26vw solid #4083ee;color:#4083ee;}
+.evtMaap .evtTabWrap .tabContWrap .btnDown{border:0.26vw solid #f75442;color:#f75442;}

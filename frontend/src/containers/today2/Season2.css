@@ -1,0 +1,39 @@
+/* 오늘 뭐하지 시즌2 */
+.evtWrap.evtSeason2{padding-bottom:50px;}
+.evtWrap.evtSeason2 div, .evtWrap.evtSeason2 ul, .evtWrap.evtSeason2 li, .evtWrap.evtSeason2 p, .evtWrap.evtSeason2 span, .evtWrap.evtSeason2 strong, .evtWrap.evtSeason2 button, .evtWrap.evtSeason2 a{font-family:'Noto Sans KR', sans-serif;} 
+.evtSeason2 .evt{position:relative;text-align:center;}
+.evtSeason2 .evt img{width:100%;vertical-align:top;}
+.evtSeason2 .evtTopWrap{position:relative;}
+.evtSeason2 .evtTopWrap p{font-size:3.33vw;color:#373e3f;}
+.evtSeason2 .evtTopWrap p strong{font-weight:700;}
+.evtSeason2 .btnShareWrap{position:absolute;bottom:6.66vw;left:0;box-sizing:border-box;width:100%;margin:0 auto;padding:2vw 11vw 2vw 11.36vw;}
+.evtSeason2 .btnShareWrap p{float:left;font-weight:700;text-align:center;line-height:2.6;letter-spacing:-0.04em;}
+.evtSeason2 .btnShareWrap .btnShare{float:right;}
+.evtSeason2 .btnShareWrap .btnShare > [class^="btn"]{width:8.66vw;height:8.66vw;}
+.evtSeason2 .btnShareWrap [class^="btn"] img{width:100%;}
+.evtSeason2 .btnShareWrap [class^="btn"] + [class^="btn"]{margin-left:1.4vw;}
+.evtSeason2 .evtListWrap li{position:relative;}
+.evtSeason2 .evtListWrap li .listCont{position:absolute;top:67.06vw;left:0;box-sizing:border-box;width:100%;padding:0 9.66vw;font-size:3.2vw;color:#746c65;text-align:center;letter-spacing:-0.04em;}
+.evtSeason2 .evtListWrap li .listCont p{white-space: pre-wrap;}
+.evtSeason2 .evtListWrap li:nth-child(1) .listCont{top:72vw;}
+.evtSeason2 .evtListWrap li:nth-child(2) .listCont{top:69vw;}
+.evtSeason2 .evtListWrap li .btnWrap{margin-top:4vw;text-align:center;}
+.evtSeason2 .evtListWrap .btnWrap > *{display:inline-block;height:8.66vw;font-size:3.2vw;font-weight:500;color:#fff;letter-spacing:-0.04em;}
+.evtSeason2 .evtListWrap .btnWrap > * + *{margin-left:0.66vw;}
+.evtSeason2 .evtListWrap .btnEbook{width:28vw;background:#01a8ae;border:0.26vw solid #00969b;}
+.evtSeason2 .evtListWrap .btnDown{width:35.33vw;background:#626262;border:0.26vw solid #5b534d;}
+
+/* 팝업 */
+.evtSeason2 #evtPopWrap, #evtPopWrap .evtPopCont{display:none;width:100%;}
+.evtSeason2 #evtPopWrap.on, #evtPopWrap .evtPopCont.on{display:block;}
+.evtSeason2 #evtPopWrap .dimed{position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,0.8);z-index:1;}
+.evtSeason2 #evtPopWrap .evtPopCont.on{position:absolute;top:1%;left:50%;width:95%;margin-top:60px;transform:translateX(-50%);z-index:2;}
+.evtSeason2 #evtPopWrap .evtPopCont .evtPopImg{display:block;margin:0 auto;text-align:center;}
+.evtSeason2 #evtPopWrap .evtPopCont .evtPopImg img{width:100%;}
+.evtSeason2 #evtPopWrap .evtPopCont .btnPdfWrap{position:absolute;top:20.53vw;width:100%;}
+.evtSeason2 #evtPopWrap [class^="btnEvtPdf"]{position:absolute;top:20.53vw;left:26vw;width:33.33vw;height:7.333vw;padding-left:4.266vw;background-image:url(/images/contents/today/season2/icon_pdf.png);background-position:26.93vw 50%;background-repeat:no-repeat;background-size:5.33vw 5.33vw;border-radius:3.66vw;font-size:3.2vw;color:#fff;text-align:left;}
+.evtSeason2 #evtPopWrap .btnEvtPdf01{background-color:#f16670;border-bottom:0.53vw solid #d45962;}
+.evtSeason2 #evtPopWrap .btnEvtPdf02{background-color:#00b4b6;border-bottom:0.53vw solid #009ea0;}
+.evtSeason2 #evtPopWrap .btnEvtPdf03{background-color:#239a4f;border-bottom:0.53vw solid #1f8845;}
+.evtSeason2 #evtPopWrap .btnEvtPdf04{background-color:#b044c5;border-bottom:0.53vw solid #9b3bad;}
+.evtSeason2 #evtPopWrap .btnEvtPopClose{position:absolute;top:3.2vw;right:3.2vw;width:5.46vw;height:5.46vw;background:url(/images/contents/today/season2/btn_pop_close.png);background-size:100%;}

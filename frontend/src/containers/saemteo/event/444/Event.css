@@ -1,0 +1,52 @@
+/* Event */
+.event230424{position:relative; background: #322b45;}
+.event230424 img{width:100%;vertical-align:top;}
+.event230424 [class^="evtCont"]{position:relative;z-index:1;}
+.event230424 *{font-family:'Noto Sans KR', sans-serif; box-sizing: border-box;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+.evtCon{z-index:2; position:absolute;top:0;right:0;display:block; width: 16.13vw; height:22.66vw;background:url(/images/events/common/corn.png) 0 0 no-repeat;background-size:100% auto;}
+
+/* EVENT 443 */
+.event230424 .evtCont01 {position: relative; height: 224vw; background: url(/images/events/2023/event230424/evtCont1.png)no-repeat center top; background-size: 100% auto;}
+.event230424 .evtCont01 .btnShare {display: inline-block; position: absolute; top: 23.46vw; right: 0; width: 16.13vw; height: 18.93vw; background:url(/images/events/2023/event230424/btn_share.png)no-repeat center; background-size: 100% auto;}
+.event230424 .evtCont01 .btnView1 {display: inline-block; position: absolute; left: 20vw; top: 112.46vw; width: 20vw; height: 11.33vw; cursor: default;}
+.event230424 .evtCont02 {position: relative; padding: 134.66vw 8vw 8vw; text-align: center; background: url(/images/events/2023/event230424/evtCont2.png)no-repeat center top; background-size: 100% auto;}
+.event230424 .evtCont02 .btnGo {display: block; width: 29.2vw; height: 6.53vw; margin: 0 auto ; background: url(/images/events/2023/event230424/btn_go.png)no-repeat center top; background-size: 100% auto;}
+.event230424 .evtCont02 .btnApply {display: inline-block; width: 57.6vw; height: 12.66vw; margin: 21.33vw auto 0; background: url(/images/events/2023/event230424/btn_apply.png)no-repeat center; background-size: 100% auto;}
+
+.event230424 .commentWrap .commentList {padding: 0 5.33vw;}
+.event230424 .commentWrap .commentList .listItem {width: 100%; min-height: 14.93vw; padding: 2.94vw; margin-bottom: 0.8vw; background: #d1edff; border: 1px solid #171223; border-radius: 1.6vw;}
+.event230424 .commentWrap .commentList .listItem:nth-of-type(2n) {background: #dbc4f1;}
+.event230424 .commentWrap .commentList .listItem:last-child {border-bottom: 0;}
+.event230424 .commentWrap .commentList .listItem strong {display: inline-block; padding-left: 10.66vw; margin-bottom: 2.66vw; font-size: 1.73vw; font-weight: 400; color: #7f746c; line-height: 1; letter-spacing: -0.04em; background: url(/images/events/2023/event230424/star.png)no-repeat left center; background-size: 8.53vw 1.73vw;}
+.event230424 .commentWrap .commentList .listItem p {font-size: 2vw; font-weight: 400; color: #322e3a; line-height: 2.93vw; letter-spacing: -0.04em; }
+.event230424 .commentWrap .pagingWrap { width: 100%; margin: 3.46vw 0 0; padding-bottom: 17.6vw; background: url(/images/events/2023/event230424/evtCont3-1.png)no-repeat center bottom; background-size: 100% auto; }
+.event230424 .commentWrap .pagingWrap .innerPaging {display: flex; justify-content: center; align-items: center;}
+.event230424 .commentWrap .pagingWrap .innerPaging .pageNum {margin: 0 1.866vw;}
+.event230424 .commentWrap .pagingWrap .innerPaging .pageNum button {display: inline-block; width: 5.6vw; height: 5.6vw; margin-right: 1.06vw; font-size: 1.86vw; font-weight: 400; line-height: 5.6vw; color: #666; background: #fff; border-radius: 50%;}
+.event230424 .commentWrap .pagingWrap .innerPaging .pageNum button.on {font-size: 2.4vw;  font-weight: 600; color: #000000; background: #b638ff;  }
+.event230424 .commentWrap .pagingWrap .innerPaging .pageNum button:last-child {margin-right: 0;}
+.event230424 .commentWrap .pagingWrap .innerPaging [class^="btnPage"] {display: inline-block; width: 4vw; height: 4vw; vertical-align: middle;}
+.btnPageFirst {background: url(/images/events/2023/event230424/btn_first.png)no-repeat center; background-size: 1.86vw 1.33vw;}
+.btnPagePrev {background: url(/images/events/2023/event230424/btn_prev.png)no-repeat center; background-size: 0.93vw 1.33vw;}
+.btnPageNext {background: url(/images/events/2023/event230424/btn_next.png)no-repeat center; background-size: 0.93vw 1.33vw;}
+.btnPageLast {background: url(/images/events/2023/event230424/btn_last.png)no-repeat center; background-size: 1.86vw 1.33vw;}
+
+.event230424 .notice {background:#dcdad3; padding: 5.86vw 8vw 6.66vw;}
+.event230424 .notice strong {display: inline-block; margin-bottom: 1.46vw; font-size: 3.46vw; color: #484256; font-weight:600; line-height: 1; letter-spacing:-0.05em;}
+.event230424 .notice ul li {position: relative; padding-left: 2.66vw; font-size:2.66vw; font-weight: 400;  color:#484256; line-height: 4.8vw; letter-spacing:-0.05em; text-indent: -2.66vw;}
+
+/*applyPop*/
+.vivasamter_applyDtl .applyDtl_inner {position: relative;}
+.vivasamter_applyDtl .count_wrap {position: absolute; right: 20px; top: 31px;}
+
+
+
+
+
+
+
+

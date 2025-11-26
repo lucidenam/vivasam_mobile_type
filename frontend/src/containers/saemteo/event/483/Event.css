@@ -1,0 +1,69 @@
+/* Event */
+.event240214{position:relative;}
+.event240214 img{width:100%;vertical-align:top;}
+.event240214 [class^="evtCont"]{position:relative;z-index:1;}
+.event240214 *{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+
+/* EVENT 428 */
+.teacherProgram {display: inline-block; position: absolute; left: 0; top: 0; width: 28vw; font-size: 2.4vw; font-weight: 400; color: #fff; line-height: 6.66vw; text-align: center; border-radius: 0 0 2.8vw; background: #5146d8; z-index: 99;}
+
+/* evtNoti */
+.event240214 .evtCon{z-index:2; position:absolute;top:0;right:0;display:block;width:16.4vw;height:21.86vw;background:url(/images/events/2022/event220211/corn.png) 0 0 no-repeat;background-size:100% auto;}
+.event240214 .evtCont01 .btnShare {display: inline-block; position: absolute; top: 23.46vw; right: 0; width: 15vw; height: 16.125vw; background: url(/images/events/2024/event240214/btn_share.png)no-repeat center; background-size: 100% auto;}
+
+
+.event240214 .evtCont02 span {font-size:0;}
+.event240214 .evtCont02 .bgImg {display:inline-block; position:absolute; background:url(/images/events/2024/event240214/btn_map.png)no-repeat center; background-size: 100% auto; z-index: 3;}
+.event240214 .evtCont02 .btnReview {background-image: url("/images/events/2024/event240214/btn_review.png"); width:26.375vw; height: 13.125vw; top:13.75vw; right:6vw;}
+.event240214 .evtCont02 .btnMap {right: 15.5vw; bottom: 92.125vw; width: 12.5vw; height: 4.25vw; background-image: url(/images/events/2024/event240214/btn_map.png);}
+.event240214 .evtCont02 .btnApply {left: 50%; bottom: 7.375vw; transform: translateX(-50%); width: 83.875vw; height: 10.5vw; background-image: url(/images/events/2024/event240214/btn_apply.png);}
+
+.event240214 .notice {background:#333; padding:6.66vw 6.66vw 5.33vw;}
+.event240214 .notice ul li {padding-left:2.25vw; text-indent:-2.25vw; font-size:2.5vw; color:#fff; letter-spacing:-0.04em; line-height: 1.6;}
+
+/*popup*/
+.input_wrap .count {display:flex; justify-content:flex-end; margin-top:1.33vw;}
+.input_wrap .count span{font-size:3.2vw; font-weight:400; color:#888;}
+.vivasamter_applyDtl .info_tit.info_textarea {position:relative; padding-left:3.8vw; text-indent:-1.8vw;}
+.vivasamter_applyDtl .info_tit.info_textarea .txt_count {position:absolute; right:5px; bottom: 7px;}
+.input_wrap textarea {width:100%; min-height:45.33vw; padding:4vw; font-size:14px; border:1px solid #eaeaea; border-radius:2.66vw;}
+.input_wrap textarea::placeholder {color:#838a95;}
+.vivasamter_apply .info_tit span {font-size:14px; color:#fd5b76;}
+.vivasamter_apply .currentCount {font-size:14px;}
+.join_chk_list {width:50%; padding: 0;}
+.privacyTxt a {color:#01aeff;}
+.vivasamter_applyDtl .pdside20 + .acco_notice_list.notice_sec {padding-top:0; margin-top:0; border-top:0;}
+.vivasamter_applyDtl .pdside20 + .acco_notice_list.notice_sec .acco_notice_cont {border-top:0;}
+.info_tit.chk_tit > label {display: inline-block; width: 20%; vertical-align: middle;}
+.info_tit.chk_tit .join_ipt_chk {display: inline-block;width: 75%;margin: 0;padding-left: 32px;vertical-align: middle;}
+.vivasamter_applyDtl .checkbox_circle_tit{letter-spacing:-0.03em;}
+.info_wrap .inner {display: flex;}.count span
+.info_wrap input[type="text"]:nth-of-type(1) {width: 30.66%; border-radius: 10px 0 0px 10px; }
+.info_wrap input[type="text"]:nth-of-type(2) {width: 36.66%; border-radius: 0px 10px 10px 0px;}
+.info_wrap ul {flex: 1;}
+.info_wrap ul li {margin-left: 15px;}
+.info_wrap input[type="radio"] + label {display: inline-block; margin-top: 20px;}
+.privacyList.event2 .c_o {font-weight:600;}
+.checkbox_circle_simple .c_o {font-weight: 600;}
+.input_wrap .count span {color: #fd5b76 !important; font-size: 12px;}
+.evtForm_labelTxt {padding-left: 9px; text-indent: -9px;}
+
+#teacherInfo2 + lable {display:inline-block; margin-top: 15px;}
+
+
+#eventPopWrap .eventPop.pop2 .popInfoWrap .party_List li a, #eventPopWrap .eventPop.pop2 .popInfoWrap .party_List li span {display: block; text-align: center;}
+#eventPopWrap .eventPop.pop2 .popInfoWrap .imgwrap {text-align: center;}
+#eventPopWrap .eventPop .titWrap .evtPopClose {position: absolute; top: 4.625vw;right: 4vw;display: inline-block;width: 2.75vw;height: 2.75vw;background: url("/images/common/pop_close.png") 0 0 no-repeat;background-size: auto 100%;}
+
+/* 신청하기 */
+.applyDtl_top.top_yell{background:#fff8d3;}
+.applyDtl_top.top_yell h3 span{color:#1a9b20;}
+.info_tit.chk_tit > label {word-spacing: -1px;}
+.join_ipt_chk {margin: 0;}
+.input_wrap .input_sm.txt_checkbox {max-width: 50px; display: inline-block; margin-left: 5px;}
+.input_wrap .input_sm.txt_phone {width: calc(100% / 3 - 10px); display: inline-block;}
+/*.checkbox_circle + label:before {border-radius: 3px; border-width: 1px;}*/

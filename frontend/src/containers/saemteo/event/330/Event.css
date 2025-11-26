@@ -1,0 +1,44 @@
+/* Event */
+.event210209{text-align:center;}
+.event210209 img{width:100%;vertical-align:top;}
+.event210209 [class^="evtCont"]{position:relative;z-index:1;}
+.event210209 span, .event210209 p, .event210209 strong, .event210209 button, .event210209 input, .event210209 label, .event210209 textarea{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="section"]{position:relative;}
+[class^="section"] .imgWrap{display:block;}
+[class^="evtCont"] button{box-sizing:border-box;width:100%;}
+.evtTextarea textarea::-webkit-input-placeholder{color:#bebebe;}
+.evtTextarea textarea::-moz-placeholder{color:#bebebe;}
+.evtTextarea textarea:-ms-input-placeholder{color:#bebebe;}
+.evtTextarea textarea:-moz-placeholder{color:#bebebe;}
+/* */
+.evtCont02 .btnWrap{position:absolute;left:0;bottom:9.6vw;width:100%;}
+.evtCont02 .btnWrap .btnApply{display:inline-block;width:76vw;height:16.26vw;background:url(/images/events/2021/event210209/btn_apply.png) 0 0 no-repeat;background-size:100%;}
+
+/* EventApply */
+.applyDtl_top{padding:12px 15px;background:#fc9090;}
+.applyDtl_top h3{color:#fff;text-align:center;}
+.applyDtl_top h3 strong{font-family:inherit;color:#fbd81a;}
+.input_wrap + .mt10.mb25.c_gray{color:#888;}
+.pointColor{color:#ed1800;}
+.acco_notice_cont{display:block;word-break:keep-all;}
+.policy{color:#222;}
+.acco_notice_cont ul.policy + p.comt{color:#888;}
+.acco_notice_tit.info_tit{display:block;color:#333;}
+.checkbox_circle_tit{display:inline-block;text-align:left;}
+.subject_field_list label{font-size:13px;}
+.subject_field_list label:before{vertical-align:top;}
+.subject_field_list input[type="checkbox"]:disabled + label:before{background:#ddd;}
+.subject_field_list > li{overflow:hidden;}
+.subject_field_list > li > label{color:#111;vertical-align:top;}
+.subject_field_list > li:first-child > label{float:left;}
+.subject_field_list > li > label span{display:inline-block;min-width:75px;letter-spacing:-0.05em;}
+.subject_field_list > li + li{margin-top:10px;}
+.subject_field_list ul{float:left;width:calc(100% - 130px);margin-left:5px;}
+.subject_field_list ul li{display:inline-block;width:50%;vertical-align:top;}
+.subject_field_list ul li:nth-child(n+3){margin-top:5px;}
+.form_info_list ul{margin:0 20px;}
+.form_info_list ul li{position:relative;padding-left:7px;}
+.form_info_list ul li + li{margin-top:5px;}
+.form_info_list ul li:before{content:'';position:absolute;top:8px;left:0;display:inline-block;width:2px;height:2px;background:#767676;}

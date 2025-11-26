@@ -1,0 +1,37 @@
+USE [vivasam_mobile]
+GO
+
+/****** Object:  Table [dbo].[EDU_BANNER_INFO]    Script Date: 2019-01-08 오전 8:58:33 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[EDU_BANNER_INFO](
+	[BANNER_ID] [int] IDENTITY(1,1) NOT NULL,
+	[BANNER_NAME] [nvarchar](200) NULL,
+	[IMAGE_PATH] [nvarchar](200) NOT NULL,
+	[IMAGE_NAME] [nvarchar](100) NOT NULL,
+	[LINK_URL] [nvarchar](200) NULL,
+	[EDU_YEAR] [nvarchar](10) NULL,
+	[SCHOOL_GRADE] [nvarchar](10) NULL,
+	[EDUCOURSE] [nvarchar](10) NULL,
+	[EDUCOURSE_BOOK] [nvarchar](10) NULL,
+	[SCHOOL_GRADE_NAME] [nvarchar](50) NULL,
+	[EDUCOURSE_NAME] [nvarchar](50) NULL,
+	[EDUCOURSE_BOOK_NAME] [nvarchar](50) NULL,
+	[USE_YN] [char](1) NULL,
+	[REG_DTTM] [datetime] NULL,
+	[ADM_ID] [varchar](50) NULL,
+	[OPEN_DATE] [varchar](50) NULL,
+	[CLOSE_DATE] [varchar](50) NULL,
+	[END_DATE] [varchar](50) NULL,
+	[RES_END_DATE] [varchar](50) NULL,
+ CONSTRAINT [PK_EDU_BANNER_INFO] PRIMARY KEY CLUSTERED 
+(
+	[BANNER_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+

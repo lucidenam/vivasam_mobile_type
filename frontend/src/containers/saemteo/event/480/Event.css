@@ -1,0 +1,38 @@
+/* Event */
+.event231204{position:relative;background:#23283b;}
+.event231204 img{width:100%;vertical-align:top;}
+.event231204 [class^="evtCont"]{position:relative;z-index:1;}
+.event231204 *{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="section"]{position:relative;}
+[class^="section"] .imgWrap{display:block;}
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+.evtInput input::-moz-placeholder,
+.evtTextarea textarea::-moz-placeholder{color:#aaa;}
+.evtInput input:-moz-placeholder,
+.evtTextarea textarea:-moz-placeholder{color:#aaa;}
+.evtInput input::-webkit-input-placeholder{color:#aaa;}
+.evtInput input:-ms-input-placeholder{color:#aaa;}
+/* EVENT 480 */
+.event231204 .evtCont01{text-align:center;}
+.evtCont02 , .evtCont03 {position: relative; margin-bottom: 4.07vw; padding: 0 4.34vw; border-radius: 2.71vw; }
+:is(.evtCont02 , .evtCont03) img {border-radius: 2.71vw; box-shadow: 0.53vw 0 0 rgba(0, 0, 0, .57);}
+.evtCont03 {margin-bottom: 5.43vw;}
+.btnSampleDown { position: absolute; left: 14.86vw; bottom: 42.46vw; width: 42.39vw; height: 8.28vw; background: url('/images/events/2023/event231204/btnSampleDown.png')no-repeat center; background-size: 100% auto;}
+.btnShare {display: inline-block; position: absolute; left: 49.45vw; bottom: 12.8vw; width: 18.20vw; height: 3.80vw; background: url('/images/events/2023/event231204/btnCopy.png')no-repeat center; background-size: 100% auto;}
+.btnShare2{position:sticky; top:calc(55px + 4.076vw); right:0; z-index:10;}
+.btnShare2 button{position:absolute; top:-2.446vw; right:7.337vw; width:18.342vw; height:18.342vw; background:url('/images/events/2023/event231204/sharing_btn.png') no-repeat center / contain;}
+.evtCont03 .btnWrap {display: flex; gap: 1.35vw; position: absolute; left: 34.28vw; bottom: 15.76vw;}
+.evtCont03 .btnWrap a {display: inline-block; position: relative; padding: 0 3.12vw 0 1.76vw; line-height: 3.8vw; font-size: 1.9vw; font-weight: 400; color: #fff; letter-spacing: -0.025em; border-radius: 0.67vw;}
+.evtCont03 .btnWrap a.ele {background: #4797cf url('/images/events/2023/event231204/ico_arr.png')no-repeat right 1.49vw center; background-size: 0.95vw auto;}
+.evtCont03 .btnWrap a.mid {background: #cf8147 url('/images/events/2023/event231204/ico_arr.png')no-repeat right 1.49vw center; background-size: 0.95vw auto;}
+
+.pc_only {width: 100%; font-size: 3.53vw; font-weight: 500;  color: #23283b; line-height: 8.28vw; letter-spacing: -0.045em; text-align: center; background: #ff9bc3;}
+.notice { padding: 6.11vw 8.42vw 8.15vw 9.78vw; background: #32374d;}
+.notice strong {display: inline-block; margin-bottom: 2.44vw; font-size: 3.53vw; font-weight: 500; color: #fff; line-height: 1; letter-spacing: -0.045em;}
+.notice ul li {position: relative; padding-left: 1.90vw; font-size: 2.17vw; font-weight: 400; color: #fff; line-height: 1.75; letter-spacing: -0.025em;}
+.notice ul li:before {content: ""; display: inline-block; position: absolute; left: 0; top: 1.55vw; width: 0.40vw; height: 0.40vw; background: #c9c9c9; border-radius: 50%; }
+
+

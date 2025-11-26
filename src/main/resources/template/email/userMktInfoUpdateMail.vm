@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>비바샘 마케팅 및 광고 수신동의 안내</title>
+</head>
+<body style="margin:0;padding:0;">
+
+<table cellspacing="0" cellpadding="0" style="width:700px;margin:0 auto;border:0;">
+    <tr>
+        <td>
+            <!-- Header -->
+            <table cellspacing="0" cellpadding="0" style="box-sizing:border-box;width:700px;padding:25px 40px;margin-bottom:10px;background:#4083ee;border:0;border-radius:18px;">
+                <tr>
+                    <td style="width:80px;margin:0;padding:0;line-height:1;"><img src="https://dn.vivasam.com/eMail/common/mailing_vivasam_logo.png" alt="비바샘 로고" style="vertical-align:top;"></td>
+                    <td style="width:465px;margin:0;padding:0;line-height:1;"></td>
+                    <td style="width:75px;margin:0;padding:0;line-height:1;"><img src="https://dn.vivasam.com/eMail/common/mailing_visang_logo.png" alt="비상 로고" style="vertical-align:middle;"></td>
+                </tr>
+            </table>
+            <!-- //Header -->
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <!-- Content -->
+            <table cellspacing="0" cellpaddding="0" style="box-sizing:border-box;width:700px;padding:40px 36px 60px;background:#ffffff;border-top:2px solid #e0e0e0;border-right:2px solid #e0e0e0;border-bottom:0;border-left:2px solid #e0e0e0;border-radius:18px 18px 0 0;">
+                <tr>
+                    <td style="width:624px;margin:0;padding:0;line-height:1;">
+                        <strong style="font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:30px;font-weight:bold;color:#393d49;line-height:1;letter-spacing:-0.12em;">
+                            <em style="font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:30px;font-weight:bold;font-style:normal;color:#4083ee;line-height:1;letter-spacing:-0.12em;">비바샘 마케팅 및 광고 수신동의</em> 안내
+                        </strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:624px;height:24px;margin:0;padding:0;font-size:0;line-height:1;"></td>
+                </tr>
+                <tr>
+                    <td style="width:624px;margin:0;padding:0;font-size:0;line-height:1;">
+                        <p style="margin:0;padding:0;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:14px;color:#888888;line-height:1.4;letter-spacing:-0.12em;">
+                            홍길동님 안녕하세요.<br>
+                            비바샘 마케팅 및 광고 활용 수신동의 여부가 아래와 같이 변경되었습니다.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:624px;height:30px;margin:0;padding:0;font-size:0;line-height:1;"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <table cellspacing="0" cellpadding="0" style="border-collapse:collapse;box-sizing:border-box;width:624px;border-top:2px solid #252c4f;">
+                            <colgroup>
+                                <col style="width:200px">
+                                <col style="width:auto;">
+                            </colgroup>
+                            <tbody>
+                            <tr>
+                                <th style="height:51px;margin:0;padding:0 20px;background:#fafafa;border-bottom:1px solid #e1e1e1;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:14px;color:#393d49;text-align:left;letter-spacing:-0.08em;">아이디</th>
+                                <td style="height:51px;margin:0;padding:0 20px;background:#ffffff;border-bottom:1px solid #e1e1e1;border-left:1px solid #e1e1e1;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:14px;color:#78786f;text-align:left;letter-spacing:-0.08em;">$memberId</td>
+                            </tr>
+                            <tr>
+                                <th style="margin:0;padding:16px 20px;background:#fafafa;border-bottom:1px solid #e1e1e1;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:14px;color:#393d49;text-align:left;letter-spacing:-0.08em;">비바샘 교수지원서비스</th>
+                                <td style="margin:0;padding:16px 20px;background:#ffffff;border-bottom:1px solid #e1e1e1;border-left:1px solid #e1e1e1;">
+                                    <table cellspacing="0" cellpadding="0" style="border-collapse:collapse;box-sizing:border-box;width:100%;">
+                                        <colgroup>
+                                            <col style="width:40px">
+                                            <col style="width:auto;">
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                                            <th style="height:24px;margin:0;padding:0;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:14px;color:#393d49;text-align:left;letter-spacing:-0.08em;">문자</th>
+                                            <td style="height:24px;margin:0;padding:0 20px;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:14px;color:#78786f;text-align:left;letter-spacing:-0.08em;" >$smsYn ( $smsAgreeDate )</td>
+                                        </tr>
+                                        <tr>
+                                            <th style="height:24px;margin:0;padding:0;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:14px;color:#393d49;text-align:left;letter-spacing:-0.08em;">E-mail</th>
+                                            <td style="height:24px;margin:0;padding:0 20px;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:14px;color:#78786f;text-align:left;letter-spacing:-0.08em;" >$mailYn ( $mailAgreeDate )</td>
+                                        </tr>
+                                        <tr>
+                                            <th style="height:24px;margin:0;padding:0;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:14px;color:#393d49;text-align:left;letter-spacing:-0.08em;">전화</th>
+                                            <td style="height:24px;margin:0;padding:0 20px;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:14px;color:#78786f;text-align:left;letter-spacing:-0.08em;">$telYn ( $telAgreeDate )</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="margin:0;padding:16px 20px;background:#fafafa;border-bottom:1px solid #e1e1e1;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:14px;color:#393d49;text-align:left;letter-spacing:-0.08em;">비바샘 원격교육연수원</th>
+                                <td style="margin:0;padding:16px 20px;background:#ffffff;border-bottom:1px solid #e1e1e1;border-left:1px solid #e1e1e1;">
+                                    <table cellspacing="0" cellpadding="0" style="border-collapse:collapse;box-sizing:border-box;width:100%;">
+                                        <colgroup>
+                                            <col style="width:40px">
+                                            <col style="width:auto;">
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                                            <th style="height:24px;margin:0;padding:0;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:14px;color:#393d49;text-align:left;letter-spacing:-0.08em;">문자</th>
+                                            <td style="height:24px;margin:0;padding:0 20px;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:14px;color:#78786f;text-align:left;letter-spacing:-0.08em;">$smsYnT ( $smsAgreeDateT )
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="height:24px;margin:0;padding:0;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:14px;color:#393d49;text-align:left;letter-spacing:-0.08em;">E-mail</th>
+                                            <td style="height:24px;margin:0;padding:0 20px;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:14px;color:#78786f;text-align:left;letter-spacing:-0.08em;">$mailYnT ( $mailAgreeDateT )
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="height:24px;margin:0;padding:0;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:14px;color:#393d49;text-align:left;letter-spacing:-0.08em;">전화</th>
+                                            <td style="height:24px;margin:0;padding:0 20px;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:14px;color:#78786f;text-align:left;letter-spacing:-0.08em;">$telYnT ( $telAgreeDateT )
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:624px;height:10px;margin:0;padding:0;font-size:0;line-height:1;"></td>
+                </tr>
+                <tr>
+                    <td style="margin:0;padding:0;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:14px;color:#78786f;text-align:left;letter-spacing:-0.08em;">- 비바샘 선생님 전용 고객센터 1544-7714 / 비바샘 연수원 고객센터 1544-9044</td>
+                </tr>
+                <tr>
+                    <td style="width:624px;height:40px;margin:0;padding:0;font-size:0;line-height:1;"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <table cellspacing="0" cellpadding="0" style="border-collapse:collapse;box-sizing:border-box;width:624px;">
+                            <colgroup>
+                                <col style="width:50%">
+                                <col style="width:50%;">
+                            </colgroup>
+                            <tbody>
+                            <tr>
+                                <td style="margin:0;padding:0 10px 0 20px;">
+                                    <a href="https://www.vivasam.com" target="_blank" style="text-decoration:none;display:block;margin:0;padding:20px 0;background:#4083ee;border-radius:10px;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:20px;font-weight:bold;color:#fff;text-align:center;letter-spacing:-0.12em;">비바샘 교수지원서비스</a>
+                                </td>
+                                <td style="margin:0;padding:0 20px 0 10px;">
+                                    <a href="https://t.vivasam.com" target="_blank" style="text-decoration:none;display:block;margin:0;padding:20px 0;background:#4083ee;border-radius:10px;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:20px;font-weight:bold;color:#fff;text-align:center;letter-spacing:-0.12em;">비바샘 원격교육연수원</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <!-- //Content -->
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <!-- Footer -->
+            <table cellspacing="0" cellpadding="0" style="box-sizing:border-box;width:700px;border-right:2px solid #e0e0e0;border-bottom:2px solid #e0e0e0;border-left:2px solid #e0e0e0;border-radius:0 0 18px 18px;">
+                <tr>
+                    <td style="width:700px;padding:25px 40px;background:#f7f7f7;border-top:3px solid #606677;border-bottom:1px solid #e6e6e6;">
+                        <ul style="list-style:none;margin:0;padding:0;font-family:'맑은 고딕','malgungothic','돋움','dotum',sans-serif;font-size:12px;color:#606677;line-height:1.6;letter-spacing:-0.08em;">
+                            <li>- 본 메일은 정보통신망이용촉진 및 정보보호 등에 관한 법률 및 시행규칙을 준수한 발신전용 메일입니다.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="margin:0;padding:30px 40px 10px;line-height:1;"><img src="https://dn.vivasam.com/eMail/common/mailing_visang_b_logo.png" alt="비상로고"></td>
+                </tr>
+                <tr>
+                    <td style="width:624px;margin:0;padding:0 40px 40px;line-height:1;"><img src="https://dn.vivasam.com/eMail/common/footer_txt.png" alt="㈜비상교육 | 대표자명 : 양태회 | 사업자등록번호 : 211-87-07735 | 주소 : 서울특별시 구로구 디지털로33길 48 대륭포스트타워 7차 20층 | TEL : 1544-7714(선생님 전용 고객센터) | COPYRIGHT© (주)비상교육 ALL RIGHTS RESERVED."></td>
+                </tr>
+            </table>
+            <!-- //Footer -->
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

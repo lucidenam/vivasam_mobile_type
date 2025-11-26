@@ -1,0 +1,17 @@
+/* Event */
+.event250625{position:relative; background:#f9e4f1;}
+.event250625 img{width:100%;vertical-align:top;}
+.event250625 [class^="evtCont"]{position:relative;z-index:1;}
+.event250625 *{font-family:'Noto Sans KR', sans-serif; box-sizing:border-box;}
+/* START */
+
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+
+/* EVENT 570 */
+.evtCont02 {position:relative;}
+.evtCont02 .btnApply{position:absolute; bottom:18.692vw; left:50%; transform:translateX(-50%); width:78.972vw; height:19.704vw; background:url('/images/events/2025/event250625_2/btn_apply.png') no-repeat center / contain;}
+.vivasamter_applyDtl .join_chk_list{width:auto;}
+.vivasamter_applyDtl .acco_notice_list.evtNoticee{margin-top:25px; padding-bottom:0; border-bottom:none;}
+.vivasamter_applyDtl .acco_notice_list.evtNoticee .acco_notice_cont{display: block; padding:10px 20px; background: #fff; border:none;}
+.vivasamter_applyDtl .acco_notice_list.evtNoticee .privacyList{margin-top:0;}

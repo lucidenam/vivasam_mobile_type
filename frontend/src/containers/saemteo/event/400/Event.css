@@ -1,0 +1,61 @@
+/* Event */
+.event220418{position:relative;text-align:center;}
+.event220418 img{width:100%;vertical-align:top;}
+.event220418 [class^="evtCont"]{position:relative;z-index:1;}
+.event220418 *{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="section"]{position:relative;}
+[class^="section"] .imgWrap{display:block;}
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;width:100%;}
+.evtInput input::-moz-placeholder,
+.evtTextarea textarea::-moz-placeholder{color:#aaa;}
+.evtInput input:-moz-placeholder,
+.evtTextarea textarea:-moz-placeholder{color:#aaa;}
+.evtInput input::-webkit-input-placeholder{color:#aaa;}
+.evtInput input:-ms-input-placeholder{color:#aaa;}
+/* */
+.event220418 .evtCont03 .btnWrap{position:absolute;bottom:0;left:0;width:100%;}
+.event220418 .evtCont03 .btnWrap .btnReview{display:block;width:35.733vw;margin:0 auto;}
+.event220418 .evtCont03 .btnWrap .btnApply{width:53.333vw;margin:12.533vw auto 6.667vw;}
+.event220418 .evtCont04 .evtListWrap{background:#f6f0e5;}
+.event220418 .evtCont04 .evtListWrap .evtList{padding:0 4vw 4vw;}
+.event220418 .evtCont04 .evtList .listItem{padding:5vw;background:#fff;border-radius:4vw;text-align:left;}
+.event220418 .evtCont04 .evtList .listItem .listTit{font-size:3.2vw;font-weight:700;color:#130c0e;line-height:1;}
+.event220418 .evtCont04 .evtList .listItem .txt{margin-top:4vw;font-size:3.2vw;font-weight:300;color:#333;}
+.event220418 .evtCont04 .evtList .listItem + .listItem{margin-top:3vw;}
+.event220418 .evtCont04 .evtListWrap .btnMore{display:block;height:12vw;background:#424242;font-size:4vw;color:#fff;line-height:12vw;}
+.event220418 .evtCont04 .evtListWrap .btnMore span{display:inline-block; height:100%; width:3.2vw; margin-left:2.133vw; background:url('/images/events/2022/event220418/ic_more.png') no-repeat center center; background-size:100% auto; vertical-align:top;}
+/* EventApply */
+
+.info_tit.chk_tit > label{display:inline-block; width:20%; vertical-align:middle;}
+.info_tit.chk_tit .join_ipt_chk{display:inline-block; width:75%; margin:0; padding-left:10px; vertical-align:middle;}
+.info_tit.chk_tit .join_ipt_chk li{width:auto;padding:0 10px 0 0;}
+
+.vivasamter_applyDtl .input_wrap.school .input_in_btn.btn_gray {margin-left:5px; margin-top:-24px; right:0; width:125px; height:48px; font-size:14px; font-weight:600; vertical-align:top;}
+.evtForm_labelTxt{padding-left:10px; text-indent:-10px;color:#888; font-size:12px;}
+.input_wrap.multi_wrap > .input_wrap .label_txt{font-size:14px; color:#464a55; font-weight:400;}
+
+.txt_info{letter-spacing: -0.06em;}
+.ipt_textarea + .count_wrap{text-align:right;}
+.vivasamter_applyDtl  .privacyList .noti_txt{font-size:12px; color:#e50e00; font-weight:400; padding-left:10px ;text-indent:-10px;}
+.vivasamter_applyDtl .checkbox_circle_tit{letter-spacing:-0.03em;}
+
+
+.vivasamter_applyDtl .input_wrap.email{display:flex;}
+.vivasamter_applyDtl .input_wrap.email .label_txt{padding:0 7px;line-height: 40px;}
+.vivasamter_applyDtl .info_tit>.join_ipt_chk {display:inline-block;}
+.vivasamter_applyDtl .info_tit>.join_ipt_chk .join_chk_list.half {margin:0 0 0 20px; float:none; width:auto; display:inline-block;}
+.vivasamter_applyDtl .info_tit>.join_ipt_chk .join_chk_list.half.ml38 {margin-left:38px !important;}
+.vivasamter_applyDtl .bulTxt {padding-left:25px; margin-top:5px;text-indent:-10px;}
+.vivasamter_applyDtl .input_wrap.receiveGradeClass{display:flex; align-items: center;}
+.vivasamter_applyDtl .input_wrap.receiveGradeClass>.input_sm, .event220322 .input_wrap.receiveGradeClass>.label_txt{display:block;}
+.vivasamter_applyDtl .evtForm_labelTxt{margin-top:10px;padding-left:17px;font-size:12px; font-weight:400;color:#ff8125;line-height:1;}
+.vivasamter_applyDtl .info_tit{margin-top:25px;}
+.vivasamter_applyDtl>div>.info_tit:first-child, .info_tit+.info_tit{margin-top:0;}
+.vivasamter_applyDtl .input_wrap.school .input_sm {width:calc(100% - 130px);}
+.vivasamter_applyDtl .input_wrap.school .input_in_btn.btn_gray {margin-left:5px; margin-top:-20px; right:0; width:125px; height:40px; font-size:14px; font-weight:600;}
+.vivasamter_applyDtl .input_wrap.receiveGradeClass>.label_txt{line-height:40px;}
+.vivasamter_applyDtl .input_wrap.receiveGradeClass>.input_sm.wp143{width:143px;}
+

@@ -1,0 +1,36 @@
+/* Event */
+.event210304{position:relative;text-align:center;}
+.event210304 img{width:100%;vertical-align:top;}
+.event210304 [class^="evtCont"]{position:relative;z-index:1;}
+.event210304 span, .event210304 p, .event210304 strong, .event210304 button, .event210304 input, .event210304 label, .event210304 textarea{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="section"]{position:relative;}
+[class^="section"] .imgWrap{display:block;}
+[class^="evtCont"] button{box-sizing:border-box;width:100%;}
+.evtTextarea textarea::-webkit-input-placeholder{color:#aaa;}
+.evtTextarea textarea::-moz-placeholder{color:#aaa;}
+.evtTextarea textarea:-ms-input-placeholder{color:#aaa;}
+.evtTextarea textarea:-moz-placeholder{color:#aaa;}
+/* */
+.evtCont01 .btnWrap{position:absolute;bottom:6.933vw;width:100%;}
+.evtCont01 .btnWrap .btnApply{display:inline-block;width:63.6vw;height:16vw;background:url(/images/events/2021/event210304/btn_apply.png) 0 0 no-repeat;background-size:100% auto;}
+
+/* 이벤트 시작 배너 */
+.bannerInfo{position:absolute;top:60.66vw;right:6.933vw;width:24.66vw;height:26.8vw;z-index:1;}
+
+/* EventApply */
+.applyDtl_top{padding:12px 15px;background:#f6a8b9;}
+.applyDtl_top h3{color:#fff;text-align:center;}
+.applyDtl_top h3 strong{font-family:inherit;color:#fbd81a;}
+.input_wrap + .mt10.mb25.c_gray{color:#888;}
+.pointColor{color:#ed1800;}
+.acco_notice_cont{display:block;word-break:keep-all;}
+.policy{color:#222;}
+.acco_notice_cont ul.policy + p.comt{color:#888;}
+.acco_notice_tit.info_tit{display:block;color:#333;}
+.checkbox_circle_tit{display:inline-block;text-align:left;}
+.planner_wrap{font-size:0;}
+.planner_wrap > *{display:inline-block;vertical-align:top;}
+.planner_wrap > input{width:60px;margin:0 5px;}
+.planner_wrap > button{width:40px;height:40px;background:#4083ed;border-radius:3px;font-size:18px;color:#fff;text-align:center;}

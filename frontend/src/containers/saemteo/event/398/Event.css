@@ -1,0 +1,65 @@
+/* EVENT 220322 */
+.event220404{position:relative;}
+.event220404 img{width:100%;vertical-align:top;}
+.event220404 [class^="evtCont"]{position:relative;z-index:1; background:#d3f5ff;}
+.event220404 *{font-family:'Noto Sans KR', sans-serif;}
+.event220404 input[type="radio"]{display:none;}
+
+.event220404 .evtCont01 {background:#fff5dc; padding-bottom:13.0667vw;}
+
+.event220404 .evtCont01 .evtFormWrap ul{display:flex; margin-top:10.667vw; padding:0 1.8667vw 0 6.133vw;justify-content:space-between;}
+.event220404 .evtCont01 .evtFormWrap ul li input[type="radio"] + label{position:relative;display:block;width:100%; }
+.event220404 .evtCont01 .evtFormWrap ul li input[type="radio"] + label:before{content:''; display:block; margin-left:17.6vw; width:5.6vw;height:5.6vw; background:url('/images/events/2022/event220404/check.png') no-repeat center center; background-size: 100% auto;}
+.event220404 .evtCont01 .evtFormWrap ul li input[type="radio"]:checked + label:before{background-image:url('/images/events/2022/event220404/check_on.png')}
+.event220404 .evtCont01 .evtFormWrap ul li input[type="radio"]:disabled + label:after{content:'';position:absolute;left:12vw; bottom:20vw;width:16vw; height:16vw;background:url('/images/events/2022/event220404/check_off.png') center center no-repeat; background-size:100% auto;}
+.event220404 .evtCont01 .evtFormWrap ul li input[type="radio"] + label .imgWrap{position:relative;margin-top:4vw;}
+.event220404 .evtCont01 .evtFormWrap ul li input[type="radio"] + label .imgWrap img{width:100%;}
+
+.event220404 .evtCont01 .btnWrap{padding:0 8.8vw;}
+.event220404 .evtCont01 .btnApply{display:block;margin-top:5.33vw;width:100%;height:15.733vw;background:url('/images/events/2022/event220404/btn_apply.png') no-repeat left top; background-size:100% auto;}
+.event220404 .evtCont01 .evtInfo{margin-top:7.2vw;padding-left:8vw;}
+.event220404 .evtCont01 .evtInfo li{position:relative;padding-left:4.533vw; font-size:3.2vw; color:#1f1f21; font-weight:400;line-height:1;}
+.event220404 .evtCont01 .evtInfo li+li{margin-top:2.4vw;}
+.event220404 .evtCont01 .evtInfo li:before{content:'';position:absolute;left:0;top:0.2667vw;width:2.933vw; height:2.667vw; background:url('/images/events/2022/event220404/ic_list.png') no-repeat left top; background-size:100% auto;}
+
+
+.event220404 .evtCont02{padding:8.267vw 4vw 12.8vw 3.467vw; background:#f9e7bb;}
+.event220404 .evtCont02 ul li+li{margin-top:6.667vw;}
+.event220404 .evtCont02 ul li:last-child{padding:0 15.467vw 0 16vw;}
+
+
+.event220404 .evtFooter{padding:10.133vw 5.33vw 8vw; background:#757575;}
+.event220404 .evtFooter h2{font-size:4vw; font-weight:500; letter-spacing:-0.025em; color:#fff; line-height: 1;}
+.event220404 .evtFooter h2 span{font:inherit; color:#ffcc00;}
+.event220404 .evtFooter .evtInfoList{margin-top:3.47vw; padding-left:1.33vw}
+.event220404 .evtFooter .evtInfoList li{position:relative;padding-left:5.0667vw;font-size:3.2vw;font-weight:300;color:#fff;line-height:1.58;}
+.event220404 .evtFooter .evtInfoList li span{position:absolute; left:0; top:0; font:inherit;}
+
+.vivasamter_applyDtl .privacyList li span{font:inherit; color:#ff8125;}
+
+/*신청하기 팝업*/
+.bg_yell {background-color: #ffd563 !important;}
+.bg_yell h3{text-align:center;}
+
+.event220404 .vivasamter_applyDtl .info_tit>.join_ipt_chk {display:inline-block;}
+.event220404 .vivasamter_applyDtl .info_tit>.join_ipt_chk .join_chk_list.half {margin:0 0 0 20px; float:none; width:auto; display:inline-block;}
+.event220404 .vivasamter_applyDtl .info_tit>.join_ipt_chk .join_chk_list.half.ml38 {margin-left:38px !important;}
+.event220404 .bulTxt {padding-left:25px; margin-top:5px;text-indent:-10px;}
+.event220404 .input_wrap.receiveGradeClass{display:flex; align-items: center;}
+.event220404 .input_wrap.receiveGradeClass>.input_sm, .event220322 .input_wrap.receiveGradeClass>.label_txt{display:block;}
+.event220404 .input_wrap.receiveGradeClass>.input_sm.wp143{width:143px;}
+.event220404 .evtForm_labelTxt{margin-top:10px;padding-left:17px;font-size:12px; font-weight:400;color:#ff8125;line-height:1;}
+
+.info_tit{margin-top:25px;}
+.vivasamter_applyDtl>div>.info_tit:first-child, .info_tit+.info_tit{margin-top:0;}
+.vivasamter_applyDtl .input_wrap.school .input_sm {width:calc(100% - 130px);}
+.vivasamter_applyDtl .input_wrap.school .input_in_btn.btn_gray {margin-left:5px; margin-top:-20px; right:0; width:125px; height:40px; font-size:14px; font-weight:600;}
+.vivasamter_applyDtl .input_wrap.receiveGradeClass>.label_txt{line-height:40px;}
+
+
+
+
+
+
+
+

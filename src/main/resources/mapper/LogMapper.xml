@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.common.mapper.LogMapper">
+
+	<insert id="logSignIn" parameterType="edu.visang.vivasam.common.model.LogSignIn">
+		<choose>
+			<when test ='logType eq "I"'>
+				INSERT INTO `STATISTICS_SIGNIN` (MEMBER_ID, SESS_ID, REMOTE_IP)
+				VALUES (#{userId}, #{sessId}, #{remoteIp})
+			</when>
+			<when test ='logType eq "O"'>
+				UPDATE `STATISTICS_SIGNIN` SET OUT_DTTM = CURRENT_TIMESTAMP
+				WHERE MEMBER_ID=#{userId} AND SESS_ID=#{sessId}
+			</when>
+		</choose>
+	</insert>
+
+	<insert id="logMaterialView" parameterType="String">
+		INSERT MEMBER_MATERIALS_VIEW_LOG (MEMBER_ID, CONTENT_ID)
+		VALUES (#{memberId}, #{contentId})
+	</insert>
+
+	<insert id="tokenGenerate" parameterType="edu.visang.vivasam.common.model.LogToken">
+		INSERT INTO temp_verification_tokens (
+			  TOKEN
+			, SESSION_ID
+			, CREATED_AT
+			, EXPIRES_AT
+		) VALUES
+		(
+			  #{token}
+			, #{sessId}
+			, NOW()
+			, DATE_ADD(NOW(), INTERVAL 4 HOUR)
+		)
+	</insert>
+
+	<delete id="deleteTokenByMemberId" parameterType="String">
+		DELETE TVT
+		FROM TEMP_VERIFICATION_TOKENS TVT
+				 INNER JOIN STATISTICS_SIGNIN SS ON TVT.SESSION_ID = SS.SESS_ID
+				 INNER JOIN MEMBER M ON SS.MEMBER_ID = M.MEMBER_ID
+		WHERE M.MEMBER_ID = #{userId}
+    </delete>
+
+	<select id="selectMemberIdFromSessionId" resultType="String" parameterType="String">
+		SELECT M.MEMBER_ID
+		FROM STATISTICS_SIGNIN SS
+				 INNER JOIN MEMBER M ON SS.MEMBER_ID = M.MEMBER_ID
+		WHERE SS.SESS_ID = #{sessId}
+		LIMIT 1
+	</select>
+</mapper>

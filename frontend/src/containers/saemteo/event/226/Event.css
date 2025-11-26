@@ -1,0 +1,133 @@
+.evt_180827 {
+    /* width: 747px; */
+    font-family: "Nanum Gothic","나눔고딕",NanumGothic,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;
+    position: relative;
+    line-height: 0;
+}
+.evt_180827 .evt_sect{
+
+}
+.evt_180827 .evt_sect .entry_form{
+    /* width: 747px; */
+    height: 536px;
+    background: #f8fafb url(https://www.vivasam.com/images/event/event180827/evt04.jpg) 100% 100% no-repeat;
+    position: relative;
+}
+.evt_180827 .evt_sect .entry_form form{
+    font-size: 16px;
+    color: #333;
+    line-height: 1.9em;
+    padding-top: 34px;
+}
+.evt_180827 .evt_sect .entry_form form label{
+    display: inline-block;
+}
+.evt_180827 .evt_sect .entry_form form p{
+    /* width: 580px; */
+    /* padding-left: 150px; */
+    letter-spacing: -0.1em;
+}
+.evt_180827 .evt_sect .entry_form form p+p{
+    /* margin: 20px 0; */
+}
+.evt_180827 .evt_sect .entry_form form .msg{
+    /* margin: 0 0 0 77px; */
+    /* position: relative; */
+}
+.evt_180827 .evt_sect .entry_form form .msg textarea{
+    font-size: 16px;
+    color: #666;
+    line-height: 1.7em;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.evt_180827 .evt_sect .entry_form form .msg .count{
+    /* position: absolute; */
+    text-align: center;
+    width: 80px;
+    right: 10px;
+    bottom: 14px;
+    color: #666;
+    letter-spacing: 0em;
+}
+.evt_180827 .evt_sect .entry_form form .qty{
+    width: 109px;
+    height: 30px;
+    outline: 1px solid #ccc;
+    /* position: absolute; */
+    left: 78px;
+    bottom: 68px;
+
+}
+.evt_180827 .evt_sect .entry_form form .qty input{
+    width: 109px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 18px;
+    color: #333;
+}
+.evt_180827 .evt_sect .entry_form form button{
+    display: block;
+    width: 272px;
+    height: 72px;
+    position: absolute;
+    right: 72px;
+    bottom: 72px;
+    padding: 0;
+    margin: 0;
+    background: none;
+}
+.evt_180827 .evt_sect .entry_form form .select-btn{
+    display: inline-block;
+    width: 150px;
+    height: 20px;
+    position: relative;
+}
+.evt_180827 .evt_sect .entry_form form .select-btn.jeju2,
+.evt_180827 .evt_sect .entry_form form .select-btn.jeju5,
+.evt_180827 .evt_sect .entry_form form .select-btn.goseong2{
+    /* width: 186px; */
+}
+.evt_180827 .evt_sect .entry_form form .select-btn input{
+    display: inline-block;
+    width: inherit;
+    height: 20px;
+    margin: 0;
+    opacity: 0;
+}
+.evt_180827 .evt_sect .entry_form form .select-btn input + i.lab {
+    display: inline-block;
+    width: inherit;
+    height: 20px;
+    line-height: 20px;
+    background-image: url(https://www.vivasam.com/images/event/event180827/radio.png);
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 0;
+    top: 5px;
+    padding-left: 22px;
+}
+.evt_180827 .evt_sect .entry_form form .select-btn input:checked +i.lab {
+    background-position: 0 -20px;
+}
+.evt_180827 .evt_sect .entry_form .after{
+    display: none;
+    width: 669px;
+    height: 55px;
+    padding: 230px 0;
+    background: url(https://www.vivasam.com/images/event/event180827/evt-after.png);
+    position: absolute;
+    left: 40px;
+    top: 96px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #ff0;
+    text-align: center;
+    line-height: 55px;
+}
+.evt_180827 .evt_sect.close .entry_form .after{
+    display: block;
+}

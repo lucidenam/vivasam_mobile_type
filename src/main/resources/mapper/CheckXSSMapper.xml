@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.common.mapper.CheckXSSMapper">
+
+	<insert id="insertLog" parameterType="String">
+		INSERT INTO SQLINJECTION_LOG (REMOTE_IP, TARGET_IP, PARAM_NAME, PARAM_VALUE, URI, ERR_TYPE, DOMAIN, PROTOCOL, PORT)
+		VALUES ( #{remote_ip}, #{server_ip}, #{param_name}, #{param_value}, #{join_link}, #{code}, #{server_name}, #{scheme}, #{port_no} )
+	</insert>
+
+</mapper>

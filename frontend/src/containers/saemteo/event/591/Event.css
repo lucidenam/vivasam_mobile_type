@@ -1,0 +1,19 @@
+/* Event */
+.event250922{position:relative;}
+.event250922 img{width:100%;vertical-align:top;}
+.event250922 [class^="evtCont"]{position:relative;z-index:1;}
+.event250922 *{font-family:'Noto Sans KR', sans-serif; box-sizing: border-box;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+
+
+.event250922 .evtTitWrap{padding:91.067vw 6vw 0; background:url('/images/events/2025/event250922/img1.png') no-repeat center top / 100% auto;}
+.event250922 .evt-swiper-wrapper{display:flex; gap:1.6vw; height:64.8vw; overflow:hidden; mask-image:linear-gradient(to top, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 5) 85%, transparent 100%);}
+.event250922 .evt-swiper-wrapper .text-book-swiper-vertical{flex:1;}
+.event250922 .evt-swiper-wrapper .text-book-swiper-vertical .slick-list{height:100%;}
+.event250922 .evt-swiper-wrapper .text-book-swiper-vertical .slick-list .slick-slide{width:auto !important;}
+.event250922 .evt-swiper-wrapper .text-book-swiper-vertical .thumb{margin-top:2.133vw; height:26.667vw; border-radius:1.417vw; overflow:hidden; box-shadow:0.355vw 0.78vw 1.46vw 0 rgba(48, 97, 137, .3); vertical-align:top;}
+.event250922 .evt-swiper-wrapper .text-book-swiper-vertical .thumb img{width:100%; height:100%;}
+.event250922 .evtContWrap{position:relative; margin-top:-35.8vw; z-index:1;}
+.event250922 .evtCont01 .btnEvtLink{position:absolute; left:9.2vw; bottom:8.667vw; width:81.2vw; height:15.467vw;}

@@ -1,0 +1,43 @@
+.event190520 {position: relative; font-family: "Nanum Gothic","나눔고딕",NanumGothic,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;}
+.event190520 img {vertical-align: middle; width:100%; line-height:0}
+.event190520 a {display: inline;}
+
+/* btn */
+/* 신청하기 */
+.event190520 .btn_wrap {text-align: center;}
+.event190520 .btn_apply {width: 100%; height: 13.333vw; border-radius: 0.8vw; background: #333;  font-size: 4.1vw; color: #fff; font-weight: 700;}
+
+/* 더보기 */
+.event190520 .btn_more {width: 100%; height: 12vw; background: #445499; font-family: "Nanum Gothic_Bold"; font-size: 3.33vw; color: #fff;}
+
+/* form */
+.event190520 .checkbox {position:absolute; left:-3000px; opacity:0}
+.event190520 .checkbox + label {display:inline-block; font-size: 3.2vw; color: #535353;}
+.event190520 .checkbox + label:before {content:""; display:inline-block; -webkit-box-sizing:border-box; box-sizing:border-box; width:3.6vw; height:3.6vw; margin-right: 2.5vw; border:1px solid #bfbfbf; border-radius: 0.26vw; vertical-align: middle;}
+.event190520 .checkbox:checked + label:before {border: none; background: url(/images/common/bg_check.png) no-repeat; background-size: cover;}
+.event190520 .checkbox + label span {vertical-align: middle;}
+
+/* contents */
+.event190520 .cont_wrap {background: #fff;font-size: 3.2vw;}
+
+
+/* 개인정보 수집 동의 */
+.event190520 .cont {padding: 4vw 6.667vw 0 6.667vw;}
+.event190520 .agree_info {padding: 4vw 3.34vw; border:1px #dedede solid;}
+.event190520 .agree_info dt {margin-bottom: 3vw; font-family: "Nanum Gothic_Bold"; font-size: 3.34vw; color: #4c4c4c;}
+.event190520 .agree_info ul li {text-indent: -1.6vw; padding-left: 1.6vw; line-height: 1.8; letter-spacing: -0.06vw; font-size: 2.67vw; color: #4a4a4a;}
+.event190520 .agree_info ul li a {text-decoration: underline; font-family: "Nanum Gothic_Bold"; color: #4a4a4a;}
+.event190520 .agree_info ul li em {font-family: "Nanum Gothic_Bold"; color: #1e86a4;}
+.event190520 .agree {position: relative;margin: 3.34vw 0 5.34vw; padding-left: 5.5vw; text-align: left;}
+.event190520 .agree .checkbox + label:before {position: absolute;top:0.9vw;left:0; font-size: 3.2vw; color: #535353;}
+
+/* 사연리스트 */
+.event190520 .cont2 {}
+.event190520 .story_list {position:relative;}
+.event190520 .story_list ul {padding: 2.67vw 6.667vw 0;}
+.event190520 .story_list li {padding: 4vw 0; border-top: 1px solid #ebebeb; line-height: 1.5; font-size: 3.2vw; color: #333;}
+.event190520 .story_list li:first-child {border-top:none}
+.event190520 .story_list li dt {background: url(/images/events/2019/event190520/icon_name.png) no-repeat; background-size: contain; padding-left: 6vw;margin-bottom: 2vw; font-weight: 700;}
+.event190520 .story_list li dd {color: #555;}
+.event190520 .story_list li dd.uid {text-align: right; font-size: 2.8vw; margin-top: 2vw;}
+.event190520 .story_list li dd.uid span { color: #999;}

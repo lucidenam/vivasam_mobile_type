@@ -1,0 +1,17 @@
+/* Event */
+.event240415{position:relative;}
+.event240415 img{width:100%;vertical-align:top;}
+.event240415 [class^="evtCont"]{position:relative;z-index:1;}
+.event240415 *{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+/* EVENT 497 */
+.event240415 .evtFooter{background:#434343;}
+.event240415 .evtFooter .inner{padding:7.73vw 4.53vw 9vw;}
+.event240415 .evtFooter strong{font-size:3.2vw;font-weight:600;color:#fff;line-height:1;}
+.event240415 .evtFooter ul{margin-top:3.2vw;}
+.event240415 .evtFooter ul li{position:relative;padding-left:1.6vw;font-size:2vw;font-weight:300;color:#fff;line-height:1.33;word-break:keep-all;}
+.event240415 .evtFooter ul li:before{content:'·';position:absolute;top:0;left:0;}
+.event240415 .evtFooter ul li + li{margin-top:1.33vw;}

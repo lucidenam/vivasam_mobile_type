@@ -1,0 +1,1961 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.saemteo.mapper.SaemteoMapper">
+
+    <select id="eventList" parameterType="edu.visang.vivasam.saemteo.model.EventInfo" statementType="CALLABLE" resultType="edu.visang.vivasam.saemteo.model.EventInfo">
+        SELECT
+            A.*
+        FROM (
+            SELECT
+              ROW_NUMBER() OVER (ORDER BY EV.EVENT_SDATE DESC) AS rowNum
+            , EV.EVENT_ID                                  AS eventId
+            , EV.EVENT_TYPE								   AS eventType
+            , EV.EVENT_NAME                                AS eventName
+            , EV.EVENT_BN_ORG                              AS eventBnOrg
+            , EV.EVENT_BN_SAV                              AS eventBnSav
+            , EV.EVENT_BN_PATH                             AS eventBnPath
+            , EV.EVENT_BN_YN                               AS eventBnYn
+            , EV.EVENT_MAIN_BN_ORG                         AS eventMainBnOrg
+            , EV.EVENT_MAIN_BN_SAV                         AS eventMainBnSav
+            , EV.EVENT_MAIN_BN_PATH                        AS eventMainBnPath
+            , EV.EVENT_MAIN_BN_YN                          AS eventMainBnYn
+            , EV.EVENT_PASS_BN_ORG                         AS eventPassBnOrg
+            , EV.EVENT_PASS_BN_SAV                         AS eventPassBnSav
+            , EV.EVENT_PASS_BN_PATH                        AS eventPassBnPath
+            , EV.EVENT_PASS_BN_YN                          AS eventPassBnYn
+            , DATE_FORMAT(EV.EVENT_SDATE, '%Y.%m.%d')       AS eventSdate
+            , DATE_FORMAT(EV.EVENT_EDATE, '%Y.%m.%d')       AS eventEdate
+            , DATE_FORMAT(EV.EVENT_PDATE, '%Y-%m-%d')        AS eventPdate
+            , EV.EVENT_SDATE                               AS eventStartDate
+            , EV.EVENT_EDATE                               AS eventEndDate
+            , EV.EVENT_URL                                 AS eventUrl
+            , EV.EVENT_ADM_URL                             AS eventAdmUrl
+            , EV.EVENT_PUB_URL                             AS eventPubUrl
+            , EV.EVENT_DESC                                AS eventDesc
+            , DATE_FORMAT(EV.EVENT_SDATE, '%Y-%m-%d')        AS eventRegdate
+            , EV.EVENT_REGID                               AS eventRegid
+            , DATE_FORMAT(EV.EVENT_SDATE, '%Y-%m-%d')        AS eventModdate
+            , EV.EVENT_MODID                               AS eventModid
+            , EV.EVENT_USE_YN                              AS eventUseYn
+            , EV.EVENT_DEL_YN                              AS eventDelYn
+            , EV.EVENT_MOB_BN_ORG                          AS eventMobBnOrg
+            , EV.EVENT_MOB_BN_SAV                          AS eventMobBnSav
+            , EV.EVENT_MOB_BN_PATH                         AS eventMobBnPath
+            , EV.MOBILE_APPLY_CONTENTS                     AS mobileApplyContents
+            , EV.MOBILE_TERM                               AS mobileTerm
+            , EV.EVENT_MOBILE_BN_YN                        AS eventMobileBannerUseYn
+          FROM  EVENT_INFO AS EV
+          WHERE 1 = 1
+            AND EV.EVENT_DEL_YN = 'N'
+            AND EV.EVENT_USE_YN = #{eventUseYn}
+            AND
+            (
+                (
+                  #{schType} = 'A' /*진행중 이벤트*/
+                  AND
+                  (
+                    DATE_FORMAT(EV.EVENT_SDATE, '%Y-%m-%d') <![CDATA[ <= ]]> CURRENT_DATE
+                    AND
+                    DATE_FORMAT(EV.EVENT_EDATE, '%Y-%m-%d') <![CDATA[ >= ]]> CURRENT_DATE
+                  )
+                )
+                OR (#{schType} != 'A' AND 1 = 1)
+            )
+            AND EV.EVENT_TARGET_PLATFORM IN ('MOBILE', 'ALL')
+            AND EV.EVENT_TARGET_GRADE IN ('ST104', 'ST105')
+            AND EVENT_PARENT_ID	IS NULL
+            <if test="(eventId != null and eventId != '')">
+              AND EV.EVENT_ID  = #{eventId}
+            </if>
+        ) A
+        <if test="(rowNum != null and rowNum != '')">
+        WHERE A.rowNum  <![CDATA[ <= ]]> #{rowNum}
+        </if>
+    </select>
+
+    <select id="eventListAll" parameterType="edu.visang.vivasam.saemteo.model.EventInfo" statementType="CALLABLE" resultType="edu.visang.vivasam.saemteo.model.EventInfo">
+        SELECT
+            A.*
+        FROM (
+            SELECT
+                ROW_NUMBER() OVER (ORDER BY EV.EVENT_SDATE DESC) AS rowNum
+                , EV.EVENT_ID                                  AS eventId
+                , EV.EVENT_TYPE								   AS eventType
+                , EV.EVENT_NAME                                AS eventName
+                , EV.EVENT_BN_ORG                              AS eventBnOrg
+                , EV.EVENT_BN_SAV                              AS eventBnSav
+                , EV.EVENT_BN_PATH                             AS eventBnPath
+                , EV.EVENT_BN_YN                               AS eventBnYn
+                , EV.EVENT_MAIN_BN_ORG                         AS eventMainBnOrg
+                , EV.EVENT_MAIN_BN_SAV                         AS eventMainBnSav
+                , EV.EVENT_MAIN_BN_PATH                        AS eventMainBnPath
+                , EV.EVENT_MAIN_BN_YN                          AS eventMainBnYn
+                , EV.EVENT_PASS_BN_ORG                         AS eventPassBnOrg
+                , EV.EVENT_PASS_BN_SAV                         AS eventPassBnSav
+                , EV.EVENT_PASS_BN_PATH                        AS eventPassBnPath
+                , EV.EVENT_PASS_BN_YN                          AS eventPassBnYn
+                , DATE_FORMAT(EV.EVENT_SDATE, '%Y.%m.%d')       AS eventSdate
+                , DATE_FORMAT(EV.EVENT_EDATE, '%Y.%m.%d')       AS eventEdate
+                , DATE_FORMAT(EV.EVENT_PDATE, '%Y-%m-%d')        AS eventPdate
+                , EV.EVENT_SDATE                               AS eventStartDate
+                , EV.EVENT_EDATE                               AS eventEndDate
+                , EV.EVENT_URL                                 AS eventUrl
+                , EV.EVENT_ADM_URL                             AS eventAdmUrl
+                , EV.EVENT_PUB_URL                             AS eventPubUrl
+                , EV.EVENT_DESC                                AS eventDesc
+                , DATE_FORMAT(EV.EVENT_SDATE, '%Y-%m-%d')        AS eventRegdate
+                , EV.EVENT_REGID                               AS eventRegid
+                , DATE_FORMAT(EV.EVENT_SDATE, '%Y-%m-%d')        AS eventModdate
+                , EV.EVENT_MODID                               AS eventModid
+                , EV.EVENT_USE_YN                              AS eventUseYn
+                , EV.EVENT_DEL_YN                              AS eventDelYn
+                , EV.EVENT_MOB_BN_ORG                          AS eventMobBnOrg
+                , EV.EVENT_MOB_BN_SAV                          AS eventMobBnSav
+                , EV.EVENT_MOB_BN_PATH                         AS eventMobBnPath
+                , EV.MOBILE_APPLY_CONTENTS                     AS mobileApplyContents
+                , EV.MOBILE_TERM                               AS mobileTerm
+                , EV.EVENT_MOBILE_BN_YN                        AS eventMobileBannerUseYn
+            FROM  EVENT_INFO AS EV
+            WHERE 1 = 1
+            AND EV.EVENT_DEL_YN = 'N'
+            AND EV.EVENT_USE_YN = 'Y'
+            AND EV.EVENT_TARGET_PLATFORM IN ('MOBILE', 'ALL')
+            AND EV.EVENT_TARGET_GRADE IN ('ST104', 'ST105')
+            AND EVENT_PARENT_ID	IS NULL
+            <if test="(eventId != null and eventId != '')">
+                AND EV.EVENT_ID  = #{eventId}
+            </if>
+        ) A
+        <if test="(rowNum != null and rowNum != '')">
+        WHERE A.rowNum <![CDATA[ <= ]]> #{rowNum}
+        </if>
+    </select>
+
+    <select id="getEventInfoNoMatterUseYn" parameterType="string" resultType="edu.visang.vivasam.saemteo.model.EventInfo">
+        SELECT
+            EVENT_ID AS eventId
+            , EVENT_TYPE AS eventType
+            , EVENT_NAME AS eventName
+            , EVENT_BN_ORG AS eventBnOrg
+            , EVENT_BN_SAV AS eventBnSav
+            , EVENT_BN_PATH AS eventBnPath
+            , EVENT_BN_YN AS eventBnYn
+            , EVENT_MAIN_BN_ORG AS eventMainBnOrg
+            , EVENT_MAIN_BN_SAV AS eventMainBnSav
+            , EVENT_MAIN_BN_PATH AS eventMainBnPath
+            , EVENT_MAIN_BN_YN AS eventMainBnYn
+            , EVENT_PASS_BN_ORG AS eventPassBnOrg
+            , EVENT_PASS_BN_SAV AS eventPassBnSav
+            , EVENT_PASS_BN_PATH AS eventPassBnPath
+            , EVENT_PASS_BN_YN AS eventPassBnYn
+            , DATE_FORMAT(EVENT_SDATE, '%Y.%m.%d') AS eventSdate
+            , DATE_FORMAT(EVENT_EDATE, '%Y.%m.%d') AS eventEdate
+            , DATE_FORMAT(EVENT_PDATE, '%Y-%m-%d') AS eventPdate
+            , EVENT_SDATE AS eventStartDate
+            , EVENT_EDATE AS eventEndDate
+            , EVENT_URL AS eventUrl
+            , EVENT_ADM_URL AS eventAdmUrl
+            , EVENT_PUB_URL AS eventPubUrl
+            , EVENT_DESC AS eventDesc
+            , DATE_FORMAT(EVENT_SDATE, '%Y-%m-%d') AS eventRegdate
+            , EVENT_REGID AS eventRegid
+            , DATE_FORMAT(EVENT_SDATE, '%Y-%m-%d') AS eventModdate
+            , EVENT_MODID AS eventModid
+            , EVENT_USE_YN AS eventUseYn
+            , EVENT_DEL_YN AS eventDelYn
+            , EVENT_MOB_BN_ORG AS eventMobBnOrg
+            , EVENT_MOB_BN_SAV AS eventMobBnSav
+            , EVENT_MOB_BN_PATH AS eventMobBnPath
+            , EVENT_MOB_BN_SAV_ES AS eventMobBnSavEs
+            , EVENT_MOB_BN_PATH_ES AS eventMobBnPathEs
+            , MOBILE_APPLY_CONTENTS AS mobileApplyContents
+            , MOBILE_TERM AS mobileTerm
+            , EVENT_MOBILE_BN_YN AS eventMobileBannerUseYn
+        FROM EVENT_INFO
+        WHERE EVENT_ID = #{eventId}
+          AND EVENT_DEL_YN = 'N'
+    </select>
+
+    <select id="getEventMileagePoint" parameterType="string" resultType="int">
+		SELECT MILEAGE_POINT
+		FROM EVENT_INFO
+		WHERE EVENT_ID = #{eventId}
+	</select>
+
+    <select id="eventSubEventList" parameterType="string" resultType="edu.visang.vivasam.saemteo.model.EventInfo">
+        SELECT
+            EVENT_ID AS eventId
+            , EVENT_TYPE AS eventType
+            , EVENT_NAME AS eventName
+            , EVENT_BN_ORG AS eventBnOrg
+            , EVENT_BN_SAV AS eventBnSav
+            , EVENT_BN_PATH AS eventBnPath
+            , EVENT_BN_YN AS eventBnYn
+            , EVENT_MAIN_BN_ORG AS eventMainBnOrg
+            , EVENT_MAIN_BN_SAV AS eventMainBnSav
+            , EVENT_MAIN_BN_PATH AS eventMainBnPath
+            , EVENT_MAIN_BN_YN AS eventMainBnYn
+            , EVENT_PASS_BN_ORG AS eventPassBnOrg
+            , EVENT_PASS_BN_SAV AS eventPassBnSav
+            , EVENT_PASS_BN_PATH AS eventPassBnPath
+            , EVENT_PASS_BN_YN AS eventPassBnYn
+            , DATE_FORMAT(EVENT_SDATE, '%Y.%m.%d') AS eventSdate
+            , DATE_FORMAT(EVENT_EDATE, '%Y.%m.%d') AS eventEdate
+            , DATE_FORMAT(EVENT_PDATE, '%Y-%m-%d') AS eventPdate
+            , EVENT_SDATE AS eventStartDate
+            , EVENT_EDATE AS eventEndDate
+            , EVENT_URL AS eventUrl
+            , EVENT_ADM_URL AS eventAdmUrl
+            , EVENT_PUB_URL AS eventPubUrl
+            , EVENT_DESC AS eventDesc
+            , DATE_FORMAT(EVENT_SDATE, '%Y-%m-%d') AS eventRegdate
+            , EVENT_REGID AS eventRegid
+            , DATE_FORMAT(EVENT_SDATE, '%Y-%m-%d') AS eventModdate
+            , EVENT_MODID AS eventModid
+            , EVENT_USE_YN AS eventUseYn
+            , EVENT_DEL_YN AS eventDelYn
+            , EVENT_MOB_BN_ORG AS eventMobBnOrg
+            , EVENT_MOB_BN_SAV AS eventMobBnSav
+            , EVENT_MOB_BN_PATH AS eventMobBnPath
+            , EVENT_MOB_BN_SAV_ES AS eventMobBnSavEs
+            , EVENT_MOB_BN_PATH_ES AS eventMobBnPathEs
+            , MOBILE_APPLY_CONTENTS AS mobileApplyContents
+            , MOBILE_TERM AS mobileTerm
+            , EVENT_MOBILE_BN_YN AS eventMobileBannerUseYn
+        FROM EVENT_INFO
+        WHERE EVENT_PARENT_ID = #{eventId}
+        AND EVENT_DEL_YN = 'N'
+        AND EXISTS(
+            SELECT
+                EVENT_ID FROM
+                EVENT_INFO
+            WHERE EVENT_ID = #{eventId}
+            AND EVENT_DEL_YN = 'N'
+            AND EVENT_USE_YN = 'Y'
+            AND EVENT_TARGET_PLATFORM != 'PC'
+			AND EVENT_TARGET_GRADE IN ('ST104', 'ST105')
+        )
+        ORDER BY EVENT_SDATE
+    </select>
+
+    <update id="eventUpdateReadCount" parameterType="String">
+        UPDATE EVENT_INFO
+        SET EVENT_VIEW_CNT = EVENT_VIEW_CNT + 1
+        WHERE EVENT_ID = #{eventId}
+    </update>
+
+    <select id="programList" parameterType="String" resultType="edu.visang.vivasam.saemteo.model.CulturalActInfo">
+        SELECT
+            A.*
+        FROM (
+            SELECT
+                ROW_NUMBER() OVER (ORDER BY CI.CULTURE_ACT_ID DESC) AS rowNum,
+                CULTURE_ACT_ID AS cultureActId,
+                CI.TITLE AS title,
+                CI.MOBILE_TITLE AS mobileTitle,
+                DATE_FORMAT(CI.ACT_START_DT, '%Y.%m.%d') AS startDt,
+                DATE_FORMAT(CI.ACT_END_DT, '%Y.%m.%d') AS endDt,
+                CI.CTNT_GUBUN_CD AS contentsGubunCd,
+                CI.CONTENTS AS contents,
+                CI.MOBILE_CONTENTS AS mobileContents,
+                CI.SUMMARY_DESC AS summary,
+                CI.LINK_URL AS url,
+                CI.THUM_PATH_URL AS thumbnail,
+                CI.MOBILE_THUM_PATH_URL AS mobileThumPathUrl,
+                CI.POSTSCRIPT_GUBUN_CD AS postscriptGubunCd,
+                CI.POSTSCRIPT AS postscript,
+                CI.POSTSCRIPT_LINK_URL AS postscriptLinkUrl,
+                CI.DATA_STATE_CD AS state,
+                CI.READ_CNT AS readCnt,
+                CI.RECOM_CNT AS recomCnt,
+                CI.PUT_CNT AS putCnt,
+                CI.DOWN_CNT AS downCnt,
+                (SELECT COUNT(1) FROM CMT_INFO WHERE CMT_SETUP_ID = 4 AND CMT_KEY_ID=CI.CULTURE_ACT_ID AND CMT_DEPTH=0) AS replyCnt,
+                (SELECT COUNT(1) FROM CULTURE_ACT_APPLY_INFO WHERE CULTURE_ACT_ID = CI.CULTURE_ACT_ID) AS applyCnt,
+                DATE_FORMAT(CI.REG_DTTM, '%Y-%m-%d') AS regDt,
+                CI.REGR_ID AS regId,
+                DATE_FORMAT(CI.UPT_DTTM, '%Y-%m-%d') AS upDt,
+                CI.UPTR_ID AS upId,
+                CI.MOBILE_APPLY_CONTENTS AS mobileApplyContents,
+                CI.MOBILE_TERM AS mobileTerm,
+                CI.ADD_CHECKBOX_YN AS addCheckboxYn,
+                CI.ADD_CHECKBOX_TEXT AS addCheckboxText
+            FROM CULTURE_ACT_INFO CI
+            WHERE 1=1
+              AND (
+                    (IFNULL(#{gubunCd}, '') <![CDATA[ <> ]]> '' AND CI.PROGRAM_GUBUN_CD = #{gubunCd})
+                    OR (IFNULL(#{gubunCd}, '') = '' AND 1 = 1)
+                  )
+              AND (
+                    (IFNULL(#{stateCd}, '') <![CDATA[ <> ]]> '' AND CI.DATA_STATE_CD = #{stateCd})
+                    OR (IFNULL(#{stateCd}, '') = '' AND 1 = 1)
+                  )
+              AND (
+                    DATE_FORMAT(CI.ACT_START_DT, '%Y-%m-%d') <![CDATA[ <= ]]> CURRENT_DATE
+                    AND DATE_FORMAT(CI.ACT_END_DT, '%Y-%m-%d') <![CDATA[ >= ]]> CURRENT_DATE
+                  )
+              AND CI.TARGET_PLATFORM IN ('MOBILE', 'ALL')
+              <if test="(cultureActId != null and cultureActId != '')">
+                  AND CI.CULTURE_ACT_ID  = #{cultureActId}
+              </if>
+        ) A
+        <if test="(rowNum != null and rowNum != '')">
+            WHERE A.rowNum  <![CDATA[ <= ]]> #{rowNum}
+        </if>
+    </select>
+    
+    <select id="findProgramById" parameterType="long" resultType="edu.visang.vivasam.saemteo.model.CulturalActInfo">
+        SELECT
+            CAST(CULTURE_ACT_ID AS CHAR) AS cultureact_Id,
+            TITLE AS title,
+            DATE_FORMAT(ACT_START_DT, '%Y-%m-%d') AS start_Dt,
+            DATE_FORMAT(ACT_END_DT, '%Y-%m-%d') AS end_Dt,
+            CTNT_GUBUN_CD AS contentsGubunCd,
+            CONTENTS AS contents,
+            SUMMARY_DESC AS summary,
+            LINK_URL AS url,
+            THUM_PATH_URL AS thumbnail,
+            POSTSCRIPT_GUBUN_CD AS postscriptGubunCd,
+            POSTSCRIPT AS postscript,
+            POSTSCRIPT_LINK_URL AS postscriptLinkUrl,
+            DATA_STATE_CD AS state,
+            READ_CNT AS readCnt,
+            CASE
+                WHEN CULTURE_PC_JOIN_CNT > 0
+                    THEN CULTURE_PC_JOIN_CNT
+                ELSE (
+                     SELECT COUNT(1)
+                     FROM CULTURE_ACT_APPLY_INFO T1
+                     LEFT JOIN MEMBER T2  ON T1.MEMBER_ID = T2.MEMBER_ID
+                     AND T2.STATE != 'D'
+                     WHERE T1.CULTURE_ACT_ID = CULTURE_ACT_ID
+                     AND T1.VIA = 'WEB'
+                )
+            END AS applyCnt,
+            CASE
+                WHEN CULTURE_MOBILE_JOIN_CNT > 0
+                    THEN CULTURE_MOBILE_JOIN_CNT
+                ELSE (
+                    SELECT COUNT(1) AS CNT
+                    FROM CULTURE_ACT_APPLY_INFO T1
+                    LEFT JOIN MEMBER T2 ON T1.MEMBER_ID = T2.MEMBER_ID
+                    AND T2.STATE != 'D'
+                    WHERE T1.CULTURE_ACT_ID = CULTURE_ACT_ID
+                    AND T1.VIA = 'MOBILE'
+                )
+            END AS applyCntMob,
+            DATE_FORMAT(REG_DTTM, '%Y-%m-%d') AS regDt,
+            REGR_ID AS regId,
+            DATE_FORMAT(UPT_DTTM, '%Y-%m-%d') AS upDt,
+            UPTR_ID AS upId,
+            CASE
+                WHEN
+                    ACT_START_DT <![CDATA[ <= ]]> CAST(CURRENT_TIMESTAMP AS DATE) AND ACT_END_DT >= CAST(CURRENT_TIMESTAMP AS DATE)
+                    AND
+                    (LENGTH(IFNULL(POSTSCRIPT, '')) = 0 AND IFNULL(POSTSCRIPT_LINK_URL, '') = '')
+                        THEN '모객 중'
+                WHEN ACT_START_DT > CAST(CURRENT_TIMESTAMP AS DATE)
+                    THEN '대기'
+                WHEN
+                    ACT_END_DT <![CDATA[ < ]]> CAST(CURRENT_TIMESTAMP AS DATE)
+                    AND
+                    (LENGTH(IFNULL(POSTSCRIPT, '')) = 0 AND IFNULL(POSTSCRIPT_LINK_URL, '') = '')
+                        THEN '모객 종료'
+                WHEN
+                    ACT_END_DT <![CDATA[ < ]]> CAST(CURRENT_TIMESTAMP AS DATE)
+                    AND
+                    (LENGTH(IFNULL(POSTSCRIPT, '')) > 0 OR IFNULL(POSTSCRIPT_LINK_URL, '') != '')
+                        THEN '후기'
+            END AS state_desc,
+            TARGET_PLATFORM AS target_platform,
+            PROGRAM_GUBUN_CD AS programGubunCd,
+            APPLY_GUBUN_CD AS applyGubunCd
+        FROM CULTURE_ACT_INFO
+        WHERE CULTURE_ACT_ID = #{cultureActId}
+    </select>
+    
+
+    <update id="programUpdateReadCount" parameterType="String">
+        UPDATE CULTURE_ACT_INFO
+        SET READ_CNT = READ_CNT + 1
+        WHERE CULTURE_ACT_ID = #{cultureActId}
+    </update>
+
+    <select id="cultureProgramOfflineSeminarApplyCheck" parameterType="hashmap" resultType="int">
+        SELECT COUNT(1) AS applyCnt
+        FROM CULTURE_ACT_APPLY_INFO
+        WHERE CULTURE_ACT_ID = #{cultureActId}
+        AND MEMBER_ID = #{memberId}
+    </select>
+
+    <insert id="cultureProgramOfflineSeminarApplyInsert" parameterType="edu.visang.vivasam.saemteo.model.CulturalActApplyInfo">
+        INSERT INTO CULTURE_ACT_APPLY_INFO (
+             CULTURE_ACT_ID
+            , MEMBER_ID
+            , APPLY_DTTM
+            , VIA
+            <if test="(withPeopleNumber != null and withPeopleNumber != '')">
+                , WITH_PEOPLE_NUM
+            </if>
+            , QUESTION_CTNT
+            , OFFLINE
+            , ONLINE
+            , EVENT_ANSWER_DESC
+        )
+        VALUES (
+             #{cultureActId}
+            , #{memberId}
+            , CURRENT_TIMESTAMP()
+            , 'MOBILE'
+            <if test="(withPeopleNumber != null and withPeopleNumber != '')">
+                , #{withPeopleNumber}
+            </if>
+            , #{questionCtnt}
+            , #{offline}
+            , #{online}
+            , #{eventAnswerDesc}
+        )
+    </insert>
+
+    <resultMap id="ingSurveyListMap" type="edu.visang.vivasam.saemteo.model.SurveyInfo">
+        <id property="surveyId" column="surveyId" />
+        <result property="surveyYear" column="surveyYear" />
+        <result property="surveyMonth" column="surveyMonth" />
+        <result property="subject" column="subject" />
+        <result property="surveyStartDt" column="surveyStartDt" />
+        <result property="surveyEndDt" column="surveyEndDt" />
+        <result property="surveyTypeCd" column="surveyTypeCd" />
+        <result property="surveyDuplSelCnt" column="surveyDuplSelCnt" />
+        <result property="surveyUseYn" column="surveyUseYn" />
+        <result property="surveyRegDt" column="surveyRegDt" />
+        <result property="surveyRegrId" column="surveyRegrId" />
+        <result property="surveyApplyCnt" column="surveyApplyCnt" />
+        <result property="surveyType" column="surveyType" />
+        <collection property="surveyItemList" column="surveyId" javaType="ArrayList" ofType="edu.visang.vivasam.saemteo.model.SurveyItemInfo">
+            <result property="surveyItemNo" column="surveyItemNo" />
+            <result property="surveyItemNm" column="surveyItemNm" />
+        </collection>
+    </resultMap>
+    <select id="surveyList" parameterType="String" resultMap="ingSurveyListMap">
+        SELECT
+            S.SURVEY_ID AS surveyId,
+            S.SURVEY_YEAR AS surveyYear,
+            S.SURVEY_MONTH AS surveyMonth,
+            S.SUBJECT AS subject,
+            DATE_FORMAT(S.SURVEY_START_DT, '%Y-%m-%d') AS surveyStartDt,
+            DATE_FORMAT(S.SURVEY_END_DT, '%Y-%m-%d') AS surveyEndDt,
+            S.SURVEY_TYPE_CD AS surveyTypeCd,
+            S.SURVEY_DUPL_SEL_CNT AS surveyDuplSelCnt,
+            S.SURVEY_USE_YN AS surveyUseYn,
+            DATE_FORMAT(S.SURVEY_REG_DTTM, '%Y-%m-%d') AS surveyRegDt,
+            S.SURVEY_REGR_ID AS surveyRegrId,
+            S.SURVEY_TYPE AS surveyType,
+            I.SURVEY_ITEM_NO AS surveyItemNo,
+            I.SURVEY_ITEM_NM AS surveyItemNm,
+            (SELECT COUNT(1) FROM SURVEY_SEL_ITEM_INFO AS A  WHERE A.SURVEY_ID = S.SURVEY_ID AND SURVEY_OPENYN = 'Y') AS surveyApplyCnt
+            FROM SURVEY_INFO AS S
+            JOIN SURVEY_ITEM_INFO AS I  ON S.SURVEY_ID = I.SURVEY_ID
+        WHERE 1 = 1
+            AND SURVEY_USE_YN = 'Y'
+            AND SURVEY_TARGET_SCHOOL != 'E'
+        <if test='ingSurveyYn == "Y" '>
+            AND (S.SURVEY_START_DT <![CDATA[<=]]> CONCAT(CURRENT_DATE,' 00:00:00') AND S.SURVEY_END_DT <![CDATA[>=]]> CONCAT(CURRENT_DATE,' 00:00:00'))
+        </if>
+        <if test='ingSurveyYn == "N" '>
+            AND (S.SURVEY_START_DT <![CDATA[>]]> CONCAT(CURRENT_DATE,' 00:00:00') OR S.SURVEY_END_DT <![CDATA[<]]> CONCAT(CURRENT_DATE,' 00:00:00'))
+        </if>
+        <if test="(surveyId != null and surveyId != '')">
+            AND S.SURVEY_ID = #{surveyId}
+        </if>
+            AND S.SURVEY_TARGET_PLATFORM IN ( 'MOBILE', 'ALL')
+        ORDER BY S.SURVEY_REG_DTTM DESC, I.SURVEY_ITEM_NO
+    </select>
+
+    <!-- 설문 정보 조회  -->
+    <resultMap id="surveyInfoMap" type="edu.visang.vivasam.saemteo.model.SurveyInfo">
+        <id property="surveyId" column="surveyId" />
+        <result property="surveyYear" column="surveyYear" />
+        <result property="surveyMonth" column="surveyMonth" />
+        <result property="subject" column="subject" />
+        <result property="surveyStartDt" column="surveyStartDt" />
+        <result property="surveyEndDt" column="surveyEndDt" />
+        <result property="surveyTypeCd" column="surveyTypeCd" />
+        <result property="surveyDuplSelCnt" column="surveyDuplSelCnt" />
+        <result property="surveyUseYn" column="surveyUseYn" />
+        <result property="surveyRegDt" column="surveyRegDt" />
+        <result property="surveyRegrId" column="surveyRegrId" />
+        <result property="surveyApplyCnt" column="surveyApplyCnt" />
+        <result property="surveyType" column="surveyType" />
+        <collection property="surveyItemList" column="surveyId" javaType="ArrayList" ofType="edu.visang.vivasam.saemteo.model.SurveyItemInfo">
+            <result property="surveyItemNo" column="surveyItemNo" />
+            <result property="surveyItemNm" column="surveyItemNm" />
+        </collection>
+    </resultMap>
+    <select id="surveyInfo" parameterType="string" resultMap="surveyInfoMap">
+        SELECT
+            S.SURVEY_ID AS surveyId,
+            S.SURVEY_YEAR AS surveyYear,
+            S.SURVEY_MONTH AS surveyMonth,
+            S.SUBJECT AS subject,
+            DATE_FORMAT(S.SURVEY_START_DT, '%Y-%m-%d') AS surveyStartDt,
+            DATE_FORMAT(S.SURVEY_END_DT, '%Y-%m-%d') AS surveyEndDt,
+            S.SURVEY_TYPE_CD AS surveyTypeCd,
+            S.SURVEY_DUPL_SEL_CNT AS surveyDuplSelCnt,
+            S.SURVEY_USE_YN AS surveyUseYn,
+            DATE_FORMAT(S.SURVEY_REG_DTTM, '%Y-%m-%d') AS surveyRegDt,
+            S.SURVEY_REGR_ID AS surveyRegrId,
+            S.SURVEY_TYPE AS surveyType,
+            I.SURVEY_ITEM_NO AS surveyItemNo,
+            I.SURVEY_ITEM_NM AS surveyItemNm,
+            (SELECT COUNT(1) FROM SURVEY_SEL_ITEM_INFO AS A  WHERE A.SURVEY_ID = S.SURVEY_ID AND SURVEY_OPENYN = 'Y') AS surveyApplyCnt
+        FROM SURVEY_INFO AS S
+        JOIN SURVEY_ITEM_INFO AS I  ON S.SURVEY_ID = I.SURVEY_ID
+        WHERE 1 = 1
+        AND SURVEY_USE_YN = 'Y'
+        AND S.SURVEY_ID = #{surveyId}
+        ORDER BY S.SURVEY_REG_DTTM DESC, I.SURVEY_ITEM_NO
+    </select>
+
+    <!-- 설문 통계 자료 조회  -->
+    <select id="surveyApplyStat" parameterType="String" resultType="edu.visang.vivasam.saemteo.model.SurveyInfo">
+        SELECT
+            I.SURVEY_ITEM_NM AS surveyItemNm,
+            I.SURVEY_ITEM_NO AS surveyItemNo,
+            SI.SEL_ITEM_CNT AS surveySelItemCnt
+        FROM SURVEY_INFO AS S
+        JOIN SURVEY_ITEM_INFO AS I  ON S.SURVEY_ID = I.SURVEY_ID
+        JOIN SURVEY_APPLY_INFO AS A  ON S.SURVEY_ID = A.SURVEY_ID
+        LEFT JOIN LATERAL(
+            SELECT COUNT(SURVEY_SEL_ITEM_NO) AS SEL_ITEM_CNT
+            FROM SURVEY_SEL_ITEM_INFO
+            WHERE SURVEY_ID = S.SURVEY_ID
+            AND SURVEY_SEL_ITEM_NO = I.SURVEY_ITEM_NO
+            AND SURVEY_OPENYN = 'Y'
+        ) SI ON 1=1
+        WHERE S.SURVEY_ID = #{surveyId}
+        GROUP BY I.SURVEY_ITEM_NM, I.SURVEY_ITEM_NO, SI.SEL_ITEM_CNT
+        ORDER BY I.SURVEY_ITEM_NO
+    </select>
+
+    <select id="surveySubejctiveItemCount" parameterType="String" resultType="int">
+        SELECT COUNT(S.SURVEY_ID) AS cnt
+        FROM SURVEY_APPLY_INFO AS I
+        LEFT JOIN SURVEY_SEL_ITEM_INFO AS S ON I.MEMBER_ID = S.MEMBER_ID
+            AND I.SURVEY_ID = S.SURVEY_ID
+        WHERE S.SURVEY_ID = #{surveyId}
+        AND S.SURVEY_OPENYN = 'Y'
+        <if test='surveyItemNo == "11"'>
+            AND S.SURVEY_SEL_ITEM_NO = #{surveyItemNo}
+        </if>
+    </select>
+
+    <select id="surveySubejctiveItemList" parameterType="hashmap" resultType="edu.visang.vivasam.saemteo.model.SurveyItemInfo">
+        SELECT
+            memberId,
+            surveyItemNo,
+            surveySubjective,
+            surveyOpenYN
+        FROM(
+            SELECT
+                ROW_NUMBER() OVER( ORDER BY I.SURVEY_APPLY_DTTM DESC) AS num,
+                S.MEMBER_ID AS memberId,
+                S.SURVEY_SEL_ITEM_NO AS surveyItemNo,
+                S.SURVEY_SUBJECTIVE AS surveySubjective,
+                S.SURVEY_OPENYN AS surveyOpenYN
+            FROM SURVEY_APPLY_INFO AS I
+            LEFT JOIN SURVEY_SEL_ITEM_INFO AS S ON I.MEMBER_ID = S.MEMBER_ID
+               AND I.SURVEY_ID = S.SURVEY_ID
+            WHERE S.SURVEY_ID = #{surveyId}
+            AND S.SURVEY_SEL_ITEM_NO = '11'
+            AND S.SURVEY_OPENYN = 'Y'
+        ) as M
+        WHERE num BETWEEN (#{pageno} -1)*#{pagesize}+1 AND #{pageno}*#{pagesize}
+    </select>
+
+    <!-- 설문 참여 여부 조회 -->
+    <select id="surveyApplyCnt" parameterType="String" resultType="Integer">
+        SELECT
+            COUNT(1) AS cnt
+        FROM SURVEY_APPLY_INFO
+        WHERE SURVEY_ID = #{surveyId}
+        AND MEMBER_ID = #{memberId}
+    </select>
+
+    <!-- 설문 참여 정보 등록 -->
+    <insert id="surveyApplyInsert" parameterType="String">
+        INSERT INTO SURVEY_APPLY_INFO (
+            SURVEY_ID,
+            MEMBER_ID,
+            SURVEY_APPLY_DTTM,
+            VIA)
+        VALUES (
+            #{surveyId},
+            #{memberId},
+            CURRENT_TIMESTAMP(),
+            'MOBILE'
+        )
+    </insert>
+
+    <!-- 설문 참여 선택 항목 정보 등록 -->
+    <insert id="surveyItemApplyInsert" parameterType="String">
+        INSERT INTO SURVEY_SEL_ITEM_INFO (
+            SURVEY_ID,
+            MEMBER_ID,
+            SURVEY_SEL_ITEM_NO,
+            SURVEY_SUBJECTIVE)
+        VALUES (
+            #{surveyId},
+            #{memberId},
+            #{surveyItemNo},
+            #{surveySubjective}
+        )
+    </insert>
+
+    <!-- 비바샘터 추천 수업 자료 배너 목록 -->
+    <select id="recommandEduBannerList" parameterType="String" resultType="hashmap">
+			SELECT
+				ID as id,
+				BANNER_NAME as bannerName,
+				LINK_TYPE as linkType,
+				BANNER_URL as bannerUrl,
+				BANNER_FILE_ORG as bannerFileOrg,
+				BANNER_FILE_SAV as bannerFileSav,
+				BANNER_FILE_PATH as bannerFilePath
+			FROM RECO_EDU_MATERIAL_BANNER
+			WHERE BANNER_USE_YN = 'Y'
+			AND CURRENT_TIMESTAMP() >= OPENDATE
+			AND (
+				CURRENT_TIMESTAMP() <![CDATA[<=]]> CLOSEDATE
+				OR CLOSEDATE IS NULL
+			)
+			ORDER BY ORDER_NO DESC        
+    </select>
+
+    <!-- 이벤트 참여 여부 조회 -->
+    <select id="eventApplyCheck" parameterType="String" resultType="int">
+        SELECT COUNT(1) as joinChkCnt
+        FROM EVENT_JOIN
+        WHERE EVENT_ID = #{eventId}
+        AND MEMBER_ID = #{memberId}
+    </select>
+
+    <insert id="eventApplyInsert" parameterType="hashmap" >
+        INSERT INTO EVENT_JOIN (
+            EVENT_ID
+            , MEMBER_ID
+            , VIA
+            <if test="orderNo != null">
+				,ORDER_NO
+			</if>
+        ) VALUES (
+            #{eventId}
+            , #{memberId}
+            , 'MOBILE'
+            <if test="orderNo != null">
+				,#{orderNo}
+			</if>
+        )
+    </insert>
+
+    <insert id="eventApplyInsertExists" parameterType="hashmap" >
+        INSERT INTO EVENT_JOIN (
+            EVENT_ID
+            , MEMBER_ID
+            , VIA
+            <if test="orderNo != null">
+				,ORDER_NO
+			</if>
+        )
+        SELECT
+			#{eventId}
+			, #{memberId}
+			, 'MOBILE'
+            <if test="orderNo != null">
+			, #{orderNo}
+            </if>
+		FROM DUAL
+		WHERE NOT EXISTS (
+			SELECT 1
+			FROM (
+				SELECT COUNT(1) AS CNT
+				FROM EVENT_JOIN
+				WHERE EVENT_ID = #{eventId}
+				AND MEMBER_ID = #{memberId}
+			) T
+			WHERE CNT > 0
+		)
+    </insert>
+
+    <select id="checkEventTotalJoin" parameterType="String" resultType="int">
+        SELECT COUNT(1) AS joinChkCnt
+        FROM EVENT_JOIN
+        WHERE EVENT_ID = #{eventId}
+    </select>
+
+    <select id="checkEventTotalJoinMy" parameterType="String" resultType="int">
+		SELECT COUNT(1) AS joinChkCnt
+		FROM EVENT_JOIN
+		WHERE EVENT_ID = #{eventId}
+		AND MEMBER_ID = #{memberId}
+	</select>
+
+    <insert id="eventJoinAnswerInsert" parameterType="hashmap" >
+        INSERT INTO EVENT_JOIN_ANSWER (
+            EVENT_ID
+          , MEMBER_ID
+          , EVENT_ANSWER_ID
+          , EVENT_ANSWER_DESC
+          , EVENT_ANSWER_SEQ
+          <if test="orderNo != null">
+              ,ORDER_NO
+          </if>
+        )
+        SELECT
+            #{eventId},
+            #{memberId},
+            (CASE
+                 WHEN (SELECT COUNT(1) FROM EVENT_JOIN_ANSWER WHERE EVENT_ID = #{eventId} AND MEMBER_ID = #{memberId}) <![CDATA[ > ]]> 0
+                     THEN (SELECT MAX(EVENT_ANSWER_ID) FROM EVENT_JOIN_ANSWER WHERE EVENT_ID = #{eventId} AND MEMBER_ID = #{memberId})
+                 ELSE (SELECT COUNT(1) FROM EVENT_JOIN WHERE EVENT_ID = #{eventId})
+            END),
+            #{eventAnswerDesc},
+            #{eventAnswerSeq}
+            <if test="orderNo != null">
+				, #{orderNo}
+			</if>
+    </insert>
+
+    <insert id="eventJoinAnswerInsertForGoods" parameterType="hashmap" >
+        INSERT INTO EVENT_JOIN_ANSWER (
+            EVENT_ID
+            , MEMBER_ID
+            , EVENT_ANSWER_ID
+            , EVENT_ANSWER_DESC
+            , EVENT_ANSWER_SEQ
+        )
+        SELECT
+            #{eventId},
+            #{memberId},
+            (CASE
+                WHEN (SELECT COUNT(1) FROM EVENT_JOIN_ANSWER WHERE EVENT_ID = #{eventId} AND MEMBER_ID = #{memberId}) <![CDATA[ > ]]> 0
+                    THEN (SELECT MAX(EVENT_ANSWER_ID) FROM EVENT_JOIN_ANSWER WHERE EVENT_ID = #{eventId} AND MEMBER_ID = #{memberId})
+                ELSE (SELECT COUNT(1) FROM EVENT_JOIN WHERE EVENT_ID = #{eventId})
+            END),
+            #{eventAnswerDesc},
+            #{eventAnswerSeq}
+        WHERE (
+              (SELECT CONVERT(EVENT_AMOUNT,UNSIGNED) AS EVENT_AMOUNT
+               FROM EVENT_AMOUNT
+               WHERE EVENT_ID = #{eventId}
+                 AND EVENT_TYPE = #{eventAnswerSeq})
+              -
+              (IFNULL((SELECT SUM(B.EVENT_APPLY_AMOUNT)
+                        FROM (
+                        SELECT CONVERT(EVENT_ANSWER_DESC,UNSIGNED) AS EVENT_APPLY_AMOUNT
+                        FROM EVENT_JOIN_ANSWER
+                        WHERE EVENT_ID = #{eventId}
+                          AND EVENT_ANSWER_SEQ = #{eventAnswerSeq}
+                        ) B), 0))
+          ) > 0
+    </insert>
+    
+    <!-- 해당 자료부터 20190411 추가 -->
+    <!-- 이벤트 질문에 대한 조회 리스트 -->
+    <select id="eventJoinAnswerApplyList" parameterType="hashmap"  resultType="hashMap">
+        SELECT *
+        FROM (
+            SELECT
+                ROW_NUMBER() OVER (ORDER BY EJA.REG_DTTM DESC) AS id,
+                EJA.EVENT_ID AS event_id,
+                EJA.MEMBER_ID AS member_id,
+                EJA.EVENT_ANSWER_ID AS event_answer_id,
+                EJA.EVENT_ANSWER_DESC AS event_answer_desc,
+                EJA.EVENT_ANSWER_SEQ AS event_answer_seq,
+                CONVERT(EJA.REG_DTTM, DATETIME) AS reg_dttm,
+                M.NAME AS member_nm
+            FROM EVENT_JOIN_ANSWER EJA
+            LEFT JOIN MEMBER AS M ON EJA.MEMBER_ID = M.MEMBER_ID
+            WHERE EVENT_ID = #{eventId}
+                AND EVENT_ANSWER_SEQ = #{eventAnswerSeq}
+            <if test="answerIndex eq 1">
+                AND arr_split_v2(EJA.EVENT_ANSWER_DESC, '^||^', #{answerIndex}) != '미참여'
+            </if>
+            <if test="searchIndex eq 1 and @org.apache.commons.lang3.StringUtils@isNotEmpty(searchKeyword)">
+                AND arr_split_v2(EJA.EVENT_ANSWER_DESC, '^||^', #{searchIndex}) LIKE CONCAT('%', #{searchKeyword}, '%')
+            </if>
+            <if test="searchIndex eq 1 and @org.apache.commons.lang3.StringUtils@isNotEmpty(searchKeyword2)">
+                AND arr_split_v2(EJA.EVENT_ANSWER_DESC, '^||^', #{searchIndex}) LIKE CONCAT('%', #{searchKeyword2}, '%')
+            </if>
+            <if test="@org.apache.commons.collections4.CollectionUtils@isNotEmpty(searchKeywordList)">
+                <foreach item="item" collection="searchKeywordList" open="AND ("  separator=" OR " close=")">
+                    arr_split_v2(EJA.EVENT_ANSWER_DESC, '^||^', #{searchIndex}) LIKE CONCAT('%', #{item}, '%')
+                </foreach>
+            </if>
+        ) A
+        WHERE id BETWEEN (${page} - 1) * ${pageSize} + 1 AND ${page} * ${pageSize}
+        ORDER BY id
+    </select>
+
+    <!-- 이벤트 참여에 대한 삭제 -->
+    <delete id="eventJoinDelete" parameterType="hashmap" >
+    	DELETE
+    	FROM EVENT_JOIN
+    	WHERE EVENT_ID = #{eventId}
+    	AND MEMBER_ID = #{memberId}
+    </delete>
+
+    <!-- 이벤트 참여 응답에 대한 삭제 -->
+    <delete id="eventJoinAnswerDelete" parameterType="hashmap" >
+    	DELETE
+    	FROM EVENT_JOIN_ANSWER
+    	WHERE EVENT_ID = #{eventId}
+    	AND MEMBER_ID = #{memberId}
+    </delete>
+
+    <!-- 이벤트 참여 응답에 대한 수정 -->
+    <update id="eventJoinAnswerUpdate" parameterType="hashmap">
+        UPDATE EVENT_JOIN_ANSWER
+        SET EVENT_ANSWER_DESC = #{eventAnswerDesc}
+        WHERE EVENT_ID = #{eventId}
+        AND MEMBER_ID = #{memberId}
+        <if test ="eventJoinAnswerSeq != null and eventJoinAnswerSeq != ''">
+            AND EVENT_ANSWER_SEQ = #{eventJoinAnswerSeq}
+        </if>
+    </update>
+
+    <!-- 설렘꾸러미 지역에 따른 값 추출 -->
+    <select id="getGiftBundleCount" parameterType="hashmap"  resultType="int">
+        SELECT GIFT_COUNT
+        FROM EVENT_GIFTBUNDLE
+        WHERE IDX = #{idx}
+    </select>
+
+    <!-- 해당되는 이벤트에 해당되는 답이 얼마나 있는지 카운트 -->
+    <select id="chkEventJoinAnswerSeq" parameterType="hashmap" resultType="int">
+        SELECT IFNULL(COUNT(1),0) as joinChkCnt
+        FROM EVENT_JOIN_ANSWER
+        WHERE EVENT_ID = #{event_id }
+        <if test ="member_id != null and member_id != ''">
+            AND MEMBER_ID = #{member_id }
+        </if>
+        AND EVENT_ANSWER_SEQ = #{seq }
+        AND EVENT_ANSWER_DESC like CONCAT('%', #{event_answer_desc}, '%')
+    </select>
+
+    <!-- 해당되는 이벤트의 수량신청의 총 갯수 조회 -->
+    <select id="chkEventJoinQntCnt" parameterType="hashmap" resultType="int">
+        SELECT IFNULL(SUM(CONVERT(EVENT_ANSWER_DESC,UNSIGNED)),0) as chkQntCnt
+        FROM EVENT_JOIN_ANSWER
+        WHERE EVENT_ID = #{event_id }
+        AND EVENT_ANSWER_SEQ = #{seq }
+        AND ISNUMERIC(EVENT_ANSWER_DESC) = 1
+    </select>
+
+    <select id="selectEventAmountRemains" parameterType="string" resultType="edu.visang.vivasam.saemteo.model.EventAmount">
+        SELECT
+            A.EVENT_TYPE AS eventType,
+            A.EVENT_AMOUNT AS amount,
+            (A.EVENT_AMOUNT - IFNULL(B.APPLY_AMOUNT, 0)) AS remains
+        FROM (
+            SELECT
+                EVENT_TYPE,
+                CONVERT(EVENT_AMOUNT, UNSIGNED) AS EVENT_AMOUNT
+            FROM event_amount
+            WHERE event_id = #{eventId}
+        ) A
+        LEFT JOIN (
+            SELECT
+                EVENT_ANSWER_SEQ,
+                SUM(EVENT_APPLY_AMOUNT) AS APPLY_AMOUNT
+            FROM (
+                SELECT EVENT_ANSWER_SEQ, CONVERT(EVENT_ANSWER_DESC, UNSIGNED) AS EVENT_APPLY_AMOUNT
+                FROM EVENT_JOIN_ANSWER
+                WHERE EVENT_ID = #{eventId}
+                AND EVENT_ANSWER_SEQ >= '3'
+            ) B1
+            GROUP BY EVENT_ANSWER_SEQ
+        ) B ON A.EVENT_TYPE = B.EVENT_ANSWER_SEQ
+        ORDER BY A.EVENT_TYPE
+    </select>
+
+    <!-- 상위이벤트가 있을 경우 성위이벤트 소속 서브 이벤트의 중복신청 여부를 조회 -->
+    <select id="getParentEventInfoSubDupYnByEventId" parameterType="map" resultType="edu.visang.vivasam.saemteo.model.EventInfo">
+        SELECT
+            b.EVENT_ID,
+            b.SUB_DUP_YN
+        FROM (
+            SELECT EVENT_ID, EVENT_PARENT_ID
+            FROM EVENT_INFO
+            WHERE EVENT_ID = #{eventId}
+            AND EVENT_DEL_YN = 'N'
+            AND EVENT_PARENT_ID IS NOT NULL
+        ) a
+        LEFT JOIN EVENT_INFO b ON a.EVENT_PARENT_ID = b.EVENT_ID
+        WHERE b.EVENT_DEL_YN = 'N'
+        AND b.EVENT_USE_YN = 'Y'
+    </select>
+
+    <!-- 이벤트 참가여부 확인 - 상위이벤트아이디로 전체하위이벤트에 참가여부 확인 -->
+    <select id="getEventJoinCntByEventParentId" parameterType="map" resultType="int">
+        SELECT COUNT(1) AS JOINCHKCNT
+        FROM (
+            SELECT EVENT_ID
+            FROM EVENT_INFO
+            WHERE EVENT_PARENT_ID = #{eventParentId}
+        ) a
+        INNER JOIN EVENT_JOIN b ON a.EVENT_ID = b.EVENT_ID
+        WHERE b.MEMBER_ID = #{memberId}
+    </select>
+
+    <select id="getMyEventJoinAnswer" parameterType="map" resultType="string">
+        SELECT EVENT_ANSWER_DESC
+        FROM EVENT_JOIN_ANSWER
+        WHERE EVENT_ID = #{eventId}
+        AND MEMBER_ID = #{memberId}
+        AND EVENT_ANSWER_SEQ = '2'
+    </select>
+
+    <select id="getMyEventJoinAnswerByParentEventId" parameterType="map" resultType="string">
+        SELECT b.EVENT_ANSWER_DESC
+        FROM (
+            SELECT EVENT_ID
+            FROM EVENT_INFO
+            WHERE EVENT_PARENT_ID = #{eventParentId}
+        ) a
+        INNER JOIN EVENT_JOIN_ANSWER b ON a.EVENT_ID = b.EVENT_ID
+        WHERE b.MEMBER_ID = #{memberId}
+        AND b.EVENT_ANSWER_SEQ = '2'
+    </select>
+
+    <!-- 살아있는 수업 쿼리문 처리 -->
+    <select id="classLiveQuestionAmount" parameterType="hashmap" resultType="hashmap">
+		WITH COUNT_INFO AS (
+            SELECT
+                EVENT_ANSWER_DESC, COUNT(1) AS CNT
+            FROM EVENT_JOIN_ANSWER
+            WHERE EVENT_ID = 252
+                AND EVENT_ANSWER_SEQ = 2
+            GROUP BY EVENT_ANSWER_DESC
+		)
+		SELECT
+			IFNULL(MAX(CASE WHEN EVENT_ANSWER_DESC = '중학교 국어' THEN 340 - CI.CNT ELSE 0 END),0) AS COUNTKOREAN,
+			IFNULL(MAX(CASE WHEN EVENT_ANSWER_DESC = '중학교 수학' THEN 450 - CI.CNT ELSE 0 END),0) AS COUNTMATH,
+			IFNULL(MAX(CASE WHEN EVENT_ANSWER_DESC = '중학교 사회' THEN 350 - CI.CNT ELSE 0 END),0) AS COUNTSOCIAL,
+			IFNULL(MAX(CASE WHEN EVENT_ANSWER_DESC = '중학교 도덕' THEN 140 - CI.CNT ELSE 0 END),0) AS COUNTMORAL,
+			IFNULL(MAX(CASE WHEN EVENT_ANSWER_DESC = '중학교 과학' THEN 440 - CI.CNT ELSE 0 END),0) AS COUNTSCIENCE,
+			IFNULL(MAX(CASE WHEN EVENT_ANSWER_DESC = '중학교 진로와 직업' THEN 100 - CI.CNT ELSE 0 END),0) AS COUNTCAREERS
+		FROM COUNT_INFO AS CI
+	</select>
+
+    <!-- 이벤트 참여 수량 체크 ( PC버전 로직과 동일, 2번에 수량 합으로 체크 )-->
+    <select id="checkEventCntCount" parameterType="hashmap" resultType="int">
+        SELECT IFNULL(SUM(CONVERT(EVENT_ANSWER_DESC,UNSIGNED)),0) AS CNT
+        FROM EVENT_JOIN_ANSWER
+        WHERE EVENT_ID = #{event_id }
+        AND EVENT_ANSWER_SEQ = #{eventCntId }
+    </select>
+
+    <!-- 이벤트 총 수량 체크  -->
+    <select id="checkEventTotAmount" parameterType="hashmap" resultType="int">
+        SELECT CONVERT(EVENT_AMOUNT,UNSIGNED) AS CNT
+        FROM EVENT_AMOUNT
+        WHERE EVENT_ID = #{event_id }
+        AND EVENT_TYPE = #{type }
+    </select>
+
+    <!-- 비공개 이벤트 참여조건이 되는지 검사  -->
+    <select id="checkPrivateEventMemberCount" parameterType="hashmap" resultType="int">
+        SELECT COUNT(1) AS CNT
+        FROM EVENT_CHECK_PRIVATE_MEMBER_INFO
+        WHERE EVENT_ID = #{event_id }
+        AND MEMBER_ID = #{member_id }
+    </select>
+
+    <!-- 구글 설문조사 ( 중복 가능 ) -->
+    <select id="googleSurveyCountCheck" parameterType="String" resultType="int">
+        SELECT
+            COUNT(1) AS CNT
+        FROM (
+            SELECT
+                ROW_NUMBER() OVER(PARTITION BY MEMBER_ID ORDER BY MEMBER_ID) AS RN
+            FROM EVENT_JOIN
+            WHERE EVENT_ID = #{eventId }
+        ) A
+        WHERE RN = 1
+    </select>
+
+    <!-- 현장교사 모니터링단 신청 정보 등록  -->
+    <insert id="insertMonitoringEvent" parameterType="hashmap">
+        INSERT INTO TEACHER_MONITORING_GROUP_APPLY_INFO (
+            NUMBER
+            ,MEMBER_ID
+            ,TEACHER_CAREER
+            ,APPLY_REASON
+            ,ACTIVITY_DESC
+            <if test ="mSubjectCd != null and mSubjectCd == 'SC***'">
+                , SUBJECT_CD       <!-- 비교과 인 경우에 SC*** 저장됨 -->
+            </if>
+            ,DEL_YN
+            ,REG_DTTM)
+            VALUES
+            (#{mntrNumber}
+            ,#{memberId}
+            ,#{teacherCareer}
+            ,#{applyReason}
+            ,#{activityDesc}
+            <if test ="mSubjectCd != null and mSubjectCd == 'SC***'">
+                ,'비교과'          <!-- 비교과 인 경우에 저장됨 -->
+            </if>
+            ,'N'
+            ,CURRENT_TIMESTAMP()
+        )
+    </insert>
+
+    <!-- 해당 회원의 학급 판별 -->
+    <select id="eventMemberSchoolInfo" parameterType="hashmap" resultType="String">
+        SELECT TAB
+        FROM MEMBER AS M
+        INNER JOIN LATERAL (
+            SELECT
+                CODE, TAB, NAME, ZIP, ADDR, PKCODE, FKCODE
+            FROM
+                SCHOOL
+            WHERE CODE = M.SCH_CODE
+            UNION ALL
+            SELECT
+                CODE, TAB, NAME, ZIP, ADDR, PKCODE, FKCODE
+            FROM
+                SCHOOL_ETC
+            WHERE CODE = M.SCH_CODE
+        ) AS S ON 1 = 1
+      WHERE MEMBER_ID = #{memberId}
+    </select>
+
+    <!-- 이벤트 신청 정보 삭제  -->
+    <delete id="deleteEventJoinInfo" parameterType="hashmap">
+        DELETE FROM EVENT_JOIN
+        WHERE EVENT_ID = #{event_id}
+        AND MEMBER_ID = #{member_id}
+    </delete>
+
+    <delete id="deleteEventJoinInfo2" parameterType="hashmap">
+        DELETE FROM EVENT_JOIN_ANSWER
+        WHERE EVENT_ID = #{event_id}
+        AND MEMBER_ID = #{member_id}
+    </delete>
+
+    <select id="getEventJoinAnswerCntForTwoComment" parameterType="hashmap" resultType="int">
+		 SELECT COUNT(1) AS ROW_TOTAL
+		 FROM (
+			 SELECT
+				EVENT_ID,
+				MEMBER_ID,
+				EVENT_ANSWER_ID,
+				arr_split_v2(EVENT_ANSWER_DESC, '^||^', 1) AS EVENT_ANSWER_DESC,
+				'1' AS EVENT_ANSWER_NO,
+				EVENT_ANSWER_SEQ,
+				REG_DTTM
+			 FROM EVENT_JOIN_ANSWER
+			 WHERE EVENT_ID = #{eventId}
+			   AND EVENT_ANSWER_SEQ = #{eventJoinAnswerSeq}
+
+			UNION ALL
+
+			SELECT
+				EVENT_ID,
+				MEMBER_ID,
+				EVENT_ANSWER_ID,
+				arr_split_v2(EVENT_ANSWER_DESC, '^||^', 3) AS EVENT_ANSWER_DESC,
+				'2' AS EVENT_ANSWER_NO,
+				EVENT_ANSWER_SEQ,
+				REG_DTTM
+			 FROM EVENT_JOIN_ANSWER
+			 WHERE EVENT_ID = #{eventId}
+			   AND EVENT_ANSWER_SEQ = #{eventJoinAnswerSeq}
+			 ) S
+		 WHERE EVENT_ANSWER_DESC != '미참여'
+	</select>
+
+    <select id="getEventJoinAnswerListForTwoComment" parameterType="hashmap" resultType="hashMap">
+		SELECT
+			ROWNUM AS rownum,
+			MEMBER_ID AS member_id,
+			EVENT_ANSWER_NO AS event_answer_no,
+			EVENT_ANSWER_DESC AS event_answer_desc
+		FROM (
+			 SELECT ROW_NUMBER() OVER (ORDER BY REG_DTTM DESC, EVENT_ANSWER_NO DESC) AS ROWNUM, S.*
+			 FROM (
+				 SELECT
+					EVENT_ID,
+					MEMBER_ID,
+					EVENT_ANSWER_ID,
+					arr_split_v2(EVENT_ANSWER_DESC, '^||^', 1) AS EVENT_ANSWER_DESC,
+					'1' AS EVENT_ANSWER_NO,
+					EVENT_ANSWER_SEQ,
+					REG_DTTM
+				 FROM EVENT_JOIN_ANSWER
+				 WHERE EVENT_ID = #{eventId}
+				   AND EVENT_ANSWER_SEQ = #{eventJoinAnswerSeq}
+
+				UNION ALL
+
+				SELECT
+					EVENT_ID,
+					MEMBER_ID,
+					EVENT_ANSWER_ID,
+					arr_split_v2(EVENT_ANSWER_DESC, '^||^', 3) AS EVENT_ANSWER_DESC,
+					'2' AS EVENT_ANSWER_NO,
+					EVENT_ANSWER_SEQ,
+					REG_DTTM
+				 FROM EVENT_JOIN_ANSWER
+				 WHERE EVENT_ID = #{eventId}
+				   AND EVENT_ANSWER_SEQ = #{eventJoinAnswerSeq}
+				 ) S
+			 WHERE EVENT_ANSWER_DESC != '미참여'
+		) A
+		WHERE ROWNUM BETWEEN (${pageNo} - 1) * ${pageSize} + 1 AND ${pageNo} * ${pageSize}
+		ORDER BY ROWNUM
+	</select>
+
+    <select id="getSpecificEventTotalJoin" resultType="int">
+        SELECT COUNT(1) AS joinChkCnt
+        FROM EVENT_JOIN_ANSWER
+        WHERE
+            <choose>
+                <when test="eventIds != null">
+                    EVENT_ID IN
+                    <foreach collection="eventIds" item="eventId" open="(" separator="," close=")">
+                        #{eventId}
+                    </foreach>
+                </when>
+                <otherwise>
+                    EVENT_ID = #{eventId}
+                </otherwise>
+            </choose>
+            AND EVENT_ANSWER_SEQ = #{eventAnswerSeq}
+            <if test="answerIndex eq 1">
+                AND arr_split_v2(EVENT_ANSWER_DESC, '^||^', #{answerIndex}) != '미참여'
+            </if>
+            <if test="searchIndex eq 1 and @org.apache.commons.lang3.StringUtils@isNotEmpty(searchKeyword)">
+                AND arr_split_v2(EVENT_ANSWER_DESC, '^||^', #{searchIndex}) LIKE CONCAT('%', #{searchKeyword}, '%')
+            </if>
+            <if test="searchIndex eq 1 and @org.apache.commons.lang3.StringUtils@isNotEmpty(searchKeyword2)">
+                AND arr_split_v2(EVENT_ANSWER_DESC, '^||^', #{searchIndex}) LIKE CONCAT('%', #{searchKeyword2}, '%')
+            </if>
+            <if test="@org.apache.commons.collections4.CollectionUtils@isNotEmpty(searchKeywordList)">
+                <foreach item="item" collection="searchKeywordList" open="AND ("  separator=" OR " close=")">
+                    arr_split_v2(EVENT_ANSWER_DESC, '^||^', #{searchIndex}) LIKE CONCAT('%', #{item}, '%')
+                </foreach>
+            </if>
+    </select>
+
+    <select id="getSpecificEventJoinAnswerList" parameterType="edu.visang.vivasam.saemteo.model.EventAnswerParameter"
+            resultType="edu.visang.vivasam.saemteo.model.EventAnswerResult">
+        SELECT
+            ROWNUM,
+            EVENT_ID,
+            MEMBER_ID,
+            EVENT_ANSWER_DESC,
+            EVENT_ANSWER_ID
+        FROM (
+            SELECT
+                ROW_NUMBER() OVER (ORDER BY REG_DTTM DESC) AS ROWNUM,
+                EVENT_ID,
+                MEMBER_ID,
+                EVENT_ANSWER_ID,
+                EVENT_ANSWER_DESC,
+                EVENT_ANSWER_SEQ
+            FROM EVENT_JOIN_ANSWER
+            WHERE
+                <choose>
+                    <when test="eventIds != null">
+                        EVENT_ID IN
+                        <foreach collection="eventIds" item="eventId" open="(" separator="," close=")">
+                            #{eventId}
+                        </foreach>
+                    </when>
+                    <otherwise>
+                        EVENT_ID = #{eventId}
+                    </otherwise>
+                </choose>
+                AND EVENT_ANSWER_SEQ = #{eventAnswerSeq}
+                <if test="answerIndex eq 1">
+                    AND arr_split_v2(EVENT_ANSWER_DESC, '^||^', #{answerIndex}) != '미참여'
+                </if>
+        ) A
+        WHERE ROWNUM BETWEEN (${answerPage.pageNo} - 1) * ${answerPage.pageSize} + 1 AND ${answerPage.pageNo} * ${answerPage.pageSize}
+        ORDER BY ROWNUM
+    </select>
+
+    <insert id="insertEventAgreeInfo" parameterType="edu.visang.vivasam.saemteo.model.MemberEventAgreeInfo">
+       INSERT INTO MEMBER_EVENT_AGREE_INFO (
+          EVENT_ID,
+          MEMBER_ID,
+          AGREE_DTTM
+       ) VALUES (
+          #{eventId},
+          #{memberId},
+          CURRENT_TIMESTAMP()
+       )
+    </insert>
+
+    <select id="getEventAgreeInfoCount" parameterType="edu.visang.vivasam.saemteo.model.MemberEventAgreeInfo" resultType="int">
+        SELECT COUNT(1)
+        FROM MEMBER_EVENT_AGREE_INFO
+        WHERE EVENT_ID = #{eventId}
+        AND MEMBER_ID = #{memberId}
+    </select>
+
+    <select id="getEventAmountList" parameterType="string" resultType="edu.visang.vivasam.saemteo.model.EventAmount">
+        SELECT
+            A.EVENT_ID,
+            A.EVENT_TYPE AS eventType,
+            A.EVENT_TYPE_SUBJ AS name,
+            A.EVENT_AMOUNT AS amount,
+            (A.EVENT_AMOUNT - IFNULL(B.APPLY_AMOUNT, 0)) AS remains,
+            A.PRICE as price
+        FROM (
+            SELECT EVENT_ID, EVENT_TYPE, EVENT_TYPE_SUBJ, CONVERT(EVENT_AMOUNT, UNSIGNED) AS EVENT_AMOUNT, PRICE
+            FROM EVENT_AMOUNT
+            WHERE EVENT_ID = #{eventId}
+        ) A
+        LEFT JOIN (
+            SELECT EVENT_ANSWER_SEQ, SUM(EVENT_APPLY_AMOUNT) AS APPLY_AMOUNT
+            FROM (
+                SELECT EVENT_ANSWER_SEQ, CONVERT(EVENT_ANSWER_DESC,UNSIGNED) AS EVENT_APPLY_AMOUNT
+                FROM EVENT_JOIN_ANSWER
+                WHERE EVENT_ID = #{eventId}
+                AND EVENT_ANSWER_SEQ >= '3'
+            ) B1
+            GROUP BY EVENT_ANSWER_SEQ
+        ) B ON A.EVENT_TYPE = B.EVENT_ANSWER_SEQ
+        INNER JOIN (
+            SELECT EVENT_ID
+            FROM EVENT_INFO
+            WHERE EVENT_ID = #{eventId} AND CURRENT_TIMESTAMP BETWEEN EVENT_SDATE AND EVENT_EDATE
+        ) C ON A.EVENT_ID = C.EVENT_ID
+        ORDER BY A.EVENT_TYPE
+    </select>
+
+    <select id="getRouletteEventUrlJoin" parameterType="String" resultType="String">
+        SELECT URL_EVENT_JOIN_YN
+        FROM EVENT_ROULETTE_URL_230213
+        WHERE MEMBER_ID = #{memberId}
+    </select>
+
+    <insert id="saveRouletteEventUrl" parameterType="hashmap">
+        INSERT INTO EVENT_ROULETTE_URL_230213 (
+            EVENT_ID
+            , MEMBER_ID
+            , URL
+            , URL_EVENT_JOIN_YN
+            , REG_DTTM
+        )
+        VALUES (
+            #{eventId}
+            , #{memberId}
+            , #{url}
+            , #{urlEventJoinYn}
+            , CURRENT_TIMESTAMP()
+        )
+    </insert>
+
+    <select id="getTodayRouletteJoinCnt" parameterType="String" resultType="int">
+        SELECT COUNT(1) FROM EVENT_JOIN_ANSWER
+        WHERE EVENT_ID = 429
+        AND DATE_FORMAT(REG_DTTM, '%Y%m%d') = DATE_FORMAT(CURRENT_TIMESTAMP,'%Y%m%d')
+        <if test='check != "check"'>
+            AND EVENT_ANSWER_SEQ IN (3, 4, 5, 6, 7, 8, 9)
+        </if>
+        <if test='check == "check"'>
+            AND EVENT_ANSWER_SEQ IN (8, 9)
+        </if>
+    </select>
+
+    <update id="update2ndRouletteEventJoin" parameterType="hashmap">
+        UPDATE EVENT_JOIN_ANSWER
+        SET EVENT_ANSWER_DESC =
+            CONCAT(
+                (
+                    SELECT
+                        EVENT_ANSWER_DESC FROM
+                        EVENT_JOIN_ANSWER
+                    WHERE EVENT_ID = #{eventId}
+                      AND MEMBER_ID = #{memberId}
+                      AND EVENT_ANSWER_SEQ = 2
+                ),
+                #{eventAnswerDesc},
+                '비바콘 200P',
+                '^||^공유URL : ',
+                (SELECT URL
+                 FROM EVENT_ROULETTE_URL_230213
+                 WHERE MEMBER_ID = #{memberId})
+        WHERE EVENT_ID = #{eventId}
+        AND MEMBER_ID = #{memberId}
+        AND EVENT_ANSWER_SEQ = 2
+    </update>
+
+    <update id="updateRouletteUrlJoinYn" parameterType="hashmap">
+        UPDATE EVENT_ROULETTE_URL_230213
+        SET URL_EVENT_JOIN_YN  = 'Y'
+        WHERE EVENT_ID = #{eventId}
+        AND MEMBER_ID = #{memberId}
+    </update>
+
+    <!-- 이벤트 종료여부 조회 -->
+    <select id="getEventEndDate" parameterType="String" resultType="String">
+        SELECT
+            CASE
+                WHEN CURRENT_TIMESTAMP BETWEEN EVENT_SDATE AND EVENT_EDATE
+                     THEN 'N'
+                ELSE 'Y'
+            END AS END_DATE_YN
+        FROM EVENT_INFO
+        WHERE EVENT_ID = #{eventId}
+    </select>
+
+    <!-- 비바샘이 간다 참여 -->
+    <insert id="saveVivasamGoEventAnswer" parameterType="hashmap">
+        INSERT INTO EVENT_VIVASAM_GO_ANSWER (
+            EVENT_ID,
+            MEMBER_ID,
+            RECEIVE_INFO,
+            PEOPLE_COUNT,
+            VISIT_DATE1,
+            VISIT_DATE2,
+            REASON,
+            REASON_DETAIL,
+            VIA,
+            PARTICIPATION
+        ) VALUES (
+            #{eventId},
+            #{memberId},
+            #{receiveInfo},
+            #{peopleCount},
+            #{visitDate1},
+            #{visitDate2},
+            #{reason},
+            #{reasonDetail},
+            'MOBILE',
+            #{participation}
+        )
+    </insert>
+
+    <select id="getVivasamGoJoinCnt" parameterType="hashmap" resultType="int">
+        SELECT COUNT(1)
+        FROM EVENT_VIVASAM_GO_ANSWER
+        WHERE MEMBER_ID = #{memberId}
+        AND EVENT_ID = #{eventId}
+    </select>
+
+
+    <insert id="insertEventJoinSsn" parameterType="map">
+        INSERT INTO EVENT_JOIN_SSN (
+          EVENT_ID, MEMBER_ID, SSN, REG_DTTM
+        ) VALUES (
+          #{eventId}, #{memberId}, #{ssn}, CURRENT_TIMESTAMP
+        )
+    </insert>
+
+    <update id="updateEventJoinSsn" parameterType="map">
+        UPDATE EVENT_JOIN_SSN
+        SET SSN = #{ssn},
+            UPD_DTTM = CURRENT_TIMESTAMP
+        WHERE EVENT_ID = #{eventId}
+        AND MEMBER_ID = #{memberId}
+    </update>
+
+    <select id="getEventJoinSsnCnt" parameterType="map" resultType="int">
+        SELECT COUNT(1)
+        FROM EVENT_JOIN_SSN
+        WHERE EVENT_ID = #{eventId}
+        AND MEMBER_ID = #{memberId}
+    </select>
+
+    <!-- 477 비버샘 팬클럽 이벤트 _ 참여 학교 랭킹 3순위 -->
+    <select id="eventJoinList" parameterType="String" resultType="edu.visang.vivasam.saemteo.model.EventInfo" >
+        SELECT
+            b.SCH_NAME as schName,
+            COUNT(1) AS joinSchCount
+        FROM EVENT_JOIN_ANSWER a
+        JOIN member b ON a.MEMBER_ID = b.MEMBER_ID
+        WHERE EVENT_ID = '478'
+        GROUP BY b.SCH_NAME, b.sch_code
+        ORDER BY joinSchCount desc
+    </select>
+
+    <!-- 477 비버샘 팬클럽 이벤트 _ 우리 학교 가입자 ourSchJoinList-->
+    <select id="ourSchJoinList" parameterType="String" resultType="edu.visang.vivasam.saemteo.model.EventInfo">
+        SELECT
+            b.sch_Name as schName,
+            COUNT(1) AS joinSchCount
+        FROM EVENT_JOIN_ANSWER a
+        JOIN member b ON a.MEMBER_ID = b.MEMBER_ID
+        WHERE EVENT_ID = '478'
+        AND b.sch_Name = (
+            SELECT sch_Name
+            FROM member
+            WHERE MEMBER_ID = #{memberId}
+            AND b.SCH_CODE = (
+                SELECT SCH_CODE
+                FROM member
+                WHERE MEMBER_ID = #{memberId}
+            )
+        )
+        GROUP BY b.sch_Name, b.sch_code;
+    </select>
+
+    <!-- 477 비버샘 팬클럽 이벤트 _ 추천인 아이디가 유효한지 -->
+    <select id="recommenderCheck" parameterType="String" resultType="int">
+        SELECT COUNT(member_id)
+        FROM MEMBER
+        WHERE 1=1
+        AND VALID_YN = 'Y'
+        AND STATE != 'D'
+        AND MEMBER_ID = #{recommender}
+        AND MEMBER_ID != #{memberId}
+    </select>
+
+    <!-- 477 비버샘 팬클럽 이벤트 _ 추천 id가 있을때 아이디 가져오기-->
+    <select id="existRecommend" parameterType="edu.visang.vivasam.member.model.MemberInfo" resultType="String">
+        SELECT name
+        FROM MEMBER
+        WHERE 1=1
+        AND MEMBER_ID = #{recommender}
+    </select>
+
+    <!-- 댓글로 학교순위 가져오기 getEventJoinAnswerList2 -->
+    <select id="getEventJoinAnswerList2" parameterType="hashmap" resultType="hashmap">
+        WITH RankedSchools AS (
+            SELECT
+				b.sch_Name									AS schName,
+                COUNT(1)                                   AS joinSchCount,
+                ROW_NUMBER() OVER (ORDER BY COUNT(1) DESC) AS orderNo
+            FROM EVENT_JOIN_ANSWER a
+            JOIN member b ON a.MEMBER_ID = b.MEMBER_ID
+            WHERE EVENT_ID = '478'
+            GROUP BY b.sch_Name,b.sch_code
+            LIMIT 50
+        )
+        SELECT
+            orderNo,
+            schName,
+            joinSchCount,
+            (SELECT COUNT(1) FROM RankedSchools) AS eventAnswerCount
+        FROM RankedSchools
+        WHERE orderNo BETWEEN (${pageNo} - 1) * ${pageSize} + 1 AND ${pageNo} * ${pageSize}
+        ORDER BY orderNo
+    </select>
+
+    <select id="getSpecificEventTotalJoin2" parameterType="hashmap" resultType="int">
+        WITH RankedSchools AS (
+            SELECT
+                b.sch_Name                                      AS schName,
+                COUNT(1)                                        AS joinSchCount,
+                ROW_NUMBER() OVER (ORDER BY COUNT(1) DESC)      AS orderNo
+            FROM EVENT_JOIN_ANSWER a
+            JOIN member b ON a.MEMBER_ID = b.MEMBER_ID
+            WHERE EVENT_ID = '478'
+            GROUP BY b.sch_Name ,b.sch_code
+            LIMIT 50
+        )
+        SELECT COUNT(1) AS eventAnswerCount
+        FROM RankedSchools
+    </select>
+
+    <select id="getRecommendRankList" parameterType="string" resultType="edu.visang.vivasam.saemteo.model.EventInfo">
+        SELECT
+            RANK() OVER (
+                ORDER BY rankTbl.cnt DESC,
+                substring(rankTbl.rank, 0, 11),
+                subString(rankTbl.rank, 12, 10),
+                substring(rankTbl.rank, 23, 8),
+                substring(rankTbl.rank, 32, 9)
+            ) orderNo
+            , rankTbl.member_id        as  recommendId
+            , rankTbl.name             as  recommendName
+            , COALESCE(rankTbl.cnt, 0) AS  cnt
+        FROM (
+            SELECT
+                MEMBER_ID,
+                `NAME`,
+                (SELECT
+                    CONCAT(
+                        cast(MAX(b.Reg_Date) as char(10)),'/',
+                        cast(MAX(b.Val_Date) as char(10)),'/',
+                        cast(MAX(b.Reg_Time) as char(8)),'/',
+                        cast(MAX(b.Val_Time) as char(8))
+                    )
+                 FROM member b
+                 WHERE b.recommend_Id = a.member_Id
+                 AND b.state = 'Y'
+                 AND b.VALID_YN = 'Y'
+                 AND DATE_FORMAT(CONCAT(b.VAL_DATE,' ',b.VAL_TIME), '%Y-%m-%d %T') >=
+                     (SELECT EVENT_JOIN_DATE
+                      FROM EVENT_JOIN
+                      WHERE EVENT_ID = '487'
+                      AND MEMBER_ID = b.RECOMMEND_ID)
+                 GROUP BY b.RECOMMEND_ID
+                ) rank,
+                ( SELECT count(b.member_id)
+                  FROM member b
+                  WHERE b.recommend_Id = a.member_Id
+                  AND b.state = 'Y'
+                  AND b.VALID_YN = 'Y'
+                  AND DATE_FORMAT(CONCAT(b.VAL_DATE,' ',b.VAL_TIME),'%Y-%m-%d %T') >=
+                      (SELECT EVENT_JOIN_DATE
+                       FROM EVENT_JOIN
+                       WHERE EVENT_ID = '487'
+                       AND MEMBER_ID = b.RECOMMEND_ID)
+                  GROUP BY b.recommend_ID
+                ) as cnt
+            FROM member a
+            WHERE state = 'Y'
+            AND VALID_YN = 'Y'
+            AND MEMBER_ID IN (SELECT MEMBER_ID
+                              FROM EVENT_JOIN
+                              WHERE EVENT_ID = '487')
+        ) rankTbl
+        ORDER BY RANK() OVER (
+            ORDER BY rankTbl.cnt DESC,
+            substring(rankTbl.rank, 0, 11),
+            subString(rankTbl.rank, 12, 10),
+            substring(rankTbl.rank, 23, 8),
+            substring(rankTbl.rank, 32, 9)
+        )
+    </select>
+
+    <!-- 댓글로 추천인 아이디 랭킹 가져오기 -->
+    <select id="get2024EventAnswerList" parameterType="hashmap" resultType="hashmap">
+        SELECT *
+        FROM (
+            SELECT
+                ROW_NUMBER() OVER (ORDER BY orderNo) AS rownum,
+                orderNo,
+                recommendId,
+                recommendName,
+                cnt
+            FROM (
+                SELECT
+                    RANK() OVER (
+                        ORDER BY rankTbl.cnt DESC,
+                        SUBSTRING(rankTbl.rank, 0, 11),
+                        SUBSTRING(rankTbl.rank, 12, 10),
+                        SUBSTRING(rankTbl.rank, 23, 8),
+                        SUBSTRING(rankTbl.rank, 32, 9)) AS orderNo,
+                        rankTbl.member_id AS recommendId,
+                        rankTbl.name AS recommendName,
+                        COALESCE(rankTbl.cnt, 0) AS cnt
+                FROM (
+                    SELECT
+                        MEMBER_ID,
+                        NAME,
+                        (SELECT
+                            CONCAT(
+                                CAST(MAX(b.Reg_Date) AS CHAR(10)), '/',
+                                CAST(MAX(b.Val_Date) AS CHAR(10)), '/',
+                                CAST(MAX(b.Reg_Time) AS CHAR(8)), '/',
+                                CAST(MAX(b.Val_Time) AS CHAR(8))
+                            )
+                         FROM member b
+                         WHERE b.recommend_Id = a.member_Id
+                         AND b.state = 'Y'
+                         AND b.VALID_YN = 'Y'
+                         AND DATE_FORMAT(CONCAT(b.VAL_DATE,' ',b.VAL_TIME), '%Y-%m-%d %T') >=
+                            (SELECT EVENT_JOIN_DATE
+                             FROM EVENT_JOIN
+                             WHERE EVENT_ID = '487'
+                             AND MEMBER_ID = b.RECOMMEND_ID)
+                         GROUP BY b.RECOMMEND_ID
+                        ) rank,
+                        (SELECT COUNT(b.member_id)
+                         FROM member b
+                         WHERE b.recommend_Id = a.member_Id
+                            AND b.state = 'Y'
+                            AND b.VALID_YN = 'Y'
+                            AND DATE_FORMAT(CONCAT(b.VAL_DATE, ' ', b.VAL_TIME), '%Y-%m-%d %H:%i:%s') >= (
+                                SELECT EVENT_JOIN_DATE
+                                FROM EVENT_JOIN
+                                WHERE EVENT_ID = '487'
+                                AND MEMBER_ID = b.RECOMMEND_ID
+                            )
+                         GROUP BY b.recommend_ID
+                         ) cnt
+                    FROM member a
+                    WHERE state = 'Y'
+                    AND VALID_YN = 'Y'
+                    AND MEMBER_ID IN (SELECT MEMBER_ID
+                                      FROM EVENT_JOIN
+                                      WHERE EVENT_ID = '487')
+                ) rankTbl
+            ) dataTbl
+        ) result
+        WHERE result.rownum BETWEEN (${pageNo} - 1) * ${pageSize} + 1 AND ${pageNo} * ${pageSize}
+        ORDER BY result.orderNo
+    </select>
+
+    <select id="get2024EventAnswerCount" parameterType="hashmap" resultType="int">
+        SELECT COUNT(1) AS eventAnswerCount
+        FROM (
+            SELECT
+                RANK() OVER (
+                    ORDER BY
+                        rankTbl.cnt DESC,
+                        SUBSTRING(rankTbl.rank, 0, 11),
+                        SUBSTRING(rankTbl.rank, 12, 10),
+                        SUBSTRING(rankTbl.rank, 23, 8),
+                        SUBSTRING(rankTbl.rank, 32, 9)
+                ) AS orderNo,
+                rankTbl.member_id AS recommendId,
+                rankTbl.name AS recommendName,
+                COALESCE(rankTbl.cnt, 0) AS cnt
+            FROM (
+                SELECT
+                    MEMBER_ID,
+                    NAME,
+                    (SELECT
+                        CONCAT(
+                            CAST(MAX(b.Reg_Date) AS CHAR(10)), '/',
+                            CAST(MAX(b.Val_Date) AS CHAR(10)), '/',
+                            CAST(MAX(b.Reg_Time) AS CHAR(8)), '/',
+                            CAST(MAX(b.Val_Time) AS CHAR(8))
+                        )
+                    FROM member b
+                    WHERE b.recommend_Id = a.member_Id
+                    AND b.state = 'Y'
+                    AND b.VALID_YN = 'Y'
+                    AND DATE_FORMAT(CONCAT(b.VAL_DATE, ' ', b.VAL_TIME), '%Y-%m-%d %H:%i:%s') >= (SELECT EVENT_JOIN_DATE
+                                                                                              FROM EVENT_JOIN
+                                                                                              WHERE EVENT_ID = '487'
+                                                                                              AND MEMBER_ID = b.RECOMMEND_ID)
+                    GROUP BY b.RECOMMEND_ID
+                    ) rank,
+                    (SELECT
+                        COUNT(b.member_id)
+                    FROM member b
+                    WHERE b.recommend_Id = a.member_Id
+                    AND b.state = 'Y'
+                    AND b.VALID_YN = 'Y'
+                    GROUP BY b.recommend_ID ) cnt
+                FROM member a
+                WHERE state = 'Y'
+                AND VALID_YN = 'Y'
+                AND MEMBER_ID IN (
+                    SELECT MEMBER_ID
+                    FROM EVENT_JOIN
+                    WHERE EVENT_ID = '487' )
+            ) rankTbl
+        ) dataTbl
+    </select>
+
+    <select id="getCampaignJoinCnt" parameterType="edu.visang.vivasam.saemteo.model.EventInfo" resultType="int">
+        SELECT COUNT(1) AS JOINCHKCNT
+        FROM CAMPAIGN_JOIN
+        WHERE CAMPAIGN_ID = #{campaignId}
+        AND MEMBER_ID = #{memberId}
+    </select>
+
+    <select id="get2024EventAnswerList498" parameterType="hashmap" resultType="hashmap">
+        WITH TMP AS (
+            SELECT
+                ROW_NUMBER() OVER (ORDER BY CONVERT(likeCnt, UNSIGNED) DESC) AS orderNum,
+                t.*
+            FROM (
+                SELECT EVENT_ID AS eventId,
+                       MEMBER_ID AS memberId,
+                       EVENT_ANSWER_ID AS eventAnswerId,
+                       EVENT_ANSWER_DESC AS eventAnswerDesc,
+                       EVENT_ANSWER_SEQ AS eventAnswerSeq,
+                       JA.REG_DTTM AS regDttm,
+                       (
+                           SELECT IFNULL(MAX('Y'),'N')
+                           FROM EVENT_JOIN_LIKE
+                           WHERE MEMBER_ID = #{memberId}
+                           AND JA.EVENT_ID = EVENT_ID
+                           AND JA.MEMBER_ID = LIKE_ID
+                       ) AS likeYn,
+                       REPLACE (
+                           SUBSTRING(
+                               EVENT_ANSWER_DESC,
+                               instr(EVENT_ANSWER_DESC, '좋아요[') + 4,
+                               CHAR_LENGTH(EVENT_ANSWER_DESC) - 2
+                           ),
+                           ']',
+                           ''
+                       ) AS likeCnt
+                FROM EVENT_JOIN_ANSWER JA
+                WHERE EVENT_ID = #{eventId}
+                AND EVENT_ANSWER_SEQ = '2'
+            ) AS t
+     )
+     SELECT *
+     FROM (
+         SELECT *,
+            RANK() OVER (
+                ORDER BY
+                    CASE
+                        WHEN listType = 'top'
+                        THEN orderNum
+                        ELSE 9
+                    END, regDttm DESC
+            ) AS orderNo
+         FROM (
+            SELECT
+                *,
+                'top' AS listType
+            FROM (
+                SELECT *
+                FROM TMP
+                ORDER BY orderNum
+                LIMIT 3
+            ) AS best
+            UNION ALL
+            SELECT *
+            FROM (
+                SELECT
+                    *,
+                    'bottom' AS listType
+                FROM TMP
+                WHERE orderNum > 3
+            ) AS bottom
+         ) AS t
+     ) AS TBLDATA
+     WHERE TBLDATA.orderNo BETWEEN (${page} - 1) * ${pageSize} + 1 AND ${page} * ${pageSize}
+    </select>
+
+    <select id="getEventLikeCnt" resultType="int" parameterType="edu.visang.vivasam.saemteo.model.EventInfo">
+		SELECT SUM(cnt)
+        FROM(
+            SELECT COUNT(LIKE_ID) cnt
+            FROM EVENT_JOIN_LIKE
+            WHERE LIKE_ID = #{likeMemberId}
+            GROUP BY LIKE_ID
+            UNION ALL
+            SELECT 0 cnt
+        ) as Cnt
+	</select>
+
+    <insert id="insertEventJoinLike" parameterType="edu.visang.vivasam.saemteo.model.EventInfo">
+		INSERT INTO EVENT_JOIN_LIKE (EVENT_ID,MEMBER_ID,LIKE_ID,REG_DTTM)
+		VALUES (#{eventId},#{memberId},#{likeMemberId},CURRENT_TIMESTAMP);
+	</insert>
+
+    <delete id="deleteEventJoinLike" parameterType="edu.visang.vivasam.saemteo.model.EventInfo">
+		DELETE EVENT_JOIN_LIKE
+		 WHERE EVENT_ID = #{eventId}
+		   AND MEMBER_ID = #{memberId}
+		   AND LIKE_ID = #{likeMemberId}
+	</delete>
+
+    <update id="updateStateEventLike" parameterType="edu.visang.vivasam.saemteo.model.EventInfo">
+		UPDATE EVENT_JOIN_ANSWER
+		   SET EVENT_ANSWER_DESC = #{eventAnswerDesc}
+		 WHERE EVENT_ID = #{eventId}
+		   AND EVENT_ANSWER_SEQ = '2'
+		   AND MEMBER_ID = #{likeMemberId}
+	</update>
+
+    <select id="getEventJoinCheck" parameterType="string" resultType="int">
+        SELECT COUNT(1) AS JOINCHKCNT
+        FROM EVENT_JOIN
+        WHERE EVENT_ID in ('504', '505')
+          AND MEMBER_ID = #{memberId}
+    </select>
+
+    <select id="getMyRecomCnt" parameterType="string" resultType="int">
+        SELECT COALESCE(COUNT(DISTINCT m.member_id), 0) AS recomCnt
+        FROM EVENT_JOIN ej
+            JOIN member m ON ej.MEMBER_ID = m.recommend_Id
+            JOIN EVENT_INFO ei  on ej.EVENT_ID = ei.event_id
+        WHERE 1=1
+          AND m.state = 'Y'
+          AND m.VALID_YN = 'Y'
+          AND m.recommend_Id = #{memberId}
+          AND m.REG_DATE <![CDATA[ >= ]]> DATE_FORMAT(ei.event_sdate, '%Y-%m-%d')
+          AND ej.EVENT_ID in ('504', '505')
+    </select>
+
+    <select id="getMyRecomList" parameterType="string" resultType="hashMap">
+		SELECT
+		    m.MEMBER_ID AS memberId
+			,m.NAME AS memberName
+		FROM EVENT_JOIN ej
+			JOIN member m ON ej.MEMBER_ID = m.recommend_Id
+			JOIN EVENT_INFO ei  on ej.EVENT_ID = ei.event_id
+		WHERE 1=1
+		  AND m.state = 'Y'
+		  AND m.VALID_YN = 'Y'
+		  AND m.recommend_Id = #{memberId}
+		  AND m.REG_DATE <![CDATA[ >= ]]> DATE_FORMAT(ei.event_sdate, '%Y-%m-%d')
+		  AND ej.EVENT_ID = '545'
+	    ORDER BY m.val_Date, m.val_time
+	</select>
+
+    <select id="getPopularCnt" parameterType="string" resultType="edu.visang.vivasam.saemteo.model.EventInfo">
+		select item, sum(totalCnt) as totalCnt
+				from (
+					    select item, category, count(item) as totalCnt
+					    from (
+					        SELECT arr_split_v2(EVENT_ANSWER_DESC, '^||^', 1) AS item, '영상' AS category
+					        FROM EVENT_JOIN_ANSWER
+					       	WHERE EVENT_ID = #{eventId}
+					        UNION ALL
+					        SELECT arr_split_v2(EVENT_ANSWER_DESC, '^||^', 2) AS item, '이미지' AS category
+					        FROM EVENT_JOIN_ANSWER
+					        WHERE EVENT_ID = #{eventId}
+					        UNION ALL
+					        SELECT arr_split_v2(EVENT_ANSWER_DESC, '^||^', 3) AS item, '음원' AS category
+					        FROM EVENT_JOIN_ANSWER
+					        WHERE EVENT_ID = #{eventId}
+					    ) AS items
+					    WHERE item IS NOT NULL AND item <![CDATA[ <> ]]> ''
+					    GROUP BY item, category
+
+					    UNION ALL
+
+					    SELECT '영상 후보1' AS item, '영상' AS category, 0 AS totalCnt
+					    UNION ALL
+					    SELECT '영상 후보2', '영상', 0
+					    UNION ALL
+					    SELECT '영상 후보3', '영상', 0
+					    UNION ALL
+					    SELECT '영상 후보4', '영상', 0
+					    UNION ALL
+					    SELECT '영상 후보5', '영상', 0
+					    UNION ALL
+					    SELECT '영상 후보6', '영상', 0
+					    UNION ALL
+					    SELECT '이미지 후보1', '이미지', 0
+					    UNION ALL
+					    SELECT '이미지 후보2', '이미지', 0
+					    UNION ALL
+					    SELECT '이미지 후보3', '이미지', 0
+					    UNION ALL
+					    SELECT '이미지 후보4', '이미지', 0
+					    UNION ALL
+					    SELECT '이미지 후보5', '이미지', 0
+					    UNION ALL
+					    SELECT '이미지 후보6', '이미지', 0
+					    UNION ALL
+					    SELECT '음원 후보1', '음원', 0
+					    UNION ALL
+					    SELECT '음원 후보2', '음원', 0
+					    UNION ALL
+					    SELECT '음원 후보3', '음원', 0
+					    UNION ALL
+					    SELECT '음원 후보4', '음원', 0
+					    UNION ALL
+					    SELECT '음원 후보5', '음원', 0
+					    UNION ALL
+					    SELECT '음원 후보6', '음원', 0
+					) as tmp
+				GROUP BY item, category
+				ORDER BY
+				    CASE category
+				        WHEN '영상' THEN 1
+				        WHEN '이미지' THEN 2
+				        WHEN '음원' THEN 3
+				        ELSE 4
+				    END, item
+	</select>
+
+    <select id="getSpecificEventJoinAnswerList3" parameterType="hashmap"
+            resultType="hashmap">
+        SELECT B.*, C.NAME AS memberName, C.NICKNAME AS nickname, C.CHANNEL_URL AS channelUrl, C.PROFILE_IMG_PATH, D.M_GUBUN_CDS
+        FROM (
+            select * from (
+                SELECT REPLY_ID
+                        , ROW_NUMBER() OVER(order by REG_DTTM desc) as ID
+                        , COUNT(1) OVER() AS TOTALPAGE
+                FROM REPLY
+                WHERE LEVEL = 0
+                AND ARTICLE_ID = #{eventId}
+                AND MENU = 'SAMTER_EVENT'
+                ORDER BY REG_DTTM DESC
+            ) tmp
+				where tmp.ID between (#{pageNo}-1) * #{pageSize} + 1 and #{pageNo} * #{pageSize}
+            ) A
+        JOIN REPLY B ON A.REPLY_ID = B.REPLY_ID
+        LEFT JOIN MEMBER C ON B.REG_MEMBER_ID = C.MEMBER_ID
+        LEFT JOIN (
+            SELECT
+                A.MEMBER_ID,
+			    (SELECT GROUP_CONCAT(M_GUBUN_CD) FROM MEMBER_TAG WHERE MEMBER_ID = A.MEMBER_ID AND USE_YN = 'Y') AS M_GUBUN_CDS
+            FROM MEMBER_TAG A
+			GROUP BY A.MEMBER_ID
+		) D ON C.MEMBER_ID = D.MEMBER_ID
+    </select>
+    <!-- 댓글 카운트 조회 -->
+    <select id="getReplyCount" parameterType="String"
+            resultType="integer">
+        SELECT COUNT(1) FROM REPLY
+        WHERE ARTICLE_ID = #{eventId} AND MENU = 'SAMTER_EVENT' AND LEVEL = 0
+    </select>
+    <!-- 댓글 등록 -->
+    <insert id="writeReply" parameterType="hashmap">
+        INSERT INTO REPLY
+        (
+            PARENT_ID,
+            ARTICLE_ID,
+            LEVEL,
+            STATUS,
+            MENU,
+            CONTENTS,
+            REF_URL,
+            REG_MEMBER_ID,
+            UPT_MEMBER_ID
+        )
+        VALUES
+            (
+                #{eventId},
+                #{eventId},
+                0,
+                'NORMAL',
+                'SAMTER_EVENT',
+                #{content},
+                #{refUrl},
+                #{memberId},
+                #{memberId}
+            )
+    </insert>
+
+    <select id="chkEventJoinDate" parameterType="edu.visang.vivasam.saemteo.model.EventInfo" resultType="String">
+        SELECT EVENT_ANSWER_DESC
+        FROM EVENT_JOIN_ANSWER
+        WHERE EVENT_ID = #{eventId}
+          AND MEMBER_ID = #{memberId}
+          AND EVENT_ANSWER_SEQ = '2'
+    </select>
+
+    <update id="applyEventJoin521" parameterType="hashmap">
+        UPDATE EVENT_JOIN_ANSWER
+        SET EVENT_ANSWER_DESC = CONCAT(EVENT_ANSWER_DESC,'X',#{eventAnswerDesc2})
+        WHERE EVENT_ID = '521'
+        AND EVENT_ANSWER_SEQ = 2
+        AND MEMBER_ID = #{memberId}
+    </update>
+
+    <select id="getEventVoteRank" resultType="hashmap">
+		SELECT
+		    EVENT_ANSWER_DESC AS eventAnswerDesc
+		    ,COUNT(MEMBER_ID) AS voteCnt
+		    ,ROW_NUMBER() OVER (ORDER BY COUNT(MEMBER_ID) DESC, MAX(REG_DTTM)) AS voteRank
+		FROM EVENT_JOIN_ANSWER
+		WHERE EVENT_ID = '557'
+		AND EVENT_ANSWER_SEQ = 2
+		GROUP BY EVENT_ANSWER_DESC
+	</select>
+
+    <update id="applyEventJoin584" parameterType="hashmap">
+        UPDATE EVENT_JOIN_ANSWER
+        SET EVENT_ANSWER_DESC = CONCAT(EVENT_ANSWER_DESC,'&amp;',#{eventAnswerDesc2})
+        WHERE EVENT_ID = '584'
+          AND EVENT_ANSWER_SEQ = 2
+          AND MEMBER_ID = #{memberId}
+    </update>
+</mapper>
+
+
+

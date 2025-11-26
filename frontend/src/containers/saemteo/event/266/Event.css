@@ -1,0 +1,15 @@
+.event191118 {position: relative; font-family: "Nanum Gothic","나눔고딕",NanumGothic,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;}
+.event191118 img {vertical-align: middle; width:100%; line-height:0}
+.event191118 a {display: inline;}
+
+/* btn */
+.event191118 .btn_detail {position: absolute; top:0; left: 0; margin: 208% 0 0 58.54%; width: 35vw; height: 7vw; line-height: 7vw; border-radius: 0.8vw; background: #457cb5;  text-align: center; font-size: 3.2vw; color: #fff; font-weight: 700;}
+/* 신청하기 */
+.event191118 .btn_wrap {padding: 8vw 0; text-align: center; background: #3c4980;}
+.event191118 .btn_apply {width: 41.6vw; height: 10.7vw; background: #9a5adc;  font-size: 4.2vw; color: #fff; font-family: "Nanum Gothic_Bold";}
+
+/* contents */
+.event191118 .cont2 {padding: 4vw 4.5vw; background: #303a66;}
+.event191118 .cont2 li {position: relative; padding-left: 2vw; margin-bottom: 1.5vw; font-size: 2.267vw; color: #fff;}
+.event191118 .cont2 li strong {color: #e1e0b1;}
+.event191118 .cont2 li:before {content: ""; display: block; position: absolute; left: 0; top: 1.4vw; width: 0.5vw; height: 0.5vw; background: #fff;}

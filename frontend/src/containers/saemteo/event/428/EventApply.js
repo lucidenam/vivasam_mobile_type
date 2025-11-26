@@ -1,0 +1,781 @@
+import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {debounce} from 'lodash';
+import * as api from 'lib/api';
+import * as common from 'lib/common';
+import * as saemteoActions from 'store/modules/saemteo';
+import * as popupActions from 'store/modules/popup';
+import * as baseActions from 'store/modules/base';
+import * as myclassActions from 'store/modules/myclass';
+import InfoText from 'components/login/InfoText';
+import FindAddress from 'containers/login/FindAddress';
+import EventFindSchool from "containers/saemteo/EventFindSchool";
+import EventApplyResult from 'containers/saemteo/EventApplyResult';
+import RenderLoading from 'components/common/RenderLoading';
+
+import './Event.css';
+
+class EventApply extends Component {
+
+	state = {
+		initialSchName: '',
+		initialSchZipCd: '',
+		initialSchAddr: '',
+		eventInfo: '',
+		phoneCheckMessage: '',
+		phoneCheckClassName: '',
+		telephoneCheck: false,
+		studentCnt: '',
+		isAnotherEmailDomain: 0,
+		anotherEmailDomain: '',
+		companion: '',
+		companionSchool: '',
+		useCompanionName: false,
+		useCompanionSchool: false,
+		useNoCompanionInfo: false,
+	};
+
+	constructor(props) {
+		super(props);
+		// Debounce
+		this.applyButtonClick = debounce(this.applyButtonClick, 300);
+	}
+
+
+	componentDidMount() {
+		const {eventId, history, event,SaemteoActions} = this.props;
+
+		if (!eventId) {
+			history.push('/saemteo/event');
+		} else {
+			this.getEventInfo(eventId);
+		}
+
+		event.email = "";
+		event.emailId = "";
+		event.emailDomain = "";
+		event.isCompanion = "";
+		event.companionName = "";
+		event.companionSchool = "";
+		event.noCompanionInfo = "";
+		event.noCompanionInfo = false;
+		event.story = "";
+		event.agree1 = false;
+		event.agree2 = false;
+		SaemteoActions.pushValues({type: "event", object: event});
+	}
+
+	getEventInfo = async (eventId) => {
+		const {history, event, SaemteoActions} = this.props;
+		const {isAnotherEmailDomain, anotherEmailDomain} = this.state;
+		const response = await api.eventInfo(eventId);
+
+		if (response.data.code && response.data.code === "0") {
+			let eventInfo = response.data.eventList[0];
+			event.eventId = eventInfo.eventId;
+			let {memberId, name, schCode, schName, schZipCd, schAddr, cellphone, email} = response.data.memberInfo;
+
+			// 학교코드가 99999, 99998, 99997일 경우 학교가 설정되지 않은 것으로 간주하여 정보불러오기에서 사용하는 정보를 공백처리한다.
+			if (!schCode || schCode === 99999 || schCode === 99998 || schCode === 99997) {
+				schName = '';
+				schZipCd = '';
+				schAddr = '';
+			}
+
+			event.memberId = memberId;
+			event.userName = name;
+			event.schName = schName;
+			event.schZipCd = schZipCd;
+			event.schAddr = schAddr;
+			event.addressDetail = schName;
+			event.inputType = '개인정보 불러오기';
+			event.userInfo = 'Y';
+			event.cellphone = cellphone;
+			event.email = email;
+			event.agree = false;
+			event.receive = '교실';
+
+			if (email) {
+				let s = email.split("@");
+				event.emailId = s[0];
+				let REGEXP_DOMAIN = /^(?:gmail.com|daum.net|hanmail.net|naver.com|nate.com)$/;
+				if (s[1]) {
+					if (REGEXP_DOMAIN.test(s[1])) {
+						event.emailDomain = s[1];
+					} else {
+						event.emailDomain = s[1];
+
+						this.setState({
+							isAnotherEmailDomain: 1,
+							anotherEmailDomain: s[1]
+						})
+					}
+				}
+			}
+
+			this.phoneCheckByUserInfoCellphone(cellphone);
+			SaemteoActions.pushValues({type: "event", object: event});
+
+			this.setState({
+				eventInfo: eventInfo,
+				initialSchName: schName,
+				initialSchZipCd: schZipCd,
+				initialSchAddr: schAddr,
+				userCellphone: cellphone
+			});
+		} else if (response.data.code && response.data.code === "3") {
+			common.info("이미 신청하셨습니다.");
+			history.replace(history.location.pathname.replace('apply', 'view'));
+		} else {
+			history.push('/saemteo/index');
+		}
+	};
+
+	handleChange = (e) => {
+		const {event, SaemteoActions} = this.props;
+
+		if (e.target.name === 'agree' || e.target.name === 'agree1' || e.target.name === 'agree2' || e.target.name === 'noCompanionInfo') {
+			event[e.target.name] = e.target.checked;
+		} else {
+			event[e.target.name] = e.target.value;
+		}
+
+		if (e.target.name === 'isCompanion') {
+			if (e.target.value === "Y") {
+				this.setState({
+					useCompanionName: false,
+					useCompanionSchool: false,
+					useNoCompanionInfo: false
+				});
+			} else {
+				event.companionName = '';
+				event.companionSchool = '';
+				event.noCompanionInfo = false;
+				this.setState({
+					useCompanionName: true,
+					useCompanionSchool: true,
+					useNoCompanionInfo: true
+				});
+			}
+		}
+
+		if (e.target.name === 'companionName' || e.target.name === 'companionSchool' ) {
+			event['noCompanionInfo'] = '';
+		}
+
+		if (e.target.name === 'noCompanionInfo') {
+			if(event.noCompanionInfo) {
+				event.companionName = '';
+				event.companionSchool = '';
+				this.setState({
+					useCompanionName: true,
+					useCompanionSchool: true
+				});
+			} else {
+				this.setState({
+					useCompanionName: false,
+					useCompanionSchool: false
+				});
+			}
+		}
+
+
+		SaemteoActions.pushValues({type: "event", object: event});
+	};
+
+	handleUserInfo = (e) => {
+		const {event, SaemteoActions} = this.props;
+		const {initialSchName, initialSchZipCd, initialSchAddr, userCellphone} = this.state;
+
+		if (e.target.value === 'Y') {
+			event.inputType = '개인정보 불러오기';
+			event.schName = initialSchName;
+			event.schZipCd = initialSchZipCd;
+			event.schAddr = initialSchAddr;
+			event.addressDetail = initialSchName;
+		} else {
+			event.inputType = '직접입력';
+			event.schName = '';
+			event.schZipCd = '';
+			event.schAddr = '';
+			event.addressDetail = '';
+		}
+
+		event.cellphone = userCellphone;
+		SaemteoActions.pushValues({type: "event", object: event});
+		this.handleChange(e);
+		this.phoneCheckByUserInfoCellphone(event.cellphone);
+	};
+
+	// 사용자의 핸드폰정보 조회시 유효성 체크
+	phoneCheckByUserInfoCellphone = (cellphone) => {
+		let text = '';
+		let checkFlag = false;
+		let clazz = 'point_red ml15';
+		if(cellphone === ''){
+			text = "";
+		} else if(!this.checkPhoneNum(cellphone)){
+			text = "휴대폰 번호가 유효하지 않습니다.";
+		} else{
+			clazz = 'point_color_blue ml15';
+			text = "등록가능한 휴대폰 번호입니다.";
+			checkFlag = true;
+		}
+		this.setState({
+			phoneCheckClassName: clazz,
+			phoneCheckMessage: text,
+			telephoneCheck: checkFlag
+		});
+	}
+
+	//핸드폰번호 체크
+	phoneCheck = (e) => {
+		e.target.value = common.autoHypenPhone(e.target.value);
+		let tel = e.target.value;
+		let text = '';
+		let checkFlag = false;
+		let clazz = 'point_red ml15';
+
+		if (tel === '') {
+			text = "";
+		} else if (!this.checkPhoneNum(tel)) {
+			text = "휴대폰 번호가 유효하지 않습니다.";
+		} else {
+			clazz = 'point_color_blue ml15';
+			text = "등록가능한 휴대폰 번호입니다.";
+			checkFlag = true;
+		}
+
+		this.setState({
+			phoneCheckClassName: clazz,
+			phoneCheckMessage: text,
+			telephoneCheck: checkFlag
+		});
+
+		this.handleChange(e);
+	};
+
+	checkPhoneNum = (value) => {
+		if (!value) return false;
+
+		if (value === '' || value.length === 0) {
+			return false;
+		} else if (value.indexOf("01") !== 0) {
+			return false;
+		} else if (value.length !== 13) {
+			return false;
+		}
+
+		return true;
+	};
+
+	//우편번호 검색 팝업
+	openPopupAddress = () => {
+		const {PopupActions} = this.props;
+		PopupActions.openPopup({title: "우편번호 검색", componet: <FindAddress handleSetAddress={this.handleSetAddress}/>});
+	};
+
+	//도로명주소 입력 후 callback
+	handleSetAddress = (zipNo, roadAddr) => {
+		const {event, PopupActions, SaemteoActions} = this.props;
+		event.inputType = '직접입력';
+		event.userInfo = 'N';
+		event.schZipCd = zipNo;
+		event.schAddr = roadAddr;
+		SaemteoActions.pushValues({type: "event", object: event});
+		PopupActions.closePopup();
+	};
+
+	openPopupSchool = (e) => {
+		const { PopupActions } = this.props;
+
+		e.preventDefault();
+		PopupActions.openPopup({title:"학교 검색", componet:<EventFindSchool handleSetSchool={this.handleSetSchool}/>});
+	}
+
+	// 학교검색 선택후 callback
+	handleSetSchool = (obj) => {
+		const { event, SaemteoActions, PopupActions } = this.props;
+		const { schoolName, schoolCode, zip, addr } = obj;
+
+		event.schCode = schoolCode;
+		event.schName = schoolName;
+		event.schZipCd = zip;
+		event.schAddr = addr;
+		event.addressDetail = schoolName;
+
+		SaemteoActions.pushValues({type:"event", object:event});
+		PopupActions.closePopup();
+	}
+
+	//값 입력 확인
+	validateInfo = () => {
+		const {event} = this.props;
+		const {telephoneCheck} = this.state;
+		let reg_name = /[\uac00-\ud7a3]{2,4}/;
+		let obj = {result: false, message: ''};
+
+		if (!event.userName) {
+			obj.message = '성명을 입력해주세요.';
+		} else if (!reg_name.test(event.userName)) {
+			obj.message = '올바른 성명 형식이 아닙니다.';
+		} else if (!event.emailId || !event.emailDomain) {
+			obj.message = '이메일을 입력해 주세요.';
+		} else if (event.telephone === "") {
+			obj.message = '휴대전화번호를 입력해주세요.';
+		} else if (!telephoneCheck) {
+			obj.message = '휴대전화번호를 입력해주세요.';
+		} else if (!event.isCompanion) {
+			obj.message = '동반 선생님 유무를 선택해 주세요.';
+		} else if (event.isCompanion === "Y" && ((!event.companionName || !event.companionSchool) && !event.noCompanionInfo)) {
+			obj.message = '동반 선생님의 모든 정보를 입력하시거나, 미정일 경우 미정에 체크해 주세요.';
+		} else if (!event.story) {
+			obj.message = '신청사연을 입력해주세요.';
+		} else if (!event.agree || !event.agree1 || !event.agree2) {
+			obj.message = '모든 필수 동의 선택 후 이벤트 신청을 완료해주세요.';
+		} else {
+			obj.result = true;
+		}
+
+		return obj;
+	};
+
+	applyButtonClickSafe = (e) => {
+		this.applyButtonClick(e.target);
+	};
+
+	applyButtonClick = (target) => {
+		target.disabled = true;
+		const {event, SaemteoActions, eventAnswer, eventId} = this.props;
+
+		let obj = this.validateInfo();
+		if (!obj.result) {
+			common.error(obj.message);
+			target.disabled = false;
+			return false;
+		}
+
+		let receive = event.receive;
+		if (event.receive === "기타") {
+			receive = event.receiveEtc;
+		} else if (event.receive === "교실") {
+			receive = event.receiveGrade + '학년 ' + event.receiveClass + '반';
+		}
+
+		let receiveInfo = event.emailId + '@' + event.emailDomain + '/' + event.cellphone;
+
+		let companionInfo = "";
+		if(event.isCompanion === "Y") {
+			if(!event.noCompanionInfo) {
+				companionInfo += event.companionName + '/' + event.companionSchool;
+			} else {
+				companionInfo += "동반 선생님 미정";
+			}
+		} else {
+			companionInfo += "동반 선생님 없음";
+		}
+
+		companionInfo += '/' + event.story;
+
+		try {
+			event.eventId = eventId;
+			event.eventAnswerDesc = receiveInfo;
+			event.eventAnswerDesc2 = companionInfo;
+			SaemteoActions.pushValues({type: "event", object: event});
+			// 신청 처리
+			this.insertApplyForm();
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
+	handleClose = async (e) => {
+		e.preventDefault();
+		const {eventId, PopupActions, history} = this.props;
+		await PopupActions.closePopup();
+		history.push('/saemteo/event/view/' + eventId);
+		// eventAnswerDesc: event.eventAnswerDesc,
+		// 	eventAnswerDesc2: event.eventAnswerDesc2,
+		// 	cellphone: event.cellphone,
+	};
+
+	//신청
+	insertApplyForm = async () => {
+		const {event, history, SaemteoActions, PopupActions, BaseActions, MyclassActions, eventId} = this.props;
+
+		try {
+			BaseActions.openLoading();
+
+			var params = {
+				eventId: eventId,
+				eventAnswerDesc: event.eventAnswerDesc,
+				eventAnswerDesc2: event.eventAnswerDesc2,
+				cellphone: event.cellphone,
+				userInfo: event.userInfo,
+				schCode: event.schCode,
+			};
+
+			let response = await SaemteoActions.insertEventApply(params);
+
+			if (response.data.code === '1') {
+				common.error("이미 신청 하셨습니다.");
+			} else if (response.data.code === '0') {
+				PopupActions.openPopup({title:"신청완료", componet:<EventApplyResult eventId={event.eventId} surveyList={response.data.surveyList} handleClose={this.handleClose}/>});
+				// 신청 완료.. 만약 학교 정보가 변경되었을 경우는 나의 클래스정보 재조회
+				if (event.schCode && event.schCode !== this.state.initialSchCode) {
+					MyclassActions.myClassInfo();
+				}
+			} else if (response.data.code === '5') {
+				common.error("마일리지의 잔액이 모자랍니다. 다시 확인해주세요.");
+			} else if (response.data.code === '6') {
+				common.error("마일리지 적립/차감에 실패하였습니다.\n비바샘으로 문의해 주세요. (1544-7714)");
+			} else {
+				common.error("신청이 정상적으로 처리되지 못하였습니다.");
+			}
+
+		} catch (e) {
+			console.log(e);
+			common.info(e.message);
+			history.push('/saemteo/event/view/'+eventId);
+		} finally {
+			setTimeout(()=>{
+				BaseActions.closeLoading();
+			}, 1000);//의도적 지연.
+		}
+	}
+
+	// maxLength 강제 적용
+	checkMaxLength = (e) => {
+		if (e.target.value.length > e.target.maxLength) {
+			e.target.value = e.target.value.slice(0, e.target.maxLength);
+		}
+	}
+
+	// 직접 입력일 경우 입력창이 뜨도록 설정
+	setAnotherEmailDomain = (e) => {
+		const {event, SaemteoActions} = this.props;
+
+		if (e.target.name === 'emailDomain') {
+			if (e.target.value === 'otherDomain') {
+				this.setState({
+					isAnotherEmailDomain: 1
+				});
+			} else {
+				this.setState({
+					isAnotherEmailDomain: 0,
+					anotherEmailDomain: e.target.value
+				})
+			}
+		}
+
+		event[e.target.name] = e.target.value;
+		SaemteoActions.pushValues({type: "event", object: event});
+	}
+
+
+	render() {
+		const {eventInfo} = this.state;
+		if (eventInfo === '') return <RenderLoading/>;
+		const {event} = this.props;
+		const {phoneCheckMessage, phoneCheckClassName} = this.state;
+		return (
+			<section className="vivasamter">
+				<h2 className="blind">
+					비바샘터 신청하기
+				</h2>
+				<div className="applyDtl_top">
+					<div className="applyDtl_cell ta_c pick">
+						<h3><strong>43차 교사문화프로그램 신청하기</strong></h3>
+					</div>
+					<div className="applyDtl_cell ta_c pick">
+						<p>
+							당첨 시 관련 안내 연락을 받을 수 있는<br />
+							휴대전화번호와 이메일 주소를 꼭 확인해 주세요.
+						</p>
+					</div>
+				</div>
+				<div className="vivasamter_apply">
+					<div className="vivasamter_applyDtl pdside0">
+						<div className="pdside20 pb25">
+							<h2 className="info_tit">
+								<label htmlFor="ipt_name">성명</label>
+							</h2>
+							<div className="input_wrap">
+								<input
+									type="text"
+									placeholder="성명을 입력하세요"
+									id="ipt_name"
+									name="userName"
+									onChange={this.handleChange}
+									value={event.userName}
+									className="input_sm"
+									readOnly={true}/>
+							</div>
+							<h2 className="info_tit">
+								<label htmlFor="ipt_email">이메일</label>
+							</h2>
+							<div className="email_wrap">
+								<div className="input_wrap">
+									<input
+										type="text"
+										name="emailId"
+										ref="email"
+										onChange={this.handleChange}
+										value={event.emailId}
+										className="input_sm input_fix_wrap"
+										id="ipt_email"/>
+									<span className="input_fix_txt">@</span>
+								</div>
+								<div className="selectbox select_sm mt5">
+									{/* 이메일 개인정보 불러오기를 할때에는 해당되는 selected 조건을 넣어주어야 함 */}
+									<select name="emailDomain" ref="emailDomain" id="ipt_email"
+											onChange={this.setAnotherEmailDomain}>
+										<option value="">선택</option>
+										<option value="otherDomain" selected={this.state.isAnotherEmailDomain === 1}>직접입력
+										</option>
+										<option value="gmail.com"
+												selected={this.state.isAnotherEmailDomain === 0 && this.state.anotherEmailDomain === "gmail.com"}>gmail.com
+										</option>
+										<option value="daum.net"
+												selected={this.state.isAnotherEmailDomain === 0 && this.state.anotherEmailDomain === "daum.net"}>daum.net
+										</option>
+										<option value="hanmail.net"
+												selected={this.state.isAnotherEmailDomain === 0 && this.state.anotherEmailDomain === "hanmail.net"}>hanmail.net
+										</option>
+										<option value="naver.com"
+												selected={this.state.isAnotherEmailDomain === 0 && this.state.anotherEmailDomain === "naver.com"}>naver.com
+										</option>
+										<option value="nate.com"
+												selected={this.state.isAnotherEmailDomain === 0 && this.state.anotherEmailDomain === "nate.com"}>nate.com
+										</option>
+									</select>
+								</div>
+							</div>
+							<input
+								type="text"
+								name="emailDomain"
+								ref="otherDomain"
+								placeholder="예) domain.com"
+								autoCapitalize="none"
+								value={event.emailDomain}
+								className="input_sm ico_at mt5"
+								onChange={this.handleChange}
+								style={{display: this.state.isAnotherEmailDomain === 1 ? 'block' : 'none'}}
+								id="check_domain"/>
+							<h2 className="info_tit">
+								<label htmlFor="ipt_phone">휴대전화번호</label>
+							</h2>
+							<div className="input_wrap">
+								<input
+									type="tel"
+									placeholder="휴대폰 번호를 입력하세요 (예 : 010-2345-6789)"
+									id="ipt_phone"
+									name="cellphone"
+									onChange={this.phoneCheck}
+									value={event.cellphone}
+									maxLength="13"
+									className="input_sm mb10"/>
+								<InfoText message={phoneCheckMessage} className={phoneCheckClassName}/>
+							</div>
+							<h2 className="info_tit chk_tit">
+								<label htmlFor="ipt_phone">동반 선생님</label>
+								<ul className="join_ipt_chk">
+									<li className="join_chk_list" style={{width: '45%'}}>
+										<input
+											type="radio"
+											name="isCompanion"
+											id="teacherRdo1"
+											value="Y"
+											checked={event.isCompanion === 'Y'}
+											onChange={this.handleChange}
+											className="checkbox_circle"
+										/>
+										<label htmlFor="teacherRdo1">있음</label>
+									</li>
+									<li className="join_chk_list">
+										<input
+											type="radio"
+											name="isCompanion"
+											id="teacherRdo2"
+											className="checkbox_circle"
+											value="N"
+											checked={event.isCompanion === 'N'}
+											onChange={this.handleChange}
+										/>
+										<label htmlFor="teacherRdo2">없음</label>
+									</li>
+								</ul>
+							</h2>
+
+							<h2 className="info_tit">
+								<label htmlFor="ipt_phone">동반 선생님 정보</label>
+							</h2>
+							<div className="input_wrap info_wrap ">
+								<div className="inner">
+									<input
+										type="text"
+										placeholder="이름"
+										id="ipt_teacherInfo"
+										name="companionName"
+										onChange={this.handleChange}
+										value={event.companionName}
+										disabled={this.state.useCompanionName}
+										className="input_sm mb10"/>
+									<input
+										type="text"
+										placeholder="학교"
+										id="ipt_school"
+										name="companionSchool"
+										onChange={this.handleChange}
+										value={event.companionSchool}
+										disabled={this.state.useCompanionSchool}
+										className="input_sm mb10"/>
+									<ul className="join_ipt_chk">
+										<li className="join_chk_list">
+											<input
+												type="checkbox"
+												name="noCompanionInfo"
+												checked={event.noCompanionInfo}
+												onChange={this.handleChange}
+												disabled={this.state.useNoCompanionInfo}
+												id="teacherInfo2"
+												className="checkbox_circle"
+											/>
+											<label htmlFor="teacherInfo2">미정</label>
+										</li>
+									</ul>
+								</div>
+								<p className="evtForm_labelTxt">* 동반자 선생님 신청은 최대 1명까지 가능합니다.</p>
+								<p className="evtForm_labelTxt">* <span className="c_o">선생님 대상으로 하는 프로그램으로 선생님만 입장이 가능</span>합니다</p>
+								<p className="evtForm_labelTxt">* 동반자 선생님이 아직 정해지지 않은  경우에는<br /> 미정에 체크해주세요.</p>
+							</div>
+							<h2 className="info_tit">
+								<label htmlFor="ipt_phone">신청 사연 (200자 이내)</label>
+							</h2>
+							<div className="input_wrap">
+								<textarea
+									name="story"
+									id="applyContent2"
+									cols="1"
+									rows="10"
+									maxLength="200"
+									value={event.story}
+									onChange={this.handleChange}
+									placeholder="200자 까지 입력하실 수 있습니다."
+									className="textarea">
+								</textarea>
+								<div className="count_wrap"><p className="count"><span>{event.story.length}</span>/200</p></div>
+							</div>
+						</div>
+						<div className="acco_notice_list pdside20">
+							<div className="acco_notice_cont">
+								<span className="privacyTit">
+									유의 사항
+								</span>
+								<ul className="privacyList event1">
+									<li>1인 1회 신청 가능하며 당첨자는 공지사항 게시, 개별 연락을 드립니다. </li>
+									<li>상영 영화는 추첨 후 당첨되신 분들께 문자로 개별 공지되며 영화 변경은 불가합니다.</li>
+									<li>당첨이 확정된 경우 당일 현장에서 본인 확인 후 입장 가능하며, 타인에게 양도는 불가합니다.</li>
+									<li>사전  연락 없이 당일 불참할 경우 추후 비바샘 이벤트 활동 참여가 제한될 수 있으니<br /> 일정과 장소를 꼭 확인해 주세요.</li>
+									<li>행사 당일 초상권 동의서를 작성할 예정입니다. 현장 사진은 비바샘 홍보, 마케팅 활동으로 <br />활용될 수 있습니다. </li>
+									<li className="c_o">
+											프로그램이 끝나고 정성스러운 후기를 남겨주신 3분을 선정하여 소정의 선물을 드립니다.<br />
+											(해당 이벤트는 행사 당일 자세하게 안내해드리겠습니다)
+									</li>
+									<li>본 프로그램은 내부 사정 등으로 변경되거나 취소될 수 있습니다.</li>
+								</ul>
+							</div>
+						</div>
+						<div className="checkbox_circle_box pdside20 acco_notice_list notice_sec">
+							<div className="acco_notice_cont">
+								<input
+									type="checkbox"
+									name="agree"
+									onChange={this.handleChange}
+									checked={event.agree}
+									className="checkbox_circle checkbox_circle_rel"
+									id="note_agree"/>
+								<label
+									htmlFor="note_agree"
+									className="checkbox_circle_simple">
+									<strong className="checkbox_circle_tit">본인은 유의사항을 확인하였으며, 이에 동의합니다.</strong>
+								</label>
+							</div>
+						</div>
+						<div className="acco_notice_list pdside20 notice_sec mt0">
+							<div className="acco_notice_cont">
+								<span className="privacyTit">
+									개인정보 수집 및 이용동의
+								</span>
+								<ul className="privacyList event2">
+									<li>이용 목적 : 교사문화 프로그램 당첨자 연락 및 CS 문의 응대</li>
+									<li>수집하는 개인정보 : 성명, 휴대전화번호, 이메일</li>
+									<li>개인정보 보유 및 이용기간 : <span className="c_o">2023년 3월 31일까지</span>(이용목적 달성 시 즉시 파기)</li>
+								</ul>
+								<br />
+								<p className="privacyTxt">선생님께서는 개인정보의 수집 및 이용, 처리 위탁에 대한 동의를 거부할 수 있습니다. 단, 동의를 거부할 경우 교사문화 프로그램 신청이 불가합니다.</p>
+							</div>
+						</div>
+						<div className="checkbox_circle_box pdside20 acco_notice_list notice_sec">
+							<div className="acco_notice_cont">
+								<input
+									type="checkbox"
+									name="agree1"
+									onChange={this.handleChange}
+									checked={event.agree1}
+									className="checkbox_circle checkbox_circle_rel"
+									id="join_agree"/>
+								<label
+									htmlFor="join_agree"
+									className="checkbox_circle_simple">
+									<strong className="checkbox_circle_tit">
+										본인은 개인정보 수집 및 이용내역을 확인하였으며,<br />
+										이에 동의합니다.
+									</strong>
+								</label>
+
+								<input
+									type="checkbox"
+									name="agree2"
+									onChange={this.handleChange}
+									checked={event.agree2}
+									className="checkbox_circle checkbox_circle_rel"
+									id="join_agree2"/>
+								<label
+									htmlFor="join_agree2"
+									className="checkbox_circle_simple">
+									<strong className="checkbox_circle_tit">
+										<span className="c_o">특강 일정 (2023년 2월 18일 토요일,<br /> CGV압구정)</span>을 확인하였습니다.
+									</strong>
+								</label>
+							</div>
+						</div>
+						<button
+							type="button"
+							onClick={this.applyButtonClickSafe}
+							className="btn_event_apply mt35">신청하기
+						</button>
+					</div>
+				</div>
+			</section>
+		);
+	}
+}
+
+export default connect(
+	(state) => ({
+		logged: state.base.get('logged'),
+		loginInfo: state.base.get('loginInfo').toJS(),
+		event: state.saemteo.get('event').toJS(),
+		eventAnswer: state.saemteo.get('eventAnswer').toJS(),
+		isApp: state.base.get('isApp')
+	}),
+	(dispatch) => ({
+		PopupActions: bindActionCreators(popupActions, dispatch),
+		SaemteoActions: bindActionCreators(saemteoActions, dispatch),
+		BaseActions: bindActionCreators(baseActions, dispatch),
+		MyclassActions: bindActionCreators(myclassActions, dispatch)
+	})
+)(withRouter(EventApply));

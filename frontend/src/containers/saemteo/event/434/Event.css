@@ -1,0 +1,54 @@
+/* EVENT 220322 */
+.event230306{position:relative;}
+.event230306 img{width:100%;vertical-align:top;}
+.event230306 [class^="evtCont"]{position:relative;z-index:1; background:#d3f5ff;}
+.event230306 *{font-family:'Noto Sans KR', sans-serif; box-sizing: border-box;}
+.event230306 input[type="radio"]{display:none;}
+
+.event230306 .evtCont02 {margin-top:-1.2vw; }
+.event230306 .evtCont02 .evtFormWrap {position: absolute; left: 50%; top: 1vw; transform: translateX(-50%); width: 100%; padding: 0 15.625vw;}
+.event230306 .evtCont02 .evtFormWrap ul{display:flex; justify-content:space-between; }
+.event230306 .evtCont02 .evtFormWrap ul li input[type="radio"] + label{position:relative;display:block;width:32.5vw; }
+.event230306 .evtCont02 .evtFormWrap ul li input[type="radio"] + label:before{content:''; display:block; position: absolute; left: 50%; bottom: -7.5vw; transform: translateX(-50%);  width: 5.5vw; height: 5.5vw; background:url('/images/events/2023/event230306/evt_check.png') no-repeat center center; background-size: 100% auto;}
+.event230306 .evtCont02 .evtFormWrap ul li input[type="radio"]:checked + label:before{background-position: center top;}
+.event230306 .evtCont02 .evtFormWrap ul li input[type="radio"]:disabled + label:before{background-position: center bottom;}
+.event230306 .evtCont02 .evtFormWrap ul li input[type="radio"]:disabled + label:after{content:'';position:absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width:15vw; height:15vw;background:url('/images/events/2023/event230306/deadline.png') center center no-repeat; background-size:100% auto;}
+.event230306 .evtCont02 .evtFormWrap ul li input[type="radio"] + label .imgWrap{position:relative; width: 100%;}
+.event230306 .evtCont02 .evtFormWrap ul li input[type="radio"] + label .imgWrap img{width:100%;}
+
+.event230306 .evtCont02 .btnWrap{position: absolute; left: 50%; top: 81.625vw; transform: translateX(-50%);}
+.event230306 .evtCont02 .btnApply{display:block;  width:51.125vw; height:13.25vw; background:url('/images/events/2023/event230306/btn_apply.png') no-repeat left top; background-size:100% auto; border-radius: 6.625vw; box-shadow: 0 10px 8px rgba(12, 12, 12, 0.21);}
+
+.event230306 .evtFooter{padding:5vw 10.625vw; background:#797c83;}
+.event230306 .evtFooter h2{margin-bottom: 1.5vw; font-size:3.25vw; font-weight:600; letter-spacing:-0.05em; color:#fff; line-height: 1; }
+.event230306 .evtFooter .evtInfoList li{position:relative;padding-left:2.75vw;font-size:2.5vw;font-weight:400;color:#fff;line-height:3.75vw;}
+.event230306 .evtFooter .evtInfoList li span{position:absolute; left:0; top:0; font:inherit;}
+
+.vivasamter_applyDtl .privacyList li span{font:inherit; color:#ff8125;}
+
+/*신청하기 팝업*/
+.bg_yell {background-color: #ffd563 !important;}
+.bg_yell h3{text-align:center;}
+.event230306 .vivasamter_applyDtl .info_tit>.join_ipt_chk {display:inline-block;}
+.event230306 .vivasamter_applyDtl .info_tit>.join_ipt_chk .join_chk_list.half {margin:0 0 0 20px; float:none; width:auto; display:inline-block;}
+.event230306 .vivasamter_applyDtl .info_tit>.join_ipt_chk .join_chk_list.half.ml38 {margin-left:38px !important;}
+.event230306 .bulTxt {padding-left:25px; margin-top:5px;text-indent:-10px;}
+.event230306 .vivasamter_applyDtl .input_wrap.school .input_sm {width:calc(100% - 130px); margin-top:10px;}
+.event230306 .vivasamter_applyDtl .input_wrap.school .input_in_btn.btn_gray {margin-left:5px; margin-top:-24px; right:0; width:125px; height:48px; font-size:14px; font-weight:600; vertical-align:top;}
+.event230306 .input_wrap.receiveGradeClass{display:flex; align-items: center;}
+.event230306 .input_wrap.receiveGradeClass>.input_sm, .event220322 .input_wrap.receiveGradeClass>.label_txt{display:block;}
+.event230306 .input_wrap.receiveGradeClass>.input_sm.wp143{width:143px;}
+.event230306 .input_wrap.receiveGradeClass>.label_txt{line-height:48px;}
+.event230306 .evtForm_labelTxt{margin-top:10px;padding-left:17px;font-size:12px; font-weight:400;color:#ff8125;line-height:1;}
+.vivasamter_applyDtl .privacyList li.pt35:before {top: 35px;}
+.tit_flex {display:flex;}
+.tit_flex label {margin-right:12px;}
+.tit_flex ul {width: calc(100% - 21.33vw);}
+.tit_flex ul li:first-child {width:60%;}
+.tit_flex ul li:nth-child(2) {width:40%;}
+
+
+
+
+
+

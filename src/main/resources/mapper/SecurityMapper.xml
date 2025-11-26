@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.security.mapper.SecurityMapper">
+    <select id="encode" parameterType="String" resultType="edu.visang.vivasam.security.Passwords">
+		select SHA1(#{password}) as oldPassword, fnSaltSHA512(#{password}) as newPassword
+    </select>
+
+    <select id="findByUserId" parameterType="String" resultType="edu.visang.vivasam.security.UserPrincipal">
+        SELECT /*사용자 정보 조회*/
+            MM.MEMBER_ID as memberId
+            , CASE MM.IS_SSO_MEMBER
+                WHEN 1 THEN 'Y'
+                WHEN 0 THEN 'N'
+                ELSE null
+            END AS ssoMemberYN
+            , CASE
+                WHEN MM.IPIN_CI IS NOT NULL AND MM.IPIN_CI != ''
+                    THEN 'Y'
+                ELSE 'N'
+            END as identifiedYN
+            , MM.NAME as memberName
+            , MM.NICKNAME as nickname
+            , MM.PROFILE_IMG_PATH as profileImgPath
+            , MM.VALID_YN as validYn
+            , MM.M_TYPE_CD as mTypeCd
+            , CASE
+                WHEN MM.SCH_CODE = '99999' OR MM.SCH_CODE = '99998' OR MM.SCH_CODE = '99997' OR MM.SCH_CODE = '99991' OR MM.SCH_CODE = '99992' OR MM.SCH_CODE = '99993'
+                    THEN MM.SCH_NAME
+                ELSE FN_SCHOOL_NAME(MM.SCH_CODE, #{memberId})
+            END AS schoolName
+            , CASE S.TAB
+                WHEN 'E' THEN 'ES'
+                WHEN 'M' THEN 'MS'
+                WHEN 'H' THEN 'HS'
+                WHEN 'C' THEN 'CS'
+                WHEN 'K' THEN 'KS'
+                WHEN 'O' THEN 'OS'
+            END AS schoolLvlCd  /*선택 학교 기준 학교급, 기타학교는 학교급 없음*/
+            , 'N' AS teacherYn
+            , '' AS grinfoId
+            , '' AS grinfoName
+            , MM.MAIN_SUBJECT as mainSubject
+            , MS.mainSubjectName as mainSubjectName
+            , MM.SECOND_SUBJECT as secondSubject
+            , SS.secondSubjectName as secondSubjectName
+            , MM.VISANG_TEXTBOOK_YN AS visangTbYN
+            , MM.M_LEVEL AS mLevel
+            , CASE
+                WHEN MM.PWD2 IS NULL
+                  THEN MM.PASSWORD2
+                ELSE MM.PWD2
+            END as password
+            , MM.PWD2 AS sha1Pwd
+            , MM.PASSWORD2 AS sha2Pwd
+            , LAST_DATE AS lastDate
+            , CASE
+                WHEN LAST_DATE IS NULL OR LAST_TIME IS NULL
+                  THEN 'Y'
+                WHEN CAST(LAST_DATE AS DATETIME) +  CAST(LAST_TIME AS DATETIME) <![CDATA[<]]> CAST(VAL_DATE AS DATETIME) +  CAST(VAL_TIME AS DATETIME)
+                  THEN 'Y'
+                ELSE 'N'
+            END AS firstYn
+            , VAL_END_DATE AS valEndDate
+            -- , MM.MY_GRADE as myGrade
+            , (
+				SELECT GROUP_CONCAT(GRADE)
+				FROM MEMBER_GRADE MG
+				WHERE MG.MEMBER_ID = MM.MEMBER_ID
+			) as myGrade
+            , CASE
+                WHEN IFNULL(MM.EPKI_CERTDN,'') = '' THEN 'N'
+                ELSE 'Y'
+            END EPKI_YN
+            , REG_DATE
+        FROM MEMBER AS MM
+        LEFT OUTER JOIN LATERAL (
+            SELECT
+                CODE, TAB, NAME, ZIP, ADDR, PKCODE, FKCODE
+            FROM
+                SCHOOL
+            WHERE CODE = MM.SCH_CODE
+            UNION ALL
+            SELECT
+                CODE, TAB, NAME, ZIP, ADDR, PKCODE, FKCODE
+            FROM
+                SCHOOL_ETC
+            WHERE CODE = MM.SCH_CODE
+        ) AS S ON 1 = 1
+        LEFT JOIN LATERAL (
+            SELECT NAME AS mainSubjectName
+            FROM VS_CODE
+            WHERE CODE = MM.MAIN_SUBJECT
+        ) AS MS ON 1=1
+        LEFT JOIN LATERAL (
+            SELECT NAME AS secondSubjectName
+            FROM VS_CODE
+            WHERE CODE = MM.SECOND_SUBJECT
+        ) AS SS ON 1=1
+        WHERE MM.MEMBER_ID = #{memberId}
+        AND MM.STATE = 'Y'
+        AND MM.ISRESTING = 0
+    </select>
+
+    <!-- 비밀번호를 SHA2_512 로 저장 -->
+    <update id="changeMemberPwdSha2" parameterType="String">
+        UPDATE MEMBER
+		SET PWD2 = NULL,
+			PASSWORD2 = fnSaltSHA512(#{password}),
+			UPDATE_DTTM = CURRENT_TIMESTAMP
+		WHERE MEMBER_ID = #{memberId}
+	</update>
+
+    <select id="checkVaildEndDate" parameterType="hashmap" resultType="hashmap" >
+        SELECT /*교사인증 유효기간 체크*/
+            M.MEMBER_ID as memberId
+            , M.NAME as memberName
+            , M.VAL_END_DATE as valEndDate
+            , CONVERT(DATEDIFF(M.VAL_END_DATE,CURRENT_DATE), CHAR) AS certValidTerm
+        FROM MEMBER AS M
+        WHERE M.MEMBER_ID = #{memberId}
+        AND M.STATE = 'Y'
+        AND M.VALID_YN = 'Y'
+			<!-- AND M.VAL_END_DATE  <![CDATA[<]]> convert(char(10),CURRENT_TIMESTAMP,126) -->
+     </select>
+</mapper>

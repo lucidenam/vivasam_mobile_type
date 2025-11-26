@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.visang.vivasam.common.mapper.SchoolMapper">
+	<select id="selectSchoolList" parameterType="Object" resultType="hashmap">
+       SELECT
+            0 AS idx
+            , CAST(COUNT(1) AS CHAR) AS code
+            , CAST(CEILING(CAST(COUNT(1) AS FLOAT) / 10) AS CHAR) as dosi
+            , CAST(10 AS CHAR) AS name
+            , null AS tab
+            , null AS addr
+            , null AS fkareacode
+            , null AS fkbranchcode
+            , null AS zip
+            , null AS fkareaname
+            , null AS fkbranchname
+       FROM SCHOOL AS S
+       WHERE IFNULL(USE_YN, '') != 'N'
+       AND GOV_UPD_YN IN ('Y', 'N')
+       ${schoolName}
+       UNION
+       SELECT *
+       FROM (
+            SELECT
+                ROW_NUMBER() OVER(
+                    ORDER BY
+                        CASE
+                            WHEN TAB = 'E' THEN 1
+                            WHEN TAB = 'M' THEN 2
+                            WHEN TAB = 'H' THEN 3
+                            WHEN TAB = 'S' THEN 4
+                            ELSE 9
+                        END , ADDR ASC ) AS idx
+                , code
+                , dosi
+                , name
+                , tab
+                , addr
+                , IFNULL(FKCODE, '') AS fkareacode
+                , IFNULL(PKCODE, '') AS fkbranchcode
+                , zip as zip
+                , ( SELECT CODENAME FROM SCHOOL_AREA WHERE PKCODE = S.FKCODE) AS fkareaname
+                , ( SELECT CODENAME FROM SCHOOL_AREA WHERE PKCODE = S.PKCODE ) AS fkbranchname
+            FROM SCHOOL AS S
+            WHERE IFNULL(USE_YN, '') != 'N'
+            AND GOV_UPD_YN IN ('Y', 'N')
+            ${schoolName}
+        ) AS SCHOOL
+        WHERE SCHOOL.IDX <![CDATA[ > ]]> #{pageRequest.offset}
+        AND SCHOOL.IDX <![CDATA[ <= ]]> (#{pageRequest.pageSize} * (#{pageRequest.pageNumber} + 1))
+    </select>
+
+	<select id="selectSchoolArea" parameterType="String" resultType="hashmap">
+		SELECT
+			FKCODE AS fkcode
+			, PKCODE AS pkcode
+			, CODENAME AS codename
+		FROM SCHOOL_AREA
+		WHERE 1 = 1
+		<if test ="pkcode != null and pkcode != ''">
+			AND PKCODE   = #{pkcode}
+		</if>
+		<if test ="codeflag != null and codeflag != ''">
+			AND CODEFLAG = #{codeflag}
+		</if>
+		<if test ="fkcode != null and fkcode != ''">
+			AND FKCODE   = #{fkcode}
+		</if>
+		<if test ='"S".equals(codeflag)'>
+			ORDER BY CODENAME ASC
+		</if>
+		<if test ='"B".equals(codeflag)'>
+			ORDER BY SEQ ASC
+		</if>
+    </select>
+
+    <select id="getSchoolInfo" parameterType="int" resultType="edu.visang.vivasam.common.model.SchoolInfo">
+        SELECT
+            CODE as code
+            , DOSI as dosi
+            , NAME as name
+            , ADDR as addr
+            , ZIP as zip
+            , TEL as tel
+            , TAB as tab
+            , PKCODE as pkCode
+            , FKCODE as fkCode
+        FROM (
+             SELECT
+                 CODE, TAB, NAME, ZIP, ADDR, PKCODE, FKCODE, DOSI, TEL, USE_YN
+             FROM
+                 SCHOOL
+             WHERE CODE = #{schCode}
+             UNION ALL
+             SELECT
+                 CODE, TAB, NAME, ZIP, ADDR, PKCODE, FKCODE, DOSI, TEL, USE_YN
+             FROM
+                 SCHOOL_ETC
+             WHERE CODE = #{schCode}
+         ) AS S
+        WHERE USE_YN = 'Y'
+        AND CODE = #{schCode}
+    </select>
+
+</mapper>

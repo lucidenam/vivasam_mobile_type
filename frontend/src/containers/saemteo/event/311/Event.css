@@ -1,0 +1,7 @@
+.event200922 {position: relative; font-family: "Nanum Gothic","나눔고딕",NanumGothic,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;}
+.event200922 h1 > img {vertical-align: middle; width:100%; line-height:0}
+
+.eventIcon {position:absolute;bottom:12.5vw;width:8vw;}
+.eventIcon.link {right:31vw;}
+.eventIcon.kakao {right:22vw;}
+.eventIcon.band {right:12vw;}

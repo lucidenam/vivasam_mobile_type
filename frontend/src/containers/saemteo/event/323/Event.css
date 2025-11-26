@@ -1,0 +1,26 @@
+/* Event */
+.event201209{text-align:center;}
+.event201209 img{width:100%;vertical-align:top;}
+.event201209 > [class^="evt"]{position:relative;z-index:1;}
+[class^="event"] .blind{overflow:hidden;position:absolute;top:auto;left:auto;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+/* START */
+[class^="evtCont"] button{box-sizing:border-box;width:100%;}
+[class^="evtCont"] .imgWrap{display:block;}
+/*  */
+.event201209 .evtCont02 .listWrap{position:absolute;top:0;left:0;box-sizing:border-box;width:100%;height:74.4%;padding:0 5.4vw;}
+.event201209 .evtCont02 .listWrap li{position:relative;width:100%;height:48.5%;}
+.event201209 .evtCont02 .listWrap li .iconInfo{position:absolute;top:32.4%;left:7.5%;display:none;width:26.6%;height:49.3%;background:url(/images/events/2020/event201209/txt_iconInfo02.png) 0 0 no-repeat rgba(106, 65, 226, 0.96);background-size:100%;border-radius:100%;text-align:center;}
+.event201209 .evtCont02 .listWrap li .iconInfo.done{background:url(/images/events/2020/event201209/txt_iconInfo01.png) 0 0 no-repeat rgba(51, 66, 68, 0.97);background-size:100%;}
+.event201209 .evtCont02 .listWrap li .iconInfo.on{display:block;}
+.event201209 .evtCont02 .listWrap li + li{margin-top:3.2%;}
+.event201209 .evtCont02 .btnWrap{position:absolute;bottom:5.3%;left:0;width:100%;}
+.event201209 .evtCont02 .btnWrap .btnApply{width:91.7%;}
+/* EventApply */
+.applyDtl_top{background:#0a5774;padding:4.5vw 15px;}
+.applyDtl_top h3{color:#fff;}
+.applyDtl_top h3 strong{font-family:inherit;color:#6df9a2;}
+.input_wrap + .mt10.mb25.c_gray{color:#888;}
+.acco_notice_cont{display:block;word-break:keep-all;}
+.policy{color:#222;}
+.acco_notice_cont ul.policy + p.comt{color:#888;}
+.acco_notice_tit.info_tit{display:block;color:#333;}

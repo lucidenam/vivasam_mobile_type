@@ -1,0 +1,173 @@
+
+.vivasamter {padding-bottom: 50px; }
+
+.event200707 {position: relative; font-family: "Nanum Gothic","나눔고딕",NanumGothic,"돋움",Dotum,Helvetica,"Apple SD Gothic Neo",sans-serif;}
+.event200707 img {vertical-align: middle; width:100%; line-height:0}
+.event200707 a {display: inline;}
+
+/* form */
+.event200707 .radio_circle {position:absolute; left:-3000px; opacity:0}
+.event200707 .radio_circle + label .radio {display:inline-block; letter-spacing: -0.2vw; font-family: "Nanum Gothic_Bold"; font-size: 2.8vw; color: #000;}
+.event200707 .radio_circle + label .radio:before {content:""; display:inline-block; -webkit-box-sizing:border-box; box-sizing:border-box; width:3.6vw; height:3.6vw; margin-top: -0.7vw; margin-right: 1.3vw; border:1px solid #bfbfbf;  vertical-align: middle;}
+.event200707 .radio_circle:disabled + label .radio:before {background-color: #bfbfbf;}
+.event200707 .radio_circle:checked + label .radio:before {border: none; background: url(/images/common/bg_check.png) no-repeat; background-size: cover;}
+.event200707 .radio_circle + label .radio {vertical-align: middle;}
+
+/* contents */
+.event200707 {
+    background-color: #008dd5;
+}
+
+.event200707 img {
+    width: 100%;
+}
+
+.event200707 .desc-box.type1 {
+    padding: 0 7vw;
+    text-align: left;
+    background:#a0e7e1;
+}
+
+.event200707 .desc-box.type1 .list {
+    box-sizing: border-box;
+    margin-bottom: 4vw;
+}
+
+.event200707 .desc-box.type1 .list ul {
+    width: 100%;
+    padding-top: 7.7vw;
+    text-align: center;
+}
+
+.event200707 .desc-box.type1 .list ul::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.event200707 .desc-box.type1 .list ul li {
+    display: inline-block;
+    width: 26.8vw;
+    list-style: none;
+}
+.event200707 .desc-box.type1 .list ul li +  li {margin-left: 2vw;}
+
+
+.event200707 .desc-box.type1 .list ul li .desc {
+    position: relative;
+}
+
+.event200707 .desc-box.type1 .list ul li .desc input[type=radio] {
+    display: none;
+}
+
+.event200707 .desc-box.type1 .list ul li .desc input[type=radio] + label {
+    display: block;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    background-size: contain;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-repeat: no-repeat;
+}
+
+.event200707 .desc-box.type1 .list ul li .desc.type1 input[type=radio] + label {
+    background-image: url("/images/events/2020/event200707/radio1.png");
+}
+
+.event200707 .desc-box.type1 .list ul li .desc.type1 input[type=radio]:checked + label {
+    background-image: url("/images/events/2020/event200707/radio1_on.png");
+}
+
+.event200707 .desc-box.type1 .list ul li .desc.type2 input[type=radio] + label {
+    background-image: url("/images/events/2020/event200707/radio2.png");
+}
+
+.event200707 .desc-box.type1 .list ul li .desc.type2 input[type=radio]:checked + label {
+    background-image: url("/images/events/2020/event200707/radio2_on.png");
+}
+
+.event200707 .desc-box.type1 .list ul li .desc.type3 input[type=radio] + label {
+    background-image: url("/images/events/2020/event200707/radio3.png");
+}
+
+.event200707 .desc-box.type1 .list ul li .desc.type3 input[type=radio]:checked + label {
+    background-image: url("/images/events/2020/event200707/radio3_on.png");
+}
+
+.event200707 .desc-box.type1 .list ul li .desc.type4 input[type=radio] + label {
+    background-image: url("/images/events/2020/event200707/radio4.png");
+}
+
+.event200707 .desc-box.type1 .list ul li .desc.type4 input[type=radio]:checked + label {
+    background-image: url("/images/events/2020/event200707/radio4_on.png");
+}
+
+.event200707 .desc-box.type1 .list ul li .desc .badge {
+    position: absolute;
+    top: -4%;
+    right: 0;
+    width: 14vw;
+    height: 14vw;
+}
+
+.event200707 .desc-box.type1 .list ul li .desc .badge img {
+    width: 100%;
+}
+
+
+.event200707 .desc-box.type1 .list ul li .desc a img {
+    display: block;
+    margin: 0 auto;
+}
+
+.event200707 .desc-box.type1 .input_wrap {
+    border-radius: 2.3vw;
+    background-color: rgb(255, 255, 255);
+    padding: 1.7vw;
+    line-height: 1;
+    position: relative;;
+}
+.event200707 .desc-box.type1 .input_wrap textarea {
+    border-radius: 2.3vw;
+    font-size: 3.3vw;
+    height: 36vw;
+    padding: 3.6vw;
+    border: 0.4vw solid #469299;
+}
+.event200707 .desc-box.type1 .count_wrap {
+    position: absolute;; right: 0; bottom: 0;
+    padding: 0 4vw 4vw;
+}
+
+.event200707 .desc-box.type1 .btn-wrap {
+    text-align: center;
+    padding: 2.3vw 0 10vw;
+}
+
+
+.event200707 .comment_wrap {padding-top: 19.2vw; padding-bottom: 10vw;
+    background: #1f8c74 url(/images/events/2020/event200707/bg.jpg) no-repeat center top; background-size: 100% auto; box-sizing: border-box;
+}
+.event200707 .comment { position: relative; text-align: center; margin: 0 auto; width: 80vw; }
+.event200707 .comment li { display: inline-block; vertical-align: top; width: 100%; padding: 3.2vw  4vw 5vw; margin: 0 1vw 4vw; text-align: left; color:#666666; box-sizing: border-box;  letter-spacing: -0.2vw; font-family: 'Noto Sans KR', sans-serif; border-radius: 15px; background:#fff; }
+.event200707 .comment li strong {color:#130c0e; font-size: 3.3vw; font-weight: 600; display: block; padding: 1vw 0 1.5vw; }
+.event200707 .comment li p {font-size: 3.3vw; height: auto; overflow-y: auto; }
+.event200707 .comment > a {position: absolute;top: 50%; left: 3vw;  margin-top: -5vw; width: 6.5vw;height: 10vw;display: block;}
+.event200707 .comment ul + a { left: auto; right: 3vw; }
+
+
+#eMore { margin: 0 auto; width: 80vw; display: block; }
+
+/* popup */
+.popup.type1 {
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.popup.type1 img {
+    width: 100%;
+}

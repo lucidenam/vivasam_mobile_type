@@ -1,0 +1,57 @@
+/* Event */
+.event250421{position:relative;}
+.event250421 img{width:100%;vertical-align:top;}
+.event250421 [class^="evtCont"]{position:relative;z-index:1;}
+.event250421 *{font-family:'Noto Sans KR', sans-serif; box-sizing:border-box;}
+/* START */
+
+/* common */
+[class^="evtCont"] {position:relative;}
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+
+/* EVENT 561 */
+.evtCont01 {padding: 0 0 11.682vw; background:#6fe88f}
+.evtCont01 .cont_video {overflow: hidden; position:relative; width: 86.916vw; height: 46.729vw; margin: 0 auto; background: #fff; border-radius: 4.673vw;}
+.evtCont01 .cont_video .videoCont {height: 100%;}
+.evtCont01 .cont_video iframe {width: 100%; height: 100%;}
+
+.evtCont02 {padding:11.682vw 6.542vw; background:#30cf82;}
+.evtCont02 .tabMenu {display: flex; margin: 0 -2.103vw 0.935vw;}
+.evtCont02 .tabMenu li { width: 45.561vw; height: 26.168vw; }
+.evtCont02 .tabMenu .tab {width: 100%; height: 100%; background-repeat: no-repeat; background-position: 50% 0; background-size: 100% auto;}
+.evtCont02 .tabMenu li:first-child .tab {background-image:url('/images/events/2025/event250421/evtCont2_tab_01.png');}
+.evtCont02 .tabMenu li:last-child .tab {background-image:url('/images/events/2025/event250421/evtCont2_tab_02.png');}
+.evtCont02 .tabMenu li.on:first-child .tab,
+.evtCont02 .tabMenu li.on:last-child .tab {background-position-y: 100%;}
+.evtCont02 .tabpanel {position: relative; }
+.evtCont02 .tabpanel .btnWrap {position: absolute; bottom: 10.748vw;}
+.evtCont02 .tabpanel .btnWrap .btn {width: 100%; height: 13.551vw; padding: 0; border: 0;}
+.evtCont02 .tabpanel_1 .btnWrap {left: 16.822vw; right: 16.822vw;}
+.evtCont02 .tabpanel_2 .btnWrap {left: 7.243vw; right: 7.243vw;}
+
+.evtCont03 {padding:11.682vw 6.542vw; background:url('/images/events/2025/event250421/evtBg3.png') repeat 50% 0 / contain;}
+.evtCont03 h3 {width: 85.748vw; margin: 0 auto 3.738vw;}
+
+.commentWrap .commentList {display: flex; gap: 3.738vw; flex-wrap: wrap;}
+.commentWrap .commentList > li {position: relative; width: calc(50% - 1.869vw); padding: 1.869vw; background: #fff; border-radius: 4.673vw;}
+.commentWrap .commentList > li .teacher {display: block; height: 8.411vw; margin: 0 0 2.336vw; font-size: 3.505vw; line-height: 0; color: #fff; font-weight: 400; text-align: center; background-color: #1f62af; border-radius: 46.729vw; }
+.commentWrap .commentList > li .teacher::before {content: ''; display: inline-block; width: 1px; height: 100%; margin-right: -1px; vertical-align: -2.804vw;}
+.commentWrap .commentList > li .info li {display: flex; flex-wrap: wrap; gap: 1.402vw; align-items: center;}
+.commentWrap .commentList > li .info li + li {margin: 1.402vw 0 0;}
+.commentWrap .commentList > li .tit {width: 10.748vw; height: 6.075vw; font-size: 2.804vw; line-height: 0; color: #1f62af; text-align: center; background-color: #cdf6ff; border-radius: 46.729vw;} 
+.commentWrap .commentList > li .tit::before {content: ''; display: inline-block; width: 1px; height: 100%; margin-right: -1px; vertical-align: -1.869vw;}
+.commentWrap .commentList > li .txt {width: calc(100% - 10.748vw - 1.402vw); font-size: 3.738vw; color: #333; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;}
+.commentWrap .commentList > li .txtWrap {width: 100%; height: 43.925vw; padding: 2.336vw 1.402vw 2.336vw 2.570vw; white-space: normal; margin: 0.935vw 0 0; background: #f9f9f9; border-radius: 4.673vw;}
+.commentWrap .commentList > li .txtWrap .inner {overflow-y: auto; width: 100%; height: 100%; padding: 0 1.168vw 0 0; font-size: 3.738vw; line-height: 1.5; color: #333; word-break: break-all;}
+.commentWrap .commentList > li.no-data {flex: 0 0 auto; display: flex; justify-content: center; align-items: center; width: 100%; height: 34.112vw; background: #fff; border-radius: 4.673vw;}
+.commentWrap .commentList > li.no-data p {font-size: 3.738vw; color: #333;}
+.commentWrap .btnMore {margin:7.009vw auto 0; display:block; width: 46.729vw; height: 13.551vw; background:url('/images/events/2025/event250421/btn_more.png') no-repeat center / contain;}
+
+.evtFooter{padding: 11.682vw 6.542vw; background: #e6e6e6;}
+.evtFooter h2{margin-bottom: 3.98vw; font-size: 4.21vw; font-weight:600; letter-spacing:-0.05em; color:#333; line-height: 1; }
+.evtFooter .evtInfoList li{position: relative; padding-left: 4.206vw; text-indent: -0.1vw; font-size: 3.27vw; font-weight: 400; color: #333; line-height: 1.5; word-break: keep-all;}
+.evtFooter .evtInfoList li::before {content: ''; position: absolute; left: 0; top: 2.103vw; width: 0.701vw; height: 0.701vw; background: #333; border-radius: 100%;}
+
+
+

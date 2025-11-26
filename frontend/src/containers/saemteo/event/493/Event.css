@@ -1,0 +1,36 @@
+/* Event */
+.event240325{position:relative;}
+.event240325 img{width:100%;vertical-align:top;}
+.event240325 [class^="evtCont"]{position:relative;z-index:1;}
+.event240325 *{font-family:'Noto Sans KR', sans-serif;}
+/* START */
+/* common */
+[class^="evtCont"] .blind{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;font-size:1px;line-height:1;clip:rect(0,0,0,0);}
+[class^="evtCont"] button{box-sizing:border-box;}
+
+.event240325 .btnApply{position:absolute; left:50%; transform:translateX(-50%); bottom:14.667vw; width:91.733vw; height:13.733vw; background:url('/images/events/2024/event240325/btn_apply.png') no-repeat center / contain;}
+.event240325 .evtCont3{background:#f9f7e3;}
+.event240325 .replyWrap{margin-bottom:5.067vw; padding:0 4.667vw; overflow-x:auto;}
+.event240325 .replyWrap ul{display:flex; gap:4.4vw;}
+.event240325 .replyWrap ul li{position:relative; padding-bottom:3.733vw; flex:none; width:56.133vw;}
+.event240325 .replyWrap ul li:after{content:''; position:absolute; bottom:0; right:7.467vw; width:4.667vw; height:3.733vw; background:url('/images/events/2024/event240325/obj.png') no-repeat top right / contain;}
+.event240325 .replyWrap ul li .box{border:0.4vw solid #0081f0; border-radius:2.667vw; overflow:hidden;}
+.event240325 .replyWrap ul li .txt_box{padding:2.667vw 0 4vw; background:#fff;}
+.event240325 .replyWrap ul li .txt_box p{padding:0 5.333vw 0 4.667vw; height:8.4em; font-size:3.2vw; color:#222; font-weight:400; line-height:1.4; overflow-y:auto; white-space:pre-wrap;}
+.event240325 .replyWrap ul li .name{padding:0 3.2vw; font-size:3.2vw; color:#fff; font-weight:400; line-height:9.467vw; background:#0081f0;}
+.event240325 .evtCont2 .btnClass{position:absolute; left:50%; transform:translateX(-50%); bottom:63.333vw; width:54.933vw; height:11.467vw;}
+
+
+.evtFooter{background:#434343;}
+.evtFooter .inner{padding:8.667vw 4.667vw;}
+.evtFooter strong{font-size:4.133vw; color:#fff; font-weight:600; line-height:1;}
+.evtFooter ul{margin-top:4vw;}
+.evtFooter ul li{padding-left:3.467vw; text-indent:-3.467vw; font-size:2.8vw; color:#fff; font-weight:400; line-height:1.5; word-break:keep-all;}
+.evtFooter ul li.c{color:#fee858;}
+
+/*popup*/
+.applyDtl_top{background:#85d8ff; text-align:left;}
+.applyDtl_top h3 strong{color:#1a263d;}
+.vivasamter_applyDtl .btn_event_apply{background:#4880ec;}
+.vivasamter_applyDtl .input_wrap textarea {width:100%; height:200px; padding:15px; font-size:14px; border:1px solid #eaeaea; border-radius:10px;}
+.vivasamter_applyDtl .input_wrap textarea::placeholder {color:#838a95;}
